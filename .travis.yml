@@ -1,4 +1,4 @@
 language: java
-install: ant
+script: ant
 jdk:
   - openjdk10
