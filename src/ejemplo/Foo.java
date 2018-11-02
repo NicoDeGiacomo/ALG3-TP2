@@ -1,4 +1,4 @@
-package fiuba.algo3.ejemplo1;
+package ejemplo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

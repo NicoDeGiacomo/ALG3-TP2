@@ -1,4 +1,4 @@
-package fiuba.algo3.ejemplo1;
+package ejemplo;
 
 import junit.framework.Assert;
 import org.junit.Test;
