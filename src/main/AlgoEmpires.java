@@ -1,6 +1,4 @@
-package ejemplo;
-
-import javafx.scene.Scene;
+package main;
 
 public class AlgoEmpires {
 
@@ -11,6 +9,5 @@ public class AlgoEmpires {
 	String doFoo() {
 		return "AlgoEmpires";
 	}
-
 
 }
