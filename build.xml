@@ -147,7 +147,7 @@
     </target>
 
     <target name="ejecutar.aplicacion" depends="empaquetar">
-        <java classname="ejemplo.Foo" fork="true">
+        <java classname="ejemplo.AlgoEmpires" fork="true">
             <classpath refid="classpath"/>
             <classpath location="${build}/dist/algo3.jar"/>
         </java>
