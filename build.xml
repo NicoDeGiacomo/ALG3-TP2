@@ -1,4 +1,4 @@
-<project xmlns:ivy="antlib:org.apache.ivy.ant" name="fiuba.algo3.pokemon" basedir="." default="test">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="main.AlgoEmpires" basedir="." default="test">
     <property name="build" location="build" />
     <property name="libs" location="libs" />
     <property name="classes.dir" location="build" />
@@ -78,7 +78,7 @@
             <ignore regex="org.apache.log4j.*" />
             <fileset dir="${classes.dir}">
                 <include name="**/*.class" />
-                <exclude name="**/*Test.class" />
+                <exclude name="**/*Tests.class" />
             </fileset>
         </cobertura-instrument>
     </target>
@@ -94,7 +94,7 @@
             <formatter type="xml" />
             <test name="${testcase}" todir="${reports.xml.dir}" if="testcase" />
             <batchtest todir="${reports.xml.dir}" unless="testcase">
-                <fileset dir="${build}/tests" includes="**/*Test.class" />
+                <fileset dir="${build}/tests" includes="**/*Tests.class" />
                 <fileset dir="${build}/tests" includes="**/Prueba*.class" />
             </batchtest>
         </junit>
@@ -138,7 +138,7 @@
             <classpath location="${build}" />
             <classpath refid="classpath" />
             <batchtest todir="${reports.xml.dir}" unless="testcase">
-                <fileset dir="${build}/tests" includes="**/*Test.class" />
+                <fileset dir="${build}/tests" includes="**/*Tests.class" />
                 <formatter type="plain" usefile="false"/>
             </batchtest>
         </junit>
@@ -207,7 +207,7 @@
     </target>
 
     <target name="ejecutar.aplicacion" depends="empaquetar">
-        <java classname="fiuba.algo3.ejemplo1.Foo" fork="true">
+        <java classname="main.AlgoEmpires" fork="true">
             <classpath refid="classpath" />
             <classpath location="${build}/dist/algo3.jar" />
         </java>

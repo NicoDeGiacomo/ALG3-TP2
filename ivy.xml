@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-    <info organisation="org.apache" module="fiuba.algo3.pokemon"/>
+    <info organisation="org.apache" module="main.AlgoEmpires"/>
 
      <configurations>
         <conf name="analysis"  description="analysis jars"/>
