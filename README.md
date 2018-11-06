@@ -20,9 +20,13 @@ This class will run automatically in each build.
 
 # Instructions
 ### Build/Test instructions:
-Run command:
+Install:
 ```
 $ ant
+```
+Test and build:
+```
+$ ant integracion-continua
 ```
 ### Running instructions:
 !TODO
@@ -31,3 +35,5 @@ $ ant
 Using [Travis CI](https://travis-ci.com/NicoDeGiacomo/ALG3-TP2) for continuous integration.
 
 [![Build Status](https://travis-ci.com/NicoDeGiacomo/ALG3-TP2.svg?token=RnGp7rRLSaxceY1rovxE&branch=master)](https://travis-ci.com/NicoDeGiacomo/ALG3-TP2)
+
+[![codecov](https://codecov.io/gh/NicoDeGiacomo/ALG3-TP2/branch/master/graph/badge.svg?token=IqboQTdsN6)](https://codecov.io/gh/NicoDeGiacomo/ALG3-TP2)

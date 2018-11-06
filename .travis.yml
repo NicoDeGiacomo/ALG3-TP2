@@ -1,4 +1,10 @@
 language: java
-script: ant
 jdk:
   - oraclejdk8
+
+install: ant
+
+script:
+  - ant integracion-continua
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t 455c1b83-94a8-48ad-98d5-0d68f03c6125 || echo "Codecov did not collect coverage reports"
