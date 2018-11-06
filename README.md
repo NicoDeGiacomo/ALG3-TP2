@@ -20,9 +20,13 @@ This class will run automatically in each build.
 
 # Instructions
 ### Build/Test instructions:
-Run command:
+Install:
 ```
 $ ant
+```
+Test and build:
+```
+$ ant integracion-continua
 ```
 ### Running instructions:
 !TODO
