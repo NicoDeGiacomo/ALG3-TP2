@@ -1,8 +1,8 @@
 package unidades;
 
 public interface Dibujable {
-    public abstract boolean esMovible();
+    boolean esMovible();
 
-    public abstract boolean verTamanio();
+    int verTamanio();
 
 }

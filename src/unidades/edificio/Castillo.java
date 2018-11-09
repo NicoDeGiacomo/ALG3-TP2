@@ -18,4 +18,8 @@ public class Castillo extends Edificio{
 
     }
 
+    @Override
+    public int verTamanio() {
+        return 0;
+    }
 }

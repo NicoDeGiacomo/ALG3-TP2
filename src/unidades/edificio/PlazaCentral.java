@@ -19,4 +19,8 @@ public class PlazaCentral extends Edificio {
 
     }
 
+    @Override
+    public int verTamanio() {
+        return 0;
+    }
 }

@@ -9,4 +9,9 @@ public abstract class Milicia extends Unidad {
         return true;
     }
 
+    @Override
+    public int verTamanio(){
+        return 1;
+    }
+
 }
