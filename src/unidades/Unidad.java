@@ -16,4 +16,5 @@ public abstract class Unidad implements Dibujable {
 
     public abstract void ejecutarTareas();
 
+    public abstract void cobrarCostoDeCreacion();
 }
