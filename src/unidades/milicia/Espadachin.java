@@ -17,4 +17,9 @@ public class Espadachin extends Milicia {
     public void ejecutarTareas() {
 
     }
+
+    @Override
+    public void cobrarCostoDeCreacion() {
+
+    }
 }

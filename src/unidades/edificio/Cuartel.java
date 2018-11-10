@@ -20,6 +20,11 @@ public class Cuartel extends Edificio {
     }
 
     @Override
+    public void cobrarCostoDeCreacion() {
+
+    }
+
+    @Override
     public int verTamanio() {
         return 0;
     }
