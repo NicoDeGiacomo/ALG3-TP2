@@ -6,6 +6,8 @@ public abstract class Unidad implements Dibujable {
 
     int tamanio;
 
+    int alcance;
+
     int vida;
 
     Jugador propietario;

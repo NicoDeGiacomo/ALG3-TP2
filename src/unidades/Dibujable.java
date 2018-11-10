@@ -5,4 +5,6 @@ public interface Dibujable {
 
     int verTamanio();
 
+    int verAlcance();
+
 }
