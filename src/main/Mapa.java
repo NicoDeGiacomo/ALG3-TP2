@@ -22,11 +22,11 @@ public class Mapa {
         return mapa[(int) coordenada.getX()][(int) coordenada.getY()];
     }
 
-    private boolean estaOcupado(Point2D coordenada){
+    public boolean estaOcupado(Point2D coordenada){
         return obtenerDibujable(coordenada) instanceof Unidad;
     }
 
-    private boolean estaAlAlcance(Point2D unidad, Point2D destino){
+    public boolean estaAlAlcance(Point2D unidad, Point2D destino){
         Dibujable atacante = obtenerDibujable(unidad);
 
         return atacante.verAlcance() >= unidad.distance(destino);
