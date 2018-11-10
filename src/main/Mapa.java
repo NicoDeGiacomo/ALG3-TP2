@@ -18,12 +18,16 @@ public class Mapa {
         mapa[(int) coordenada.getX()][(int) coordenada.getY()] = unidad;
     }
 
+    public Dibujable obtenerDibujable(Point2D coordenada) {
+        return mapa[(int) coordenada.getX()][(int) coordenada.getY()];
+    }
+
     private boolean estaOcupado(Point2D coordenada){
-        return mapa[(int) coordenada.getX()][(int) coordenada.getY()] instanceof Unidad;
+        return obtenerDibujable(coordenada) instanceof Unidad;
     }
 
     private boolean estaAlAlcance(Point2D unidad, Point2D destino){
-        Dibujable atacante = mapa[(int) unidad.getX()][(int) unidad.getY()];
+        Dibujable atacante = obtenerDibujable(unidad);
 
         return atacante.verAlcance() >= unidad.distance(destino);
     }
