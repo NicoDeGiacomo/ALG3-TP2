@@ -9,5 +9,10 @@ public abstract class Edificio extends Unidad {
         return false;
     }
 
+    @Override
+    public int verAlcance(){
+        return 1;
+    }
+
     void crearUnidad() {}
 }

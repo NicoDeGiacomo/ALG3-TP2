@@ -14,4 +14,9 @@ public abstract class Milicia extends Unidad {
         return 1;
     }
 
+    @Override
+    public int verAlcance(){
+        return 1;
+    }
+
 }
