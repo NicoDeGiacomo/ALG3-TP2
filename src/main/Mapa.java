@@ -1,5 +1,6 @@
 package main;
 
+import exceptions.FueraDeRangoException;
 import unidades.Dibujable;
 import unidades.Unidad;
 import exceptions.PosicionOcupadaException;
@@ -7,18 +8,23 @@ import exceptions.PosicionOcupadaException;
 import java.awt.geom.Point2D;
 
 public class Mapa {
+    private static final int TAMANIO = 100;
+    Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
-    Dibujable[][] mapa = new Dibujable[100][100];
-
-    public void colocarUnidad(Unidad unidad, Point2D coordenada) {
+    public void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         int tamanio = unidad.verTamanio() / 2;
 
         //TODO: Hay mejor manera que dos for anidados?
+        //TODO: Mandar la posición en las Excepciones.
+        //TODO: Codigo repetido con 'coordenada.get() + n'.
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
+                if((coordenada.getX() + i >=  TAMANIO) || (coordenada.getY() + j >= TAMANIO)) {
+                    throw new FueraDeRangoException("Posición fuera del Margen del Mapa!");
+                }
+
                 if(estaOcupado(new Point2D.Double(coordenada.getX() + i, coordenada.getY() + j))){
                     throw new PosicionOcupadaException("Ya existe una Unidad en esa Posición!");
-                    //TODO: Mandar la posición que está ocupada.
                 }
             }
         }
