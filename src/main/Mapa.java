@@ -10,12 +10,24 @@ public class Mapa {
 
     Dibujable[][] mapa = new Dibujable[100][100];
 
-    public void colocarUnidad(Unidad unidad, Point2D coordenada) throws PosicionOcupadaException {
-        if(estaOcupado(coordenada)){
-            throw new PosicionOcupadaException("Ya existe una Unidad en esa Posición!");
+    public void colocarUnidad(Unidad unidad, Point2D coordenada) {
+        int tamanio = unidad.verTamanio() / 2;
+
+        //TODO: Hay mejor manera que dos for anidados?
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+                if(estaOcupado(new Point2D.Double(coordenada.getX() + i, coordenada.getY() + j))){
+                    throw new PosicionOcupadaException("Ya existe una Unidad en esa Posición!");
+                    //TODO: Mandar la posición que está ocupada.
+                }
+            }
         }
 
-        mapa[(int) coordenada.getX()][(int) coordenada.getY()] = unidad;
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+                mapa[(int) coordenada.getX() + i][(int) coordenada.getY() + j] = unidad;
+            }
+        }
     }
 
     public Dibujable obtenerDibujable(Point2D coordenada) {
