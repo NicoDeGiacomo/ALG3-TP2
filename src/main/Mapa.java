@@ -63,7 +63,7 @@ public class Mapa {
             throw new FueraDeRangoException("Posición (" + destino.getX() + ", " + destino.getY() +") fuera del Margen del Mapa!");
         }
 
-        return atacante.verAlcance() >= unidad.distance(destino);
+        return atacante.verAlcance() >= Math.floor(unidad.distance(destino));
     }
 
     public List<Dibujable> unidadesAlRededor(Point2D coordenada) throws FueraDeRangoException {
