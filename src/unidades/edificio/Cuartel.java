@@ -21,6 +21,6 @@ public class Cuartel extends Edificio {
 
     @Override
     public int verTamanio() {
-        return 0;
+        return 4;
     }
 }
