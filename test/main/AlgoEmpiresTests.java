@@ -5,10 +5,10 @@ package main;
 
 public class AlgoEmpiresTests {
 
-    /*@Test
+    @Test
     public void doFooShouldReturnFoo(){
         AlgoEmpires algoEmpires = new AlgoEmpires();
 
         Assert.assertEquals("AlgoEmpires", algoEmpires.doFoo());
-    }*/
+    }
 }

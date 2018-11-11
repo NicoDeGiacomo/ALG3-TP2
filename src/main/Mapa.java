@@ -15,7 +15,6 @@ public class Mapa {
     public void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         int tamanio = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
 
-        //TODO: Hay mejor manera que dos for anidados?
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
                 double nuevaX = coordenada.getX() + i;
@@ -37,11 +36,6 @@ public class Mapa {
             }
         }
     }
-
-    public Dibujable[][] verMapa (){
-        return mapa;
-    }
-
 
     public Dibujable obtenerDibujable(Point2D coordenada) {
         return mapa[(int) coordenada.getX()][(int) coordenada.getY()];
