@@ -20,7 +20,11 @@ public class MapaTests {
         {
             for (int j = 0; j < 100; j++)
             {
-                estaOcupado = mapa.estaOcupado(new Point2D.Double(i,j));
+                try {
+                    estaOcupado = mapa.estaOcupado(new Point2D.Double(i,j));
+                } catch (FueraDeRangoException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -28,16 +32,28 @@ public class MapaTests {
     }
 
     @Test
-    public void MapaColocaUnidadEnCoordenadaProvista() throws FueraDeRangoException, PosicionOcupadaException {
+    public void MapaColocaUnidadEnCoordenadaProvista() {
         Mapa mapa = new Mapa();
         Arquero arquero = new Arquero();
         Point2D coordenada1 = new Point2D.Double(1,1);
         Point2D coordenada2 = new Point2D.Double(1,2);
 
-        mapa.colocarUnidad(arquero, coordenada1);
+        try {
+            mapa.colocarUnidad(arquero, coordenada1);
+        }
+        catch (PosicionOcupadaException e) {}
+        catch (FueraDeRangoException e) {}
 
-        Assert.assertEquals(true, mapa.estaOcupado(coordenada1));
-        Assert.assertEquals(false, mapa.estaOcupado(coordenada2));
+        try {
+            Assert.assertEquals(true, mapa.estaOcupado(coordenada1));
+        } catch (FueraDeRangoException e) {
+            e.printStackTrace();
+        }
+        try {
+            Assert.assertEquals(false, mapa.estaOcupado(coordenada2));
+        } catch (FueraDeRangoException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -71,6 +87,56 @@ public class MapaTests {
         catch (FueraDeRangoException e) {}
 
         Assert.assertEquals(true, rompio);
+    }
+
+    @Test
+    public void MapaDevuelveSiCeldaEstaAlAlcanceDeUnidad(){
+        Mapa mapa = new Mapa();
+        Arquero arquero = new Arquero();
+
+        Point2D coordenada1 = new Point2D.Double(1,1);
+        Point2D coordenada2 = new Point2D.Double(1,2);
+        Point2D coordenada3 = new Point2D.Double(10,10);
+
+        try {
+            mapa.colocarUnidad(arquero, coordenada1);
+        }
+        catch (PosicionOcupadaException e) {}
+        catch (FueraDeRangoException e) {}
+
+        try {
+            Assert.assertEquals(true , mapa.estaAlAlcance(coordenada1,coordenada2));
+        } catch (FueraDeRangoException e) {
+            e.printStackTrace();
+        }
+        try {
+            Assert.assertEquals(false , mapa.estaAlAlcance(coordenada1,coordenada3));
+        } catch (FueraDeRangoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void MapaDevuelveReferenciaAUnidad(){
+        Mapa mapa = new Mapa();
+        Arquero arquero = new Arquero();
+
+        Point2D coordenada1 = new Point2D.Double(1,1);
+
+        try {
+            mapa.colocarUnidad(arquero, coordenada1);
+        }
+        catch (PosicionOcupadaException e) {}
+        catch (FueraDeRangoException e) {}
+
+        Arquero chequeo = null;
+        try {
+            chequeo = (Arquero) mapa.obtenerDibujable(coordenada1);
+        } catch (FueraDeRangoException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(arquero , chequeo);
     }
 
 }

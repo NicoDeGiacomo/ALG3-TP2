@@ -4,13 +4,14 @@ import exceptions.FueraDeRangoException;
 import exceptions.PosicionOcupadaException;
 import unidades.Dibujable;
 import unidades.Unidad;
-import unidades.milicia.Arquero;
 
 import java.awt.geom.Point2D;
 
 public class Mapa {
     private static final int TAMANIO = 100;
     Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
+
+    //TODO: FUERTE. Revisar el tema de las excepciones.
 
     public void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         int tamanio = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
@@ -37,16 +38,23 @@ public class Mapa {
         }
     }
 
-    public Dibujable obtenerDibujable(Point2D coordenada) {
-        return mapa[(int) coordenada.getX()][(int) coordenada.getY()];
+    public Dibujable obtenerDibujable(Point2D coordenada) throws FueraDeRangoException {
+        double x = coordenada.getX();
+        double y = coordenada.getY();
+
+        if((x >=  TAMANIO) || (y >= TAMANIO)) {
+            throw new FueraDeRangoException("Posición (" + (x) + ", " + (y) +") fuera del Margen del Mapa!");
+        }
+        return mapa[(int) x][(int) y];
     }
 
-    public boolean estaOcupado(Point2D coordenada){
+    public boolean estaOcupado(Point2D coordenada) throws FueraDeRangoException {
         return obtenerDibujable(coordenada) != null;
     }
 
-    public boolean estaAlAlcance(Point2D unidad, Point2D destino){
+    public boolean estaAlAlcance(Point2D unidad, Point2D destino) throws FueraDeRangoException {
         Dibujable atacante = obtenerDibujable(unidad);
+        obtenerDibujable(destino);
 
         return atacante.verAlcance() >= unidad.distance(destino);
     }
