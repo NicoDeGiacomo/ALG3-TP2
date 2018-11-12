@@ -11,7 +11,7 @@ public class Jugador {
     private List<Unidad> unidades;
     private int oro;
 
-    Jugador(String nombre) {
+    public Jugador(String nombre) {
         this.nombre = nombre;
         this.unidades = new LinkedList<>();
     }
@@ -26,19 +26,22 @@ public class Jugador {
         }
     }
 
-    void recolectarOro(int oro) {
+    public void recolectarOro(int oro) {
         this.oro += oro;
     }
 
-    void cobrarOro(int oro) throws OroInsuficienteException {
+    public void cobrarOro(int oro) throws OroInsuficienteException {
         if (this.oro < oro)
             throw new OroInsuficienteException("El oro del jugador es insuficiente");
         this.oro -= 20;
     }
 
-    void agregarUnidad(Unidad unidad) {
+    public void agregarUnidad(Unidad unidad) throws OroInsuficienteException {
         //unidad.cobrarCostoDeCreacion(this.oro); ???
-        unidad.cobrarCostoDeCreacion();
+
+        //Agregar unidad al mapa --> Va a romper si no hay espacio
+
+        unidad.cobrarCostoDeCreacion(); //Si no hay oro suficiente -> Liberar espacio en el mapa
         this.unidades.add(unidad);
     }
 }

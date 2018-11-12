@@ -4,18 +4,12 @@ import unidades.Unidad;
 
 public class Arquero extends Milicia {
     private int danio;
-    private int vida;
     private int danioAEdificios;
 
     public Arquero(){
-        vida = 75;
-        danio = 15;
-        danioAEdificios = 10;
-    }
-
-    @Override
-    public int verVida() {
-        return vida;
+        this.vida = 75;
+        this.danio = 15;
+        this.danioAEdificios = 10;
     }
 
     @Override

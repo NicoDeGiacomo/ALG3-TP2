@@ -1,10 +1,9 @@
 package unidades.milicia;
 
+import main.Jugador;
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.PlazaCentral;
-import unidades.milicia.Aldeano;
-import unidades.milicia.ArmaDeAsedio;
 
 public class ArmaDeAsedioTests {
 
@@ -19,7 +18,7 @@ public class ArmaDeAsedioTests {
     public void armaDeAsedioNoProbocaDanioAMilicias(){
         ArmaDeAsedio armaDeAsedioHaceDanio = new ArmaDeAsedio() ;
         ArmaDeAsedio armaDeAsedioRecibeDanio = new ArmaDeAsedio() ;
-        Aldeano aldeano = new Aldeano();
+        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
         armaDeAsedioHaceDanio.montarArma(aldeano);
         armaDeAsedioHaceDanio.provocarDanio(armaDeAsedioRecibeDanio);
         Assert.assertEquals( armaDeAsedioHaceDanio.verVida() , 150 );
@@ -30,7 +29,7 @@ public class ArmaDeAsedioTests {
     public void armaDeAsedioProbocaDanioAEdificios(){
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio() ;
         PlazaCentral plazaCentral = new PlazaCentral() ;
-        Aldeano aldeano = new Aldeano();
+        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
         armaDeAsedio.montarArma(aldeano);
         armaDeAsedio.provocarDanio(plazaCentral);
         Assert.assertEquals( armaDeAsedio.verVida() , 150 );

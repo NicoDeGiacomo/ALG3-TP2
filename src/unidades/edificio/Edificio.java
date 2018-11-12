@@ -1,10 +1,13 @@
 package unidades.edificio;
 
+import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
+import unidades.estados.EnConstruccion;
+import unidades.estados.Vivo;
 
 public abstract class Edificio extends Unidad {
 
-    public abstract Unidad crearUnidad();
+    public abstract void crearUnidad() throws OroInsuficienteException;
 
     @Override
     public boolean esMovible() {
@@ -16,6 +19,13 @@ public abstract class Edificio extends Unidad {
         return 1;
     }
 
-    public abstract void arreglar(Unidad unidad);
+    public abstract boolean arreglar();
 
+    public void comenzarConstruccion() {
+        this.estadoDeUnidad = new EnConstruccion();
+    }
+
+    public void terminarConstruccion() {
+        this.estadoDeUnidad = new Vivo();
+    }
 }

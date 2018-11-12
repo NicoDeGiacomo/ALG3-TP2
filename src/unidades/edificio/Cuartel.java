@@ -1,18 +1,14 @@
 package unidades.edificio;
 
+import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
+import unidades.milicia.Arquero;
+import unidades.milicia.Espadachin;
 
 public class Cuartel extends Edificio {
 
-    private int vida;
-
     public Cuartel(){
-        vida = 250;
-    }
-
-    @Override
-    public int verVida() {
-        return vida;
+        this.vida = 250;
     }
 
     @Override
@@ -46,9 +42,21 @@ public class Cuartel extends Edificio {
     }
 
     @Override
-    public Unidad crearUnidad(){
-        //ToDo
-        return null;
+    public void crearUnidad() throws OroInsuficienteException{
+        //TODO
+    }
+
+    @Override
+    public boolean arreglar() {
+        return false;
+    }
+
+    public void crearEspadachin() throws OroInsuficienteException {
+        this.propietario.agregarUnidad(new Espadachin());
+    }
+
+    public void crearArquero() throws OroInsuficienteException {
+        this.propietario.agregarUnidad(new Arquero());
     }
 
 }

@@ -4,18 +4,12 @@ import unidades.Unidad;
 
 public class ArmaDeAsedio extends Milicia{
     private int danio;
-    private int vida;
     private Unidad armaMontada;
 
     public ArmaDeAsedio(){
         vida = 150;
         danio = 75;
         armaMontada = null;
-    }
-
-    @Override
-    public int verVida() {
-        return vida;
     }
 
     @Override

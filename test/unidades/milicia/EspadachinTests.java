@@ -28,7 +28,7 @@ public class EspadachinTests {
         Espadachin espadachinHaceDanio = new Espadachin() ;
         PlazaCentral plaza = new PlazaCentral() ;
         espadachinHaceDanio.provocarDanio(plaza);
-        Assert.assertEquals( espadachinHaceDanio.verVida() , 100 );
+        Assert.assertEquals( 100 , espadachinHaceDanio.verVida());
         Assert.assertEquals( plaza.verVida() , 435 );
     }
 

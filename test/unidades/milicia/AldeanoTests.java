@@ -1,5 +1,6 @@
 package unidades.milicia;
 
+import main.Jugador;
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.Castillo;
@@ -10,15 +11,15 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoSonCreadosCorrectamente(){
-        Aldeano aldeano = new Aldeano() ;
+        Aldeano aldeano = new Aldeano(new Jugador("Nico")) ;
         Assert.assertEquals( aldeano.verVida() , 50 );
         Assert.assertEquals( aldeano.verTamanio() , 1 );
     }
 
     @Test
     public void aldeanoNoHaceDanio(){
-        Aldeano aldeanoHaceDanio = new Aldeano() ;
-        Aldeano aldeanoRecibeDanio = new Aldeano() ;
+        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico")) ;
+        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico")) ;
         aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
         Assert.assertEquals( aldeanoHaceDanio.verVida() , 50 );
         Assert.assertEquals( aldeanoRecibeDanio.verVida() , 50 );
@@ -26,7 +27,7 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoSonDaniadas(){
-        Aldeano aldeano = new Aldeano() ;
+        Aldeano aldeano = new Aldeano(new Jugador("Nico")) ;
         Assert.assertEquals( aldeano.verVida() , 50 );
         aldeano.recibirDanio(20);
         Assert.assertEquals( aldeano.verVida()   , 30 );
@@ -34,7 +35,7 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoArreglarNoHaceNada(){
-        Aldeano aldeano = new Aldeano() ;
+        Aldeano aldeano = new Aldeano(new Jugador("Nico")) ;
         Cuartel cuartel = new Cuartel() ;
         PlazaCentral plazaCentral = new PlazaCentral() ;
         Castillo castillo = new Castillo() ;
@@ -48,7 +49,7 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoArreglar(){
-        Aldeano aldeano = new Aldeano() ;
+        Aldeano aldeano = new Aldeano(new Jugador("Nico")) ;
         Cuartel cuartel = new Cuartel() ;
         PlazaCentral plazaCentral = new PlazaCentral() ;
         Castillo castillo = new Castillo() ;

@@ -1,9 +1,17 @@
 package unidades.estados;
 
-import unidades.milicia.Aldeano;
+import main.Jugador;
+import unidades.edificio.Edificio;
 
-public interface EstadoDeAldeano {
-    //ToDo:
-    public abstract void ejecutarTareas(Aldeano aldeano);
+public abstract class EstadoDeAldeano {
 
+    Jugador propietario;
+
+    public abstract EstadoDeAldeano ejecutarTareas();
+
+    EstadoDeAldeano(Jugador propietario){
+        this.propietario = propietario;
+    }
+
+    public abstract EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio);
 }

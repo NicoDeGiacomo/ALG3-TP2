@@ -5,15 +5,8 @@ import unidades.milicia.Aldeano;
 
 public class PlazaCentral extends Edificio {
 
-    private int vida;
-
     public PlazaCentral(){
-        vida = 450;
-    }
-
-    @Override
-    public int verVida() {
-        return vida;
+        this.vida = 450;
     }
 
     @Override
@@ -48,7 +41,12 @@ public class PlazaCentral extends Edificio {
 
     @Override
     public Unidad crearUnidad(){
-        return new Aldeano();
+        return new Aldeano(this.propietario);
+    }
+
+    @Override
+    public boolean arreglar() {
+        return false;
     }
 
 }

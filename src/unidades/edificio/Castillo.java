@@ -1,20 +1,17 @@
 package unidades.edificio;
 
+import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
 import unidades.milicia.ArmaDeAsedio;
+import unidades.milicia.Arquero;
 
 
-public class Castillo extends Edificio{
-    private int vida;
+public class Castillo extends Edificio {
     private int danio;
 
     public Castillo(){
-        vida = 1000; danio = 20;
-    }
-
-    @Override
-    public int verVida() {
-        return vida;
+        this.vida = 1000;
+        this.danio = 20;
     }
 
     @Override
@@ -28,11 +25,15 @@ public class Castillo extends Edificio{
     }
 
     @Override
-    public void arreglar(Unidad unidad){
-        //ToDo: Vida maxima? Como verificar si tiene 999 y tenes que curar 1.
-        if(vida < 1000){
-            vida += 15 ;
+    public boolean arreglar(){
+        this.vida += 15;
+
+        if (this.vida >= 1000){
+            this.vida = 1000;
+            return true;
         }
+
+        return false;
     }
 
     @Override
@@ -49,8 +50,8 @@ public class Castillo extends Edificio{
     }
 
     @Override
-    public Unidad crearUnidad(){
-        return new ArmaDeAsedio();
+    public void crearUnidad() throws OroInsuficienteException {
+        this.propietario.agregarUnidad(new ArmaDeAsedio());
     }
 
 

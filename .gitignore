@@ -21,6 +21,7 @@
 
 #Intellij Files
 /.idea
+*.iml
 
 #Build
 out
