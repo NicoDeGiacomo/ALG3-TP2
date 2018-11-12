@@ -76,9 +76,5 @@ public class AlgoEmpiresTests {
         }
         assertTrue(jugador.tieneComoNombre("Gaston"));
     }
-<<<<<<< HEAD
 }
-=======
 
-}
->>>>>>> master
