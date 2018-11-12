@@ -1,4 +1,4 @@
-package main;
+package unidades.milicia;
 
 import org.junit.Assert;
 import org.junit.Test;

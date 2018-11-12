@@ -1,11 +1,10 @@
-package main;
+package unidades.milicia;
 
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
-import unidades.milicia.Aldeano;
 
 public class AldeanoTests {
 

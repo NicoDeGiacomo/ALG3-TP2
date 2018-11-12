@@ -1,4 +1,4 @@
-package main;
+package unidades.edificio;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package main;
 
-import exceptions.FueraDeRangoException;
-import exceptions.PosicionOcupadaException;
+import excepciones.mapa.FueraDeRangoException;
+import excepciones.mapa.PosicionOcupadaException;
 import org.junit.Assert;
 import org.junit.Test;
 
