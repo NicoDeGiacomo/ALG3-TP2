@@ -19,4 +19,6 @@ public abstract class Milicia extends Unidad {
         return 1;
     }
 
+    public abstract int verVida();
+
 }

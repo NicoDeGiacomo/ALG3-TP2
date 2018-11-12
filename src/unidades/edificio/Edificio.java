@@ -4,6 +4,8 @@ import unidades.Unidad;
 
 public abstract class Edificio extends Unidad {
 
+    public abstract Unidad crearUnidad();
+
     @Override
     public boolean esMovible() {
         return false;
@@ -14,5 +16,6 @@ public abstract class Edificio extends Unidad {
         return 1;
     }
 
-    void crearUnidad() {}
+    public abstract void arreglar(Unidad unidad);
+
 }
