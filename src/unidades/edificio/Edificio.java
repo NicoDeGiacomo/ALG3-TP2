@@ -11,7 +11,11 @@ public abstract class Edificio extends Unidad {
         return false;
     }
 
-    public abstract void arreglar(Unidad unidad);
+    @Override
+    public int verAlcance(){
+        return 1;
+    }
 
+    public abstract void arreglar(Unidad unidad);
 
 }
