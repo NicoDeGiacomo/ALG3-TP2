@@ -34,5 +34,9 @@ public class Arquero extends Milicia {
 
     }
 
+    @Override
+    public void cobrarCostoDeCreacion() {
+
+    }
 }
 

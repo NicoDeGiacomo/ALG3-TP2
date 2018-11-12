@@ -32,6 +32,8 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
+    public void cobrarCostoDeCreacion() {}
+
     public void arreglar(Unidad unidad){
         //ToDo: Vida maxima? Como verificar si tiene 999 y tenes que curar 1.
         if(vida < 450){

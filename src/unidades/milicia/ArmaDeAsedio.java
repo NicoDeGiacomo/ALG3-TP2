@@ -46,8 +46,10 @@ public class ArmaDeAsedio extends Milicia{
 
     }
 
+    @Override
+    public void cobrarCostoDeCreacion() {
 
-
+    }
 }
 
 

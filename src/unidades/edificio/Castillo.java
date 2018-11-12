@@ -40,6 +40,10 @@ public class Castillo extends Edificio{
     }
 
     @Override
+    public void cobrarCostoDeCreacion() {
+    }
+
+    @Override
     public int verTamanio() {
         return 8;
     }

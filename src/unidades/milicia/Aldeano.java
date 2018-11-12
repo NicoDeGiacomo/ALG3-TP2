@@ -32,6 +32,9 @@ public class Aldeano extends Milicia {
 
     }
 
+    @Override
+    public void cobrarCostoDeCreacion() {
+    }
 
     public void reparar(Edificio edificio) {
         //if( estado.verificarEstado()) arreglar( edificio );
