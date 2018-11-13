@@ -32,7 +32,9 @@ public class MapaTests {
         Dibujable dibujable = null;
         try {
             dibujable = mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {}
+        } catch (FueraDeRangoException e) {
+            fail("Error inesperado");
+        }
 
         Assert.assertEquals(null, dibujable);
     }
@@ -47,7 +49,7 @@ public class MapaTests {
                 try {
                     estaOcupado = mapa.estaOcupado(new Point2D.Double(i,j));
                 } catch (FueraDeRangoException e) {
-                    e.printStackTrace();
+                    fail("Error inesperado");
                 }
             }
         }
@@ -62,7 +64,9 @@ public class MapaTests {
 
         try {
             unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {}
+        } catch (FueraDeRangoException e) {
+            fail("Error inesperado");
+        }
 
         Assert.assertEquals(null, unidad);
 
@@ -70,7 +74,9 @@ public class MapaTests {
 
         try {
             unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {}
+        } catch (FueraDeRangoException e) {
+            fail("Error inesperado");
+        }
 
         Assert.assertEquals(null, unidad);
     }
@@ -82,11 +88,15 @@ public class MapaTests {
 
         try {
             mapa.colocarUnidad(null, new Point2D.Double(0,0));
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {}
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error inesperado");
+        }
 
         try {
             unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {}
+        } catch (FueraDeRangoException e) {
+            fail("Error inesperado");
+        }
 
         Assert.assertEquals(null, unidad);
     }
@@ -178,7 +188,7 @@ public class MapaTests {
         try {
             chequeo = (Arquero) mapa.obtenerDibujable(coordenada1);
         } catch (FueraDeRangoException e) {
-            e.printStackTrace();
+            fail("Error inesperado");
         }
 
         Assert.assertEquals(arquero , chequeo);
@@ -210,7 +220,7 @@ public class MapaTests {
             chequeo3 = (Cuartel) mapa.obtenerDibujable(coordenada3);
             chequeo4 = (Cuartel) mapa.obtenerDibujable(coordenada4);
         } catch (FueraDeRangoException e) {
-            e.printStackTrace();
+            fail("Error inesperado");
         }
 
         Assert.assertEquals(cuartel , chequeo1);
@@ -240,7 +250,7 @@ public class MapaTests {
             Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
             Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
         } catch (FueraDeRangoException e) {
-            e.printStackTrace();
+            fail("Error inesperado");
         }
     }
 
@@ -368,7 +378,17 @@ public class MapaTests {
         Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
                 coordenadaCastillo2 = mapa.obtenerCoordenadas(castillo2).get(0);
 
-        Assert.assertTrue((int) coordenadaCastillo1.distance(coordenadaCastillo2) >= (TAMANIO/2));
+        boolean comprobarX = (coordenadaCastillo1.getX() < (TAMANIO/2) && coordenadaCastillo2.getX() < (TAMANIO/2)) ||
+                             (coordenadaCastillo1.getX() >= (TAMANIO/2) && coordenadaCastillo2.getX() >= (TAMANIO/2)) ||
+                             (coordenadaCastillo1.getX() < (TAMANIO/2) && coordenadaCastillo2.getX() >= (TAMANIO/2)) ||
+                             (coordenadaCastillo1.getX() >= (TAMANIO/2) && coordenadaCastillo2.getX() < (TAMANIO/2));
+
+        boolean comprobarY = (coordenadaCastillo1.getY() < (TAMANIO/2) && coordenadaCastillo2.getY() < (TAMANIO/2)) ||
+                (coordenadaCastillo1.getY() >= (TAMANIO/2) && coordenadaCastillo2.getY() >= (TAMANIO/2)) ||
+                (coordenadaCastillo1.getY() < (TAMANIO/2) && coordenadaCastillo2.getY() >= (TAMANIO/2)) ||
+                (coordenadaCastillo1.getY() >= (TAMANIO/2) && coordenadaCastillo2.getY() < (TAMANIO/2));
+
+        Assert.assertTrue(comprobarX && comprobarY);
     }
 
     @Test
@@ -510,14 +530,14 @@ public class MapaTests {
             mapa.colocarUnidad(cuartel, origen);
         } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
             fail("Error inesperado");
+        }
 
-            try {
-                mapa.moverUnidad(cuartel, destino);
-            } catch (NoEsMovibleException e) {
-                assertEquals("La Unidad que se trata de mover no es Movible!", e.getMessage());
-            } catch (FueraDeRangoException | PosicionOcupadaException e) {
-                fail("Error inesperado");
-            }
+        try {
+            mapa.moverUnidad(cuartel, destino);
+        } catch (NoEsMovibleException e) {
+            assertEquals("La Unidad que se trata de mover no es Movible!", e.getMessage());
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error inesperado");
         }
     }
 
@@ -545,7 +565,32 @@ public class MapaTests {
     }
 
     @Test
-    public void Test307ColocarUnidadCercanaSinEspacioDaError () {
+    public void Test307MoverUnidadEncimaDeOtraDaError() {
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Piter");
+        Arquero arquero1 = new Arquero(jugador),
+                arquero2 = new Arquero(jugador);
+        Point2D origen = new Point2D.Double(1, 1),
+                destino = new Point2D.Double(2, 2);
+
+        try {
+            mapa.colocarUnidad(arquero1, origen);
+            mapa.colocarUnidad(arquero2, destino);
+        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
+            fail("Error inesperado");
+        }
+
+        try {
+            mapa.moverUnidad(arquero1, destino);
+        } catch (NoEsMovibleException | FueraDeRangoException ignored) {
+            fail("Error inesperado");
+        } catch (PosicionOcupadaException e) {
+            assertEquals("La coordenada de Destino ya se encuentra ocupada!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void Test308ColocarUnidadCercanaSinEspacioDaError () {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Cuartel cuartel = new Cuartel(jugador);
