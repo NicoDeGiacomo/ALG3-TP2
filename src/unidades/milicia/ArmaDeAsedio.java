@@ -1,37 +1,41 @@
 package unidades.milicia;
 
+import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
+import excepciones.unidades.ArmaDeAsedioYaMontadaException;
 import main.Jugador;
 import unidades.Unidad;
+import unidades.estados.armaDeAsedio.EstadoDeArmaDeAsedio;
+import unidades.estados.armaDeAsedio.ArmaDesmontada;
 
 public class ArmaDeAsedio extends Milicia{
 
-    private Unidad armaMontada;
+    private EstadoDeArmaDeAsedio estadoDeArma;
 
     public ArmaDeAsedio(Jugador propietario){
         super();
+        this.estadoDeArma = new ArmaDesmontada();
         this.propietario = propietario;
-        vida = 150;
-        danio = 75;
-        armaMontada = null;
+        this.vida = 150;
+        this.danio = 75;
+        this.oro = 200;
+    }
+
+    @Override
+    public boolean esMovible() {
+        return estadoDeArma.esMovible();
+    }
+
+    void montarArma() throws ArmaDeAsedioYaMontadaException {
+        this.estadoDeArma =  this.estadoDeArma.montarArma();
+    }
+
+    void desmontarArma() throws ArmaDeAsedioYaDesmontadaException {
+        this.estadoDeArma = this.estadoDeArma.desmontarArma();
     }
 
     @Override
     public void provocarDanio(Unidad unidad) {
-        if ( !unidad.esMovible() && armaMontada != null)  unidad.recibirDanio(danio);
-    }
-
-    //ToDo: Estados de arma de asedio
-    void montarArma(Unidad unidad){
-        armaMontada =  unidad ;
-    }
-
-    public Unidad desmontarArma(){
-        if (armaMontada != null) {
-            Unidad unidad = armaMontada;
-            armaMontada = null;
-            return unidad;
-        }
-        return null;
+        this.estadoDeArma.provocarDanio(unidad,this.danio);
     }
 
     @Override
@@ -39,10 +43,7 @@ public class ArmaDeAsedio extends Milicia{
 
     }
 
-    @Override
-    public void cobrarCostoDeCreacion() {
 
-    }
 }
 
 

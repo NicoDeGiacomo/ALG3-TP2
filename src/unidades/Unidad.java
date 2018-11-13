@@ -2,9 +2,9 @@ package unidades;
 
 import excepciones.main.OroInsuficienteException;
 import main.Jugador;
-import unidades.estados.EstadoDeUnidad;
-import unidades.estados.Muerto;
-import unidades.estados.Vivo;
+import unidades.estados.unidades.EstadoDeUnidad;
+import unidades.estados.unidades.Muerto;
+import unidades.estados.unidades.Vivo;
 
 public abstract class Unidad implements Dibujable {
 
@@ -13,6 +13,8 @@ public abstract class Unidad implements Dibujable {
     protected Jugador propietario;
 
     protected int vida;
+
+    protected int oro;
 
     public Unidad() {
         this.estadoDeUnidad = new Vivo(); //TODO Los edificios tienen vida ? wtf
@@ -24,11 +26,21 @@ public abstract class Unidad implements Dibujable {
             this.estadoDeUnidad = new Muerto();
     }
 
-    public abstract void provocarDanio(Unidad unidad);
+    public void cobrarCostoDeCreacion() throws OroInsuficienteException {
+        this.propietario.cobrarOro(this.oro);
+    }
 
-    public abstract void ejecutarTareas();
+    public void provocarDanio(Unidad unidad){
 
-    public abstract void cobrarCostoDeCreacion() throws OroInsuficienteException;
+    }
+
+    public void ejecutarTareas(){
+
+    }
+
+    public EstadoDeUnidad verEstadoDeUnidad() {
+        return this.estadoDeUnidad;
+    }
 
     public int verVida() {
         return this.vida;
@@ -40,7 +52,7 @@ public abstract class Unidad implements Dibujable {
 
     /*
     ToDo: Las unidades de un mismo equipo no pueden atacarse.
-    public boolean compararPropietario(Jugador propietario){
+    public boolean compararEquipo(Jugador propietario){
         return propietario == this.propietario;
     }*/
 }

@@ -1,4 +1,4 @@
-package unidades.estados;
+package unidades.estados.aldeano;
 
 import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;
@@ -7,19 +7,19 @@ import unidades.edificio.Edificio;
 public class Construyendo extends EstadoDeAldeano {
     private Edificio edificio;
 
-    private int contador;
+    private int contadorDeTurnos;
 
     public Construyendo(Jugador propietario, Edificio edificio) {
         super(propietario);
         this.edificio = edificio;
-        this.contador = 0;
+        this.contadorDeTurnos = 0;
         this.edificio.comenzarConstruccion();
     }
 
     @Override
     public EstadoDeAldeano ejecutarTareas() {
-        this.contador ++;
-        if (this.contador == 3){
+        this.contadorDeTurnos++;
+        if (this.contadorDeTurnos == 3){
             this.edificio.terminarConstruccion();
             return new Ocioso(this.propietario);
         }

@@ -11,6 +11,7 @@ public class Arquero extends Milicia {
         this.vida = 75;
         this.danio = 15;
         this.danioAEdificios = 10;
+        this.oro = 75;
     }
 
     @Override
@@ -18,9 +19,6 @@ public class Arquero extends Milicia {
 
     }
 
-    @Override
-    public void cobrarCostoDeCreacion() {
 
-    }
 }
 

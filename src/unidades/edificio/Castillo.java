@@ -16,6 +16,7 @@ public class Castillo extends Edificio {
         this.vida = 1000;
         this.danio = 20;
         this.tamanio = 8;
+        this.alcance = 3;
     }
 
     @Override
@@ -34,17 +35,12 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void ejecutarTareas() {
-    }
-
-    @Override
-    public void cobrarCostoDeCreacion() {
-    }
-
-    @Override
     public void crearUnidad() throws OroInsuficienteException, EspacioInsuficienteException {
         this.propietario.agregarUnidad(new ArmaDeAsedio(this.propietario), this);
     }
 
+    @Override
+    public void cobrarCostoDeCreacion()  {
+    }
 
 }

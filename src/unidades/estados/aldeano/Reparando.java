@@ -1,4 +1,4 @@
-package unidades.estados;
+package unidades.estados.aldeano;
 
 import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;

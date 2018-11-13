@@ -1,4 +1,4 @@
-package unidades.estados;
+package unidades.estados.aldeano;
 
 import main.Jugador;
 import unidades.edificio.Edificio;

@@ -13,10 +13,11 @@ public class ArqueroTests {
         Arquero arquero = new Arquero(new Jugador("Nico"));
         Assert.assertEquals(75, arquero.verVida());
         Assert.assertEquals(1, arquero.verTamanio());
+        arquero.ejecutarTareas();
     }
 
     @Test
-    public void arqueroProbocanDanioAMilicias() {
+    public void test01arqueroProbocanDanioAMilicias() {
         Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico"));
         Arquero arqueroRecibeDanio = new Arquero(new Jugador("Nico"));
         arqueroHaceDanio.provocarDanio(arqueroRecibeDanio);
@@ -25,7 +26,7 @@ public class ArqueroTests {
     }
 
     @Test
-    public void arqueroProbocanDanioAEdificios() {
+    public void test02arqueroProbocanDanioAEdificios() {
         Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico"));
         PlazaCentral plaza = new PlazaCentral(new Jugador("Nico"));
         arqueroHaceDanio.provocarDanio(plaza);
@@ -34,7 +35,7 @@ public class ArqueroTests {
     }
 
     @Test
-    public void arqueroSonDaniadas() {
+    public void test03arqueroSonDaniadas() {
         Arquero arquero = new Arquero(new Jugador("Nico"));
         Assert.assertEquals(75, arquero.verVida());
         arquero.recibirDanio(20);

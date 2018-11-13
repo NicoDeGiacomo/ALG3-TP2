@@ -1,4 +1,4 @@
-package unidades.estados;
+package unidades.estados.unidades;
 
 public class EnConstruccion implements EstadoDeUnidad {
     @Override

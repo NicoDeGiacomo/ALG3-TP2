@@ -1,4 +1,4 @@
-package unidades.estados;
+package unidades.estados.unidades;
 
 public class Muerto implements EstadoDeUnidad {
     @Override
