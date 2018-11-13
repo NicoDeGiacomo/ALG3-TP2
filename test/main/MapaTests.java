@@ -368,7 +368,7 @@ public class MapaTests {
         Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
                 coordenadaCastillo2 = mapa.obtenerCoordenadas(castillo2).get(0);
 
-        Assert.assertTrue(coordenadaCastillo1.distance(coordenadaCastillo2) > (TAMANIO/2));
+        Assert.assertTrue((int) coordenadaCastillo1.distance(coordenadaCastillo2) >= (TAMANIO/2));
     }
 
     @Test
