@@ -115,8 +115,72 @@ public class Mapa {
         return unidades;
     }
 
-    void colocarUnidadEnExtremo(Castillo castillo) {
-        //TODO: IMPLEMENT ME!
+    private List<Castillo> encontrarCastillos(){
+        List<Castillo> castillos = new ArrayList<Castillo>();
+
+        for(int i = 0; i < TAMANIO; i++){
+            for(int j = 0; j < TAMANIO; j++){
+                Point2D coordenada = new Point2D.Double(i,j);
+                Dibujable buffer = null;
+
+                try {
+                    buffer = obtenerDibujable(coordenada);
+                } catch (FueraDeRangoException e) {}
+
+                if((buffer != null) && (buffer.getClass() == Castillo.class) && (!castillos.contains(buffer))) {
+                    castillos.add((Castillo) buffer);
+                }
+            }
+        }
+
+        return castillos;
+    }
+
+    public void colocarUnidadEnExtremo(Castillo castillo) {
+        if(castillo == null) return;
+
+        List<Castillo> castillos = encontrarCastillos();
+        int xOrigen = 0,
+            yOrigen = 0,
+            xDestino = 0,
+            yDestino = 0,
+            cuadranteOrigen = 0,
+            cuadranteDestino = 0;
+        Random random = new Random();
+
+        if(castillos.size() > 1) {
+            return;
+        } else if (castillos.size() == 1) {
+            Point2D origenCastillo = obtenerCoordenadas(castillos.get(0)).get(0);
+            xOrigen = (int) origenCastillo.getX();
+            yOrigen = (int) origenCastillo.getY();
+
+            if ((xOrigen < TAMANIO / 2) && (yOrigen < TAMANIO / 2)) {
+                cuadranteOrigen = 0;
+            } else if ((xOrigen < TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
+                cuadranteOrigen = 2;
+            } else if ((xOrigen >= TAMANIO / 2) && (yOrigen < TAMANIO / 2)) {
+                cuadranteOrigen = 1;
+            }  else if ((xOrigen >= TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
+                cuadranteOrigen = 3;
+            }
+
+            cuadranteDestino = (cuadranteOrigen % 2) == 0 ? (cuadranteOrigen + 3) % 4 : (cuadranteOrigen + 1) % 4 ;
+        } else {
+            cuadranteDestino = random.nextInt(4);
+        }
+
+        xDestino = random.nextInt(TAMANIO / 2) + ((TAMANIO / 2) * (cuadranteDestino % 2));
+        yDestino = random.nextInt(TAMANIO / 2) - ((TAMANIO / 2) * ((cuadranteDestino % 2 - (cuadranteDestino > 1 ? cuadranteDestino - 1 : cuadranteDestino))));
+
+        xDestino = xDestino/2 + 8 >= TAMANIO/2 ? xDestino - 8 : xDestino;
+        yDestino = yDestino/2 + 8 >= TAMANIO/2 ? yDestino - 8 : yDestino;
+
+        Point2D coordenada = new Point2D.Double(xDestino, yDestino);
+
+        try {
+            colocarUnidad(castillo, coordenada);
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {}
     }
 
     void moverUnidad(Unidad unidad, Point2D destino) throws NoEsMovibleException, FueraDeRangoException, PosicionOcupadaException {

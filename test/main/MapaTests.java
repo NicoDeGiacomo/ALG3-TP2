@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import unidades.Dibujable;
 import unidades.Unidad;
+import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.milicia.Arquero;
 
@@ -20,6 +21,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class MapaTests {
+
+    private static final int TAMANIO = 100;
 
     /*1 - Tests Iniciales*/
 
@@ -39,8 +42,8 @@ public class MapaTests {
         Mapa mapa = new Mapa();
         boolean estaOcupado = false;
 
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
+        for (int i = 0; i < TAMANIO; i++) {
+            for (int j = 0; j < TAMANIO; j++) {
                 try {
                     estaOcupado = mapa.estaOcupado(new Point2D.Double(i,j));
                 } catch (FueraDeRangoException e) {
@@ -315,6 +318,86 @@ public class MapaTests {
         Assert.assertEquals(1, unidades.size());
     }
 
+    @Test
+    public void Test208UnidadSeMueveUnCasillero(){
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Piter");
+        Arquero arquero = new Arquero(jugador);
+        Point2D origen = new Point2D.Double(5,4),
+                destino1 = new Point2D.Double(5,5),
+                destino2 = new Point2D.Double(6,6);
+
+        try {
+            mapa.colocarUnidad(arquero, origen);
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error inesperado");
+        }
+
+        Assert.assertEquals(origen, mapa.obtenerCoordenadas(arquero).get(0));
+
+        //Arquero se mueve en Y. Distancia es 1.
+        try {
+            mapa.moverUnidad(arquero, destino1);
+        } catch (NoEsMovibleException | FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error inesperado");
+        }
+
+        Assert.assertEquals(destino1, mapa.obtenerCoordenadas(arquero).get(0));
+
+        //Arquero se mueve en diagonal. Distancia es sqrt(2).
+        try {
+            mapa.moverUnidad(arquero, destino2);
+        } catch (NoEsMovibleException | FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error inesperado");
+        }
+
+        Assert.assertEquals(destino2, mapa.obtenerCoordenadas(arquero).get(0));
+    }
+
+    @Test
+    public void Test209MapaCreaCastilloEnCuadranteOpuestoAlYaCreado() {
+        Mapa mapa = new Mapa();
+        Jugador jugador1 = new Jugador("Nico"),
+                jugador2 = new Jugador("Piter");
+        Castillo castillo1 = new Castillo(jugador1),
+                 castillo2 = new Castillo(jugador2);
+
+        mapa.colocarUnidadEnExtremo(castillo1);
+        mapa.colocarUnidadEnExtremo(castillo2);
+
+        Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
+                coordenadaCastillo2 = mapa.obtenerCoordenadas(castillo2).get(0);
+
+        Assert.assertTrue(coordenadaCastillo1.distance(coordenadaCastillo2) > (TAMANIO/2));
+    }
+
+    @Test
+    public void Test210MapaPuedeCrearSoloDosCastillos() {
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Nico");
+        Castillo castillo1 = new Castillo(jugador),
+                 castillo2 = new Castillo(jugador),
+                 castillo3 = new Castillo(jugador);
+        int count = 0;
+
+        mapa.colocarUnidadEnExtremo(castillo1);
+        mapa.colocarUnidadEnExtremo(castillo2);
+        mapa.colocarUnidadEnExtremo(castillo3);
+
+        for (int i = 0; i < TAMANIO; i++) {
+            for (int j = 0; j < TAMANIO; j++) {
+                try {
+                    if(mapa.estaOcupado(new Point2D.Double(i,j))) count++;
+                } catch (FueraDeRangoException e) {
+                    fail("Error inesperado");
+                }
+            }
+        }
+
+        //Cantidad de casilleros ocupados por los castillos. 2 castillos x (4x4 casilleros) = 32.
+        Assert.assertEquals(32, count);
+    }
+
     /*3 - Tests de Excepciones*/
 
     @Test
@@ -410,7 +493,9 @@ public class MapaTests {
         catch (FueraDeRangoException e) {
             assertEquals("Posición (-200.0, -200.0) fuera del Margen del Mapa!", e.getMessage());
         }
-        catch (PosicionOcupadaException e) {}
+        catch (PosicionOcupadaException e) {
+
+        }
     }
 
     @Test
@@ -418,41 +503,58 @@ public class MapaTests {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Cuartel cuartel = new Cuartel(jugador);
-        Point2D origen = new Point2D.Double(1,1),
-                destino = new Point2D.Double( 5,5);
+        Point2D origen = new Point2D.Double(1, 1),
+                destino = new Point2D.Double(5, 5);
 
         try {
             mapa.colocarUnidad(cuartel, origen);
-        } catch (FueraDeRangoException e) {
+        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
             fail("Error inesperado");
-        } catch (PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
 
-        try {
-            mapa.moverUnidad(cuartel, destino);
-        } catch (NoEsMovibleException e) {
-            assertEquals("La Unidad que se trata de mover no es Movible!", e.getMessage());
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        } catch (PosicionOcupadaException e) {
-            fail("Error inesperado");
+            try {
+                mapa.moverUnidad(cuartel, destino);
+            } catch (NoEsMovibleException e) {
+                assertEquals("La Unidad que se trata de mover no es Movible!", e.getMessage());
+            } catch (FueraDeRangoException | PosicionOcupadaException e) {
+                fail("Error inesperado");
+            }
         }
     }
 
     @Test
-    public void Test306ColocarUnidadCercanaSinEspacioDaError() {
+    public void Test306MoverUnidadMasDeUnCasilleroDaError() {
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Piter");
+        Arquero arquero = new Arquero(jugador);
+        Point2D origen = new Point2D.Double(1, 1),
+                destino = new Point2D.Double(5, 5);
+
+        try {
+            mapa.colocarUnidad(arquero, origen);
+        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
+            fail("Error inesperado");
+        }
+
+        try {
+            mapa.moverUnidad(arquero, destino);
+        } catch (NoEsMovibleException | PosicionOcupadaException ignored) {
+            fail("Error inesperado");
+        } catch (FueraDeRangoException e) {
+            assertEquals("Las Unidades se pueden mover a lo sumo 1 casillero por turno!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void Test307ColocarUnidadCercanaSinEspacioDaError () {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Cuartel cuartel = new Cuartel(jugador);
         Arquero arquero = new Arquero(jugador);
-        Point2D coordenada = new Point2D.Double(5,5);
+        Point2D coordenada = new Point2D.Double(5, 5);
 
         try {
             mapa.colocarUnidad(cuartel, coordenada);
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        } catch (PosicionOcupadaException e) {
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
             fail("Error inesperado");
         }
 
