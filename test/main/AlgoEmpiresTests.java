@@ -22,7 +22,7 @@ public class AlgoEmpiresTests {
         AlgoEmpires algoEmpires = new AlgoEmpires();
         try {
             algoEmpires.agregarJugador("Nico");
-        } catch (NombreRepetidoException | NumeroDeJugadoresException e) {
+        } catch (NombreRepetidoException | NumeroDeJugadoresException ignored) {
             fail("Error no esperado");
         }
         assertThrows(NombreRepetidoException.class, () -> {
@@ -36,7 +36,7 @@ public class AlgoEmpiresTests {
         try {
             algoEmpires.agregarJugador("Nico");
             algoEmpires.agregarJugador("Gaston");
-        } catch (NombreRepetidoException | NumeroDeJugadoresException e) {
+        } catch (NombreRepetidoException | NumeroDeJugadoresException ignored) {
             fail("Error no esperado");
         }
         assertThrows(NumeroDeJugadoresException.class, () -> {
@@ -58,7 +58,7 @@ public class AlgoEmpiresTests {
             algoEmpires.agregarJugador("Nico");
             algoEmpires.agregarJugador("Gaston");
             algoEmpires.comenzarPartida();
-        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | OroInsuficienteException e) {
+        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | OroInsuficienteException ignored) {
             fail("Error no esperado");
         }
 
@@ -75,7 +75,7 @@ public class AlgoEmpiresTests {
             algoEmpires.agregarJugador("Gaston");
             algoEmpires.comenzarPartida();
             jugador = algoEmpires.pasarTurno();
-        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | PartidaNoComenzadaException | OroInsuficienteException e) {
+        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | PartidaNoComenzadaException | OroInsuficienteException ignored) {
             fail("Error no esperado");
         }
         assertTrue(jugador.tieneComoNombre("Gaston"));

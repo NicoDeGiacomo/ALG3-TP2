@@ -41,8 +41,8 @@ public class Jugador {
 
     public void cobrarOro(int oro) throws OroInsuficienteException {
         if (this.oro < oro)
-            throw new OroInsuficienteException("El oro del jugador es insuficiente");
-        this.oro -= 20;
+            throw new OroInsuficienteException("El oro del jugador es insuficiente.");
+        this.oro -= oro;
     }
 
     public void agregarUnidad(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException {
