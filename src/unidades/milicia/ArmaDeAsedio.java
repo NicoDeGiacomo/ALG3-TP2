@@ -1,20 +1,18 @@
 package unidades.milicia;
 
+import main.Jugador;
 import unidades.Unidad;
 
 public class ArmaDeAsedio extends Milicia{
-    private int danio;
+
     private Unidad armaMontada;
 
-    public ArmaDeAsedio(){
+    public ArmaDeAsedio(Jugador propietario){
+        super();
+        this.propietario = propietario;
         vida = 150;
         danio = 75;
         armaMontada = null;
-    }
-
-    @Override
-    public void recibirDanio(int danio) {
-        vida -= danio;
     }
 
     @Override
@@ -22,7 +20,8 @@ public class ArmaDeAsedio extends Milicia{
         if ( !unidad.esMovible() && armaMontada != null)  unidad.recibirDanio(danio);
     }
 
-    public void montarArma(Unidad unidad){
+    //ToDo: Estados de arma de asedio
+    void montarArma(Unidad unidad){
         armaMontada =  unidad ;
     }
 

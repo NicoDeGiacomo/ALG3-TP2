@@ -36,9 +36,9 @@ public class AldeanoTests {
     @Test
     public void aldeanoArreglarNoHaceNada() {
         Aldeano aldeano = new Aldeano(new Jugador("Nico"));
-        Cuartel cuartel = new Cuartel();
-        PlazaCentral plazaCentral = new PlazaCentral();
-        Castillo castillo = new Castillo();
+        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
+        Castillo castillo = new Castillo(new Jugador("Nico"));
         aldeano.arreglar(cuartel);
         aldeano.arreglar(plazaCentral);
         aldeano.arreglar(castillo);

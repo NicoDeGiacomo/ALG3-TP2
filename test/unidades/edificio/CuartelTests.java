@@ -1,5 +1,6 @@
 package unidades.edificio;
 
+import main.Jugador;
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.Cuartel;
@@ -8,7 +9,7 @@ public class CuartelTests {
 
     @Test
     public void cuartelSonCreadosCorrectamente(){
-        Cuartel cuartel = new Cuartel() ;
+        Cuartel cuartel = new Cuartel(new Jugador("Nico")) ;
         Assert.assertEquals( cuartel.verVida() , 250 );
         Assert.assertEquals( cuartel.verTamanio() , 4 );
     }
@@ -20,7 +21,7 @@ public class CuartelTests {
 
     @Test
     public void cuartelSonDaniadas(){
-        Cuartel cuartel = new Cuartel() ;
+        Cuartel cuartel = new Cuartel(new Jugador("Nico")) ;
         Assert.assertEquals( cuartel.verVida() , 250 );
         cuartel.recibirDanio(20);
         Assert.assertEquals( cuartel.verVida()   , 230 );

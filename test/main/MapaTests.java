@@ -35,7 +35,7 @@ public class MapaTests {
     @Test
     public void Test02MapaColocaMiliciaEnCoordenadaProvista() {
         Mapa mapa = new Mapa();
-        Arquero arquero = new Arquero();
+        Arquero arquero = new Arquero(new Jugador("Nico"));
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2);
 
@@ -60,7 +60,7 @@ public class MapaTests {
     @Test
     public void Test03MapaColocaEdificioEnCoordenadaProvista() {
         Mapa mapa = new Mapa();
-        Cuartel cuartel = new Cuartel();
+        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2),
                 coordenada3 = new Point2D.Double(2,1),
@@ -85,7 +85,7 @@ public class MapaTests {
     @Test
     public void Test04MapaNoPuedeColocarUnidadFueraDeRango(){
         Mapa mapa = new Mapa();
-        Arquero arquero = new Arquero();
+        Arquero arquero = new Arquero(new Jugador("Nico"));
         boolean rompio = false;
 
         try {
@@ -100,8 +100,8 @@ public class MapaTests {
     @Test
     public void Test05MapaNoPuedeColocarMiliciaEncimaDeOtra(){
         Mapa mapa = new Mapa();
-        Arquero arquero1 = new Arquero(),
-                arquero2 = new Arquero();
+        Arquero arquero1 = new Arquero(new Jugador("Nico")),
+                arquero2 = new Arquero(new Jugador("Nico"));
         Point2D coordenada = new Point2D.Double(1,1);
         boolean rompio = false;
 
@@ -118,8 +118,8 @@ public class MapaTests {
     @Test
     public void Test06MapaNoPuedeColocarEdificioEncimaDeMilicia(){
         Mapa mapa = new Mapa();
-        Arquero arquero = new Arquero();
-        Cuartel cuartel = new Cuartel();
+        Arquero arquero = new Arquero(new Jugador("Nico"));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(0,0);
         boolean rompio = false;
@@ -137,7 +137,7 @@ public class MapaTests {
     @Test
     public void Test07MapaDevuelveSiCeldaEstaAlAlcanceDeUnidad(){
         Mapa mapa = new Mapa();
-        Arquero arquero = new Arquero();
+        Arquero arquero = new Arquero(new Jugador("Nico"));
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2),
                 coordenada3 = new Point2D.Double(2,2),
@@ -169,7 +169,7 @@ public class MapaTests {
     @Test
     public void Test08MapaDevuelveReferenciaAMilicia(){
         Mapa mapa = new Mapa();
-        Arquero arquero = new Arquero();
+        Arquero arquero = new Arquero(new Jugador("Nico"));
         Point2D coordenada1 = new Point2D.Double(1,1);
 
         try {
@@ -191,7 +191,7 @@ public class MapaTests {
     @Test
     public void Test09MapaDevuelveReferenciaAEdificio(){
         Mapa mapa = new Mapa();
-        Cuartel cuartel = new Cuartel();
+        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2),
                 coordenada3 = new Point2D.Double(2,1),

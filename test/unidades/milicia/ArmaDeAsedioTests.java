@@ -9,15 +9,15 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void armaDeAsedioSonCreadosCorrectamente(){
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio() ;
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico")) ;
         Assert.assertEquals( armaDeAsedio.verVida() , 150 );
         Assert.assertEquals( armaDeAsedio.verTamanio() , 1 );
     }
 
     @Test
     public void armaDeAsedioNoProbocaDanioAMilicias(){
-        ArmaDeAsedio armaDeAsedioHaceDanio = new ArmaDeAsedio() ;
-        ArmaDeAsedio armaDeAsedioRecibeDanio = new ArmaDeAsedio() ;
+        ArmaDeAsedio armaDeAsedioHaceDanio = new ArmaDeAsedio(new Jugador("Nico")) ;
+        ArmaDeAsedio armaDeAsedioRecibeDanio = new ArmaDeAsedio(new Jugador("Nico")) ;
         Aldeano aldeano = new Aldeano(new Jugador("Nico"));
         armaDeAsedioHaceDanio.montarArma(aldeano);
         armaDeAsedioHaceDanio.provocarDanio(armaDeAsedioRecibeDanio);
@@ -27,8 +27,8 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void armaDeAsedioProbocaDanioAEdificios(){
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio() ;
-        PlazaCentral plazaCentral = new PlazaCentral() ;
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico")) ;
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico")) ;
         Aldeano aldeano = new Aldeano(new Jugador("Nico"));
         armaDeAsedio.montarArma(aldeano);
         armaDeAsedio.provocarDanio(plazaCentral);
@@ -38,7 +38,7 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void armaDeAsedioEsDaniada(){
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio() ;
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico")) ;
         Assert.assertEquals( armaDeAsedio.verVida() , 150 );
         armaDeAsedio.recibirDanio(20);
         Assert.assertEquals( armaDeAsedio.verVida()   , 130 );

@@ -4,24 +4,25 @@ import excepciones.main.OroInsuficienteException;
 import main.Jugador;
 import unidades.Unidad;
 import unidades.edificio.Edificio;
-import unidades.estados.Construyendo;
 import unidades.estados.EstadoDeAldeano;
 import unidades.estados.Ocioso;
-import unidades.estados.Reparando;
 
 public class Aldeano extends Milicia {
 
     private EstadoDeAldeano estado;
 
-    public Aldeano(Jugador propietario){
+    Aldeano(Jugador propietario){
         super();
+        this.propietario = propietario;
         this.vida = 50;
         this.estado = new Ocioso(this.propietario);
-        this.propietario = propietario;
+        this.danio = 0;
+
     }
 
     @Override
     public void provocarDanio(Unidad unidad) {
+
     }
 
     @Override

@@ -1,18 +1,17 @@
 package unidades.edificio;
 
 import excepciones.main.OroInsuficienteException;
+import main.Jugador;
 import unidades.Unidad;
 import unidades.milicia.ArmaDeAsedio;
 
 public class PlazaCentral extends Edificio {
 
-    public PlazaCentral(){
+    public PlazaCentral(Jugador propietario){
+        super();
+        this.propietario = propietario;
         this.vida = 450;
-    }
-
-    @Override
-    public void recibirDanio(int danio) {
-        vida -= danio;
+        this.tamanio = 4;
     }
 
     @Override
@@ -28,26 +27,19 @@ public class PlazaCentral extends Edificio {
     @Override
     public void cobrarCostoDeCreacion() {}
 
-    public void arreglar(Unidad unidad){
-        //ToDo: Vida maxima? Como verificar si tiene 999 y tenes que curar 1.
-        if(vida < 450){
-            vida += 25 ;
-        }
-    }
-
     @Override
-    public int verTamanio() {
-        return 4;
+    public boolean arreglar(){
+        this.vida += 25;
+        if (this.vida >= 450){
+            this.vida = 450;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void crearUnidad() throws OroInsuficienteException {
-        this.propietario.agregarUnidad(new ArmaDeAsedio());
-    }
-
-    @Override
-    public boolean arreglar() {
-        return false;
+        this.propietario.agregarUnidad(new ArmaDeAsedio(this.propietario));
     }
 
 }

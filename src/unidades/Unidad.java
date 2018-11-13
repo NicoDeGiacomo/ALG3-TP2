@@ -38,4 +38,9 @@ public abstract class Unidad implements Dibujable {
         return this.estadoDeUnidad.esMapleable();
     }
 
+    /*
+    ToDo: Las unidades de un mismo equipo no pueden atacarse.
+    public boolean compararPropietario(Jugador propietario){
+        return propietario == this.propietario;
+    }*/
 }

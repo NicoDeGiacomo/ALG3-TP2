@@ -1,22 +1,20 @@
 package unidades.edificio;
 
 import excepciones.main.OroInsuficienteException;
+import main.Jugador;
 import unidades.Unidad;
 import unidades.milicia.ArmaDeAsedio;
-import unidades.milicia.Arquero;
 
 
 public class Castillo extends Edificio {
     private int danio;
 
-    public Castillo(){
+    public Castillo(Jugador propietario){
+        super();
+        this.propietario = propietario;
         this.vida = 1000;
         this.danio = 20;
-    }
-
-    @Override
-    public void recibirDanio(int danio) {
-        vida -= danio;
+        this.tamanio = 8;
     }
 
     @Override
@@ -27,12 +25,10 @@ public class Castillo extends Edificio {
     @Override
     public boolean arreglar(){
         this.vida += 15;
-
         if (this.vida >= 1000){
             this.vida = 1000;
             return true;
         }
-
         return false;
     }
 
@@ -45,13 +41,8 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public int verTamanio() {
-        return 8;
-    }
-
-    @Override
     public void crearUnidad() throws OroInsuficienteException {
-        this.propietario.agregarUnidad(new ArmaDeAsedio());
+        this.propietario.agregarUnidad(new ArmaDeAsedio(this.propietario));
     }
 
 
