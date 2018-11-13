@@ -1,7 +1,10 @@
 package main;
 
 import excepciones.main.OroInsuficienteException;
+import excepciones.mapa.EspacioInsuficienteException;
 import unidades.Unidad;
+import unidades.edificio.Castillo;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,10 +13,16 @@ public class Jugador {
     private String nombre;
     private List<Unidad> unidades;
     private int oro;
+    private Mapa mapa;
 
-    public Jugador(String nombre) {
+    public Jugador(String nombre, Mapa mapa) {
         this.nombre = nombre;
+        this.mapa = mapa;
         this.unidades = new LinkedList<>();
+
+        Castillo castillo = new Castillo(this);
+        this.unidades.add(castillo);
+        this.mapa.colocarUnidadEnExtremo(castillo);
     }
 
     boolean tieneComoNombre(String nombre) {
@@ -36,12 +45,17 @@ public class Jugador {
         this.oro -= 20;
     }
 
-    public void agregarUnidad(Unidad unidad) throws OroInsuficienteException {
-        //unidad.cobrarCostoDeCreacion(this.oro); ???
+    public void agregarUnidad(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException {
 
-        //Agregar unidad al mapa --> Va a romper si no hay espacio
+        this.mapa.agregarUnidadCercana(unidad, creador);
 
-        unidad.cobrarCostoDeCreacion(); //Si no hay oro suficiente -> Liberar espacio en el mapa
+        try {
+            unidad.cobrarCostoDeCreacion();
+        } catch (OroInsuficienteException e) {
+            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
+            throw e;
+        }
+
         this.unidades.add(unidad);
     }
 }

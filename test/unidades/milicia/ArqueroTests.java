@@ -1,6 +1,7 @@
 package unidades.milicia;
 
 import main.Jugador;
+import main.Mapa;
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.PlazaCentral;
@@ -8,35 +9,35 @@ import unidades.edificio.PlazaCentral;
 public class ArqueroTests {
 
     @Test
-    public void arqueroSonCreadosCorrectamente(){
-        Arquero arquero = new Arquero(new Jugador("Nico")) ;
-        Assert.assertEquals( arquero.verVida() , 75 );
-        Assert.assertEquals( arquero.verTamanio() , 1 );
+    public void arqueroSonCreadosCorrectamente() {
+        Arquero arquero = new Arquero(new Jugador("Nico", new Mapa()));
+        Assert.assertEquals(75, arquero.verVida());
+        Assert.assertEquals(1, arquero.verTamanio());
     }
 
     @Test
-    public void arqueroProbocanDanioAMilicias(){
-        Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico")) ;
-        Arquero arqueroRecibeDanio = new Arquero(new Jugador("Nico")) ;
+    public void arqueroProbocanDanioAMilicias() {
+        Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico", new Mapa()));
+        Arquero arqueroRecibeDanio = new Arquero(new Jugador("Nico", new Mapa()));
         arqueroHaceDanio.provocarDanio(arqueroRecibeDanio);
-        Assert.assertEquals( arqueroHaceDanio.verVida() , 75 );
-        Assert.assertEquals( arqueroRecibeDanio.verVida() , 60 );
+        Assert.assertEquals(75, arqueroHaceDanio.verVida());
+        Assert.assertEquals(60, arqueroRecibeDanio.verVida());
     }
 
     @Test
-    public void arqueroProbocanDanioAEdificios(){
-        Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico")) ;
-        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico")) ;
+    public void arqueroProbocanDanioAEdificios() {
+        Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico", new Mapa()));
+        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico", new Mapa()));
         arqueroHaceDanio.provocarDanio(plaza);
-        Assert.assertEquals( arqueroHaceDanio.verVida() , 75 );
-        Assert.assertEquals( plaza.verVida() , 440 );
+        Assert.assertEquals(75, arqueroHaceDanio.verVida());
+        Assert.assertEquals(440, plaza.verVida());
     }
 
     @Test
-    public void arqueroSonDaniadas(){
-        Arquero arquero = new Arquero(new Jugador("Nico")) ;
-        Assert.assertEquals( arquero.verVida() , 75 );
+    public void arqueroSonDaniadas() {
+        Arquero arquero = new Arquero(new Jugador("Nico", new Mapa()));
+        Assert.assertEquals(75, arquero.verVida());
         arquero.recibirDanio(20);
-        Assert.assertEquals( arquero.verVida()   , 55 );
+        Assert.assertEquals(55, arquero.verVida());
     }
 }

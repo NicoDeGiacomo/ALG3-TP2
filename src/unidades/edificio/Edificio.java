@@ -1,5 +1,7 @@
 package unidades.edificio;
 
+import excepciones.mapa.EspacioInsuficienteException;
+import excepciones.unidades.UnidadNoEspecificadaException;
 import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
 import unidades.estados.EnConstruccion;
@@ -9,7 +11,7 @@ public abstract class Edificio extends Unidad {
 
     int tamanio;
 
-    public abstract void crearUnidad() throws OroInsuficienteException;
+    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, EspacioInsuficienteException;
 
     @Override
     public boolean esMovible() {

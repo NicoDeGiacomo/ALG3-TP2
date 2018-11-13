@@ -6,7 +6,6 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.main.PartidaComenzadaException;
 import excepciones.main.PartidaNoComenzadaException;
 import org.junit.Test;
-import unidades.milicia.Aldeano;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +25,9 @@ public class AlgoEmpiresTests {
         } catch (NombreRepetidoException | NumeroDeJugadoresException e) {
             fail("Error no esperado");
         }
-        assertThrows(NombreRepetidoException.class,()->{algoEmpires.agregarJugador("Nico");});
+        assertThrows(NombreRepetidoException.class, () -> {
+            algoEmpires.agregarJugador("Nico");
+        });
     }
 
     @Test
@@ -38,7 +39,9 @@ public class AlgoEmpiresTests {
         } catch (NombreRepetidoException | NumeroDeJugadoresException e) {
             fail("Error no esperado");
         }
-        assertThrows(NumeroDeJugadoresException.class,()->{algoEmpires.agregarJugador("Peter");});
+        assertThrows(NumeroDeJugadoresException.class, () -> {
+            algoEmpires.agregarJugador("Peter");
+        });
     }
 
     @Test

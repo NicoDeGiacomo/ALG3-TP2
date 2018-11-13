@@ -1,5 +1,6 @@
 package unidades.estados;
 
+import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;
 import unidades.edificio.Edificio;
 
@@ -21,13 +22,12 @@ public class Reparando extends EstadoDeAldeano {
     }
 
     @Override
-    public EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio) {
-        //TODO Tirar excepcion (AldeanoOcupadoException)
-        return null;
+    public EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException {
+        throw new AldeanoOcupadoException("El aldeano se encuentra reparando.");
     }
 
     @Override
-    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) {
-        return null;
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException {
+        throw new AldeanoOcupadoException("El aldeano se encuentra reparando.");
     }
 }

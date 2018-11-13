@@ -1,6 +1,7 @@
 package unidades.milicia;
 
 import main.Jugador;
+import main.Mapa;
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.Castillo;
@@ -11,40 +12,40 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoSonCreadosCorrectamente() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
-        Assert.assertEquals(aldeano.verVida(), 50);
-        Assert.assertEquals(aldeano.verTamanio(), 1);
+        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
+        Assert.assertEquals(50, aldeano.verVida());
+        Assert.assertEquals(1, aldeano.verTamanio());
     }
 
     @Test
     public void aldeanoNoHaceDanio() {
-        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico"));
-        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico"));
+        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico", new Mapa()));
+        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico", new Mapa()));
         aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
-        Assert.assertEquals(aldeanoHaceDanio.verVida(), 50);
-        Assert.assertEquals(aldeanoRecibeDanio.verVida(), 50);
+        Assert.assertEquals(50, aldeanoHaceDanio.verVida());
+        Assert.assertEquals(50, aldeanoRecibeDanio.verVida());
     }
 
     @Test
     public void aldeanoSonDaniadas() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
-        Assert.assertEquals(aldeano.verVida(), 50);
+        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
+        Assert.assertEquals(50, aldeano.verVida());
         aldeano.recibirDanio(20);
-        Assert.assertEquals(aldeano.verVida(), 30);
+        Assert.assertEquals(30, aldeano.verVida());
     }
 
     @Test
     public void aldeanoArreglarNoHaceNada() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
-        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
-        Castillo castillo = new Castillo(new Jugador("Nico"));
+        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
+        Castillo castillo = new Castillo(new Jugador("Nico", new Mapa()));
         aldeano.arreglar(cuartel);
         aldeano.arreglar(plazaCentral);
         aldeano.arreglar(castillo);
-        Assert.assertEquals(cuartel.verVida(), 250);
-        Assert.assertEquals(plazaCentral.verVida(), 450);
-        Assert.assertEquals(castillo.verVida(), 1000);
+        Assert.assertEquals(250, cuartel.verVida());
+        Assert.assertEquals(450, plazaCentral.verVida());
+        Assert.assertEquals(1000, castillo.verVida());
     }
 
     /*@Test TODO: NICO. ESTO FALLA PORQUE SE TIENE QUE PASAR EL TURNO PARA QUE EL ALDEANO REPARE EL EDIFICIO

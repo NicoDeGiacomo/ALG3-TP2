@@ -1,9 +1,11 @@
 package main;
 
+import excepciones.mapa.EspacioInsuficienteException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
 import unidades.Dibujable;
 import unidades.Unidad;
+import unidades.edificio.Castillo;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -11,9 +13,9 @@ import java.util.List;
 
 public class Mapa {
     private static final int TAMANIO = 100;
-    Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
+    private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
-    public void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
+    void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         int tamanioUnidad = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
 
         for (int i = 0; i < tamanioUnidad; i++) {
@@ -37,7 +39,7 @@ public class Mapa {
         }
     }
 
-    public Dibujable obtenerDibujable(Point2D coordenada) throws FueraDeRangoException {
+    Dibujable obtenerDibujable(Point2D coordenada) throws FueraDeRangoException {
         if(!coordenadaEnMapa(coordenada)){
             throw new FueraDeRangoException("Posición (" + coordenada.getX() + ", " + coordenada.getY() +") fuera del Margen del Mapa!");
         }
@@ -46,18 +48,14 @@ public class Mapa {
     }
 
     private boolean coordenadaEnMapa (Point2D coordenada) {
-        if((coordenada.getX() >=  TAMANIO) || (coordenada.getY() >= TAMANIO) || (coordenada.getX() < 0) || (coordenada.getY() < 0)) {
-            return false;
-        }
-
-        return true;
+        return (!(coordenada.getX() >= TAMANIO)) && (!(coordenada.getY() >= TAMANIO)) && (!(coordenada.getX() < 0)) && (!(coordenada.getY() < 0));
     }
 
-    public boolean estaOcupado(Point2D coordenada) throws FueraDeRangoException {
+    boolean estaOcupado(Point2D coordenada) throws FueraDeRangoException {
         return obtenerDibujable(coordenada) != null;
     }
 
-    public boolean estaAlAlcance(Point2D unidad, Point2D destino) throws FueraDeRangoException {
+    boolean estaAlAlcance(Point2D unidad, Point2D destino) throws FueraDeRangoException {
         Dibujable atacante = obtenerDibujable(unidad);
         if(!coordenadaEnMapa(destino)) {
             throw new FueraDeRangoException("Posición (" + destino.getX() + ", " + destino.getY() +") fuera del Margen del Mapa!");
@@ -89,4 +87,14 @@ public class Mapa {
         return unidades;
     }
 
+    void colocarUnidadEnExtremo(Castillo castillo) {
+        //TODO: IMPLEMENT ME!
+    }
+
+    void agregarUnidadCercana(Unidad unidad, Unidad unidadCercana) throws EspacioInsuficienteException {
+    }
+
+    void quitarUnidad(Unidad unidad) {
+
+    }
 }

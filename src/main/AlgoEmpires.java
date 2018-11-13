@@ -31,12 +31,6 @@ public class AlgoEmpires {
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d jugadores", CANTIDAD_JUGADORES_MIN));
 
-        for (Jugador jugador : this.jugadores) {
-            Castillo castillo = new Castillo(new Jugador("Nico"));
-            jugador.agregarUnidad(castillo);//TODO Agregar al mapa (en extremos distintos!!)
-            //this.mapa.colocarUnidadEnExtremo(castillo); | this.mapa.colocarCastillo(castillo);
-        }
-
         this.turno = 0;
     }
 
@@ -58,7 +52,7 @@ public class AlgoEmpires {
             }
         }
 
-        this.jugadores.add(new Jugador(nombre));
+        this.jugadores.add(new Jugador(nombre, this.mapa));
     }
 
 }

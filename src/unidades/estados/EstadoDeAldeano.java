@@ -1,5 +1,6 @@
 package unidades.estados;
 
+import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;
 import unidades.edificio.Edificio;
 
@@ -13,7 +14,7 @@ public abstract class EstadoDeAldeano {
         this.propietario = propietario;
     }
 
-    public abstract EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio);
+    public abstract EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException;
 
-    public abstract EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio);
+    public abstract EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException;
 }

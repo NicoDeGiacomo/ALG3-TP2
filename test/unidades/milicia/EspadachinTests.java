@@ -1,43 +1,43 @@
 package unidades.milicia;
 
 import main.Jugador;
+import main.Mapa;
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.PlazaCentral;
-import unidades.milicia.Espadachin;
 
 public class EspadachinTests {
 
     @Test
-    public void espadachinSonCreadosCorrectamente(){
-        Espadachin espadachin = new Espadachin(new Jugador("Nico")) ;
-        Assert.assertEquals( espadachin.verVida() , 100 );
-        Assert.assertEquals( espadachin.verTamanio() , 1 );
+    public void espadachinSonCreadosCorrectamente() {
+        Espadachin espadachin = new Espadachin(new Jugador("Nico", new Mapa()));
+        Assert.assertEquals(100, espadachin.verVida());
+        Assert.assertEquals(1, espadachin.verTamanio());
     }
 
     @Test
-    public void espadachinProbocaDanioAMilicias(){
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico")) ;
-        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico")) ;
+    public void espadachinProbocaDanioAMilicias() {
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico", new Mapa()));
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-        Assert.assertEquals( espadachinHaceDanio.verVida() , 100 );
-        Assert.assertEquals( espadachinRecibeDanio.verVida() , 75 );
+        Assert.assertEquals(100, espadachinHaceDanio.verVida());
+        Assert.assertEquals(75, espadachinRecibeDanio.verVida());
     }
 
     @Test
-    public void espadachinProbocanDanioAEdificios(){
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico")) ;
-        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico")) ;
+    public void espadachinProbocanDanioAEdificios() {
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico", new Mapa()));
         espadachinHaceDanio.provocarDanio(plaza);
-        Assert.assertEquals( 100 , espadachinHaceDanio.verVida());
-        Assert.assertEquals( plaza.verVida() , 435 );
+        Assert.assertEquals(espadachinHaceDanio.verVida(), 100);
+        Assert.assertEquals(435, plaza.verVida());
     }
 
     @Test
-    public void espadachinEsDaniado(){
-        Espadachin espadachin = new Espadachin(new Jugador("Nico")) ;
-        Assert.assertEquals( espadachin.verVida() , 100 );
+    public void espadachinEsDaniado() {
+        Espadachin espadachin = new Espadachin(new Jugador("Nico", new Mapa()));
+        Assert.assertEquals(100, espadachin.verVida());
         espadachin.recibirDanio(20);
-        Assert.assertEquals( espadachin.verVida()   , 80 );
+        Assert.assertEquals(80, espadachin.verVida());
     }
 }

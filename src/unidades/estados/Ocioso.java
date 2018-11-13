@@ -2,9 +2,8 @@ package unidades.estados;
 
 import main.Jugador;
 import unidades.edificio.Edificio;
-import unidades.milicia.Aldeano;
 
-public class Ocioso extends EstadoDeAldeano{
+public class Ocioso extends EstadoDeAldeano {
 
     public Ocioso(Jugador propietario) {
         super(propietario);
@@ -17,7 +16,7 @@ public class Ocioso extends EstadoDeAldeano{
 
     @Override
     public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) {
-        return null;
+        return new Construyendo(this.propietario, edificio);
     }
 
     @Override
