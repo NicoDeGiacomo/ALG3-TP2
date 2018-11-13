@@ -12,7 +12,7 @@ class JugadorTest {
 
     @Test
     void noSePuedeCobrarOroConOroInsuficiente() {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico");
 
         try {
             jugador.cobrarOro(100);
@@ -23,7 +23,7 @@ class JugadorTest {
 
     @Test
     void cobrarOroConOroSuficiente() {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico");
         jugador.recolectarOro(100);
 
         try {
@@ -35,7 +35,7 @@ class JugadorTest {
 
     @Test
     void noSePuedeAgregarUnidadConOroInsuficiente() {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico");
 
         try {
             jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
@@ -48,7 +48,7 @@ class JugadorTest {
 
     @Test
     void agregarUnidadConOroSuficiente() {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico");
         jugador.recolectarOro(25);
 
         try {

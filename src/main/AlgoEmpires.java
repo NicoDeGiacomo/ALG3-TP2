@@ -5,6 +5,8 @@ import excepciones.main.NumeroDeJugadoresException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.main.PartidaComenzadaException;
 import excepciones.main.PartidaNoComenzadaException;
+import excepciones.mapa.EspacioInsuficienteException;
+import unidades.Unidad;
 import unidades.edificio.Castillo;
 
 import java.util.LinkedList;
@@ -25,11 +27,17 @@ public class AlgoEmpires {
         this.mapa = new Mapa();
     }
 
-    void comenzarPartida() throws NumeroDeJugadoresException, PartidaComenzadaException, OroInsuficienteException {
+    void comenzarPartida() throws NumeroDeJugadoresException, PartidaComenzadaException {
         if (this.turno != null)
             throw new PartidaComenzadaException("La partida ya está en juego");
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d jugadores", CANTIDAD_JUGADORES_MIN));
+
+        for (Jugador jugador : this.jugadores) {
+            Castillo castillo = new Castillo(jugador);
+            this.mapa.colocarUnidadEnExtremo(castillo);
+            jugador.agregarCastillo(castillo);
+        }
 
         this.turno = 0;
     }
@@ -52,7 +60,18 @@ public class AlgoEmpires {
             }
         }
 
-        this.jugadores.add(new Jugador(nombre, this.mapa));
+        this.jugadores.add(new Jugador(nombre));
+    }
+
+    void agregarUnidadAJugadorEnTurno(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException {
+        this.mapa.agregarUnidadCercana(unidad, creador);
+
+        try {
+            this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
+        } catch (OroInsuficienteException e) {
+            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
+            throw e;
+        }
     }
 
 }

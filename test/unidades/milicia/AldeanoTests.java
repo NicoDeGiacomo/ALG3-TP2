@@ -12,15 +12,15 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoSonCreadosCorrectamente() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
+        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
         Assert.assertEquals(50, aldeano.verVida());
         Assert.assertEquals(1, aldeano.verTamanio());
     }
 
     @Test
     public void aldeanoNoHaceDanio() {
-        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico", new Mapa()));
-        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico", new Mapa()));
+        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico"));
+        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico"));
         aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
         Assert.assertEquals(50, aldeanoHaceDanio.verVida());
         Assert.assertEquals(50, aldeanoRecibeDanio.verVida());
@@ -28,7 +28,7 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoSonDaniadas() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
+        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
         Assert.assertEquals(50, aldeano.verVida());
         aldeano.recibirDanio(20);
         Assert.assertEquals(30, aldeano.verVida());
@@ -36,10 +36,10 @@ public class AldeanoTests {
 
     @Test
     public void aldeanoArreglarNoHaceNada() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
-        Castillo castillo = new Castillo(new Jugador("Nico", new Mapa()));
+        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
+        Castillo castillo = new Castillo(new Jugador("Nico"));
         aldeano.arreglar(cuartel);
         aldeano.arreglar(plazaCentral);
         aldeano.arreglar(castillo);

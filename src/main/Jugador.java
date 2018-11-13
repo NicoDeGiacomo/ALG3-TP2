@@ -13,16 +13,10 @@ public class Jugador {
     private String nombre;
     private List<Unidad> unidades;
     private int oro;
-    private Mapa mapa;
 
-    public Jugador(String nombre, Mapa mapa) {
+    public Jugador(String nombre) {
         this.nombre = nombre;
-        this.mapa = mapa;
         this.unidades = new LinkedList<>();
-
-        Castillo castillo = new Castillo(this);
-        this.unidades.add(castillo);
-        this.mapa.colocarUnidadEnExtremo(castillo);
     }
 
     boolean tieneComoNombre(String nombre) {
@@ -46,16 +40,11 @@ public class Jugador {
     }
 
     public void agregarUnidad(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException {
-
-        this.mapa.agregarUnidadCercana(unidad, creador);
-
-        try {
-            unidad.cobrarCostoDeCreacion();
-        } catch (OroInsuficienteException e) {
-            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
-            throw e;
-        }
-
+        unidad.cobrarCostoDeCreacion();
         this.unidades.add(unidad);
+    }
+
+    void agregarCastillo(Castillo castillo) {
+        this.unidades.add(castillo);
     }
 }

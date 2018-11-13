@@ -58,7 +58,7 @@ public class AlgoEmpiresTests {
             algoEmpires.agregarJugador("Nico");
             algoEmpires.agregarJugador("Gaston");
             algoEmpires.comenzarPartida();
-        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | OroInsuficienteException ignored) {
+        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException ignored) {
             fail("Error no esperado");
         }
 
@@ -75,10 +75,20 @@ public class AlgoEmpiresTests {
             algoEmpires.agregarJugador("Gaston");
             algoEmpires.comenzarPartida();
             jugador = algoEmpires.pasarTurno();
-        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | PartidaNoComenzadaException | OroInsuficienteException ignored) {
+        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | PartidaNoComenzadaException ignored) {
             fail("Error no esperado");
         }
         assertTrue(jugador.tieneComoNombre("Gaston"));
+    }
+
+    @Test
+    public void agregarUnidadAJugadorEnTurnoConOroInsufucienteDebeRomper() {
+        //TODO: IMPLEMENT ME
+    }
+
+    @Test
+    public void agregarUnidadAJugadorEnTurnoConOroSufucienteNoDebeRomper() {
+        //TODO: IMPLEMENT ME
     }
 }
 

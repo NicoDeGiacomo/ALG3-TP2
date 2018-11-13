@@ -9,7 +9,7 @@ public class CuartelTests {
 
     @Test
     public void cuartelSonCreadosCorrectamente() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         Assert.assertEquals(250, cuartel.verVida());
         Assert.assertEquals(4, cuartel.verTamanio());
     }
@@ -21,7 +21,7 @@ public class CuartelTests {
 
     @Test
     public void cuartelSonDaniadas() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         Assert.assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(20);
         Assert.assertEquals(230, cuartel.verVida());

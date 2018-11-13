@@ -9,7 +9,7 @@ public class CastilloTests {
 
     @Test
     public void castilloSonCreadosCorrectamente() {
-        Castillo castillo = new Castillo(new Jugador("Nico", new Mapa()));
+        Castillo castillo = new Castillo(new Jugador("Nico"));
         Assert.assertEquals(1000, castillo.verVida());
         Assert.assertEquals(8, castillo.verTamanio());
     }
@@ -21,7 +21,7 @@ public class CastilloTests {
 
     @Test
     public void castilloSonDaniadas() {
-        Castillo castillo = new Castillo(new Jugador("Nico", new Mapa()));
+        Castillo castillo = new Castillo(new Jugador("Nico"));
         Assert.assertEquals(1000, castillo.verVida());
         castillo.recibirDanio(20);
         Assert.assertEquals(980, castillo.verVida());

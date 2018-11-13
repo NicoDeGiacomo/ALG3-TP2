@@ -9,7 +9,7 @@ public class PlazaCentralTests {
 
     @Test
     public void plazaCentralSonCreadosCorrectamente() {
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
         Assert.assertEquals(450, plazaCentral.verVida());
         Assert.assertEquals(4, plazaCentral.verTamanio());
     }
@@ -21,7 +21,7 @@ public class PlazaCentralTests {
 
     @Test
     public void plazaCentralSonDaniadas() {
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
         Assert.assertEquals(450, plazaCentral.verVida());
         plazaCentral.recibirDanio(20);
         Assert.assertEquals(430, plazaCentral.verVida());
