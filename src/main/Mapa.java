@@ -8,7 +8,6 @@ import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +19,8 @@ public class Mapa {
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
     void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
+        if(unidad == null) return;
+
         int tamanioUnidad = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
 
         for (int i = 0; i < tamanioUnidad; i++) {
@@ -61,7 +62,8 @@ public class Mapa {
     List<Point2D> obtenerCoordenadas(Unidad unidad) {
         List<Point2D> coordenadas = new ArrayList<Point2D>();
 
-        busqueda:
+        if(unidad == null) return coordenadas;
+
         for(int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
                 if(mapa[i][j] == unidad) {
@@ -82,7 +84,10 @@ public class Mapa {
     }
 
     boolean estaAlAlcance(Point2D unidad, Point2D destino) throws FueraDeRangoException {
+        if(unidad == null) return false;
+
         Dibujable atacante = obtenerDibujable(unidad);
+
         if (!coordenadaEnMapa(destino)) {
             throw new FueraDeRangoException("Posición (" + destino.getX() + ", " + destino.getY() + ") fuera del Margen del Mapa!");
         }
@@ -90,16 +95,19 @@ public class Mapa {
         return atacante.verAlcance() >= Math.floor(unidad.distance(destino));
     }
 
-    public List<Dibujable> unidadesAlAlcance(Unidad unidad) throws FueraDeRangoException {
+    public List<Dibujable> unidadesAlAlcance(Unidad unidad) {
+        List<Dibujable> unidades = new ArrayList<Dibujable>();
+
+        if(unidad == null) return unidades;
 
         List<Point2D> coordenadasCercanas = obtenerCoordenadasCercanas(unidad);
 
         coordenadasCercanas.removeAll(Collections.singleton(null));
 
-        List<Dibujable> unidades = new ArrayList<Dibujable>();
-
         for(int i = 0; i < coordenadasCercanas.size(); i++) {
-            unidades.add(obtenerDibujable(coordenadasCercanas.get(i)));
+            try {
+                unidades.add(obtenerDibujable(coordenadasCercanas.get(i)));
+            } catch (FueraDeRangoException e) {}
         }
 
         return unidades;
@@ -110,8 +118,7 @@ public class Mapa {
     }
 
     void moverUnidad(Unidad unidad, Point2D destino) throws NoEsMovibleException, FueraDeRangoException, PosicionOcupadaException {
-
-        if(!unidad.esMovible()) {
+        if(unidad == null || !unidad.esMovible()) {
             throw new NoEsMovibleException("La Unidad que se trata de mover no es Movible!");
         }
 
@@ -128,14 +135,15 @@ public class Mapa {
 
         quitarUnidad(unidad);
         colocarUnidad(unidad, destino);
-
     }
 
     private List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
-        Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
         List<Point2D> coordenadasAlRededor = new ArrayList<Point2D>();
 
-        int alcance = unidad.verAlcance();
+        if(unidad == null) return coordenadasAlRededor;
+
+        Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
+        int alcance = (unidad.verAlcance() < 2) ? (1) : (unidad.verAlcance());
         int tamanio = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
 
         for (int i = -alcance; i < tamanio + alcance; i++) {
@@ -151,18 +159,25 @@ public class Mapa {
     }
 
     void agregarUnidadCercana(Unidad unidad, Unidad unidadCercana) throws EspacioInsuficienteException {
-        List<Point2D> posiblesLugares = obtenerCoordenadasCercanas(unidad);
+        List<Point2D> posiblesLugares = obtenerCoordenadasCercanas(unidad),
+                      lugaresConfirmados = new ArrayList<Point2D>();
 
-        posiblesLugares.removeIf(lugar -> lugar != null);
+        Dibujable buffer = null;
+        for (int i = 0; i < posiblesLugares.size(); i++) {
+            try {
+                buffer = obtenerDibujable(posiblesLugares.get(i));
+            } catch (FueraDeRangoException e) {}
+            if(buffer == null) lugaresConfirmados.add(posiblesLugares.get(i));
+        }
 
-        if(posiblesLugares.size() == 0) {
+        if(lugaresConfirmados.size() == 0) {
             throw new EspacioInsuficienteException("No hay espacio para colocar una nueva Unidad!");
         }
 
         Random random = new Random();
-        int pos = random.nextInt(posiblesLugares.size());
+        int pos = random.nextInt(lugaresConfirmados.size());
 
-        Point2D coordenadaDestino = posiblesLugares.get(pos);
+        Point2D coordenadaDestino = lugaresConfirmados.get(pos);
 
         try {
             colocarUnidad(unidadCercana, coordenadaDestino);
