@@ -106,7 +106,9 @@ public class Mapa {
 
         for(int i = 0; i < coordenadasCercanas.size(); i++) {
             try {
-                unidades.add(obtenerDibujable(coordenadasCercanas.get(i)));
+                if(!(unidades.contains(obtenerDibujable(coordenadasCercanas.get(i))))) {
+                    unidades.add(obtenerDibujable(coordenadasCercanas.get(i)));
+                }
             } catch (FueraDeRangoException e) {}
         }
 
@@ -139,6 +141,7 @@ public class Mapa {
 
     private List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
         List<Point2D> coordenadasAlRededor = new ArrayList<Point2D>();
+        List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
         if(unidad == null) return coordenadasAlRededor;
 
@@ -149,7 +152,7 @@ public class Mapa {
         for (int i = -alcance; i < tamanio + alcance; i++) {
             for (int j = -alcance; j < tamanio + alcance; j++) {
                 Point2D chequeo = new Point2D.Double(coordenadaOrigen.getX() + i, coordenadaOrigen.getY() + j);
-                if(coordenadaEnMapa(chequeo)) {
+                if(coordenadaEnMapa(chequeo) && !(coordenadasUnidad.contains(chequeo))) {
                     coordenadasAlRededor.add(chequeo);
                 }
             }
