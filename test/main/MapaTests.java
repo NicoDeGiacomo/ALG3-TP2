@@ -106,8 +106,9 @@ public class MapaTests {
     @Test
     public void Test05MapaNoPuedeColocarMiliciaEncimaDeOtra(){
         Mapa mapa = new Mapa();
-        Arquero arquero1 = new Arquero(new Jugador("Nico")),
-                arquero2 = new Arquero(new Jugador("Nico"));
+        Jugador jugador = new Jugador("Nico");
+        Arquero arquero1 = new Arquero(jugador),
+                arquero2 = new Arquero(jugador);
         Point2D coordenada = new Point2D.Double(1,1);
 
         try {
