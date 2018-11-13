@@ -14,4 +14,6 @@ public abstract class EstadoDeAldeano {
     }
 
     public abstract EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio);
+
+    public abstract EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio);
 }

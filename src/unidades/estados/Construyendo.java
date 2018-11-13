@@ -24,4 +24,14 @@ public class Construyendo extends EstadoDeAldeano {
         }
         return this;
     }
+
+    @Override
+    public EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio) {
+        return null;
+    }
+
+    @Override
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) {
+        return null;
+    }
 }

@@ -3,7 +3,6 @@ package unidades.milicia;
 import org.junit.Assert;
 import org.junit.Test;
 import unidades.edificio.PlazaCentral;
-import unidades.milicia.Arquero;
 
 public class ArqueroTests {
 

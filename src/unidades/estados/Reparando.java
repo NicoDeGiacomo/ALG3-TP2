@@ -25,4 +25,9 @@ public class Reparando extends EstadoDeAldeano {
         //TODO Tirar excepcion (AldeanoOcupadoException)
         return null;
     }
+
+    @Override
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) {
+        return null;
+    }
 }

@@ -1,7 +1,8 @@
 package main;
 
-import excepciones.main.NumeroDeJugadoresException;
 import excepciones.main.NombreRepetidoException;
+import excepciones.main.NumeroDeJugadoresException;
+import excepciones.main.OroInsuficienteException;
 import excepciones.main.PartidaComenzadaException;
 import excepciones.main.PartidaNoComenzadaException;
 import org.junit.Test;
@@ -54,7 +55,7 @@ public class AlgoEmpiresTests {
             algoEmpires.agregarJugador("Nico");
             algoEmpires.agregarJugador("Gaston");
             algoEmpires.comenzarPartida();
-        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException e) {
+        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | OroInsuficienteException e) {
             fail("Error no esperado");
         }
 
@@ -71,7 +72,7 @@ public class AlgoEmpiresTests {
             algoEmpires.agregarJugador("Gaston");
             algoEmpires.comenzarPartida();
             jugador = algoEmpires.pasarTurno();
-        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | PartidaNoComenzadaException e) {
+        } catch (NombreRepetidoException | PartidaComenzadaException | NumeroDeJugadoresException | PartidaNoComenzadaException | OroInsuficienteException e) {
             fail("Error no esperado");
         }
         assertTrue(jugador.tieneComoNombre("Gaston"));

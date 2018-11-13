@@ -16,6 +16,11 @@ public class Ocioso extends EstadoDeAldeano{
     }
 
     @Override
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) {
+        return null;
+    }
+
+    @Override
     public EstadoDeAldeano ejecutarTareas() {
         this.propietario.recolectarOro(20);
         return this;

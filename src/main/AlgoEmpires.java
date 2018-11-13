@@ -1,7 +1,8 @@
 package main;
 
-import excepciones.main.NumeroDeJugadoresException;
 import excepciones.main.NombreRepetidoException;
+import excepciones.main.NumeroDeJugadoresException;
+import excepciones.main.OroInsuficienteException;
 import excepciones.main.PartidaComenzadaException;
 import excepciones.main.PartidaNoComenzadaException;
 import unidades.edificio.Castillo;
@@ -24,7 +25,7 @@ public class AlgoEmpires {
         this.mapa = new Mapa();
     }
 
-    void comenzarPartida() throws NumeroDeJugadoresException, PartidaComenzadaException {
+    void comenzarPartida() throws NumeroDeJugadoresException, PartidaComenzadaException, OroInsuficienteException {
         if (this.turno != null)
             throw new PartidaComenzadaException("La partida ya está en juego");
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
