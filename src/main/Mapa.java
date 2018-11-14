@@ -1,6 +1,5 @@
 package main;
 
-import excepciones.mapa.EspacioInsuficienteException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.NoEsMovibleException;
 import excepciones.mapa.PosicionOcupadaException;
@@ -21,7 +20,7 @@ class Mapa {
     void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         if (unidad == null) return;
 
-        int tamanioUnidad = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
+        int tamanioUnidad = (unidad.verTamanio() < 2) ? (1) : ((int) Math.sqrt(unidad.verTamanio()));
 
         for (int i = 0; i < tamanioUnidad; i++) {
             for (int j = 0; j < tamanioUnidad; j++) {
@@ -68,7 +67,7 @@ class Mapa {
         return coordenadas;
     }
 
-    boolean estaOcupado(Point2D coordenada) throws FueraDeRangoException {
+    private boolean estaOcupado(Point2D coordenada) throws FueraDeRangoException {
         return obtenerDibujable(coordenada) != null;
     }
 
@@ -93,7 +92,7 @@ class Mapa {
 
         for (Point2D coordenadasCercana : coordenadasCercanas) {
             try {
-                if (!(unidades.contains(obtenerDibujable(coordenadasCercana)))) {
+                if (!(unidades.contains(obtenerDibujable(coordenadasCercana))) && obtenerDibujable(coordenadasCercana) != null) {
                     unidades.add(obtenerDibujable(coordenadasCercana));
                 }
             } catch (FueraDeRangoException ignored) {
@@ -144,13 +143,11 @@ class Mapa {
             xOrigen = (int) origenCastillo.getX();
             yOrigen = (int) origenCastillo.getY();
 
-            if ((xOrigen < TAMANIO / 2) && (yOrigen < TAMANIO / 2)) {
-                cuadranteOrigen = 0;
-            } else if ((xOrigen < TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
+            if ((xOrigen < TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
                 cuadranteOrigen = 2;
-            } else if ((xOrigen >= TAMANIO / 2) && (yOrigen < TAMANIO / 2)) {
+            } else if (yOrigen < TAMANIO / 2) {
                 cuadranteOrigen = 1;
-            } else if ((xOrigen >= TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
+            } else {
                 cuadranteOrigen = 3;
             }
 
@@ -184,7 +181,6 @@ class Mapa {
 
         Point2D origen = obtenerCoordenadas(unidad).get(0);
 
-        //TODO: Crear una excepcion nueva para este caso particular?
         if (Math.floor(origen.distance(destino)) > 1) {
             throw new FueraDeRangoException("Las Unidades se pueden mover a lo sumo 1 casillero por turno!");
         }
@@ -215,31 +211,24 @@ class Mapa {
         return coordenadasAlRededor;
     }
 
-    void agregarUnidadCercana(Unidad unidad, Unidad unidadCercana) throws EspacioInsuficienteException {
-        List<Point2D> posiblesLugares = obtenerCoordenadasCercanas(unidad),
-                lugaresConfirmados = new ArrayList<>();
+    void agregarUnidadCercana(Unidad unidad, Unidad unidadCercana, Point2D coordenadaDestino) throws FueraDeRangoException, PosicionOcupadaException {
+        validarCoordenada(coordenadaDestino);
 
-        Dibujable buffer = null;
-        for (Point2D posiblesLugare : posiblesLugares) {
-            try {
-                buffer = obtenerDibujable(posiblesLugare);
-            } catch (FueraDeRangoException ignored) {
+        boolean estaCerca = false;
+
+        List<Point2D> coordenadas = obtenerCoordenadas(unidad);
+
+        for (int i = 0; i < coordenadas.size(); i++) {
+            if(Math.floor(coordenadas.get(i).distance(coordenadaDestino)) <= 1) {
+                estaCerca = true;
             }
-            if (buffer == null) lugaresConfirmados.add(posiblesLugare);
         }
 
-        if (lugaresConfirmados.size() == 0) {
-            throw new EspacioInsuficienteException("No hay espacio para colocar una nueva Unidad!");
-        }
-
-        Random random = new Random();
-        int pos = random.nextInt(lugaresConfirmados.size());
-
-        Point2D coordenadaDestino = lugaresConfirmados.get(pos);
-
-        try {
-            colocarUnidad(unidadCercana, coordenadaDestino);
-        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
+        if(estaCerca) {
+            try {
+                colocarUnidad(unidadCercana, coordenadaDestino);
+            } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
+            }
         }
     }
 
@@ -260,6 +249,10 @@ class Mapa {
     }
 
     private void validarCoordenadaEnMapa(Point2D coordenada) throws FueraDeRangoException {
+        if(coordenada == null) {
+            throw new FueraDeRangoException("No se puede validar una coordenada NULL!");
+        }
+
         if (!coordenadaEnMapa(coordenada)) {
             throw new FueraDeRangoException("Posición (" + coordenada.getX() + ", " + coordenada.getY() + ") fuera del Margen del Mapa!");
         }

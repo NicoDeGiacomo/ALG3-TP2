@@ -1,7 +1,6 @@
 package unidades.edificio;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.EspacioInsuficienteException;
 import main.Jugador;
 
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class PlazaCentralTests {
     }
 
     @Test
-    public void test02plazaCentralCreaArmaDeAsedioConOro() throws OroInsuficienteException, EspacioInsuficienteException {
+    public void test02plazaCentralCreaArmaDeAsedioConOro() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
         jugador.recolectarOro(1000);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
@@ -35,8 +34,6 @@ public class PlazaCentralTests {
             plazaCentral.crearUnidad();
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
-        } catch (EspacioInsuficienteException e) {
-            fail("Error inesperado.");
         }
     }
 

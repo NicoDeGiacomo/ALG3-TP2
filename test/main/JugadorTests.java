@@ -1,7 +1,6 @@
 package main;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.EspacioInsuficienteException;
 import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
 
@@ -41,8 +40,6 @@ public class JugadorTests {
             jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
-        } catch (EspacioInsuficienteException e) {
-            fail("Error inesperado.");
         }
     }
 
@@ -55,8 +52,6 @@ public class JugadorTests {
             jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
-        } catch (EspacioInsuficienteException e) {
-            fail("Error inesperado.");
         }
     }
 

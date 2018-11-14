@@ -5,7 +5,6 @@ import excepciones.main.NumeroDeJugadoresException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.main.PartidaComenzadaException;
 import excepciones.main.PartidaNoComenzadaException;
-import excepciones.mapa.EspacioInsuficienteException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
 import excepciones.unidades.AldeanoOcupadoException;
@@ -69,8 +68,8 @@ public class AlgoEmpires {
         this.jugadores.add(new Jugador(nombre));
     }
 
-    void agregarUnidadAJugadorEnTurno(Milicia unidad, Edificio creador, Point2D pos) throws OroInsuficienteException, EspacioInsuficienteException { //TODO: Falta un test que use este metodo
-        this.mapa.agregarUnidadCercana(unidad, creador);
+    void agregarUnidadAJugadorEnTurno(Milicia unidad, Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
+        this.mapa.agregarUnidadCercana(unidad, creador, pos);
         try {
             this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
         } catch (OroInsuficienteException e) {
@@ -79,7 +78,7 @@ public class AlgoEmpires {
         }
     }
 
-    void agregarUnidadAJugadorEnTurno(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, EspacioInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
+    void agregarUnidadAJugadorEnTurno(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
         this.mapa.colocarUnidad(unidad, pos);
         try {
             this.jugadores.get(this.turno).agregarUnidad(unidad, creador);

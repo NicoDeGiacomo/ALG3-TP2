@@ -1,7 +1,6 @@
 package main;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.EspacioInsuficienteException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 
@@ -39,7 +38,7 @@ public class Jugador {
         this.oro -= oro;
     }
 
-    public void agregarUnidad(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException {
+    public void agregarUnidad(Unidad unidad, Unidad creador) throws OroInsuficienteException {
         unidad.cobrarCostoDeCreacion();
         this.unidades.add(unidad);
     }

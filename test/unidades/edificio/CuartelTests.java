@@ -1,7 +1,6 @@
 package unidades.edificio;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.EspacioInsuficienteException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import main.Jugador;
 
@@ -21,7 +20,7 @@ public class CuartelTests {
     }
 
     @Test
-    public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException, EspacioInsuficienteException {
+    public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
         jugador.recolectarOro(1000);
         Cuartel cuartel = new Cuartel(jugador);
@@ -37,8 +36,6 @@ public class CuartelTests {
             cuartel.crearArquero();
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
-        } catch (EspacioInsuficienteException e) {
-            fail("Error inesperado.");
         }
     }
 
@@ -50,8 +47,6 @@ public class CuartelTests {
             cuartel.crearEspadachin();
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
-        } catch (EspacioInsuficienteException e) {
-            fail("Error inesperado.");
         }
     }
 

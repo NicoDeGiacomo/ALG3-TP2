@@ -1,6 +1,5 @@
 package unidades.edificio;
 
-import excepciones.mapa.EspacioInsuficienteException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import excepciones.main.OroInsuficienteException;
 import main.Jugador;
@@ -32,11 +31,11 @@ public class Cuartel extends Edificio {
         throw new UnidadNoEspecificadaException("El castillo puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
-    void crearEspadachin() throws OroInsuficienteException, EspacioInsuficienteException {
+    void crearEspadachin() throws OroInsuficienteException {
         this.propietario.agregarUnidad(new Espadachin(this.propietario), this);
     }
 
-    void crearArquero() throws OroInsuficienteException, EspacioInsuficienteException {
+    void crearArquero() throws OroInsuficienteException {
         this.propietario.agregarUnidad(new Arquero(this.propietario), this);
     }
 
