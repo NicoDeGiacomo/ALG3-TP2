@@ -1,10 +1,13 @@
 package unidades.edificio;
 
 import excepciones.main.OroInsuficienteException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import main.Jugador;
 
 import org.junit.Test;
+import unidades.milicia.Espadachin;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CuartelTests {
@@ -28,8 +31,20 @@ public class CuartelTests {
         cuartel.crearArquero();
     }
 
+
     @Test
-    public void test02cuartelCreaArqueroSinOro() {
+    public void test03cuartelNoHaceDanio() {
+        Cuartel cuartel= new Cuartel(new Jugador("Nico"));
+        Espadachin armaDeAsedio = new Espadachin(new Jugador("Nico"));
+        try {
+            cuartel.provocarDanio(armaDeAsedio);
+        } catch (AtaqueIncorrectoException e) {
+            assertEquals(        "Los edificios no pueden atacar.", e.getMessage());
+        }         
+    }
+
+    @Test
+    public void test04cuartelCreaArqueroSinOro() {
         Jugador jugador = new Jugador("Nico");
         Cuartel cuartel = new Cuartel(jugador);
         try {
@@ -40,7 +55,7 @@ public class CuartelTests {
     }
 
     @Test
-    public void test02cuartelCreaEspadachinSinOro() {
+    public void test05cuartelCreaEspadachinSinOro() {
         Jugador jugador = new Jugador("Nico");
         Cuartel cuartel = new Cuartel(jugador);
         try {
@@ -51,18 +66,17 @@ public class CuartelTests {
     }
 
     @Test
-    public void test02cuartelCreaUnidadSinExpecificar() {
+    public void test06cuartelCreaUnidadSinExpecificar() {
         Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         try {
             cuartel.crearUnidad();
         } catch (UnidadNoEspecificadaException e) {
-            //ToDo:
-            //assertEquals(,);
+            assertEquals("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero", e.getMessage());
         }
     }
 
     @Test
-    public void test03cuartelSonDaniadas() {
+    public void test07cuartelSonDaniados() {
         Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(20);
@@ -70,7 +84,7 @@ public class CuartelTests {
     }
 
     @Test
-    public void test04cuartelSonArregladasYNoLlegaAVidaMaxima() {
+    public void test08cuartelEsArregladoYNoLlegaAVidaMaxima() {
         Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(60);
@@ -80,7 +94,7 @@ public class CuartelTests {
     }
 
     @Test
-    public void test05cuartelSonArregladasYLlegaAVidaMaxima() {
+    public void test05cuartelEsArregladoYLlegaAVidaMaxima() {
         Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(1);

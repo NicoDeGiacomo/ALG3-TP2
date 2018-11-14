@@ -17,7 +17,6 @@ public class CastilloTests {
         castillo.cobrarCostoDeCreacion();
         assertFalse(castillo.esMovible());
         assertEquals(3, castillo.verAlcance());
-
     }
 
     @Test
@@ -29,7 +28,7 @@ public class CastilloTests {
     }
 
     @Test
-    public void test02castilloCreaArmaDeAsedioSinOro() {
+    public void test03castilloCreaArmaDeAsedioSinOro() {
         Jugador jugador = new Jugador("Nico");
         Castillo castillo = new Castillo(jugador);
         try {
@@ -40,7 +39,7 @@ public class CastilloTests {
     }
 
     @Test
-    public void test03castilloSonDaniadas() {
+    public void test04castilloSonDaniadas() {
         Castillo castillo = new Castillo(new Jugador("Nico"));
         assertEquals(1000, castillo.verVida());
         castillo.recibirDanio(20);
@@ -48,16 +47,16 @@ public class CastilloTests {
     }
 
     @Test
-    public void test04castilloHaceDanio() {
+    public void test05castilloHaceDanio() {
         Castillo castillo = new Castillo(new Jugador("Nico"));
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Peter"));
         assertEquals(150, armaDeAsedio.verVida());
         castillo.provocarDanio(armaDeAsedio);
         assertEquals(130, armaDeAsedio.verVida());
     }
 
     @Test
-    public void test05castilloSonArregladasYNoLlegaAVidaMaxima() {
+    public void test06castilloEsArregladoYNoLlegaAVidaMaxima() {
         Castillo castillo = new Castillo(new Jugador("Nico"));
         assertEquals(1000, castillo.verVida());
         castillo.recibirDanio(20);
@@ -67,7 +66,7 @@ public class CastilloTests {
     }
 
     @Test
-    public void test06castilloSonArregladasYLlegaAVidaMaxima() {
+    public void test07castilloEsArregladoYLlegaAVidaMaxima() {
         Castillo castillo = new Castillo(new Jugador("Nico"));
         assertEquals(1000, castillo.verVida());
         castillo.recibirDanio(1);

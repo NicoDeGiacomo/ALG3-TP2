@@ -78,6 +78,7 @@ class Mapa {
 
         validarCoordenadaEnMapa(destino);
 
+        //ToDo: Gasti - Dibujable no ve el alcance.
         return atacante.verAlcance() >= Math.floor(unidad.distance(destino));
     }
 

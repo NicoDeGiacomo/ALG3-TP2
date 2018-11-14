@@ -20,6 +20,7 @@ public class Castillo extends Edificio {
 
     @Override
     public void provocarDanio(Unidad unidad) {
+        if(unidad.unidadesSonDelMismoEquipo(this.propietario)) return;
         unidad.recibirDanio(this.danio);
     }
 

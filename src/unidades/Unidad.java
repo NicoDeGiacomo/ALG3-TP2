@@ -31,6 +31,12 @@ public abstract class Unidad implements Dibujable {
         this.propietario.cobrarOro(this.oro);
     }
 
+    public abstract int verTamanio();
+
+    public abstract int verAlcance();
+
+    public abstract boolean esMovible();
+
     abstract public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException;
 
     abstract public void ejecutarTareas();
@@ -47,9 +53,9 @@ public abstract class Unidad implements Dibujable {
         return this.estadoDeUnidad.esMapleable();
     }
 
-    /*
-    ToDo: Las unidades de un mismo equipo no pueden atacarse.
-    public boolean compararEquipo(Jugador propietario){
+
+    //ToDo: Las unidades de un mismo equipo no pueden atacarse.
+    public boolean unidadesSonDelMismoEquipo(Jugador propietario){
         return propietario == this.propietario;
-    }*/
+    }
 }

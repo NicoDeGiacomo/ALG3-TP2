@@ -46,21 +46,6 @@ public class AldeanoTests {
         assertEquals(30, aldeano.verVida());
     }
 
-    @Test
-    public void test04aldeanoArreglarNoHaceNada() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico"));
-        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
-        Castillo castillo = new Castillo(new Jugador("Nico"));
-
-        aldeano.arreglar(cuartel);
-        aldeano.arreglar(plazaCentral);
-        aldeano.arreglar(castillo);
-
-        assertEquals(250, cuartel.verVida());
-        assertEquals(450, plazaCentral.verVida());
-        assertEquals(1000, castillo.verVida());
-    }
 
     @Test
     public void test05aldeanoReparandoEdificioTieneVidaMaximaYAldeanoCambiaDeEstado() {

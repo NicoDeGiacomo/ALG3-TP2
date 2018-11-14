@@ -1,10 +1,6 @@
 package unidades;
 
 public interface Dibujable {
-    boolean esMovible();
-
-    int verTamanio();
-
+    //ToDO: Gasti - Matar el metodo despues de cambiar el mapa.
     int verAlcance();
-
 }

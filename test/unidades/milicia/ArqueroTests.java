@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ArqueroTests {
 
     @Test
-    public void arqueroSonCreadosCorrectamente() {
+    public void test01arqueroSonCreadosCorrectamente() {
         Arquero arquero = new Arquero(new Jugador("Nico"));
         assertEquals(75, arquero.verVida());
         assertEquals(1, arquero.verTamanio());
@@ -18,7 +18,7 @@ public class ArqueroTests {
     }
 
     @Test
-    public void test01arqueroProbocanDanioAMilicias() {
+    public void test02arqueroProbocanDanioAMilicias() {
         Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico"));
         Arquero arqueroRecibeDanio = new Arquero(new Jugador("Nico"));
         try {
@@ -31,7 +31,7 @@ public class ArqueroTests {
     }
 
     @Test
-    public void test02arqueroProbocanDanioAEdificios() {
+    public void test03arqueroProbocanDanioAEdificios() {
         Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico"));
         PlazaCentral plaza = new PlazaCentral(new Jugador("Nico"));
         try {
@@ -44,7 +44,7 @@ public class ArqueroTests {
     }
 
     @Test
-    public void test03arqueroSonDaniadas() {
+    public void test04arqueroSonDaniadas() {
         Arquero arquero = new Arquero(new Jugador("Nico"));
         assertEquals(75, arquero.verVida());
         arquero.recibirDanio(20);

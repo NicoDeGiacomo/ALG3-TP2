@@ -53,17 +53,6 @@ public class EspadachinTests {
         espadachin.recibirDanio(20);
         assertEquals(80, espadachin.verVida());
     }
-/*
-    TODO
-    @Test
-    public void test02espadachinNoProbocaDanioAUnidadesDeMismoJugador() {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
-        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico"));
-        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-        assertEquals(100, espadachinHaceDanio.verVida());
-        assertEquals(100, espadachinRecibeDanio.verVida());
-    }
-*/
 
     @Test
     public void test05espadachinMataAMilicias() {
@@ -85,7 +74,7 @@ public class EspadachinTests {
     }
 
     @Test
-    public void test05espadachinDestruyeEdificio() {
+    public void test06espadachinDestruyeEdificio() {
         Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
         Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         cuartel.recibirDanio(235);
@@ -100,4 +89,16 @@ public class EspadachinTests {
         assertEquals(Muerto.class, cuartel.verEstadoDeUnidad().getClass());
         assertFalse(cuartel.esMapeable());
     }
+
+    /*
+    TODO: Unidades del mismo equipo se pueden atacar?
+    @Test
+    public void test07espadachinNoProbocaDanioAUnidadesDeMismoJugador() {
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
+        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico"));
+        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
+        assertEquals(100, espadachinHaceDanio.verVida());
+        assertEquals(100, espadachinRecibeDanio.verVida());
+    }
+*/
 }

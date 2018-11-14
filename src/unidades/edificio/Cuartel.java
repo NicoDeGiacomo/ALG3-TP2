@@ -28,7 +28,7 @@ public class Cuartel extends Edificio {
 
     @Override
     public void crearUnidad() throws UnidadNoEspecificadaException {
-        throw new UnidadNoEspecificadaException("El castillo puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
+        throw new UnidadNoEspecificadaException("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
     void crearEspadachin() throws OroInsuficienteException {

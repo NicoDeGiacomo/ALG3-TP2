@@ -26,7 +26,7 @@ public abstract class Edificio extends Unidad {
 
     @Override
     public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {
-        throw new AtaqueIncorrectoException("Los edificios no pueden atacar."); //TODO: Falta un test que pase por esta linea
+        throw new AtaqueIncorrectoException("Los edificios no pueden atacar.");
     }
 
     @Override
