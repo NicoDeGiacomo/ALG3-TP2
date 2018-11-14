@@ -30,4 +30,7 @@ public class PlazaCentral extends Edificio {
         this.propietario.agregarUnidad(new Aldeano(this.propietario), this);
     }
 
+    @Override
+    public void ejecutarTareas() {
+    }
 }

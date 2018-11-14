@@ -1,6 +1,7 @@
 package unidades;
 
 import excepciones.main.OroInsuficienteException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
 import unidades.estados.unidades.EstadoDeUnidad;
 import unidades.estados.unidades.Muerto;
@@ -20,7 +21,7 @@ public abstract class Unidad implements Dibujable {
         this.estadoDeUnidad = new Vivo(); //TODO Los edificios tienen vida ? wtf
     }
 
-    public void recibirDanio(int danio){
+    public void recibirDanio(int danio) {
         this.vida -= danio;
         if (this.vida <= 0)
             this.estadoDeUnidad = new Muerto();
@@ -30,13 +31,9 @@ public abstract class Unidad implements Dibujable {
         this.propietario.cobrarOro(this.oro);
     }
 
-    public void provocarDanio(Unidad unidad){
+    abstract public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException;
 
-    }
-
-    public void ejecutarTareas(){
-
-    }
+    abstract public void ejecutarTareas();
 
     public EstadoDeUnidad verEstadoDeUnidad() {
         return this.estadoDeUnidad;

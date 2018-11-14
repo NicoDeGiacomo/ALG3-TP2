@@ -2,16 +2,16 @@ package main;
 
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.EspacioInsuficienteException;
-import org.junit.jupiter.api.Test;
 import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-class JugadorTest {
+public class JugadorTest {
 
     @Test
-    void noSePuedeCobrarOroConOroInsuficiente() {
+    public void noSePuedeCobrarOroConOroInsuficiente() {
         Jugador jugador = new Jugador("Nico");
 
         try {
@@ -22,7 +22,7 @@ class JugadorTest {
     }
 
     @Test
-    void cobrarOroConOroSuficiente() {
+    public void cobrarOroConOroSuficiente() {
         Jugador jugador = new Jugador("Nico");
         jugador.recolectarOro(100);
 
@@ -34,7 +34,7 @@ class JugadorTest {
     }
 
     @Test
-    void noSePuedeAgregarUnidadConOroInsuficiente() {
+    public void noSePuedeAgregarUnidadConOroInsuficiente() {
         Jugador jugador = new Jugador("Nico");
 
         try {
@@ -47,7 +47,7 @@ class JugadorTest {
     }
 
     @Test
-    void agregarUnidadConOroSuficiente() {
+    public void agregarUnidadConOroSuficiente() {
         Jugador jugador = new Jugador("Nico");
         jugador.recolectarOro(25);
 

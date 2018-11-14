@@ -32,12 +32,15 @@ public class Cuartel extends Edificio {
         throw new UnidadNoEspecificadaException("El castillo puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
-    public void crearEspadachin() throws OroInsuficienteException, EspacioInsuficienteException {
+    void crearEspadachin() throws OroInsuficienteException, EspacioInsuficienteException {
         this.propietario.agregarUnidad(new Espadachin(this.propietario), this);
     }
 
-    public void crearArquero() throws OroInsuficienteException, EspacioInsuficienteException {
+    void crearArquero() throws OroInsuficienteException, EspacioInsuficienteException {
         this.propietario.agregarUnidad(new Arquero(this.propietario), this);
     }
 
+    @Override
+    public void ejecutarTareas() {
+    }
 }

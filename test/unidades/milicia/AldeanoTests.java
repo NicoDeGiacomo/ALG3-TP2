@@ -2,9 +2,8 @@ package unidades.milicia;
 
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AldeanoOcupadoException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
-import org.junit.Assert;
-import org.junit.Test;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
@@ -14,34 +13,40 @@ import unidades.estados.aldeano.Reparando;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AldeanoTests {
 
     @Test
     public void test01aldeanoSonCreadosCorrectamente() {
         Aldeano aldeano = new Aldeano(new Jugador("Nico"));
-        Assert.assertEquals(50, aldeano.verVida());
-        Assert.assertEquals(1, aldeano.verTamanio());
-        Assert.assertTrue(aldeano.esMovible());
-
+        assertEquals(50, aldeano.verVida());
+        assertEquals(1, aldeano.verTamanio());
+        assertTrue(aldeano.esMovible());
     }
 
     @Test
     public void test02aldeanoNoHaceDanio() {
         Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico"));
         Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico"));
-        aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
-        Assert.assertEquals(50, aldeanoHaceDanio.verVida());
-        Assert.assertEquals(50, aldeanoRecibeDanio.verVida());
+
+        try {
+            aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
+        } catch (AtaqueIncorrectoException e) {
+            assertEquals("El aldeano no puede atacar.", e.getMessage());
+        }
+
+        assertEquals(50, aldeanoHaceDanio.verVida());
+        assertEquals(50, aldeanoRecibeDanio.verVida());
     }
 
     @Test
     public void test03aldeanoSonDaniadas() {
         Aldeano aldeano = new Aldeano(new Jugador("Nico"));
-        Assert.assertEquals(50, aldeano.verVida());
+        assertEquals(50, aldeano.verVida());
         aldeano.recibirDanio(20);
-        Assert.assertEquals(30, aldeano.verVida());
+        assertEquals(30, aldeano.verVida());
     }
 
     @Test
@@ -50,12 +55,14 @@ public class AldeanoTests {
         Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
         Castillo castillo = new Castillo(new Jugador("Nico"));
+
         aldeano.arreglar(cuartel);
         aldeano.arreglar(plazaCentral);
         aldeano.arreglar(castillo);
-        Assert.assertEquals(250, cuartel.verVida());
-        Assert.assertEquals(450, plazaCentral.verVida());
-        Assert.assertEquals(1000, castillo.verVida());
+
+        assertEquals(250, cuartel.verVida());
+        assertEquals(450, plazaCentral.verVida());
+        assertEquals(1000, castillo.verVida());
     }
 
     @Test
@@ -64,17 +71,17 @@ public class AldeanoTests {
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         aldeano.reparar(plazaCentral);
-        Assert.assertEquals(Reparando.class, aldeano.verEstadoDeAldeano().getClass() );
+        assertEquals(Reparando.class, aldeano.verEstadoDeAldeano().getClass());
         aldeano.ejecutarTareas();
-        Assert.assertEquals( 450, plazaCentral.verVida() );
+        assertEquals(450, plazaCentral.verVida());
         try {
             jugador.cobrarOro(20);
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
-        Assert.assertEquals(Ocioso.class, aldeano.verEstadoDeAldeano().getClass() );
+        assertEquals(Ocioso.class, aldeano.verEstadoDeAldeano().getClass());
         aldeano.construir(plazaCentral);
-        Assert.assertEquals(Construyendo.class, aldeano.verEstadoDeAldeano().getClass() );
+        assertEquals(Construyendo.class, aldeano.verEstadoDeAldeano().getClass());
     }
 
     @Test
@@ -83,19 +90,19 @@ public class AldeanoTests {
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         aldeano.construir(plazaCentral);
-        Assert.assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass() );
+        assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         aldeano.ejecutarTareas();
-        Assert.assertTrue(plazaCentral.esMapeable());
+        assertTrue(plazaCentral.esMapeable());
     }
 
     @Test
     public void test07aldeanoConstruyendoCuartel() throws AldeanoOcupadoException {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
-        Cuartel cuartel= new Cuartel(jugador);
+        Cuartel cuartel = new Cuartel(jugador);
         aldeano.construir(cuartel);
-        Assert.assertEquals(EnConstruccion.class, cuartel.verEstadoDeUnidad().getClass() );
-        Assert.assertTrue(cuartel.esMapeable());
+        assertEquals(EnConstruccion.class, cuartel.verEstadoDeUnidad().getClass());
+        assertTrue(cuartel.esMapeable());
 
     }
 
@@ -105,13 +112,13 @@ public class AldeanoTests {
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         aldeano.construir(plazaCentral);
-        Assert.assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass() );
-        Assert.assertTrue(plazaCentral.esMapeable());
+        assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
+        assertTrue(plazaCentral.esMapeable());
         aldeano.ejecutarTareas();
         aldeano.ejecutarTareas();
         aldeano.ejecutarTareas();
-        Assert.assertEquals(Vivo.class, plazaCentral.verEstadoDeUnidad().getClass() );
-        Assert.assertTrue(plazaCentral.esMapeable());
+        assertEquals(Vivo.class, plazaCentral.verEstadoDeUnidad().getClass());
+        assertTrue(plazaCentral.esMapeable());
     }
 
     @Test
@@ -131,7 +138,7 @@ public class AldeanoTests {
         plazaCentral.recibirDanio(100);
         aldeano.reparar(plazaCentral);
         aldeano.ejecutarTareas();
-        Assert.assertEquals( 375, plazaCentral.verVida() );
+        assertEquals(375, plazaCentral.verVida());
     }
 
     @Test
@@ -144,7 +151,7 @@ public class AldeanoTests {
         try {
             aldeano.construir(plazaCentral);
         } catch (AldeanoOcupadoException e) {
-            Assert.assertEquals("El aldeano se encuentra reparando.", e.getMessage() );
+            assertEquals("El aldeano se encuentra reparando.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }
@@ -158,7 +165,7 @@ public class AldeanoTests {
         try {
             aldeano.reparar(plazaCentral);
         } catch (AldeanoOcupadoException e) {
-            Assert.assertEquals("El aldeano se encuentra construyendo.", e.getMessage() );
+            assertEquals("El aldeano se encuentra construyendo.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }
@@ -172,7 +179,7 @@ public class AldeanoTests {
         try {
             aldeano.construir(plazaCentral);
         } catch (AldeanoOcupadoException e) {
-            Assert.assertEquals("El aldeano se encuentra construyendo.", e.getMessage() );
+            assertEquals("El aldeano se encuentra construyendo.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }
@@ -187,7 +194,7 @@ public class AldeanoTests {
         try {
             aldeano.reparar(plazaCentral);
         } catch (AldeanoOcupadoException e) {
-            Assert.assertEquals("El aldeano se encuentra reparando.", e.getMessage() );
+            assertEquals("El aldeano se encuentra reparando.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }

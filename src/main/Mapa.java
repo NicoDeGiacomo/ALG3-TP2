@@ -19,7 +19,7 @@ public class Mapa {
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
     void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
-        if(unidad == null) return;
+        if (unidad == null) return;
 
         int tamanioUnidad = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
 
@@ -51,7 +51,7 @@ public class Mapa {
 
         Dibujable dibujable = mapa[(int) coordenada.getX()][(int) coordenada.getY()];
 
-        if(dibujable == null || !((Unidad) dibujable).esMapeable()) {
+        if (dibujable == null || !((Unidad) dibujable).esMapeable()) {
             quitarUnidad((Unidad) dibujable);
             return null;
         }
@@ -60,13 +60,13 @@ public class Mapa {
     }
 
     List<Point2D> obtenerCoordenadas(Unidad unidad) {
-        List<Point2D> coordenadas = new ArrayList<Point2D>();
+        List<Point2D> coordenadas = new ArrayList<>();
 
-        if(unidad == null) return coordenadas;
+        if (unidad == null) return coordenadas;
 
-        for(int i = 0; i < TAMANIO; i++) {
+        for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
-                if(mapa[i][j] == unidad) {
+                if (mapa[i][j] == unidad) {
                     coordenadas.add(new Point2D.Double(i, j));
                 }
             }
@@ -84,50 +84,52 @@ public class Mapa {
     }
 
     boolean estaAlAlcance(Point2D unidad, Point2D destino) throws FueraDeRangoException {
-        if(unidad == null) return false;
+        if (unidad == null) return false;
 
         Dibujable atacante = obtenerDibujable(unidad);
 
         if (!coordenadaEnMapa(destino)) {
-            throw new FueraDeRangoException("Posición (" + destino.getX() + ", " + destino.getY() + ") fuera del Margen del Mapa!");
+            throw new FueraDeRangoException("Posición (" + destino.getX() + ", " + destino.getY() + ") fuera del Margen del Mapa!"); //TODO: Falta un test que pase por esta linea
         }
 
         return atacante.verAlcance() >= Math.floor(unidad.distance(destino));
     }
 
-    public List<Dibujable> unidadesAlAlcance(Unidad unidad) {
-        List<Dibujable> unidades = new ArrayList<Dibujable>();
+    List<Dibujable> unidadesAlAlcance(Unidad unidad) {
+        List<Dibujable> unidades = new ArrayList<>();
 
-        if(unidad == null) return unidades;
+        if (unidad == null) return unidades;
 
         List<Point2D> coordenadasCercanas = obtenerCoordenadasCercanas(unidad);
 
         coordenadasCercanas.removeAll(Collections.singleton(null));
 
-        for(int i = 0; i < coordenadasCercanas.size(); i++) {
+        for (Point2D coordenadasCercana : coordenadasCercanas) {
             try {
-                if(!(unidades.contains(obtenerDibujable(coordenadasCercanas.get(i))))) {
-                    unidades.add(obtenerDibujable(coordenadasCercanas.get(i)));
+                if (!(unidades.contains(obtenerDibujable(coordenadasCercana)))) {
+                    unidades.add(obtenerDibujable(coordenadasCercana));
                 }
-            } catch (FueraDeRangoException e) {}
+            } catch (FueraDeRangoException ignored) {
+            }
         }
 
         return unidades;
     }
 
-    private List<Castillo> encontrarCastillos(){
-        List<Castillo> castillos = new ArrayList<Castillo>();
+    private List<Castillo> encontrarCastillos() {
+        List<Castillo> castillos = new ArrayList<>();
 
-        for(int i = 0; i < TAMANIO; i++){
-            for(int j = 0; j < TAMANIO; j++){
-                Point2D coordenada = new Point2D.Double(i,j);
+        for (int i = 0; i < TAMANIO; i++) {
+            for (int j = 0; j < TAMANIO; j++) {
+                Point2D coordenada = new Point2D.Double(i, j);
                 Dibujable buffer = null;
 
                 try {
                     buffer = obtenerDibujable(coordenada);
-                } catch (FueraDeRangoException e) {}
+                } catch (FueraDeRangoException ignored) {
+                }
 
-                if((buffer != null) && (buffer.getClass() == Castillo.class) && (!castillos.contains(buffer))) {
+                if ((buffer != null) && (buffer.getClass() == Castillo.class) && (!castillos.contains(buffer))) {
                     castillos.add((Castillo) buffer);
                 }
             }
@@ -136,19 +138,19 @@ public class Mapa {
         return castillos;
     }
 
-    public void colocarUnidadEnExtremo(Castillo castillo) {
-        if(castillo == null) return;
+    void colocarUnidadEnExtremo(Castillo castillo) {
+        if (castillo == null) return;
 
         List<Castillo> castillos = encontrarCastillos();
         int xOrigen = 0,
-            yOrigen = 0,
-            xDestino = 0,
-            yDestino = 0,
-            cuadranteOrigen = 0,
-            cuadranteDestino = 0;
+                yOrigen = 0,
+                xDestino = 0,
+                yDestino = 0,
+                cuadranteOrigen = 0,
+                cuadranteDestino = 0;
         Random random = new Random();
 
-        if(castillos.size() > 1) {
+        if (castillos.size() > 1) {
             return;
         } else if (castillos.size() == 1) {
             Point2D origenCastillo = obtenerCoordenadas(castillos.get(0)).get(0);
@@ -161,11 +163,11 @@ public class Mapa {
                 cuadranteOrigen = 2;
             } else if ((xOrigen >= TAMANIO / 2) && (yOrigen < TAMANIO / 2)) {
                 cuadranteOrigen = 1;
-            }  else if ((xOrigen >= TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
+            } else if ((xOrigen >= TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
                 cuadranteOrigen = 3;
             }
 
-            cuadranteDestino = (cuadranteOrigen % 2) == 0 ? (cuadranteOrigen + 3) % 4 : (cuadranteOrigen + 1) % 4 ;
+            cuadranteDestino = (cuadranteOrigen % 2) == 0 ? (cuadranteOrigen + 3) % 4 : (cuadranteOrigen + 1) % 4;
         } else {
             cuadranteDestino = random.nextInt(4);
         }
@@ -173,29 +175,30 @@ public class Mapa {
         xDestino = random.nextInt(TAMANIO / 2) + ((TAMANIO / 2) * (cuadranteDestino % 2));
         yDestino = random.nextInt(TAMANIO / 2) - ((TAMANIO / 2) * ((cuadranteDestino % 2 - (cuadranteDestino > 1 ? cuadranteDestino - 1 : cuadranteDestino))));
 
-        xDestino = xDestino/2 + 8 >= TAMANIO/2 ? xDestino - 8 : xDestino;
-        yDestino = yDestino/2 + 8 >= TAMANIO/2 ? yDestino - 8 : yDestino;
+        xDestino = xDestino / 2 + 8 >= TAMANIO / 2 ? xDestino - 8 : xDestino;
+        yDestino = yDestino / 2 + 8 >= TAMANIO / 2 ? yDestino - 8 : yDestino;
 
         Point2D coordenada = new Point2D.Double(xDestino, yDestino);
 
         try {
             colocarUnidad(castillo, coordenada);
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {}
+        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
+        }
     }
 
     void moverUnidad(Unidad unidad, Point2D destino) throws NoEsMovibleException, FueraDeRangoException, PosicionOcupadaException {
-        if(unidad == null || !unidad.esMovible()) {
+        if (unidad == null || !unidad.esMovible()) {
             throw new NoEsMovibleException("La Unidad que se trata de mover no es Movible!");
         }
 
-        if(estaOcupado(destino)) {
+        if (estaOcupado(destino)) {
             throw new PosicionOcupadaException("La coordenada de Destino ya se encuentra ocupada!");
         }
 
         Point2D origen = obtenerCoordenadas(unidad).get(0);
 
         //TODO: Crear una excepcion nueva para este caso particular?
-        if(Math.floor(origen.distance(destino)) > 1) {
+        if (Math.floor(origen.distance(destino)) > 1) {
             throw new FueraDeRangoException("Las Unidades se pueden mover a lo sumo 1 casillero por turno!");
         }
 
@@ -204,10 +207,10 @@ public class Mapa {
     }
 
     private List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
-        List<Point2D> coordenadasAlRededor = new ArrayList<Point2D>();
+        List<Point2D> coordenadasAlRededor = new ArrayList<>();
         List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
-        if(unidad == null) return coordenadasAlRededor;
+        if (unidad == null) return coordenadasAlRededor;
 
         Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
         int alcance = (unidad.verAlcance() < 2) ? (1) : (unidad.verAlcance());
@@ -216,7 +219,7 @@ public class Mapa {
         for (int i = -alcance; i < tamanio + alcance; i++) {
             for (int j = -alcance; j < tamanio + alcance; j++) {
                 Point2D chequeo = new Point2D.Double(coordenadaOrigen.getX() + i, coordenadaOrigen.getY() + j);
-                if(coordenadaEnMapa(chequeo) && !(coordenadasUnidad.contains(chequeo))) {
+                if (coordenadaEnMapa(chequeo) && !(coordenadasUnidad.contains(chequeo))) {
                     coordenadasAlRededor.add(chequeo);
                 }
             }
@@ -227,17 +230,18 @@ public class Mapa {
 
     void agregarUnidadCercana(Unidad unidad, Unidad unidadCercana) throws EspacioInsuficienteException {
         List<Point2D> posiblesLugares = obtenerCoordenadasCercanas(unidad),
-                      lugaresConfirmados = new ArrayList<Point2D>();
+                lugaresConfirmados = new ArrayList<>();
 
         Dibujable buffer = null;
-        for (int i = 0; i < posiblesLugares.size(); i++) {
+        for (Point2D posiblesLugare : posiblesLugares) {
             try {
-                buffer = obtenerDibujable(posiblesLugares.get(i));
-            } catch (FueraDeRangoException e) {}
-            if(buffer == null) lugaresConfirmados.add(posiblesLugares.get(i));
+                buffer = obtenerDibujable(posiblesLugare);
+            } catch (FueraDeRangoException ignored) {
+            }
+            if (buffer == null) lugaresConfirmados.add(posiblesLugare);
         }
 
-        if(lugaresConfirmados.size() == 0) {
+        if (lugaresConfirmados.size() == 0) {
             throw new EspacioInsuficienteException("No hay espacio para colocar una nueva Unidad!");
         }
 
@@ -248,15 +252,15 @@ public class Mapa {
 
         try {
             colocarUnidad(unidadCercana, coordenadaDestino);
+        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
         }
-        catch (FueraDeRangoException | PosicionOcupadaException e) {}
     }
 
-    public void quitarUnidad(Unidad unidad) {
+    void quitarUnidad(Unidad unidad) {
         List<Point2D> coordenadas = obtenerCoordenadas(unidad);
 
-        for (int i = 0; i < coordenadas.size(); i++) {
-            mapa[(int) coordenadas.get(i).getX()][(int) coordenadas.get(i).getY()] = null;
+        for (Point2D coordenada : coordenadas) {
+            mapa[(int) coordenada.getX()][(int) coordenada.getY()] = null;
         }
     }
 }

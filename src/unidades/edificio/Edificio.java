@@ -1,6 +1,7 @@
 package unidades.edificio;
 
 import excepciones.mapa.EspacioInsuficienteException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
@@ -20,12 +21,17 @@ public abstract class Edificio extends Unidad {
     }
 
     @Override
-    public int verAlcance(){
+    public int verAlcance() {
         return this.alcance;
     }
 
     @Override
-    public int verTamanio(){
+    public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {
+        throw new AtaqueIncorrectoException("Los edificios no pueden atacar."); //TODO: Falta un test que pase por esta linea
+    }
+
+    @Override
+    public int verTamanio() {
         return this.tamanio;
     }
 

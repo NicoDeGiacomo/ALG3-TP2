@@ -63,7 +63,7 @@ public class AlgoEmpires {
         this.jugadores.add(new Jugador(nombre));
     }
 
-    void agregarUnidadAJugadorEnTurno(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException {
+    void agregarUnidadAJugadorEnTurno(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException { //TODO: Falta un test que use este metodo
         this.mapa.agregarUnidadCercana(unidad, creador);
 
         try {

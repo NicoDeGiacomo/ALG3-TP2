@@ -1,7 +1,9 @@
 package unidades.milicia;
 
 import excepciones.unidades.AldeanoOcupadoException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
+import unidades.Unidad;
 import unidades.edificio.Edificio;
 import unidades.estados.aldeano.EstadoDeAldeano;
 import unidades.estados.aldeano.Ocioso;
@@ -15,7 +17,6 @@ public class Aldeano extends Milicia {
         this.propietario = propietario;
         this.vida = 50;
         this.estado = new Ocioso(this.propietario);
-        this.danio = 0;
         this.oro = 25;
     }
 
@@ -23,6 +24,11 @@ public class Aldeano extends Milicia {
     @Override
     public void ejecutarTareas() {
         this.estado = this.estado.ejecutarTareas();
+    }
+
+    @Override
+    public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {
+        throw new AtaqueIncorrectoException("El aldeano no puede atacar.");
     }
 
 
@@ -38,7 +44,7 @@ public class Aldeano extends Milicia {
         edificio.arreglar();
     }
 
-    public EstadoDeAldeano verEstadoDeAldeano() {
+    EstadoDeAldeano verEstadoDeAldeano() {
         return this.estado;
     }
 }

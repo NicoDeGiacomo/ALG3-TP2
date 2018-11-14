@@ -21,7 +21,12 @@ public class Castillo extends Edificio {
 
     @Override
     public void provocarDanio(Unidad unidad) {
-        unidad.recibirDanio(danio);
+        unidad.recibirDanio(this.danio);
+    }
+
+    @Override
+    public void ejecutarTareas() {
+        //TODO: El edificio debe atacar a todas las unidades enemigas a su alcance!!
     }
 
     @Override

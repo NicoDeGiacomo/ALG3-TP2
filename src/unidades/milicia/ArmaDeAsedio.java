@@ -2,6 +2,7 @@ package unidades.milicia;
 
 import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
 import excepciones.unidades.ArmaDeAsedioYaMontadaException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
 import unidades.Unidad;
 import unidades.estados.armaDeAsedio.EstadoDeArmaDeAsedio;
@@ -16,7 +17,7 @@ public class ArmaDeAsedio extends Milicia{
         this.estadoDeArma = new ArmaDesmontada();
         this.propietario = propietario;
         this.vida = 150;
-        this.danio = 75;
+        this.danioAEdificios = 75;
         this.oro = 200;
     }
 
@@ -34,13 +35,14 @@ public class ArmaDeAsedio extends Milicia{
     }
 
     @Override
-    public void provocarDanio(Unidad unidad) {
-        this.estadoDeArma.provocarDanio(unidad,this.danio);
+    public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {
+        if (unidad.esMovible())
+            throw new AtaqueIncorrectoException("El arma de asedio solo puede atacar edificios");
+        this.estadoDeArma.provocarDanio(unidad, this.danioAEdificios);
     }
 
     @Override
     public void ejecutarTareas() {
-
     }
 
 

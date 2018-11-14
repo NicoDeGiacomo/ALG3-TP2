@@ -2,25 +2,25 @@ package unidades.milicia;
 
 import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
 import excepciones.unidades.ArmaDeAsedioYaMontadaException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
-import main.Mapa;
-import org.junit.Assert;
-import org.junit.Test;
 import unidades.edificio.PlazaCentral;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArmaDeAsedioTests {
 
     @Test
     public void armaDeAsedioSonCreadosCorrectamente() throws ArmaDeAsedioYaMontadaException {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
-        Assert.assertEquals(true, armaDeAsedio.esMovible());
-        Assert.assertEquals(150, armaDeAsedio.verVida());
-        Assert.assertEquals(1, armaDeAsedio.verTamanio());
+        assertTrue(armaDeAsedio.esMovible());
+        assertEquals(150, armaDeAsedio.verVida());
+        assertEquals(1, armaDeAsedio.verTamanio());
+
         armaDeAsedio.montarArma();
-        Assert.assertEquals(false, armaDeAsedio.esMovible());
-        armaDeAsedio.ejecutarTareas();
+
+        assertFalse(armaDeAsedio.esMovible());
     }
 
     @Test
@@ -28,9 +28,15 @@ public class ArmaDeAsedioTests {
         ArmaDeAsedio armaDeAsedioHaceDanio = new ArmaDeAsedio(new Jugador("Nico"));
         ArmaDeAsedio armaDeAsedioRecibeDanio = new ArmaDeAsedio(new Jugador("Peter"));
         armaDeAsedioHaceDanio.montarArma();
-        armaDeAsedioHaceDanio.provocarDanio(armaDeAsedioRecibeDanio);
-        Assert.assertEquals(150, armaDeAsedioHaceDanio.verVida());
-        Assert.assertEquals(150, armaDeAsedioRecibeDanio.verVida());
+
+        try {
+            armaDeAsedioHaceDanio.provocarDanio(armaDeAsedioRecibeDanio);
+        } catch (AtaqueIncorrectoException e) {
+            assertEquals("El arma de asedio solo puede atacar edificios", e.getMessage());
+        }
+
+        assertEquals(150, armaDeAsedioHaceDanio.verVida());
+        assertEquals(150, armaDeAsedioRecibeDanio.verVida());
     }
 
     @Test
@@ -38,17 +44,23 @@ public class ArmaDeAsedioTests {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
         PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Peter"));
         armaDeAsedio.montarArma();
-        armaDeAsedio.provocarDanio(plazaCentral);
-        Assert.assertEquals(150, armaDeAsedio.verVida());
-        Assert.assertEquals(375, plazaCentral.verVida());
+
+        try {
+            armaDeAsedio.provocarDanio(plazaCentral);
+        } catch (AtaqueIncorrectoException e) {
+            fail("Error inesperado");
+        }
+
+        assertEquals(150, armaDeAsedio.verVida());
+        assertEquals(375, plazaCentral.verVida());
     }
 
     @Test
     public void test03armaDeAsedioEsDaniada() {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
-        Assert.assertEquals(150, armaDeAsedio.verVida());
+        assertEquals(150, armaDeAsedio.verVida());
         armaDeAsedio.recibirDanio(20);
-        Assert.assertEquals(130, armaDeAsedio.verVida());
+        assertEquals(130, armaDeAsedio.verVida());
     }
 
     @Test
@@ -57,14 +69,21 @@ public class ArmaDeAsedioTests {
         PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Peter"));
         armaDeAsedio.montarArma();
         armaDeAsedio.desmontarArma();
-        armaDeAsedio.provocarDanio(plazaCentral);
-        Assert.assertEquals(150, armaDeAsedio.verVida());
-        Assert.assertEquals(450, plazaCentral.verVida());
+
+        try {
+            armaDeAsedio.provocarDanio(plazaCentral);
+        } catch (AtaqueIncorrectoException e) {
+            fail("Error inesperado");
+        }
+
+        assertEquals(150, armaDeAsedio.verVida());
+        assertEquals(450, plazaCentral.verVida());
     }
 
     @Test
     public void test05armaDeAsedioYaEstaDesmontada() {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
+
         try {
             armaDeAsedio.desmontarArma();
         } catch (ArmaDeAsedioYaDesmontadaException e) {
@@ -76,6 +95,7 @@ public class ArmaDeAsedioTests {
     public void test06armaDeAsedioYaEstaMontada() throws ArmaDeAsedioYaMontadaException {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
         armaDeAsedio.montarArma();
+
         try {
             armaDeAsedio.montarArma();
         } catch (ArmaDeAsedioYaMontadaException e) {
