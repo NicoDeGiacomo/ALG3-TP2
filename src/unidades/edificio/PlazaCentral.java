@@ -11,7 +11,7 @@ public class PlazaCentral extends Edificio {
         this.propietario = propietario;
         this.vida = 450;
         this.tamanio = 4;
-        this.oro = 100;
+        this.precio = 100;
     }
 
     @Override

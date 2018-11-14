@@ -13,7 +13,7 @@ public class Cuartel extends Edificio {
         this.propietario = propietario;
         this.vida = 250;
         this.tamanio = 4;
-        this.oro = 50;
+        this.precio = 50;
     }
 
     @Override

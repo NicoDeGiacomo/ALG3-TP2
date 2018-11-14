@@ -18,7 +18,7 @@ public class ArmaDeAsedio extends Milicia{
         this.propietario = propietario;
         this.vida = 150;
         this.danioAEdificios = 75;
-        this.oro = 200;
+        this.precio = 200;
     }
 
     @Override

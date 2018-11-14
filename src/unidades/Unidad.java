@@ -15,7 +15,7 @@ public abstract class Unidad implements Dibujable {
 
     protected int vida;
 
-    protected int oro;
+    protected int precio;
 
     public Unidad() {
         this.estadoDeUnidad = new Vivo(); //TODO Los edificios tienen vida ? wtf
@@ -28,7 +28,7 @@ public abstract class Unidad implements Dibujable {
     }
 
     public void cobrarCostoDeCreacion() throws OroInsuficienteException {
-        this.propietario.cobrarOro(this.oro);
+        this.propietario.cobrarOro(this.precio);
     }
 
     public abstract int verTamanio();

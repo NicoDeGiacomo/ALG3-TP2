@@ -73,7 +73,7 @@ public class AlgoEmpires {
         try {
             this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
         } catch (OroInsuficienteException e) {
-            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
+            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo precio suficiente.
             throw e;
         }
     }
@@ -83,7 +83,7 @@ public class AlgoEmpires {
         try {
             this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
         } catch (OroInsuficienteException e) {
-            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
+            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo precio suficiente.
             throw e;
         }
         creador.construir(unidad);

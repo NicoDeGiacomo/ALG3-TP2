@@ -16,7 +16,7 @@ public class JugadorTests {
         try {
             jugador.cobrarOro(100);
         } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+            assertEquals("El precio del jugador es insuficiente.", e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class JugadorTests {
         try {
             jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
         } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+            assertEquals("El precio del jugador es insuficiente.", e.getMessage());
         }
     }
 
@@ -51,7 +51,7 @@ public class JugadorTests {
         try {
             jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
         } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+            assertEquals("El precio del jugador es insuficiente.", e.getMessage());
         }
     }
 

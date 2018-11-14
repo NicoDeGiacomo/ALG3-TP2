@@ -11,7 +11,7 @@ public class Arquero extends Milicia {
         this.vida = 75;
         this.danio = 15;
         this.danioAEdificios = 10;
-        this.oro = 75;
+        this.precio = 75;
     }
 
     @Override

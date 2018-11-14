@@ -10,7 +10,7 @@ public class Espadachin extends Milicia {
         this.vida = 100;
         this.danio = 25;
         this.danioAEdificios = 15;
-        this.oro = 50 ;
+        this.precio = 50 ;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Jugador {
 
     public void cobrarOro(int oro) throws OroInsuficienteException {
         if (this.oro < oro)
-            throw new OroInsuficienteException("El oro del jugador es insuficiente.");
+            throw new OroInsuficienteException("El precio del jugador es insuficiente.");
         this.oro -= oro;
     }
 

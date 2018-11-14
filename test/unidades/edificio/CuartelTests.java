@@ -50,7 +50,7 @@ public class CuartelTests {
         try {
             cuartel.crearArquero();
         } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+            assertEquals("El precio del jugador es insuficiente.", e.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class CuartelTests {
         try {
             cuartel.crearEspadachin();
         } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+            assertEquals("El precio del jugador es insuficiente.", e.getMessage());
         }
     }
 

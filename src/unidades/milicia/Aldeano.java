@@ -17,7 +17,7 @@ public class Aldeano extends Milicia {
         this.propietario = propietario;
         this.vida = 50;
         this.estado = new Ocioso(this.propietario);
-        this.oro = 25;
+        this.precio = 25;
     }
 
 
