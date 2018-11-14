@@ -8,7 +8,7 @@ import unidades.milicia.Aldeano;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class JugadorTest {
+public class JugadorTests {
 
     @Test
     public void noSePuedeCobrarOroConOroInsuficiente() {
