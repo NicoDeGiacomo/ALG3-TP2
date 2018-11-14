@@ -27,6 +27,8 @@ public class Castillo extends Edificio {
     @Override
     public void ejecutarTareas() {
         //TODO: El edificio debe atacar a todas las unidades enemigas a su alcance!!
+        //Una lista de las unidades proximas al castillo?
+        //for (Unidad unidad : unidades ) this.provocarDanio(unidad);
     }
 
     @Override
