@@ -25,15 +25,10 @@ class Mapa {
 
         for (int i = 0; i < tamanioUnidad; i++) {
             for (int j = 0; j < tamanioUnidad; j++) {
-                Point2D coordenadaMovida = new Point2D.Double(coordenada.getX() + i, coordenada.getY() + j);
 
-                if (!coordenadaEnMapa(coordenadaMovida)) {
-                    throw new FueraDeRangoException("Posición (" + coordenadaMovida.getX() + ", " + coordenadaMovida.getY() + ") fuera del Margen del Mapa!");
-                }
+                validarCoordenada(coordenada);
 
-                if (estaOcupado(coordenadaMovida)) {
-                    throw new PosicionOcupadaException("Ya existe una Unidad en (" + (coordenadaMovida.getX()) + ", " + (coordenadaMovida.getY()) + ")");
-                }
+                validarCoordenada(new Point2D.Double(coordenada.getX() + i, coordenada.getY() + j));
             }
         }
 
@@ -45,9 +40,7 @@ class Mapa {
     }
 
     Dibujable obtenerDibujable(Point2D coordenada) throws FueraDeRangoException {
-        if (!coordenadaEnMapa(coordenada)) {
-            throw new FueraDeRangoException("Posición (" + coordenada.getX() + ", " + coordenada.getY() + ") fuera del Margen del Mapa!");
-        }
+        validarCoordenadaEnMapa(coordenada);
 
         Dibujable dibujable = mapa[(int) coordenada.getX()][(int) coordenada.getY()];
 
@@ -75,10 +68,6 @@ class Mapa {
         return coordenadas;
     }
 
-    private boolean coordenadaEnMapa(Point2D coordenada) {
-        return (!(coordenada.getX() >= TAMANIO)) && (!(coordenada.getY() >= TAMANIO)) && (!(coordenada.getX() < 0)) && (!(coordenada.getY() < 0));
-    }
-
     boolean estaOcupado(Point2D coordenada) throws FueraDeRangoException {
         return obtenerDibujable(coordenada) != null;
     }
@@ -88,9 +77,7 @@ class Mapa {
 
         Dibujable atacante = obtenerDibujable(unidad);
 
-        if (!coordenadaEnMapa(destino)) {
-            throw new FueraDeRangoException("Posición (" + destino.getX() + ", " + destino.getY() + ") fuera del Margen del Mapa!"); //TODO: Falta un test que pase por esta linea
-        }
+        validarCoordenadaEnMapa(destino);
 
         return atacante.verAlcance() >= Math.floor(unidad.distance(destino));
     }
@@ -262,5 +249,23 @@ class Mapa {
         for (Point2D coordenada : coordenadas) {
             mapa[(int) coordenada.getX()][(int) coordenada.getY()] = null;
         }
+    }
+
+    private void validarCoordenada(Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
+        validarCoordenadaEnMapa(coordenada);
+
+        if (estaOcupado(coordenada)) {
+            throw new PosicionOcupadaException("Ya existe una Unidad en (" + (coordenada.getX()) + ", " + (coordenada.getY()) + ")");
+        }
+    }
+
+    private void validarCoordenadaEnMapa(Point2D coordenada) throws FueraDeRangoException {
+        if (!coordenadaEnMapa(coordenada)) {
+            throw new FueraDeRangoException("Posición (" + coordenada.getX() + ", " + coordenada.getY() + ") fuera del Margen del Mapa!");
+        }
+    }
+
+    private boolean coordenadaEnMapa(Point2D coordenada) {
+        return (!(coordenada.getX() >= TAMANIO)) && (!(coordenada.getY() >= TAMANIO)) && (!(coordenada.getX() < 0)) && (!(coordenada.getY() < 0));
     }
 }
