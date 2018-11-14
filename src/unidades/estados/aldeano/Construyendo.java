@@ -6,10 +6,9 @@ import unidades.edificio.Edificio;
 
 public class Construyendo extends EstadoDeAldeano {
     private Edificio edificio;
-
     private int contadorDeTurnos;
 
-    public Construyendo(Jugador propietario, Edificio edificio) {
+    Construyendo(Jugador propietario, Edificio edificio) {
         super(propietario);
         this.edificio = edificio;
         this.contadorDeTurnos = 0;

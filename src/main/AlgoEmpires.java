@@ -6,9 +6,15 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.main.PartidaComenzadaException;
 import excepciones.main.PartidaNoComenzadaException;
 import excepciones.mapa.EspacioInsuficienteException;
-import unidades.Unidad;
+import excepciones.mapa.FueraDeRangoException;
+import excepciones.mapa.PosicionOcupadaException;
+import excepciones.unidades.AldeanoOcupadoException;
 import unidades.edificio.Castillo;
+import unidades.edificio.Edificio;
+import unidades.milicia.Aldeano;
+import unidades.milicia.Milicia;
 
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,15 +69,25 @@ public class AlgoEmpires {
         this.jugadores.add(new Jugador(nombre));
     }
 
-    void agregarUnidadAJugadorEnTurno(Unidad unidad, Unidad creador) throws OroInsuficienteException, EspacioInsuficienteException { //TODO: Falta un test que use este metodo
+    void agregarUnidadAJugadorEnTurno(Milicia unidad, Edificio creador, Point2D pos) throws OroInsuficienteException, EspacioInsuficienteException { //TODO: Falta un test que use este metodo
         this.mapa.agregarUnidadCercana(unidad, creador);
-
         try {
             this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
         } catch (OroInsuficienteException e) {
             this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
             throw e;
         }
+    }
+
+    void agregarUnidadAJugadorEnTurno(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, EspacioInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
+        this.mapa.colocarUnidad(unidad, pos);
+        try {
+            this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
+        } catch (OroInsuficienteException e) {
+            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
+            throw e;
+        }
+        creador.construir(unidad);
     }
 
 }

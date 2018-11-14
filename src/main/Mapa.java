@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Mapa {
+class Mapa {
     private static final int TAMANIO = 100;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 

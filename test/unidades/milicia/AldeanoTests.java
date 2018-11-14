@@ -4,16 +4,13 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
+import org.junit.Test;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
-import unidades.estados.aldeano.Construyendo;
-import unidades.estados.aldeano.Ocioso;
-import unidades.estados.aldeano.Reparando;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
 
-import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AldeanoTests {
@@ -66,22 +63,30 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test05aldeanoReparandoEdificioTieneVidaMaximaYAldeanoCambiaDeEstado() throws AldeanoOcupadoException {
+    public void test05aldeanoReparandoEdificioTieneVidaMaximaYAldeanoCambiaDeEstado() {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        aldeano.reparar(plazaCentral);
-        assertEquals(Reparando.class, aldeano.verEstadoDeAldeano().getClass());
+
+        try {
+            aldeano.reparar(plazaCentral);
+        } catch (AldeanoOcupadoException e) {
+            fail("Error inesperado");
+        }
         aldeano.ejecutarTareas();
         assertEquals(450, plazaCentral.verVida());
+
         try {
-            jugador.cobrarOro(20);
-        } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+            aldeano.reparar(plazaCentral);
+        } catch (AldeanoOcupadoException e) {
+            fail("Error inesperado");
         }
-        assertEquals(Ocioso.class, aldeano.verEstadoDeAldeano().getClass());
-        aldeano.construir(plazaCentral);
-        assertEquals(Construyendo.class, aldeano.verEstadoDeAldeano().getClass());
+
+        try {
+            aldeano.reparar(plazaCentral);
+        } catch (AldeanoOcupadoException e) {
+            assertEquals("El aldeano se encuentra reparando.", e.getMessage());
+        }
     }
 
     @Test

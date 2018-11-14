@@ -12,7 +12,7 @@ public class Aldeano extends Milicia {
 
     private EstadoDeAldeano estado;
 
-    public Aldeano(Jugador propietario){
+    public Aldeano(Jugador propietario) {
         super();
         this.propietario = propietario;
         this.vida = 50;
@@ -32,19 +32,15 @@ public class Aldeano extends Milicia {
     }
 
 
-    void reparar(Edificio edificio) throws AldeanoOcupadoException {
+    public void reparar(Edificio edificio) throws AldeanoOcupadoException {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 
-    void construir(Edificio edificio) throws AldeanoOcupadoException {
+    public void construir(Edificio edificio) throws AldeanoOcupadoException {
         this.estado = this.estado.comenzarConstruccion(this.propietario, edificio);
     }
 
     public void arreglar(Edificio edificio) {
         edificio.arreglar();
-    }
-
-    EstadoDeAldeano verEstadoDeAldeano() {
-        return this.estado;
     }
 }
