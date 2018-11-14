@@ -15,7 +15,7 @@ public class Castillo extends Edificio {
         this.propietario = propietario;
         this.vida = 1000;
         this.danio = 20;
-        this.tamanio = 8;
+        this.tamanio = 16;
         this.alcance = 3;
     }
 
