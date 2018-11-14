@@ -40,7 +40,7 @@ public class Aldeano extends Milicia {
         this.estado = this.estado.comenzarConstruccion(this.propietario, edificio);
     }
 
-    public void arreglar(Edificio edificio) {
+    public void arreglar(Edificio edificio) { //TODO: Matar este metodo, solo se usa para testear
         edificio.arreglar();
     }
 }
