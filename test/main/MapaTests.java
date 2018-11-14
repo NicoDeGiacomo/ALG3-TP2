@@ -565,4 +565,16 @@ public class MapaTests {
             fail("Error inesperado");
         }
     }
+
+
+    @Test
+    public void Test309ObtenerDibujableConCoordenadaNullDaError(){
+        Mapa mapa = new Mapa();
+
+        try {
+            Dibujable dibujable = mapa.obtenerDibujable(null);
+        } catch (FueraDeRangoException e) {
+            Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
+        }
+    }
 }

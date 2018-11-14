@@ -49,7 +49,7 @@ public abstract class Unidad implements Dibujable {
         return this.vida;
     }
 
-    public boolean esMapeable() {//TODO: Usar en el mapa
+    public boolean esMapeable() {
         return this.estadoDeUnidad.esMapleable();
     }
 

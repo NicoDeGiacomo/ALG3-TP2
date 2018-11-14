@@ -71,15 +71,14 @@ class Mapa {
         return obtenerDibujable(coordenada) != null;
     }
 
-    boolean estaAlAlcance(Point2D unidad, Point2D destino) throws FueraDeRangoException {
-        if (unidad == null) return false;
+    boolean estaAlAlcance(Point2D origen, Point2D destino) throws FueraDeRangoException {
+        if (origen == null) return false;
 
-        Dibujable atacante = obtenerDibujable(unidad);
+        Unidad atacante = (Unidad) obtenerDibujable(origen);
 
         validarCoordenadaEnMapa(destino);
 
-        //ToDo: Gasti - Dibujable no ve el alcance.
-        return atacante.verAlcance() >= Math.floor(unidad.distance(destino));
+        return atacante.verAlcance() >= Math.floor(origen.distance(destino));
     }
 
     List<Dibujable> unidadesAlAlcance(Unidad unidad) {
