@@ -1,5 +1,6 @@
 package unidades.milicia;
 
+import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;
 import org.junit.Assert;
@@ -12,6 +13,8 @@ import unidades.estados.aldeano.Ocioso;
 import unidades.estados.aldeano.Reparando;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AldeanoTests {
 
@@ -64,8 +67,11 @@ public class AldeanoTests {
         Assert.assertEquals(Reparando.class, aldeano.verEstadoDeAldeano().getClass() );
         aldeano.ejecutarTareas();
         Assert.assertEquals( 450, plazaCentral.verVida() );
-        //ToDo: NICO
-        //Assert.assertEquals( 20, jugador.verOro() );
+        try {
+            jugador.cobrarOro(20);
+        } catch (OroInsuficienteException e) {
+            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+        }
         Assert.assertEquals(Ocioso.class, aldeano.verEstadoDeAldeano().getClass() );
         aldeano.construir(plazaCentral);
         Assert.assertEquals(Construyendo.class, aldeano.verEstadoDeAldeano().getClass() );
@@ -109,12 +115,12 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test08aldeanoObtieneOro() {
+    public void test08aldeanoObtieneOro() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         aldeano.ejecutarTareas();
-        //ToDo: NICO
-        //Assert.assertEquals( 20, jugador.verOro() );
+        jugador.cobrarOro(20);
+
     }
 
     @Test
