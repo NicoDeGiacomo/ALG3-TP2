@@ -72,11 +72,12 @@ class Mapa {
     }
 
     boolean estaAlAlcance(Point2D origen, Point2D destino) throws FueraDeRangoException {
-        if (origen == null) return false;
+        validarCoordenadaEnMapa(origen);
+        validarCoordenadaEnMapa(destino);
 
         Unidad atacante = (Unidad) obtenerDibujable(origen);
 
-        validarCoordenadaEnMapa(destino);
+        if(atacante == null) return false;
 
         return atacante.verAlcance() >= Math.floor(origen.distance(destino));
     }

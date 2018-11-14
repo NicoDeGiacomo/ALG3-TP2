@@ -489,7 +489,21 @@ public class MapaTests {
     }
 
     @Test
-    public void Test306MoverUnidadMasDeUnCasilleroDaError() {
+    public void Test306MoverUnidadNullDaError() {
+        Mapa mapa = new Mapa();
+        Point2D destino = new Point2D.Double(5, 5);
+
+        try {
+            mapa.moverUnidad(null, destino);
+        } catch (NoEsMovibleException e) {
+            assertEquals("La Unidad que se trata de mover no es Movible!", e.getMessage());
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error inesperado");
+        }
+    }
+
+    @Test
+    public void Test307MoverUnidadMasDeUnCasilleroDaError() {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero = new Arquero(jugador);
@@ -512,7 +526,7 @@ public class MapaTests {
     }
 
     @Test
-    public void Test307MoverUnidadEncimaDeOtraDaError() {
+    public void Test308MoverUnidadEncimaDeOtraDaError() {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero1 = new Arquero(jugador),
@@ -537,7 +551,7 @@ public class MapaTests {
     }
 
     @Test
-    public void Test308ColocarUnidadCercanaEnLugarOcupadoDaError() {
+    public void Test309ColocarUnidadCercanaEnLugarOcupadoDaError() {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Cuartel cuartel = new Cuartel(jugador);
@@ -566,15 +580,45 @@ public class MapaTests {
         }
     }
 
-
     @Test
-    public void Test309ObtenerDibujableConCoordenadaNullDaError(){
+    public void Test310ObtenerDibujableConCoordenadaNullDaError(){
         Mapa mapa = new Mapa();
 
         try {
             Dibujable dibujable = mapa.obtenerDibujable(null);
         } catch (FueraDeRangoException e) {
             Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void Test311SaberSiEstaAlAlcanceConCoordenadaNullDaError(){
+        Mapa mapa = new Mapa();
+        Point2D origen = new Point2D.Double(1,1),
+                destino = new Point2D.Double( 2,2);
+
+        try {
+            mapa.estaAlAlcance(null, destino);
+        } catch (FueraDeRangoException e) {
+            Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
+        }
+
+        try {
+            mapa.estaAlAlcance(origen, null);
+        } catch (FueraDeRangoException e) {
+            Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void Test311SaberSiEstaAlAlcanceConCoordenadaFueraDeRangoDaError(){
+        Mapa mapa = new Mapa();
+        Point2D origen = new Point2D.Double(200,200);
+
+        try {
+            mapa.estaAlAlcance(origen, null);
+        } catch (FueraDeRangoException e) {
+            Assert.assertEquals("Posición (200.0, 200.0) fuera del Margen del Mapa!", e.getMessage());
         }
     }
 }
