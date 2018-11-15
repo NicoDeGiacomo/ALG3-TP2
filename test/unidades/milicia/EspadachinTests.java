@@ -21,27 +21,19 @@ public class EspadachinTests {
     }
 
     @Test
-    public void test02espadachinProbocaDanioAMilicias() {
+    public void test02espadachinProbocaDanioAMilicias() throws AtaqueIncorrectoException {
         Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
         Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico"));
-        try {
-            espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         assertEquals(100, espadachinHaceDanio.verVida());
         assertEquals(75, espadachinRecibeDanio.verVida());
     }
 
     @Test
-    public void test03espadachinProbocanDanioAEdificios() {
+    public void test03espadachinProbocanDanioAEdificios() throws AtaqueIncorrectoException {
         Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
         PlazaCentral plaza = new PlazaCentral(new Jugador("Nico"));
-        try {
-            espadachinHaceDanio.provocarDanio(plaza);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        espadachinHaceDanio.provocarDanio(plaza);
         assertEquals(espadachinHaceDanio.verVida(), 100);
         assertEquals(435, plaza.verVida());
     }
@@ -55,18 +47,14 @@ public class EspadachinTests {
     }
 
     @Test
-    public void test05espadachinMataAMilicias() {
+    public void test05espadachinMataAMilicias() throws AtaqueIncorrectoException {
         Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
         Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico"));
-        try {
-            espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-            espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-            espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-            assertTrue(espadachinRecibeDanio.esMapeable());
-            espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
+        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
+        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
+        assertTrue(espadachinRecibeDanio.esMapeable());
+        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         assertEquals(100, espadachinHaceDanio.verVida());
         assertEquals(0, espadachinRecibeDanio.verVida());
         assertEquals(Muerto.class, espadachinRecibeDanio.verEstadoDeUnidad().getClass());
@@ -74,16 +62,12 @@ public class EspadachinTests {
     }
 
     @Test
-    public void test06espadachinDestruyeEdificio() {
+    public void test06espadachinDestruyeEdificio() throws AtaqueIncorrectoException {
         Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
         Cuartel cuartel = new Cuartel(new Jugador("Nico"));
         cuartel.recibirDanio(235);
         assertTrue(cuartel.esMapeable());
-        try {
-            espadachinHaceDanio.provocarDanio(cuartel);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        espadachinHaceDanio.provocarDanio(cuartel);
         assertEquals(100, espadachinHaceDanio.verVida());
         assertEquals(0, cuartel.verVida());
         assertEquals(Muerto.class, cuartel.verEstadoDeUnidad().getClass());

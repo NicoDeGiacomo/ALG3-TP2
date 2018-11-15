@@ -40,16 +40,12 @@ public class ArmaDeAsedioTests {
     }
 
     @Test
-    public void test03armaDeAsedioProbocaDanioAEdificios() throws ArmaDeAsedioYaMontadaException {
+    public void test03armaDeAsedioProbocaDanioAEdificios() throws ArmaDeAsedioYaMontadaException, AtaqueIncorrectoException {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
         PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Peter"));
         armaDeAsedio.montarArma();
 
-        try {
-            armaDeAsedio.provocarDanio(plazaCentral);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        armaDeAsedio.provocarDanio(plazaCentral);
 
         assertEquals(150, armaDeAsedio.verVida());
         assertEquals(375, plazaCentral.verVida());
@@ -64,17 +60,13 @@ public class ArmaDeAsedioTests {
     }
 
     @Test
-    public void test05armaDeAsedioNoEstaMontada() throws ArmaDeAsedioYaMontadaException, ArmaDeAsedioYaDesmontadaException {
+    public void test05armaDeAsedioNoEstaMontada() throws ArmaDeAsedioYaMontadaException, ArmaDeAsedioYaDesmontadaException, AtaqueIncorrectoException {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico"));
         PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Peter"));
         armaDeAsedio.montarArma();
         armaDeAsedio.desmontarArma();
 
-        try {
-            armaDeAsedio.provocarDanio(plazaCentral);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        armaDeAsedio.provocarDanio(plazaCentral);
 
         assertEquals(150, armaDeAsedio.verVida());
         assertEquals(450, plazaCentral.verVida());

@@ -24,30 +24,22 @@ public class MapaTests {
     /*1 - Tests Iniciales*/
 
     @Test
-    public void Test101MapaRecienCreadoObtenerDibujableDaNull(){
+    public void Test101MapaRecienCreadoObtenerDibujableDaNull() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
         Dibujable dibujable = null;
-        try {
-            dibujable = mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado", e);
-        }
+        dibujable = mapa.obtenerDibujable(new Point2D.Double(0,0));
 
         Assert.assertNull(dibujable);
     }
 
     @Test
-    public void Test102MapaSeCreaDesocupado(){
+    public void Test102MapaSeCreaDesocupado() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
         boolean estaOcupado = false;
 
         for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
-                try {
-                    estaOcupado = mapa.obtenerDibujable(new Point2D.Double(i,j)) != null;
-                } catch (FueraDeRangoException e) {
-                    fail("Error inesperado");
-                }
+                estaOcupado = mapa.obtenerDibujable(new Point2D.Double(i,j)) != null;
             }
         }
 
@@ -55,25 +47,17 @@ public class MapaTests {
     }
 
     @Test
-    public void Test103QuitarUnidadDeMapaVacioNoHaceNada(){
+    public void Test103QuitarUnidadDeMapaVacioNoHaceNada() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
         Unidad unidad = null;
 
-        try {
-            unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
+        unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
 
         Assert.assertNull(unidad);
 
         mapa.quitarUnidad(unidad);
 
-        try {
-            unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado", e);
-        }
+        unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
 
         Assert.assertNull(unidad);
     }
@@ -85,11 +69,7 @@ public class MapaTests {
 
         mapa.colocarUnidad(null, new Point2D.Double(0,0));
 
-        try {
-            unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado", e);
-        }
+        unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
 
         Assert.assertNull(unidad);
     }
@@ -153,11 +133,7 @@ public class MapaTests {
         mapa.colocarUnidad(arquero, coordenada1);
 
         Arquero chequeo = null;
-        try {
-            chequeo = (Arquero) mapa.obtenerDibujable(coordenada1);
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado", e);
-        }
+        chequeo = (Arquero) mapa.obtenerDibujable(coordenada1);
 
         Assert.assertEquals(arquero , chequeo);
     }
@@ -177,14 +153,10 @@ public class MapaTests {
                 chequeo2 = null,
                 chequeo3 = null,
                 chequeo4 = null;
-        try {
-            chequeo1 = (Cuartel) mapa.obtenerDibujable(coordenada1);
-            chequeo2 = (Cuartel) mapa.obtenerDibujable(coordenada2);
-            chequeo3 = (Cuartel) mapa.obtenerDibujable(coordenada3);
-            chequeo4 = (Cuartel) mapa.obtenerDibujable(coordenada4);
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
+        chequeo1 = (Cuartel) mapa.obtenerDibujable(coordenada1);
+        chequeo2 = (Cuartel) mapa.obtenerDibujable(coordenada2);
+        chequeo3 = (Cuartel) mapa.obtenerDibujable(coordenada3);
+        chequeo4 = (Cuartel) mapa.obtenerDibujable(coordenada4);
 
         Assert.assertEquals(cuartel , chequeo1);
         Assert.assertEquals(cuartel , chequeo2);
@@ -203,33 +175,21 @@ public class MapaTests {
 
         mapa.colocarUnidad(arquero, coordenada1);
 
-        try {
-            Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
-            Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-            Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
+        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
+        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
+        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
     }
 
     @Test
-    public void Test206MapaDevuelveReferenciaAUnidadesCercanas(){
+    public void Test206MapaDevuelveReferenciaAUnidadesCercanas() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero = new Arquero(jugador);
         Cuartel cuartel = new Cuartel(jugador);
 
-        try {
-            mapa.colocarUnidad(cuartel, new Point2D.Double(5,5));
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        mapa.colocarUnidad(cuartel, new Point2D.Double(5,5));
 
-        try {
-            mapa.agregarUnidadCercana(cuartel,arquero, new Point2D.Double(4,5));
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        mapa.agregarUnidadCercana(cuartel,arquero, new Point2D.Double(4,5));
 
         List<Dibujable> unidades = mapa.dibujablesAlAlcance(cuartel);
 
@@ -238,7 +198,7 @@ public class MapaTests {
     }
 
     @Test
-    public void Test207UnidadSeMueveUnCasillero(){
+    public void Test207UnidadSeMueveUnCasillero() throws FueraDeRangoException, PosicionOcupadaException, NoEsMovibleException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero = new Arquero(jugador);
@@ -246,29 +206,17 @@ public class MapaTests {
                 destino1 = new Point2D.Double(5,5),
                 destino2 = new Point2D.Double(6,6);
 
-        try {
-            mapa.colocarUnidad(arquero, origen);
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        mapa.colocarUnidad(arquero, origen);
 
         Assert.assertEquals(origen, mapa.obtenerCoordenadas(arquero).get(0));
 
         //Arquero se mueve en Y. Distancia es 1.
-        try {
-            mapa.moverUnidad(arquero, destino1);
-        } catch (NoEsMovibleException | FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        mapa.moverUnidad(arquero, destino1);
 
         Assert.assertEquals(destino1, mapa.obtenerCoordenadas(arquero).get(0));
 
         //Arquero se mueve en diagonal. Distancia es sqrt(2).
-        try {
-            mapa.moverUnidad(arquero, destino2);
-        } catch (NoEsMovibleException | FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        mapa.moverUnidad(arquero, destino2);
 
         Assert.assertEquals(destino2, mapa.obtenerCoordenadas(arquero).get(0));
     }
@@ -301,7 +249,7 @@ public class MapaTests {
     }
 
     @Test
-    public void Test209MapaPuedeCrearSoloDosCastillos() {
+    public void Test209MapaPuedeCrearSoloDosCastillos() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Nico");
         Castillo castillo1 = new Castillo(jugador),
@@ -315,11 +263,7 @@ public class MapaTests {
 
         for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
-                try {
-                    if(mapa.obtenerDibujable(new Point2D.Double(i,j)) != null) count++;
-                } catch (FueraDeRangoException e) {
-                    fail("Error inesperado");
-                }
+                if(mapa.obtenerDibujable(new Point2D.Double(i,j)) != null) count++;
             }
         }
 
@@ -349,7 +293,7 @@ public class MapaTests {
     }
 
     @Test
-    public void Test302ColocarMiliciaEncimaDeOtraDaError(){
+    public void Test302ColocarMiliciaEncimaDeOtraDaError() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero1 = new Arquero(jugador),
@@ -359,17 +303,13 @@ public class MapaTests {
         try {
             mapa.colocarUnidad(arquero1, coordenada);
             mapa.colocarUnidad(arquero2, coordenada);
-        }
-        catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
-        catch (PosicionOcupadaException e) {
+        } catch (PosicionOcupadaException e) {
             assertEquals("Ya existe una Unidad en (1.0, 1.0)", e.getMessage());
         }
     }
 
     @Test
-    public void Test303ColocarEdificioEncimaDeOtroDaError(){
+    public void Test303ColocarEdificioEncimaDeOtroDaError() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Cuartel cuartel1 = new Cuartel(jugador),
@@ -381,28 +321,20 @@ public class MapaTests {
         try {
             mapa.colocarUnidad(cuartel1, coordenada1);
             mapa.colocarUnidad(cuartel2, coordenada1);
-        }
-        catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
-        catch (PosicionOcupadaException e) {
+        } catch (PosicionOcupadaException e) {
             assertEquals("Ya existe una Unidad en (5.0, 5.0)", e.getMessage());
         }
 
         //En una coordenada que lo pisa al cuartel anterior solo en una 'esquina'.
         try {
             mapa.colocarUnidad(cuartel2, coordenada2);
-        }
-        catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
-        catch (PosicionOcupadaException e) {
+        } catch (PosicionOcupadaException e) {
             assertEquals("Ya existe una Unidad en (5.0, 5.0)", e.getMessage());
         }
     }
 
     @Test
-    public void Test304ColocarUnidadFueraDeRangoDaError(){
+    public void Test304ColocarUnidadFueraDeRangoDaError() throws PosicionOcupadaException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero = new Arquero(jugador);
@@ -413,9 +345,6 @@ public class MapaTests {
         catch (FueraDeRangoException e) {
             assertEquals("Posición (200.0, 200.0) fuera del Margen del Mapa!", e.getMessage());
         }
-        catch (PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
 
         try {
             mapa.colocarUnidad(arquero, new Point2D.Double(-200,-200));
@@ -423,36 +352,27 @@ public class MapaTests {
         catch (FueraDeRangoException e) {
             assertEquals("Posición (-200.0, -200.0) fuera del Margen del Mapa!", e.getMessage());
         }
-        catch (PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
     }
 
     @Test
-    public void Test305MoverUnidadNoMovibleDaError() {
+    public void Test305MoverUnidadNoMovibleDaError() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Cuartel cuartel = new Cuartel(jugador);
         Point2D origen = new Point2D.Double(1, 1),
                 destino = new Point2D.Double(5, 5);
 
-        try {
-            mapa.colocarUnidad(cuartel, origen);
-        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
-            fail("Error inesperado");
-        }
+        mapa.colocarUnidad(cuartel, origen);
 
         try {
             mapa.moverUnidad(cuartel, destino);
         } catch (NoEsMovibleException e) {
             assertEquals("La Unidad que se trata de mover no es Movible!", e.getMessage());
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
         }
     }
 
     @Test
-    public void Test306MoverUnidadNullDaError() {
+    public void Test306MoverUnidadNullDaError() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
         Point2D destino = new Point2D.Double(5, 5);
 
@@ -460,36 +380,28 @@ public class MapaTests {
             mapa.moverUnidad(null, destino);
         } catch (NoEsMovibleException e) {
             assertEquals("La Unidad que se trata de mover no es Movible!", e.getMessage());
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
         }
     }
 
     @Test
-    public void Test307MoverUnidadMasDeUnCasilleroDaError() {
+    public void Test307MoverUnidadMasDeUnCasilleroDaError() throws FueraDeRangoException, PosicionOcupadaException, NoEsMovibleException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero = new Arquero(jugador);
         Point2D origen = new Point2D.Double(1, 1),
                 destino = new Point2D.Double(5, 5);
 
-        try {
-            mapa.colocarUnidad(arquero, origen);
-        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
-            fail("Error inesperado");
-        }
+        mapa.colocarUnidad(arquero, origen);
 
         try {
             mapa.moverUnidad(arquero, destino);
-        } catch (NoEsMovibleException | PosicionOcupadaException ignored) {
-            fail("Error inesperado");
         } catch (FueraDeRangoException e) {
             assertEquals("Las Unidades se pueden mover a lo sumo 1 casillero por turno!", e.getMessage());
         }
     }
 
     @Test
-    public void Test308MoverUnidadEncimaDeOtraDaError() {
+    public void Test308MoverUnidadEncimaDeOtraDaError() throws NoEsMovibleException, FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Arquero arquero1 = new Arquero(jugador),
@@ -497,24 +409,18 @@ public class MapaTests {
         Point2D origen = new Point2D.Double(1, 1),
                 destino = new Point2D.Double(2, 2);
 
-        try {
-            mapa.colocarUnidad(arquero1, origen);
-            mapa.colocarUnidad(arquero2, destino);
-        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
-            fail("Error inesperado");
-        }
+        mapa.colocarUnidad(arquero1, origen);
+        mapa.colocarUnidad(arquero2, destino);
 
         try {
             mapa.moverUnidad(arquero1, destino);
-        } catch (NoEsMovibleException | FueraDeRangoException ignored) {
-            fail("Error inesperado");
         } catch (PosicionOcupadaException e) {
             assertEquals("La coordenada de Destino ya se encuentra ocupada!", e.getMessage());
         }
     }
 
     @Test
-    public void Test309ColocarUnidadCercanaEnLugarOcupadoDaError() {
+    public void Test309ColocarUnidadCercanaEnLugarOcupadoDaError() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter");
         Cuartel cuartel = new Cuartel(jugador);
@@ -522,24 +428,14 @@ public class MapaTests {
         Point2D coordenada1 = new Point2D.Double(5, 5),
                 coordenada2 = new Point2D.Double(4, 5);
 
-        try {
-            mapa.colocarUnidad(cuartel, coordenada1);
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        mapa.colocarUnidad(cuartel, coordenada1);
 
-        try {
-            mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
 
         try {
             mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
         } catch (PosicionOcupadaException e) {
             assertEquals("Ya existe una Unidad en (4.0, 5.0)", e.getMessage());
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
         }
     }
 

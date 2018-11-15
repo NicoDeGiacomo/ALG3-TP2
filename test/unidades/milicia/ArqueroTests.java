@@ -18,27 +18,19 @@ public class ArqueroTests {
     }
 
     @Test
-    public void test02arqueroProbocanDanioAMilicias() {
+    public void test02arqueroProbocanDanioAMilicias() throws AtaqueIncorrectoException {
         Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico"));
         Arquero arqueroRecibeDanio = new Arquero(new Jugador("Nico"));
-        try {
-            arqueroHaceDanio.provocarDanio(arqueroRecibeDanio);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        arqueroHaceDanio.provocarDanio(arqueroRecibeDanio);
         assertEquals(75, arqueroHaceDanio.verVida());
         assertEquals(60, arqueroRecibeDanio.verVida());
     }
 
     @Test
-    public void test03arqueroProbocanDanioAEdificios() {
+    public void test03arqueroProbocanDanioAEdificios() throws AtaqueIncorrectoException {
         Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico"));
         PlazaCentral plaza = new PlazaCentral(new Jugador("Nico"));
-        try {
-            arqueroHaceDanio.provocarDanio(plaza);
-        } catch (AtaqueIncorrectoException e) {
-            fail("Error inesperado");
-        }
+        arqueroHaceDanio.provocarDanio(plaza);
         assertEquals(75, arqueroHaceDanio.verVida());
         assertEquals(440, plaza.verVida());
     }

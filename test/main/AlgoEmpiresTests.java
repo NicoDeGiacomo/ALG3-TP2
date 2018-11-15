@@ -60,18 +60,14 @@ public class AlgoEmpiresTests {
     }
 
     @Test
-    public void pasarElTurnoCambiaLosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
+    public void pasarElTurnoCambiaLosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, PartidaNoComenzadaException {
         AlgoEmpires algoEmpires = new AlgoEmpires();
         algoEmpires.agregarJugador("Nico");
         algoEmpires.agregarJugador("Gaston");
         algoEmpires.comenzarPartida();
 
         Jugador jugador = null;
-        try {
-            jugador = algoEmpires.pasarTurno();
-        } catch (PartidaNoComenzadaException e) {
-            fail("Error inesperado", e);
-        }
+        jugador = algoEmpires.pasarTurno();
         assertTrue(jugador.tieneComoNombre("Gaston"));
     }
 
@@ -86,25 +82,17 @@ public class AlgoEmpiresTests {
     }
 
     @Test
-    public void agregarMiliciaAJugadorEnTurnoConOroSufucienteNoDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException {
+    public void agregarMiliciaAJugadorEnTurnoConOroSufucienteNoDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, OroInsuficienteException, PosicionOcupadaException, FueraDeRangoException, UnidadNoEspecificadaException {
         AlgoEmpires algoEmpires = new AlgoEmpires();
         algoEmpires.agregarJugador("Nico");
         algoEmpires.agregarJugador("Gaston");
 
         Jugador jugador = null;
-        try {
-            jugador = algoEmpires.comenzarPartida();
-        } catch (NumeroDeJugadoresException | PartidaComenzadaException e) {
-            fail("Error inesperado", e);
-        }
+        jugador = algoEmpires.comenzarPartida();
         jugador.recolectarOro(1000);
         Castillo castillo = new Castillo(jugador);
 
-        try {
-            algoEmpires.agregarMiliciaAJugadorEnTurno(castillo, new Point2D.Double(1, 1));
-        } catch (OroInsuficienteException | PosicionOcupadaException | FueraDeRangoException | UnidadNoEspecificadaException e) {
-            fail("Error no esperado", e);
-        }
+        algoEmpires.agregarMiliciaAJugadorEnTurno(castillo, new Point2D.Double(1, 1));
     }
 
     @Test
