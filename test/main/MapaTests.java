@@ -263,7 +263,7 @@ public class MapaTests {
         }
 
         try {
-            mapa.agregarUnidadHijo(cuartel,arquero, new Point2D.Double(4,5));
+            mapa.agregarUnidadCercana(cuartel,arquero, new Point2D.Double(4,5));
         } catch (FueraDeRangoException | PosicionOcupadaException e) {
             fail("Error inesperado");
         }
@@ -318,8 +318,8 @@ public class MapaTests {
         Castillo castillo1 = new Castillo(jugador1),
                  castillo2 = new Castillo(jugador2);
 
-        mapa.colocarCastilloEnExtremo(castillo1);
-        mapa.colocarCastilloEnExtremo(castillo2);
+        mapa.colocarUnidadesEnExtremo(castillo1, null);
+        mapa.colocarUnidadesEnExtremo(castillo2, null);
 
         Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
                 coordenadaCastillo2 = mapa.obtenerCoordenadas(castillo2).get(0);
@@ -346,9 +346,9 @@ public class MapaTests {
                  castillo3 = new Castillo(jugador);
         int count = 0;
 
-        mapa.colocarCastilloEnExtremo(castillo1);
-        mapa.colocarCastilloEnExtremo(castillo2);
-        mapa.colocarCastilloEnExtremo(castillo3);
+        mapa.colocarUnidadesEnExtremo(castillo1, null);
+        mapa.colocarUnidadesEnExtremo(castillo2, null);
+        mapa.colocarUnidadesEnExtremo(castillo3, null);
 
         for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
@@ -566,13 +566,13 @@ public class MapaTests {
         }
 
         try {
-            mapa.agregarUnidadHijo(cuartel, arquero, coordenada2);
+            mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
         } catch (FueraDeRangoException | PosicionOcupadaException e) {
             fail("Error inesperado");
         }
 
         try {
-            mapa.agregarUnidadHijo(cuartel, arquero, coordenada2);
+            mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
         } catch (PosicionOcupadaException e) {
             assertEquals("Ya existe una Unidad en (4.0, 5.0)", e.getMessage());
         } catch (FueraDeRangoException e) {
