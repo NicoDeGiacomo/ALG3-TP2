@@ -127,10 +127,17 @@ class Mapa {
         return castillos;
     }
 
-    void colocarUnidadesEnExtremo(Unidad castillo, Unidad plazaCentral) { //TODO: Gasti-
+    void colocarUnidadesEnExtremo(Unidad castillo, Unidad plazaCentral) {
+        colocarUnidadEnExtremo(castillo);
+        //TODO: Implementar Plaza Central y Aldeanos.
+        //TODO: Limpiarlo.
     }
 
-    void colocarUnidadEnExtremo(Castillo castillo) { //TODO: Gasti-
+    void agregarUnidadCercana(Aldeano aldeano, PlazaCentral plazaCentral) {
+        //TODO: IMPLEMENT ME!
+    }
+
+    void colocarUnidadEnExtremo(Unidad castillo) {
         if (castillo == null) return;
 
         List<Castillo> castillos = encontrarCastillos();
@@ -202,8 +209,8 @@ class Mapa {
         if (unidad == null) return coordenadasAlRededor;
 
         Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
-        int alcance = (unidad.verAlcance() < 2) ? (1) : (unidad.verAlcance());
-        int tamanio = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
+        int alcance = (unidad.verAlcance() < 1) ? (1) : (unidad.verAlcance());
+        int tamanio = (unidad.verTamanio() < 1) ? (1) : (unidad.verTamanio() / 2);
 
         for (int i = -alcance; i < tamanio + alcance; i++) {
             for (int j = -alcance; j < tamanio + alcance; j++) {
@@ -244,10 +251,6 @@ class Mapa {
         for (Point2D coordenada : coordenadas) {
             mapa[(int) coordenada.getX()][(int) coordenada.getY()] = null;
         }
-    }
-
-    void agregarUnidadCercana(Aldeano aldeano, PlazaCentral plazaCentral) {
-        //TODO: Gasti- Aldeanos iniciales
     }
 
     private void validarCoordenada(Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
