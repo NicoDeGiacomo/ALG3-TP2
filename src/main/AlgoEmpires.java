@@ -42,7 +42,7 @@ public class AlgoEmpires {
 
         for (Jugador jugador : this.jugadores) {
             Castillo castillo = new Castillo(jugador);
-            this.mapa.colocarUnidadEnExtremo(castillo);
+            this.mapa.colocarCastilloEnExtremo(castillo);
             jugador.agregarCastillo(castillo);
         }
 
@@ -75,7 +75,7 @@ public class AlgoEmpires {
         Unidad unidadCreada = creador.crearUnidad();
 
         try {
-            this.mapa.agregarUnidadCercana(unidadCreada, creador, pos);
+            this.mapa.agregarUnidadHijo(unidadCreada, creador, pos);
         } catch (FueraDeRangoException | PosicionOcupadaException e) {
             unidadCreada.devolverCosto(); //Devuelvo el costo si no hubo espacio en el mapa.
             throw e;

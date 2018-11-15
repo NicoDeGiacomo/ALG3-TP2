@@ -109,7 +109,7 @@ public class MapaTests {
     public void Test106ObtenerUnidadesAlAlcanceDeNullTraeConjuntoVacio(){
         Mapa mapa = new Mapa();
 
-        List<Dibujable> unidades = mapa.unidadesAlAlcance(null);
+        List<Dibujable> unidades = mapa.dibujablesAlAlcance(null);
 
         Assert.assertEquals(0, unidades.size());
     }
@@ -263,12 +263,12 @@ public class MapaTests {
         }
 
         try {
-            mapa.agregarUnidadCercana(cuartel,arquero, new Point2D.Double(4,5));
+            mapa.agregarUnidadHijo(cuartel,arquero, new Point2D.Double(4,5));
         } catch (FueraDeRangoException | PosicionOcupadaException e) {
             fail("Error inesperado");
         }
 
-        List<Dibujable> unidades = mapa.unidadesAlAlcance(cuartel);
+        List<Dibujable> unidades = mapa.dibujablesAlAlcance(cuartel);
 
         Assert.assertEquals(1, unidades.size());
         Assert.assertEquals( arquero, unidades.get(0));
@@ -318,8 +318,8 @@ public class MapaTests {
         Castillo castillo1 = new Castillo(jugador1),
                  castillo2 = new Castillo(jugador2);
 
-        mapa.colocarUnidadEnExtremo(castillo1);
-        mapa.colocarUnidadEnExtremo(castillo2);
+        mapa.colocarCastilloEnExtremo(castillo1);
+        mapa.colocarCastilloEnExtremo(castillo2);
 
         Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
                 coordenadaCastillo2 = mapa.obtenerCoordenadas(castillo2).get(0);
@@ -346,9 +346,9 @@ public class MapaTests {
                  castillo3 = new Castillo(jugador);
         int count = 0;
 
-        mapa.colocarUnidadEnExtremo(castillo1);
-        mapa.colocarUnidadEnExtremo(castillo2);
-        mapa.colocarUnidadEnExtremo(castillo3);
+        mapa.colocarCastilloEnExtremo(castillo1);
+        mapa.colocarCastilloEnExtremo(castillo2);
+        mapa.colocarCastilloEnExtremo(castillo3);
 
         for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
@@ -566,13 +566,13 @@ public class MapaTests {
         }
 
         try {
-            mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
+            mapa.agregarUnidadHijo(cuartel, arquero, coordenada2);
         } catch (FueraDeRangoException | PosicionOcupadaException e) {
             fail("Error inesperado");
         }
 
         try {
-            mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
+            mapa.agregarUnidadHijo(cuartel, arquero, coordenada2);
         } catch (PosicionOcupadaException e) {
             assertEquals("Ya existe una Unidad en (4.0, 5.0)", e.getMessage());
         } catch (FueraDeRangoException e) {
