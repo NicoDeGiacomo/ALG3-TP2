@@ -2,6 +2,7 @@ package main;
 
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.CreacionDeCastilloException;
+import excepciones.unidades.UnidadNoAgregadaException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.PlazaCentral;
@@ -37,7 +38,7 @@ public class Jugador {
 
     public void cobrarOro(int oro) throws OroInsuficienteException {
         if (this.oro < oro)
-            throw new OroInsuficienteException("El precio del jugador es insuficiente.");
+            throw new OroInsuficienteException("El oro del jugador es insuficiente.");
         this.oro -= oro;
     }
 
@@ -52,7 +53,9 @@ public class Jugador {
         this.unidades.addAll(aldeanos);
     }
 
-    public void devolverCostoDeUnidad(int precio, Unidad unidad) {
+    public void devolverCostoDeUnidad(int precio, Unidad unidad) throws UnidadNoAgregadaException {
+        if (!this.unidades.contains(unidad))
+            throw new UnidadNoAgregadaException("No se puede devolver el costo de una unidad que no le pertenece al jugador");
         this.unidades.remove(unidad);
         this.oro += precio;
     }

@@ -2,6 +2,7 @@ package unidades;
 
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import excepciones.unidades.UnidadNoAgregadaException;
 import main.Jugador;
 import unidades.estados.unidades.EstadoDeUnidad;
 import unidades.estados.unidades.Muerto;
@@ -31,15 +32,9 @@ public abstract class Unidad implements Dibujable {
         this.propietario.cobrarOro(this.precio);
     }
 
-    public abstract int verTamanio();
-
-    public abstract int verAlcance();
-
-    public abstract boolean esMovible();
-
-    abstract public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException;
-
-    abstract public void ejecutarTareas();
+    public void devolverCostoDeCreacion() throws UnidadNoAgregadaException {
+        this.propietario.devolverCostoDeUnidad(this.precio, this);
+    }
 
     public EstadoDeUnidad verEstadoDeUnidad() {
         return this.estadoDeUnidad;
@@ -53,13 +48,19 @@ public abstract class Unidad implements Dibujable {
         return this.estadoDeUnidad.esMapleable();
     }
 
-
     //ToDo: Las unidades de un mismo equipo no pueden atacarse.
-    public boolean unidadesSonDelMismoEquipo(Jugador propietario){
+    public boolean unidadesSonDelMismoEquipo(Jugador propietario) {
         return propietario == this.propietario;
     }
 
-    public void devolverCosto() {
-        this.propietario.devolverCostoDeUnidad(this.precio, this);
-    }
+    public abstract int verTamanio();
+
+    public abstract int verAlcance();
+
+    public abstract boolean esMovible();
+
+    public abstract void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException;
+
+    public abstract void ejecutarTareas();
+
 }

@@ -22,7 +22,6 @@ public class Aldeano extends Milicia {
         this.precio = 25;
     }
 
-
     @Override
     public void ejecutarTareas() {
         this.estado = this.estado.ejecutarTareas();
@@ -33,8 +32,7 @@ public class Aldeano extends Milicia {
         throw new AtaqueIncorrectoException("El aldeano no puede atacar.");
     }
 
-
-    public void reparar(Edificio edificio) throws AldeanoOcupadoException {
+    void reparar(Edificio edificio) throws AldeanoOcupadoException {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 

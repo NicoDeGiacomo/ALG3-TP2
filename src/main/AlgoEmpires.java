@@ -9,6 +9,7 @@ import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.CreacionDeCastilloException;
+import excepciones.unidades.UnidadNoAgregadaException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
@@ -84,13 +85,13 @@ public class AlgoEmpires {
         this.jugadores.add(new Jugador(nombre));
     }
 
-    void agregarMiliciaAJugadorEnTurno(Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException {
+    void agregarMiliciaAJugadorEnTurno(Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException, UnidadNoAgregadaException {
         Unidad unidadCreada = creador.crearUnidad();
 
         try {
             this.mapa.agregarUnidadCercana(unidadCreada, creador, pos);
         } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            unidadCreada.devolverCosto(); //Devuelvo el costo si no hubo espacio en el mapa.
+            unidadCreada.devolverCostoDeCreacion(); //Devuelvo el costo si no hubo espacio en el mapa.
             throw e;
         }
     }

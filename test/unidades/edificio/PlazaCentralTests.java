@@ -47,7 +47,7 @@ public class PlazaCentralTests {
         try {
             plazaCentral.crearUnidad();
         } catch (OroInsuficienteException e) {
-            assertEquals("El precio del jugador es insuficiente.", e.getMessage());
+            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }
 

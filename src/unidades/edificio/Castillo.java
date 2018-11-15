@@ -11,7 +11,7 @@ import unidades.milicia.Milicia;
 public class Castillo extends Edificio {
     private int danio;
 
-    public Castillo(Jugador propietario){
+    public Castillo(Jugador propietario) {
         super();
         this.propietario = propietario;
         this.vida = 1000;
@@ -22,7 +22,8 @@ public class Castillo extends Edificio {
 
     @Override
     public void provocarDanio(Unidad unidad) {
-        if(unidad.unidadesSonDelMismoEquipo(this.propietario)) return;
+        if (unidad.unidadesSonDelMismoEquipo(this.propietario))
+            return;
         unidad.recibirDanio(this.danio);
     }
 
@@ -34,9 +35,9 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public boolean arreglar(){
+    public boolean arreglar() {
         this.vida += 15;
-        if (this.vida >= 1000){
+        if (this.vida >= 1000) {
             this.vida = 1000;
             return true;
         }
@@ -51,7 +52,7 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void comenzarConstruccion() throws OroInsuficienteException, CreacionDeCastilloException {
+    public void comenzarConstruccion() throws CreacionDeCastilloException {
         throw new CreacionDeCastilloException("No se puede construir un castillo.");
     }
 

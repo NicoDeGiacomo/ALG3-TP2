@@ -231,8 +231,8 @@ class Mapa {
 
         List<Point2D> coordenadas = obtenerCoordenadas(unidad);
 
-        for (int i = 0; i < coordenadas.size(); i++) {
-            if(Math.floor(coordenadas.get(i).distance(coordenadaDestino)) <= 1) {
+        for (Point2D coordenada : coordenadas) {
+            if (Math.floor(coordenada.distance(coordenadaDestino)) <= 1) {
                 estaCerca = true;
             }
         }

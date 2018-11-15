@@ -20,7 +20,6 @@ public class ArmaDeAsedioTests {
         armaDeAsedio.montarArma();
         assertFalse(armaDeAsedio.esMovible());
         armaDeAsedio.ejecutarTareas();
-
     }
 
     @Test

@@ -33,7 +33,7 @@ public class CastilloTests {
         try {
             castillo.crearUnidad();
         } catch (OroInsuficienteException e) {
-            assertEquals("El precio del jugador es insuficiente.", e.getMessage());
+            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }
 
