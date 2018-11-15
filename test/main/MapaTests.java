@@ -4,6 +4,7 @@ import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.NoEsMovibleException;
 import excepciones.mapa.PosicionOcupadaException;
 import org.junit.Assert;
+import org.junit.jupiter.api.function.Executable;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class MapaTests {
 
@@ -28,7 +30,7 @@ public class MapaTests {
         try {
             dibujable = mapa.obtenerDibujable(new Point2D.Double(0,0));
         } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
+            fail("Error inesperado", e);
         }
 
         Assert.assertNull(dibujable);
@@ -70,7 +72,7 @@ public class MapaTests {
         try {
             unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
         } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
+            fail("Error inesperado", e);
         }
 
         Assert.assertNull(unidad);
@@ -81,16 +83,12 @@ public class MapaTests {
         Mapa mapa = new Mapa();
         Unidad unidad = null;
 
-        try {
-            mapa.colocarUnidad(null, new Point2D.Double(0,0));
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            fail("Error inesperado");
-        }
+        controlarErroresInesperados(() -> mapa.colocarUnidad(null, new Point2D.Double(0,0)));
 
         try {
             unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
         } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
+            fail("Error inesperado", e);
         }
 
         Assert.assertNull(unidad);
@@ -124,19 +122,9 @@ public class MapaTests {
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2);
 
-        try {
-            mapa.colocarUnidad(arquero, coordenada1);
-        }
-        catch (PosicionOcupadaException | FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
-
-        try {
-            Assert.assertNotNull(mapa.obtenerDibujable(coordenada1));
-            Assert.assertNull(mapa.obtenerDibujable(coordenada2));
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
+        controlarErroresInesperados(() -> mapa.colocarUnidad(arquero, coordenada1));
+        controlarErroresInesperados(() -> Assert.assertNotNull(mapa.obtenerDibujable(coordenada1)));
+        controlarErroresInesperados(() -> Assert.assertNull(mapa.obtenerDibujable(coordenada2)));
     }
 
     @Test
@@ -149,21 +137,11 @@ public class MapaTests {
                 coordenada3 = new Point2D.Double(2,1),
                 coordenada4 = new Point2D.Double(2,2);
 
-        try {
-            mapa.colocarUnidad(cuartel, coordenada1);
-        }
-        catch (PosicionOcupadaException | FueraDeRangoException ignored) {
-            fail("Error inesperado");
-        }
-
-        try {
-            Assert.assertNotNull(mapa.obtenerDibujable(coordenada1));
-            Assert.assertNotNull(mapa.obtenerDibujable(coordenada2));
-            Assert.assertNotNull(mapa.obtenerDibujable(coordenada3));
-            Assert.assertNotNull(mapa.obtenerDibujable(coordenada4));
-        } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
+        controlarErroresInesperados(() -> mapa.colocarUnidad(cuartel, coordenada1));
+        controlarErroresInesperados(() -> Assert.assertNotNull(mapa.obtenerDibujable(coordenada1)));
+        controlarErroresInesperados(() -> Assert.assertNotNull(mapa.obtenerDibujable(coordenada2)));
+        controlarErroresInesperados(() -> Assert.assertNotNull(mapa.obtenerDibujable(coordenada3)));
+        controlarErroresInesperados(() -> Assert.assertNotNull(mapa.obtenerDibujable(coordenada4)));
     }
 
     @Test
@@ -172,18 +150,13 @@ public class MapaTests {
         Arquero arquero = new Arquero(new Jugador("Nico"));
         Point2D coordenada1 = new Point2D.Double(1,1);
 
-        try {
-            mapa.colocarUnidad(arquero, coordenada1);
-        }
-        catch (PosicionOcupadaException | FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
+        controlarErroresInesperados(() -> mapa.colocarUnidad(arquero, coordenada1));
 
         Arquero chequeo = null;
         try {
             chequeo = (Arquero) mapa.obtenerDibujable(coordenada1);
         } catch (FueraDeRangoException e) {
-            fail("Error inesperado");
+            fail("Error inesperado", e);
         }
 
         Assert.assertEquals(arquero , chequeo);
@@ -198,12 +171,7 @@ public class MapaTests {
                 coordenada3 = new Point2D.Double(2,1),
                 coordenada4 = new Point2D.Double(2,2);
 
-        try {
-            mapa.colocarUnidad(cuartel, coordenada1);
-        }
-        catch (PosicionOcupadaException | FueraDeRangoException ignored) {
-            fail("Error inesperado");
-        }
+        controlarErroresInesperados(() -> mapa.colocarUnidad(cuartel, coordenada1));
 
         Cuartel chequeo1 = null,
                 chequeo2 = null,
@@ -233,12 +201,7 @@ public class MapaTests {
                 coordenada3 = new Point2D.Double(2,2),
                 coordenada4 = new Point2D.Double(10,10);
 
-        try {
-            mapa.colocarUnidad(arquero, coordenada1);
-        }
-        catch (PosicionOcupadaException | FueraDeRangoException e) {
-            fail("Error inesperado");
-        }
+        controlarErroresInesperados(() -> mapa.colocarUnidad(arquero, coordenada1));
 
         try {
             Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
@@ -619,6 +582,14 @@ public class MapaTests {
             mapa.estaAlAlcance(origen, null);
         } catch (FueraDeRangoException e) {
             Assert.assertEquals("Posición (200.0, 200.0) fuera del Margen del Mapa!", e.getMessage());
+        }
+    }
+
+    private void controlarErroresInesperados(Executable ejecutable) {
+        try {
+            ejecutable.execute();
+        } catch (Throwable throwable) {
+            fail("Error inesperado", throwable);
         }
     }
 }
