@@ -1,11 +1,13 @@
 package main;
 
 import excepciones.main.OroInsuficienteException;
+import org.junit.jupiter.api.function.Executable;
 import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class JugadorTests {
 
@@ -25,11 +27,7 @@ public class JugadorTests {
         Jugador jugador = new Jugador("Nico");
         jugador.recolectarOro(100);
 
-        try {
-            jugador.cobrarOro(100);
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
-        }
+        controlarErroresInesperados(() -> jugador.cobrarOro(100));
     }
 
     @Test
@@ -52,6 +50,14 @@ public class JugadorTests {
             jugador.agregarUnidad(new Aldeano(jugador));
         } catch (OroInsuficienteException e) {
             assertEquals("El precio del jugador es insuficiente.", e.getMessage());
+        }
+    }
+
+    private void controlarErroresInesperados(Executable ejecutable) {
+        try {
+            ejecutable.execute();
+        } catch (Throwable throwable) {
+            fail("Error inesperado", throwable);
         }
     }
 

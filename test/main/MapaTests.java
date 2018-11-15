@@ -132,8 +132,8 @@ public class MapaTests {
         }
 
         try {
-            Assert.assertTrue(mapa.obtenerDibujable(coordenada1) != null);
-            Assert.assertFalse(mapa.obtenerDibujable(coordenada2) != null);
+            Assert.assertNotNull(mapa.obtenerDibujable(coordenada1));
+            Assert.assertNull(mapa.obtenerDibujable(coordenada2));
         } catch (FueraDeRangoException e) {
             fail("Error inesperado");
         }
@@ -157,10 +157,10 @@ public class MapaTests {
         }
 
         try {
-            Assert.assertTrue(mapa.obtenerDibujable(coordenada1) != null);
-            Assert.assertTrue(mapa.obtenerDibujable(coordenada2) != null);
-            Assert.assertTrue(mapa.obtenerDibujable(coordenada3) != null);
-            Assert.assertTrue(mapa.obtenerDibujable(coordenada4) != null);
+            Assert.assertNotNull(mapa.obtenerDibujable(coordenada1));
+            Assert.assertNotNull(mapa.obtenerDibujable(coordenada2));
+            Assert.assertNotNull(mapa.obtenerDibujable(coordenada3));
+            Assert.assertNotNull(mapa.obtenerDibujable(coordenada4));
         } catch (FueraDeRangoException e) {
             fail("Error inesperado");
         }
@@ -585,7 +585,7 @@ public class MapaTests {
         Mapa mapa = new Mapa();
 
         try {
-            Dibujable dibujable = mapa.obtenerDibujable(null);
+            mapa.obtenerDibujable(null);
         } catch (FueraDeRangoException e) {
             Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
         }
