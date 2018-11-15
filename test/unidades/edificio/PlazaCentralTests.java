@@ -7,6 +7,7 @@ import main.Jugador;
 import org.junit.Test;
 import unidades.milicia.Espadachin;
 
+import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlazaCentralTests {
@@ -35,7 +36,7 @@ public class PlazaCentralTests {
     @Test
     public void test03plazaCentralAldeanoConOro() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         plazaCentral.crearUnidad();
     }

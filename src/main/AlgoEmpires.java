@@ -58,7 +58,6 @@ public class AlgoEmpires {
             }
 
             jugador.agregarUnidadesIniciales(castillo, plazaCentral, aldeanos);
-            jugador.recolectarOro(100);
         }
 
         this.turno = 0;

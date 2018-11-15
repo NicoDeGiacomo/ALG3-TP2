@@ -23,7 +23,11 @@ public class Ocioso extends EstadoDeAldeano {
 
     @Override
     public EstadoDeAldeano ejecutarTareas() {
-        this.propietario.recolectarOro(20);
+        this.propietario.recolectarOro(this);
         return this;
+    }
+
+    public int obtenerRecollecion() {
+        return 20;
     }
 }

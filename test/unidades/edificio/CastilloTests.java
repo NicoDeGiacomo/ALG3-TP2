@@ -5,6 +5,8 @@ import main.Jugador;
 import unidades.milicia.ArmaDeAsedio;
 
 import org.junit.Test;
+
+import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CastilloTests {
@@ -21,7 +23,7 @@ public class CastilloTests {
     @Test
     public void test02castilloCreaArmaDeAsedioConOro() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         Castillo castillo = new Castillo(jugador);
         castillo.crearUnidad();
     }

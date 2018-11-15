@@ -1,11 +1,11 @@
 package main;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.UnidadNoAgregadaException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.PlazaCentral;
+import unidades.estados.aldeano.Ocioso;
 import unidades.milicia.Aldeano;
 
 import java.util.LinkedList;
@@ -20,6 +20,7 @@ public class Jugador {
     public Jugador(String nombre) {
         this.nombre = nombre;
         this.unidades = new LinkedList<>();
+        this.oro = 100;
     }
 
     boolean tieneComoNombre(String nombre) {
@@ -32,14 +33,14 @@ public class Jugador {
         }
     }
 
-    public void recolectarOro(int oro) {
-        this.oro += oro;
+    public void recolectarOro(Ocioso estadoDeAldeano) {
+        this.oro += estadoDeAldeano.obtenerRecollecion();
     }
 
-    public void cobrarOro(int oro) throws OroInsuficienteException {
-        if (this.oro < oro)
+    public void cobrarOro(Unidad unidad) throws OroInsuficienteException {
+        if (this.oro < unidad.verPrecio())
             throw new OroInsuficienteException("El oro del jugador es insuficiente.");
-        this.oro -= oro;
+        this.oro -= unidad.verPrecio();
     }
 
     public void agregarUnidad(Unidad unidad) throws OroInsuficienteException {
@@ -53,10 +54,10 @@ public class Jugador {
         this.unidades.addAll(aldeanos);
     }
 
-    public void devolverCostoDeUnidad(int precio, Unidad unidad) throws UnidadNoAgregadaException {
+    public void devolverCostoDeUnidad(Unidad unidad) throws UnidadNoAgregadaException {
         if (!this.unidades.contains(unidad))
             throw new UnidadNoAgregadaException("No se puede devolver el costo de una unidad que no le pertenece al jugador");
         this.unidades.remove(unidad);
-        this.oro += precio;
+        this.oro += unidad.verPrecio();
     }
 }

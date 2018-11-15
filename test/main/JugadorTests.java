@@ -3,8 +3,11 @@ package main;
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.UnidadNoAgregadaException;
 import org.junit.Test;
+import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
+import unidades.milicia.ArmaDeAsedio;
 
+import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.Assert.assertEquals;
 
 public class JugadorTests {
@@ -14,7 +17,7 @@ public class JugadorTests {
         Jugador jugador = new Jugador("Nico");
 
         try {
-            jugador.cobrarOro(100);
+            jugador.cobrarOro(new PlazaCentral(jugador));
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
@@ -23,23 +26,18 @@ public class JugadorTests {
     @Test
     public void cobrarOroConOroSuficiente() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
-        jugador.recolectarOro(100);
+        agregarCienDeOroAJugador(jugador);
 
-        jugador.cobrarOro(100);
+        jugador.cobrarOro(new PlazaCentral(jugador));
     }
 
     @Test
     public void noSePuedeDevolverElCostoDeUnaUnidadNoAgregada() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
         try {
-            jugador.devolverCostoDeUnidad(100, new Aldeano(jugador));
+            jugador.devolverCostoDeUnidad(new Aldeano(jugador));
         } catch (UnidadNoAgregadaException e) {
             assertEquals("No se puede devolver el costo de una unidad que no le pertenece al jugador", e.getMessage());
-        }
-        try {
-            jugador.cobrarOro(100);
-        } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }
 
@@ -47,17 +45,15 @@ public class JugadorTests {
     public void devolverElCostoDeUnaUnidadAgregaElOroAlJugadorYRemueveALaUnidad() throws OroInsuficienteException, UnidadNoAgregadaException {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
-        jugador.recolectarOro(25);
         jugador.agregarUnidad(aldeano);
 
-        jugador.devolverCostoDeUnidad(25, aldeano);
+        jugador.devolverCostoDeUnidad(aldeano);
 
-        jugador.cobrarOro(25);
-        try {
-            jugador.devolverCostoDeUnidad(25, aldeano);
-        } catch (UnidadNoAgregadaException e) {
-            assertEquals("No se puede devolver el costo de una unidad que no le pertenece al jugador", e.getMessage());
-        }
+        //Compruebo que siga teniendo 100 de oro
+        jugador.agregarUnidad(aldeano);
+        jugador.agregarUnidad(aldeano);
+        jugador.agregarUnidad(aldeano);
+        jugador.agregarUnidad(aldeano);
     }
 
     @Test
@@ -74,10 +70,9 @@ public class JugadorTests {
     @Test
     public void agregarUnidadConOroSuficiente() {
         Jugador jugador = new Jugador("Nico");
-        jugador.recolectarOro(25);
 
         try {
-            jugador.agregarUnidad(new Aldeano(jugador));
+            jugador.agregarUnidad(new ArmaDeAsedio(jugador));
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }

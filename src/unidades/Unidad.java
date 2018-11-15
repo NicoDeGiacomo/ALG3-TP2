@@ -29,11 +29,11 @@ public abstract class Unidad implements Dibujable {
     }
 
     public void cobrarCostoDeCreacion() throws OroInsuficienteException {
-        this.propietario.cobrarOro(this.precio);
+        this.propietario.cobrarOro(this);
     }
 
     public void devolverCostoDeCreacion() throws UnidadNoAgregadaException {
-        this.propietario.devolverCostoDeUnidad(this.precio, this);
+        this.propietario.devolverCostoDeUnidad(this);
     }
 
     public EstadoDeUnidad verEstadoDeUnidad() {
@@ -42,6 +42,10 @@ public abstract class Unidad implements Dibujable {
 
     public int verVida() {
         return this.vida;
+    }
+
+    public int verPrecio() {
+        return this.precio;
     }
 
     public boolean esMapeable() {

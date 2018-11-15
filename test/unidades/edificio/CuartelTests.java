@@ -8,6 +8,7 @@ import main.Jugador;
 import org.junit.Test;
 import unidades.milicia.Espadachin;
 
+import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CuartelTests {
@@ -25,8 +26,8 @@ public class CuartelTests {
     @Test
     public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException {
         Jugador jugador = new Jugador("Nico");
-        jugador.recolectarOro(1000);
         Cuartel cuartel = new Cuartel(jugador);
+        agregarCienDeOroAJugador(jugador);
         cuartel.crearEspadachin();
         cuartel.crearArquero();
     }

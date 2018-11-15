@@ -11,6 +11,7 @@ import org.junit.Test;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
+import unidades.estados.aldeano.Ocioso;
 import unidades.milicia.Aldeano;
 
 import java.awt.geom.Point2D;
@@ -77,7 +78,7 @@ public class AlgoEmpiresTests {
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         Castillo castillo = new Castillo(jugador);
 
         algoEmpires.agregarMiliciaAJugadorEnTurno(castillo, new Point2D.Double(1, 1));
@@ -89,7 +90,6 @@ public class AlgoEmpiresTests {
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
-        jugador.recolectarOro(1000);
         Cuartel cuartel = new Cuartel(jugador);
 
         algoEmpires.agregarEspadachinAJugadorEnTurno(cuartel, new Point2D.Double(1, 1));
@@ -101,17 +101,17 @@ public class AlgoEmpiresTests {
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
-        jugador.recolectarOro(1000);
         Cuartel cuartel = new Cuartel(jugador);
 
         algoEmpires.agregarArqueroAJugadorEnTurno(cuartel, new Point2D.Double(1, 1));
     }
 
     @Test
-    public void agregarEdificioAJugadorEnTurnoConOroInsufucienteDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
-        AlgoEmpires algoEmpires = crearEIniciarJuego();
-
-        assertThrows(OroInsuficienteException.class, () -> algoEmpires.agregarEdificioAJugadorEnTurno(new Aldeano(new Jugador("Nico")), new Cuartel(new Jugador("Nico")), new Point2D.Double(1, 1)));
+    public void agregarEdificioAJugadorEnTurnoConOroInsufucienteDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, FueraDeRangoException, PosicionOcupadaException, AldeanoOcupadoException, CreacionDeCastilloException, OroInsuficienteException {
+        AlgoEmpires algoEmpires = crearJuego();
+        Jugador jugador = algoEmpires.comenzarPartida();
+        algoEmpires.agregarEdificioAJugadorEnTurno(new Aldeano(jugador), new PlazaCentral(jugador), new Point2D.Double(1, 1));
+        assertThrows(OroInsuficienteException.class, () -> algoEmpires.agregarEdificioAJugadorEnTurno(new Aldeano(jugador), new Cuartel(jugador), new Point2D.Double(10, 10)));
     }
 
     @Test
@@ -120,7 +120,6 @@ public class AlgoEmpiresTests {
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
-        jugador.recolectarOro(1000);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         Aldeano aldeano = new Aldeano(jugador);
 
@@ -135,17 +134,17 @@ public class AlgoEmpiresTests {
     }
 
     @Test
-    public void agregarMiliciaAJugadorEnTurnoDevuelveElOroSiNoHayLugarEnElMapa() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, PosicionOcupadaException, UnidadNoEspecificadaException, UnidadNoAgregadaException, OroInsuficienteException {
+    public void agregarMiliciaAJugadorEnTurnoDevuelveElOroSiNoHayLugarEnElMapa() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, PosicionOcupadaException, UnidadNoEspecificadaException, UnidadNoAgregadaException, OroInsuficienteException, FueraDeRangoException {
         AlgoEmpires algoEmpires = crearJuego();
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         Castillo castillo = new Castillo(jugador);
 
         assertThrows(FueraDeRangoException.class, () -> algoEmpires.agregarMiliciaAJugadorEnTurno(castillo, new Point2D.Double(5000, 50000)));
+        algoEmpires.agregarMiliciaAJugadorEnTurno(castillo, new Point2D.Double(1, 1));
 
-        jugador.cobrarOro(1000);
     }
 
     private AlgoEmpires crearJuego() throws NombreRepetidoException, NumeroDeJugadoresException {
@@ -159,5 +158,11 @@ public class AlgoEmpiresTests {
         AlgoEmpires algoEmpires = crearJuego();
         algoEmpires.comenzarPartida();
         return algoEmpires;
+    }
+
+    public static void agregarCienDeOroAJugador(Jugador jugador) {
+        for (int i = 0; i < 5; i++) {
+            jugador.recolectarOro(new Ocioso(jugador));
+        }
     }
 }

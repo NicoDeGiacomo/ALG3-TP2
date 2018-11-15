@@ -6,12 +6,12 @@ import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import org.junit.Test;
-import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
 
+import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AldeanoTests {
@@ -72,7 +72,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         aldeano.construir(plazaCentral);
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         aldeano.ejecutarTareas();
@@ -84,7 +84,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         Cuartel cuartel = new Cuartel(jugador);
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         aldeano.construir(cuartel);
         assertEquals(EnConstruccion.class, cuartel.verEstadoDeUnidad().getClass());
         assertTrue(cuartel.esMapeable());
@@ -96,7 +96,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         aldeano.construir(plazaCentral);
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         assertTrue(plazaCentral.esMapeable());
@@ -112,8 +112,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         aldeano.ejecutarTareas();
-        jugador.cobrarOro(20);
-
+        jugador.cobrarOro(aldeano);
     }
 
     @Test
@@ -147,7 +146,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         aldeano.construir(plazaCentral);
         try {
             aldeano.reparar(plazaCentral);
@@ -162,7 +161,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        jugador.recolectarOro(1000);
+        agregarCienDeOroAJugador(jugador);
         aldeano.construir(plazaCentral);
         try {
             aldeano.construir(plazaCentral);
