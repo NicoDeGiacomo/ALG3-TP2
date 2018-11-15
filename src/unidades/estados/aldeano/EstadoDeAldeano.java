@@ -2,6 +2,7 @@ package unidades.estados.aldeano;
 
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AldeanoOcupadoException;
+import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import unidades.edificio.Edificio;
 
@@ -17,5 +18,5 @@ public abstract class EstadoDeAldeano {
 
     public abstract EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException;
 
-    public abstract EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException, OroInsuficienteException;
+    public abstract EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException;
 }

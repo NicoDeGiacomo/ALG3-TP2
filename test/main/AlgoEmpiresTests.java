@@ -1,16 +1,16 @@
 package main;
 
-import excepciones.main.NombreRepetidoException;
-import excepciones.main.NumeroDeJugadoresException;
-import excepciones.main.PartidaComenzadaException;
-import excepciones.main.PartidaNoComenzadaException;
+import excepciones.main.*;
+import excepciones.mapa.FueraDeRangoException;
+import excepciones.mapa.PosicionOcupadaException;
+import excepciones.unidades.CreacionDeCastilloException;
+import excepciones.unidades.UnidadNoEspecificadaException;
+import unidades.edificio.Castillo;
+import java.awt.geom.Point2D;
 
 import org.junit.Test;
-import unidades.edificio.Castillo;
+import unidades.edificio.Cuartel;
 import unidades.milicia.Aldeano;
-import unidades.milicia.Arquero;
-
-import java.awt.geom.Point2D;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -93,12 +93,55 @@ public class AlgoEmpiresTests {
             fail("Error no esperado");
         }
 
-        //assertThrows(PartidaComenzadaException.class, () -> algoEmpires.agregarUnidadAJugadorEnTurno(new Castillo(new Jugador("Nico")), new Point2D.Double(1, 1)));
+        assertThrows(OroInsuficienteException.class, () -> algoEmpires.agregarMiliciaAJugadorEnTurno(new Castillo(new Jugador("Nico")), new Point2D.Double(1, 1)));
     }
 
     @Test
     public void agregarMiliciaAJugadorEnTurnoConOroSufucienteNoDebeRomper() {
-        //TODO: IMPLEMENT ME
+        AlgoEmpires algoEmpires = new AlgoEmpires();
+        Jugador jugador = null;
+        try {
+            algoEmpires.agregarJugador("Nico");
+            algoEmpires.agregarJugador("Gaston");
+            jugador = algoEmpires.comenzarPartida();
+        } catch (NumeroDeJugadoresException | PartidaComenzadaException | NombreRepetidoException e) {
+            fail("Error no esperado");
+        }
+        jugador.recolectarOro(1000);
+        Castillo castillo = new Castillo(jugador);
+
+        try {
+            algoEmpires.agregarMiliciaAJugadorEnTurno(castillo, new Point2D.Double(1, 1));
+        } catch (OroInsuficienteException | PosicionOcupadaException | FueraDeRangoException | UnidadNoEspecificadaException e) {
+            fail("Error no esperado", e);
+        }
+    }
+
+    @Test
+    public void agregarEdificioAJugadorEnTurnoConOroInsufucienteDebeRomper() {
+        AlgoEmpires algoEmpires = new AlgoEmpires();
+        try {
+            algoEmpires.agregarJugador("Nico");
+            algoEmpires.agregarJugador("Gaston");
+            algoEmpires.comenzarPartida();
+        } catch (NumeroDeJugadoresException | PartidaComenzadaException | NombreRepetidoException e) {
+            fail("Error no esperado");
+        }
+
+        assertThrows(OroInsuficienteException.class, () -> algoEmpires.agregarEdificioAJugadorEnTurno(new Aldeano(new Jugador("Nico")), new Cuartel(new Jugador("Nico")), new Point2D.Double(1, 1)));
+    }
+
+    @Test
+    public void creacionDeCastilloDebeRomper() {
+        AlgoEmpires algoEmpires = new AlgoEmpires();
+        try {
+            algoEmpires.agregarJugador("Nico");
+            algoEmpires.agregarJugador("Gaston");
+            algoEmpires.comenzarPartida();
+        } catch (NumeroDeJugadoresException | PartidaComenzadaException | NombreRepetidoException e) {
+            fail("Error no esperado");
+        }
+
+        assertThrows(CreacionDeCastilloException.class, () -> algoEmpires.agregarEdificioAJugadorEnTurno(new Aldeano(new Jugador("Nico")), new Castillo(new Jugador("Nico")), new Point2D.Double(1, 1)));
     }
 }
-

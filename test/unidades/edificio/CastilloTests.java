@@ -14,7 +14,6 @@ public class CastilloTests {
         Castillo castillo = new Castillo(new Jugador("Nico"));
         assertEquals(1000, castillo.verVida());
         assertEquals(16, castillo.verTamanio());
-        castillo.cobrarCostoDeCreacion();
         assertFalse(castillo.esMovible());
         assertEquals(3, castillo.verAlcance());
     }

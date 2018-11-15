@@ -1,6 +1,7 @@
 package unidades.edificio;
 
 import excepciones.unidades.AtaqueIncorrectoException;
+import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
@@ -37,7 +38,7 @@ public abstract class Edificio extends Unidad {
 
     public abstract boolean arreglar();
 
-    public void comenzarConstruccion() throws OroInsuficienteException {
+    public void comenzarConstruccion() throws OroInsuficienteException, CreacionDeCastilloException {
         this.propietario.agregarUnidad(this);
         this.estadoDeUnidad = new EnConstruccion();
     }
@@ -45,4 +46,6 @@ public abstract class Edificio extends Unidad {
     public void terminarConstruccion() {
         this.estadoDeUnidad = new Vivo();
     }
+
+
 }

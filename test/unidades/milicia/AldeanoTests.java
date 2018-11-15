@@ -3,6 +3,7 @@ package unidades.milicia;
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import org.junit.Test;
 import unidades.edificio.Castillo;
@@ -82,8 +83,8 @@ public class AldeanoTests {
         jugador.recolectarOro(1000);
         try {
             aldeano.construir(plazaCentral);
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
+            fail("Error inesperado.", e);
         }
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         aldeano.ejecutarTareas();
@@ -98,8 +99,8 @@ public class AldeanoTests {
         jugador.recolectarOro(1000);
         try {
             aldeano.construir(cuartel);
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
+            fail("Error inesperado.", e);
         }
         assertEquals(EnConstruccion.class, cuartel.verEstadoDeUnidad().getClass());
         assertTrue(cuartel.esMapeable());
@@ -114,8 +115,8 @@ public class AldeanoTests {
         jugador.recolectarOro(1000);
         try {
             aldeano.construir(plazaCentral);
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
+            fail("Error inesperado.", e);
         }
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         assertTrue(plazaCentral.esMapeable());
@@ -157,8 +158,8 @@ public class AldeanoTests {
             aldeano.construir(plazaCentral);
         } catch (AldeanoOcupadoException e) {
             assertEquals("El aldeano se encuentra reparando.", e.getMessage());
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
+            fail("Error inesperado.", e);
         }
         aldeano.ejecutarTareas();
     }
@@ -171,8 +172,8 @@ public class AldeanoTests {
         jugador.recolectarOro(1000);
         try {
             aldeano.construir(plazaCentral);
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
+            fail("Error inesperado.", e);
         }
         try {
             aldeano.reparar(plazaCentral);
@@ -190,15 +191,15 @@ public class AldeanoTests {
         jugador.recolectarOro(1000);
         try {
             aldeano.construir(plazaCentral);
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
+            fail("Error inesperado.", e);
         }
         try {
             aldeano.construir(plazaCentral);
         } catch (AldeanoOcupadoException e) {
             assertEquals("El aldeano se encuentra construyendo.", e.getMessage());
-        } catch (OroInsuficienteException e) {
-            fail("Error inesperado.");
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
+            fail("Error inesperado.", e);
         }
         aldeano.ejecutarTareas();
     }

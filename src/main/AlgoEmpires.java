@@ -8,6 +8,7 @@ import excepciones.main.PartidaNoComenzadaException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
 import excepciones.unidades.AldeanoOcupadoException;
+import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
@@ -33,7 +34,7 @@ public class AlgoEmpires {
         this.mapa = new Mapa();
     }
 
-    void comenzarPartida() throws NumeroDeJugadoresException, PartidaComenzadaException {
+    Jugador comenzarPartida() throws NumeroDeJugadoresException, PartidaComenzadaException {
         if (this.turno != null)
             throw new PartidaComenzadaException("La partida ya está en juego");
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
@@ -46,6 +47,7 @@ public class AlgoEmpires {
         }
 
         this.turno = 0;
+        return this.jugadores.get(this.turno);
     }
 
     Jugador pasarTurno() throws PartidaNoComenzadaException {
@@ -69,7 +71,7 @@ public class AlgoEmpires {
         this.jugadores.add(new Jugador(nombre));
     }
 
-    void agregarUnidadAJugadorEnTurno(Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException { //TODO: Falta un test que use este metodo
+    void agregarMiliciaAJugadorEnTurno(Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException {
         Unidad unidadCreada = creador.crearUnidad();
 
         try {
@@ -80,11 +82,11 @@ public class AlgoEmpires {
         }
     }
 
-    void agregarUnidadAJugadorEnTurno(Aldeano creador, Edificio unidad, Point2D pos) throws OroInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
+    void agregarEdificioAJugadorEnTurno(Aldeano creador, Edificio unidad, Point2D pos) throws OroInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException, CreacionDeCastilloException {
         this.mapa.colocarUnidad(unidad, pos);
         try {
             creador.construir(unidad);
-        } catch (OroInsuficienteException e) {
+        } catch (OroInsuficienteException | CreacionDeCastilloException e) {
             this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
             throw e;
         }

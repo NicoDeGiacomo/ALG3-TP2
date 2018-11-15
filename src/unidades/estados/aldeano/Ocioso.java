@@ -1,6 +1,7 @@
 package unidades.estados.aldeano;
 
 import excepciones.main.OroInsuficienteException;
+import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import unidades.edificio.Edificio;
 
@@ -16,7 +17,7 @@ public class Ocioso extends EstadoDeAldeano {
     }
 
     @Override
-    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws OroInsuficienteException {
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws OroInsuficienteException, CreacionDeCastilloException {
         return new Construyendo(this.propietario, edificio);
     }
 

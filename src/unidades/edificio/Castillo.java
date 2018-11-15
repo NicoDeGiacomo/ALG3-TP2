@@ -1,6 +1,7 @@
 package unidades.edificio;
 
 import excepciones.main.OroInsuficienteException;
+import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import unidades.Unidad;
 import unidades.milicia.ArmaDeAsedio;
@@ -50,7 +51,8 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void cobrarCostoDeCreacion()  {
+    public void comenzarConstruccion() throws OroInsuficienteException, CreacionDeCastilloException {
+        throw new CreacionDeCastilloException("No se puede construir un castillo.");
     }
 
 }
