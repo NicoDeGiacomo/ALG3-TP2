@@ -22,7 +22,7 @@ class Mapa {
     void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         if (unidad == null) return;
 
-        int tamanioUnidad = (unidad.verTamanio() < 2) ? (1) : ((int) Math.sqrt(unidad.verTamanio()));
+        int tamanioUnidad = (unidad.verTamanio() < 1) ? (1) : ((int) Math.sqrt(unidad.verTamanio()));
 
         for (int i = 0; i < tamanioUnidad; i++) {
             for (int j = 0; j < tamanioUnidad; j++) {
@@ -84,7 +84,7 @@ class Mapa {
         return atacante.verAlcance() >= Math.floor(origen.distance(destino));
     }
 
-    List<Dibujable> unidadesAlAlcance(Unidad unidad) {
+    List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
         List<Dibujable> unidades = new ArrayList<>();
 
         if (unidad == null) return unidades;
