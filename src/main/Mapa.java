@@ -6,6 +6,8 @@ import excepciones.mapa.PosicionOcupadaException;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
+import unidades.edificio.PlazaCentral;
+import unidades.milicia.Aldeano;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -125,7 +127,10 @@ class Mapa {
         return castillos;
     }
 
-    void colocarUnidadEnExtremo(Castillo castillo) {
+    void colocarUnidadesEnExtremo(Unidad castillo, Unidad plazaCentral) { //TODO: Gasti-
+    }
+
+    void colocarUnidadEnExtremo(Castillo castillo) { //TODO: Gasti-
         if (castillo == null) return;
 
         List<Castillo> castillos = encontrarCastillos();
@@ -239,6 +244,10 @@ class Mapa {
         for (Point2D coordenada : coordenadas) {
             mapa[(int) coordenada.getX()][(int) coordenada.getY()] = null;
         }
+    }
+
+    void agregarUnidadCercana(Aldeano aldeano, PlazaCentral plazaCentral) {
+        //TODO: Gasti- Aldeanos iniciales
     }
 
     private void validarCoordenada(Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
