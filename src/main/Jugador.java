@@ -38,12 +38,17 @@ public class Jugador {
         this.oro -= oro;
     }
 
-    public void agregarUnidad(Unidad unidad, Unidad creador) throws OroInsuficienteException {
+    public void agregarUnidad(Unidad unidad) throws OroInsuficienteException {
         unidad.cobrarCostoDeCreacion();
         this.unidades.add(unidad);
     }
 
     void agregarCastillo(Castillo castillo) {
         this.unidades.add(castillo);
+    }
+
+    public void devolverCostoDeUnidad(int precio, Unidad unidad) {
+        this.unidades.remove(unidad);
+        this.oro += precio;
     }
 }

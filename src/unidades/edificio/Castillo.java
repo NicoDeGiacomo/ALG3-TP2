@@ -4,6 +4,7 @@ import excepciones.main.OroInsuficienteException;
 import main.Jugador;
 import unidades.Unidad;
 import unidades.milicia.ArmaDeAsedio;
+import unidades.milicia.Milicia;
 
 
 public class Castillo extends Edificio {
@@ -42,8 +43,10 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws OroInsuficienteException {
-        this.propietario.agregarUnidad(new ArmaDeAsedio(this.propietario), this);
+    public Milicia crearUnidad() throws OroInsuficienteException {
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(this.propietario);
+        this.propietario.agregarUnidad(armaDeAsedio);
+        return armaDeAsedio;
     }
 
     @Override

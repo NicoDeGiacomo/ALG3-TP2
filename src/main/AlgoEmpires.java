@@ -8,10 +8,11 @@ import excepciones.main.PartidaNoComenzadaException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
 import excepciones.unidades.AldeanoOcupadoException;
+import excepciones.unidades.UnidadNoEspecificadaException;
+import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.Edificio;
 import unidades.milicia.Aldeano;
-import unidades.milicia.Milicia;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
@@ -68,25 +69,25 @@ public class AlgoEmpires {
         this.jugadores.add(new Jugador(nombre));
     }
 
-    void agregarUnidadAJugadorEnTurno(Milicia unidad, Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
-        this.mapa.agregarUnidadCercana(unidad, creador, pos);
+    void agregarUnidadAJugadorEnTurno(Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException { //TODO: Falta un test que use este metodo
+        Unidad unidadCreada = creador.crearUnidad();
+
         try {
-            this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
-        } catch (OroInsuficienteException e) {
-            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo precio suficiente.
+            this.mapa.agregarUnidadCercana(unidadCreada, creador, pos);
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            unidadCreada.devolverCosto(); //Devuelvo el costo si no hubo espacio en el mapa.
             throw e;
         }
     }
 
-    void agregarUnidadAJugadorEnTurno(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
+    void agregarUnidadAJugadorEnTurno(Aldeano creador, Edificio unidad, Point2D pos) throws OroInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException { //TODO: Falta un test que use este metodo
         this.mapa.colocarUnidad(unidad, pos);
         try {
-            this.jugadores.get(this.turno).agregarUnidad(unidad, creador);
+            creador.construir(unidad);
         } catch (OroInsuficienteException e) {
-            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo precio suficiente.
+            this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
             throw e;
         }
-        creador.construir(unidad);
     }
 
 }

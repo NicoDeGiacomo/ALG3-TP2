@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import main.Jugador;
 import unidades.milicia.Arquero;
 import unidades.milicia.Espadachin;
+import unidades.milicia.Milicia;
 
 public class Cuartel extends Edificio {
 
@@ -27,16 +28,20 @@ public class Cuartel extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws UnidadNoEspecificadaException {
+    public Milicia crearUnidad() throws UnidadNoEspecificadaException {
         throw new UnidadNoEspecificadaException("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
-    void crearEspadachin() throws OroInsuficienteException {
-        this.propietario.agregarUnidad(new Espadachin(this.propietario), this);
+    Milicia crearEspadachin() throws OroInsuficienteException {
+        Espadachin espadachin = new Espadachin(this.propietario);
+        this.propietario.agregarUnidad(espadachin);
+        return espadachin;
     }
 
-    void crearArquero() throws OroInsuficienteException {
-        this.propietario.agregarUnidad(new Arquero(this.propietario), this);
+    Milicia crearArquero() throws OroInsuficienteException {
+        Arquero arquero = new Arquero(this.propietario);
+        this.propietario.agregarUnidad(arquero);
+        return arquero;
     }
 
     @Override

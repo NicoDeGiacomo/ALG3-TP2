@@ -37,7 +37,7 @@ public class JugadorTests {
         Jugador jugador = new Jugador("Nico");
 
         try {
-            jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
+            jugador.agregarUnidad(new Aldeano(jugador));
         } catch (OroInsuficienteException e) {
             assertEquals("El precio del jugador es insuficiente.", e.getMessage());
         }
@@ -49,7 +49,7 @@ public class JugadorTests {
         jugador.recolectarOro(25);
 
         try {
-            jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
+            jugador.agregarUnidad(new Aldeano(jugador));
         } catch (OroInsuficienteException e) {
             assertEquals("El precio del jugador es insuficiente.", e.getMessage());
         }

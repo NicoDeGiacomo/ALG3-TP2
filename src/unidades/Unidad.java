@@ -58,4 +58,8 @@ public abstract class Unidad implements Dibujable {
     public boolean unidadesSonDelMismoEquipo(Jugador propietario){
         return propietario == this.propietario;
     }
+
+    public void devolverCosto() {
+        this.propietario.devolverCostoDeUnidad(this.precio, this);
+    }
 }

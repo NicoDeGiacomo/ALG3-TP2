@@ -1,5 +1,6 @@
 package unidades.milicia;
 
+import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
@@ -36,7 +37,7 @@ public class Aldeano extends Milicia {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 
-    public void construir(Edificio edificio) throws AldeanoOcupadoException {
+    public void construir(Edificio edificio) throws AldeanoOcupadoException, OroInsuficienteException {
         this.estado = this.estado.comenzarConstruccion(this.propietario, edificio);
     }
 

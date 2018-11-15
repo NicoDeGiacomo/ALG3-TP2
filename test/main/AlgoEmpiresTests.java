@@ -6,6 +6,12 @@ import excepciones.main.PartidaComenzadaException;
 import excepciones.main.PartidaNoComenzadaException;
 
 import org.junit.Test;
+import unidades.edificio.Castillo;
+import unidades.milicia.Aldeano;
+import unidades.milicia.Arquero;
+
+import java.awt.geom.Point2D;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AlgoEmpiresTests {
@@ -77,12 +83,21 @@ public class AlgoEmpiresTests {
     }
 
     @Test
-    public void agregarUnidadAJugadorEnTurnoConOroInsufucienteDebeRomper() {
-        //TODO: IMPLEMENT ME
+    public void agregarMiliciaAJugadorEnTurnoConOroInsufucienteDebeRomper() {
+        AlgoEmpires algoEmpires = new AlgoEmpires();
+        try {
+            algoEmpires.agregarJugador("Nico");
+            algoEmpires.agregarJugador("Gaston");
+            algoEmpires.comenzarPartida();
+        } catch (NumeroDeJugadoresException | PartidaComenzadaException | NombreRepetidoException e) {
+            fail("Error no esperado");
+        }
+
+        //assertThrows(PartidaComenzadaException.class, () -> algoEmpires.agregarUnidadAJugadorEnTurno(new Castillo(new Jugador("Nico")), new Point2D.Double(1, 1)));
     }
 
     @Test
-    public void agregarUnidadAJugadorEnTurnoConOroSufucienteNoDebeRomper() {
+    public void agregarMiliciaAJugadorEnTurnoConOroSufucienteNoDebeRomper() {
         //TODO: IMPLEMENT ME
     }
 }

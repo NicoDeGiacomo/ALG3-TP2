@@ -1,5 +1,6 @@
 package unidades.estados.aldeano;
 
+import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;
 import unidades.edificio.Edificio;
@@ -8,7 +9,7 @@ public class Construyendo extends EstadoDeAldeano {
     private Edificio edificio;
     private int contadorDeTurnos;
 
-    Construyendo(Jugador propietario, Edificio edificio) {
+    Construyendo(Jugador propietario, Edificio edificio) throws OroInsuficienteException {
         super(propietario);
         this.edificio = edificio;
         this.contadorDeTurnos = 0;

@@ -6,13 +6,14 @@ import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
+import unidades.milicia.Milicia;
 
 public abstract class Edificio extends Unidad {
 
     int tamanio;
     int alcance = 1;
 
-    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException;
+    public abstract Milicia crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException;
 
     @Override
     public boolean esMovible() {
@@ -36,7 +37,8 @@ public abstract class Edificio extends Unidad {
 
     public abstract boolean arreglar();
 
-    public void comenzarConstruccion() {
+    public void comenzarConstruccion() throws OroInsuficienteException {
+        this.propietario.agregarUnidad(this);
         this.estadoDeUnidad = new EnConstruccion();
     }
 
