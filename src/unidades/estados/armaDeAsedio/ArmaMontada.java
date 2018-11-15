@@ -12,7 +12,8 @@ public class ArmaMontada extends EstadoDeArmaDeAsedio {
 
     @Override
     public void provocarDanio(Unidad unidad, int danio) {
-        if ( !unidad.esMovible() )  unidad.recibirDanio(danio);
+        if (!unidad.esMovible())
+            unidad.recibirDanio(danio);
     }
 
 
