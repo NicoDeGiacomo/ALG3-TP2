@@ -12,11 +12,11 @@ import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
-import unidades.milicia.Espadachin;
 
 import java.awt.geom.Point2D;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AlgoEmpiresTests {
 
@@ -29,7 +29,6 @@ public class AlgoEmpiresTests {
     @Test
     public void agregarDosJugadoresConElMismoNombreLanzaUnError() throws NombreRepetidoException, NumeroDeJugadoresException {
         AlgoEmpires algoEmpires = new AlgoEmpires();
-
         algoEmpires.agregarJugador("Nico");
 
         assertThrows(NombreRepetidoException.class, () -> algoEmpires.agregarJugador("Nico"));
@@ -37,10 +36,7 @@ public class AlgoEmpiresTests {
 
     @Test
     public void noSePuedeAgregarMasDeDosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
+        AlgoEmpires algoEmpires = crearJuego();
 
         assertThrows(NumeroDeJugadoresException.class, () -> algoEmpires.agregarJugador("Peter"));
     }
@@ -54,21 +50,14 @@ public class AlgoEmpiresTests {
 
     @Test
     public void noSePuedeComenzarDosVecesLaPartida() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
-        algoEmpires.comenzarPartida();
+        AlgoEmpires algoEmpires = crearEIniciarJuego();
 
         assertThrows(PartidaComenzadaException.class, algoEmpires::comenzarPartida);
     }
 
     @Test
     public void pasarElTurnoCambiaLosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, PartidaNoComenzadaException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
-        algoEmpires.comenzarPartida();
+        AlgoEmpires algoEmpires = crearEIniciarJuego();
 
         Jugador jugador = null;
         jugador = algoEmpires.pasarTurno();
@@ -77,19 +66,14 @@ public class AlgoEmpiresTests {
 
     @Test
     public void agregarMiliciaAJugadorEnTurnoConOroInsufucienteDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
-        algoEmpires.comenzarPartida();
+        AlgoEmpires algoEmpires = crearEIniciarJuego();
 
         assertThrows(OroInsuficienteException.class, () -> algoEmpires.agregarMiliciaAJugadorEnTurno(new Castillo(new Jugador("Nico")), new Point2D.Double(1, 1)));
     }
 
     @Test
     public void agregarMiliciaAJugadorEnTurnoConOroSufucienteNoDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, OroInsuficienteException, PosicionOcupadaException, FueraDeRangoException, UnidadNoEspecificadaException, UnidadNoAgregadaException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
+        AlgoEmpires algoEmpires = crearJuego();
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
@@ -100,20 +84,39 @@ public class AlgoEmpiresTests {
     }
 
     @Test
+    public void agregarArqueroAJugadorEnTurnoConOroSufucienteNoDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, OroInsuficienteException, PosicionOcupadaException, FueraDeRangoException, UnidadNoEspecificadaException, UnidadNoAgregadaException {
+        AlgoEmpires algoEmpires = crearJuego();
+
+        Jugador jugador = null;
+        jugador = algoEmpires.comenzarPartida();
+        jugador.recolectarOro(1000);
+        Cuartel cuartel = new Cuartel(jugador);
+
+        algoEmpires.agregarEspadachinAJugadorEnTurno(cuartel, new Point2D.Double(1, 1));
+    }
+
+    @Test
+    public void agregarEspadachinAJugadorEnTurnoConOroSufucienteNoDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, OroInsuficienteException, PosicionOcupadaException, FueraDeRangoException, UnidadNoEspecificadaException, UnidadNoAgregadaException {
+        AlgoEmpires algoEmpires = crearJuego();
+
+        Jugador jugador = null;
+        jugador = algoEmpires.comenzarPartida();
+        jugador.recolectarOro(1000);
+        Cuartel cuartel = new Cuartel(jugador);
+
+        algoEmpires.agregarArqueroAJugadorEnTurno(cuartel, new Point2D.Double(1, 1));
+    }
+
+    @Test
     public void agregarEdificioAJugadorEnTurnoConOroInsufucienteDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
-        algoEmpires.comenzarPartida();
+        AlgoEmpires algoEmpires = crearEIniciarJuego();
 
         assertThrows(OroInsuficienteException.class, () -> algoEmpires.agregarEdificioAJugadorEnTurno(new Aldeano(new Jugador("Nico")), new Cuartel(new Jugador("Nico")), new Point2D.Double(1, 1)));
     }
 
     @Test
     public void agregarEdificioAJugadorEnTurnoOK() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, FueraDeRangoException, PosicionOcupadaException, AldeanoOcupadoException, CreacionDeCastilloException, OroInsuficienteException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
+        AlgoEmpires algoEmpires = crearJuego();
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
@@ -126,19 +129,14 @@ public class AlgoEmpiresTests {
 
     @Test
     public void creacionDeCastilloDebeRomper() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
-        algoEmpires.comenzarPartida();
+        AlgoEmpires algoEmpires = crearEIniciarJuego();
 
         assertThrows(CreacionDeCastilloException.class, () -> algoEmpires.agregarEdificioAJugadorEnTurno(new Aldeano(new Jugador("Nico")), new Castillo(new Jugador("Nico")), new Point2D.Double(1, 1)));
     }
 
     @Test
     public void agregarMiliciaAJugadorEnTurnoDevuelveElOroSiNoHayLugarEnElMapa() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, PosicionOcupadaException, UnidadNoEspecificadaException, UnidadNoAgregadaException, OroInsuficienteException {
-        AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
+        AlgoEmpires algoEmpires = crearJuego();
 
         Jugador jugador = null;
         jugador = algoEmpires.comenzarPartida();
@@ -148,5 +146,18 @@ public class AlgoEmpiresTests {
         assertThrows(FueraDeRangoException.class, () -> algoEmpires.agregarMiliciaAJugadorEnTurno(castillo, new Point2D.Double(5000, 50000)));
 
         jugador.cobrarOro(1000);
+    }
+
+    private AlgoEmpires crearJuego() throws NombreRepetidoException, NumeroDeJugadoresException {
+        AlgoEmpires algoEmpires = new AlgoEmpires();
+        algoEmpires.agregarJugador("Nico");
+        algoEmpires.agregarJugador("Gaston");
+        return algoEmpires;
+    }
+
+    private AlgoEmpires crearEIniciarJuego() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
+        AlgoEmpires algoEmpires = crearJuego();
+        algoEmpires.comenzarPartida();
+        return algoEmpires;
     }
 }

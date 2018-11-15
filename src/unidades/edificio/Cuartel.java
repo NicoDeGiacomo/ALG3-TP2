@@ -32,13 +32,13 @@ public class Cuartel extends Edificio {
         throw new UnidadNoEspecificadaException("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
-    Milicia crearEspadachin() throws OroInsuficienteException {
+    public Milicia crearEspadachin() throws OroInsuficienteException {
         Espadachin espadachin = new Espadachin(this.propietario);
         this.propietario.agregarUnidad(espadachin);
         return espadachin;
     }
 
-    Milicia crearArquero() throws OroInsuficienteException {
+    public Milicia crearArquero() throws OroInsuficienteException {
         Arquero arquero = new Arquero(this.propietario);
         this.propietario.agregarUnidad(arquero);
         return arquero;

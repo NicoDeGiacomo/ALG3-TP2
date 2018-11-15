@@ -13,6 +13,7 @@ import excepciones.unidades.UnidadNoAgregadaException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
+import unidades.edificio.Cuartel;
 import unidades.edificio.Edificio;
 import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
@@ -85,15 +86,21 @@ public class AlgoEmpires {
         this.jugadores.add(new Jugador(nombre));
     }
 
+    void agregarArqueroAJugadorEnTurno(Cuartel creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException, UnidadNoAgregadaException {
+        Unidad unidadCreada = creador.crearEspadachin();
+        agregarMilicia(creador, unidadCreada, pos);
+
+    }
+
+    void agregarEspadachinAJugadorEnTurno(Cuartel creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException, UnidadNoAgregadaException {
+        Unidad unidadCreada = creador.crearArquero();
+        agregarMilicia(creador, unidadCreada, pos);
+
+    }
+
     void agregarMiliciaAJugadorEnTurno(Edificio creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException, UnidadNoEspecificadaException, UnidadNoAgregadaException {
         Unidad unidadCreada = creador.crearUnidad();
-
-        try {
-            this.mapa.agregarUnidadCercana(unidadCreada, creador, pos);
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
-            unidadCreada.devolverCostoDeCreacion(); //Devuelvo el costo si no hubo espacio en el mapa.
-            throw e;
-        }
+        agregarMilicia(creador, unidadCreada, pos);
     }
 
     void agregarEdificioAJugadorEnTurno(Aldeano creador, Edificio unidad, Point2D pos) throws OroInsuficienteException, AldeanoOcupadoException, FueraDeRangoException, PosicionOcupadaException, CreacionDeCastilloException {
@@ -102,6 +109,15 @@ public class AlgoEmpires {
             creador.construir(unidad);
         } catch (OroInsuficienteException | CreacionDeCastilloException e) {
             this.mapa.quitarUnidad(unidad); //Remuevo la unidad del mapa si no hubo oro suficiente.
+            throw e;
+        }
+    }
+
+    private void agregarMilicia(Edificio creador, Unidad unidad, Point2D pos) throws FueraDeRangoException, PosicionOcupadaException, UnidadNoAgregadaException {
+        try {
+            this.mapa.agregarUnidadCercana(unidad, creador, pos);
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            unidad.devolverCostoDeCreacion(); //Devuelvo el costo si no hubo espacio en el mapa.
             throw e;
         }
     }
