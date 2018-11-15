@@ -13,6 +13,7 @@ import excepciones.unidades.UnidadNoEspecificadaException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.Edificio;
+import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
 
 import java.awt.geom.Point2D;
@@ -23,6 +24,7 @@ public class AlgoEmpires {
 
     private static final int CANTIDAD_JUGADORES_MAX = 2;
     private static final int CANTIDAD_JUGADORES_MIN = 2;
+    private static final int CANTIDAD_ALDEANOS_INICIALES = 3;
 
     private List<Jugador> jugadores;
     private Integer turno;
@@ -41,9 +43,20 @@ public class AlgoEmpires {
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d jugadores", CANTIDAD_JUGADORES_MIN));
 
         for (Jugador jugador : this.jugadores) {
+
             Castillo castillo = new Castillo(jugador);
-            this.mapa.colocarCastilloEnExtremo(castillo);
-            jugador.agregarCastillo(castillo);
+            PlazaCentral plazaCentral = new PlazaCentral(jugador);
+            this.mapa.colocarUnidadesEnExtremo(castillo, plazaCentral);
+
+            List<Aldeano> aldeanos = new LinkedList<>();
+            for (int i = 0; i < CANTIDAD_ALDEANOS_INICIALES; i++) {
+                Aldeano aldeano = new Aldeano(jugador);
+                this.mapa.agregarUnidadCercana(aldeano, plazaCentral);
+                aldeanos.add(aldeano);
+            }
+
+            jugador.agregarUnidadesIniciales(castillo, plazaCentral, aldeanos);
+            jugador.recolectarOro(100);
         }
 
         this.turno = 0;
@@ -75,7 +88,7 @@ public class AlgoEmpires {
         Unidad unidadCreada = creador.crearUnidad();
 
         try {
-            this.mapa.agregarUnidadHijo(unidadCreada, creador, pos);
+            this.mapa.agregarUnidadCercana(unidadCreada, creador, pos);
         } catch (FueraDeRangoException | PosicionOcupadaException e) {
             unidadCreada.devolverCosto(); //Devuelvo el costo si no hubo espacio en el mapa.
             throw e;

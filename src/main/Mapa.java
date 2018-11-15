@@ -6,6 +6,8 @@ import excepciones.mapa.PosicionOcupadaException;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
+import unidades.edificio.PlazaCentral;
+import unidades.milicia.Aldeano;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -20,12 +22,13 @@ class Mapa {
     void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         if (unidad == null) return;
 
-        validarCoordenada(coordenada);
-
-        int tamanioUnidad = (unidad.verTamanio() < 1) ? (1) : ((int) Math.sqrt(unidad.verTamanio()));
+        int tamanioUnidad = (unidad.verTamanio() < 2) ? (1) : ((int) Math.sqrt(unidad.verTamanio()));
 
         for (int i = 0; i < tamanioUnidad; i++) {
             for (int j = 0; j < tamanioUnidad; j++) {
+
+                validarCoordenada(coordenada);
+
                 validarCoordenada(new Point2D.Double(coordenada.getX() + i, coordenada.getY() + j));
             }
         }
@@ -81,25 +84,25 @@ class Mapa {
         return atacante.verAlcance() >= Math.floor(origen.distance(destino));
     }
 
-    List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
-        List<Dibujable> dibujables = new ArrayList<>();
+    List<Dibujable> unidadesAlAlcance(Unidad unidad) {
+        List<Dibujable> unidades = new ArrayList<>();
 
-        if (unidad == null) return dibujables;
+        if (unidad == null) return unidades;
 
-        List<Point2D> coordenadasCercanas = obtenerCoordenadasAlrededor(unidad);
+        List<Point2D> coordenadasCercanas = obtenerCoordenadasCercanas(unidad);
 
         coordenadasCercanas.removeAll(Collections.singleton(null));
 
         for (Point2D coordenadasCercana : coordenadasCercanas) {
             try {
-                if (!(dibujables.contains(obtenerDibujable(coordenadasCercana))) && obtenerDibujable(coordenadasCercana) != null) {
-                    dibujables.add(obtenerDibujable(coordenadasCercana));
+                if (!(unidades.contains(obtenerDibujable(coordenadasCercana))) && obtenerDibujable(coordenadasCercana) != null) {
+                    unidades.add(obtenerDibujable(coordenadasCercana));
                 }
             } catch (FueraDeRangoException ignored) {
             }
         }
 
-        return dibujables;
+        return unidades;
     }
 
     private List<Castillo> encontrarCastillos() {
@@ -124,7 +127,10 @@ class Mapa {
         return castillos;
     }
 
-    void colocarCastilloEnExtremo(Castillo castillo) {
+    void colocarUnidadesEnExtremo(Unidad castillo, Unidad plazaCentral) { //TODO: Gasti-
+    }
+
+    void colocarUnidadEnExtremo(Castillo castillo) { //TODO: Gasti-
         if (castillo == null) return;
 
         List<Castillo> castillos = encontrarCastillos();
@@ -189,15 +195,15 @@ class Mapa {
         colocarUnidad(unidad, destino);
     }
 
-    private List<Point2D> obtenerCoordenadasAlrededor(Unidad unidad) {
+    private List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
         List<Point2D> coordenadasAlRededor = new ArrayList<>();
         List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
         if (unidad == null) return coordenadasAlRededor;
 
         Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
-        int alcance = (unidad.verAlcance() < 1) ? (1) : (unidad.verAlcance());
-        int tamanio = (unidad.verTamanio() < 1) ? (1) : (unidad.verTamanio() / 2);
+        int alcance = (unidad.verAlcance() < 2) ? (1) : (unidad.verAlcance());
+        int tamanio = (unidad.verTamanio() < 2) ? (1) : (unidad.verTamanio() / 2);
 
         for (int i = -alcance; i < tamanio + alcance; i++) {
             for (int j = -alcance; j < tamanio + alcance; j++) {
@@ -211,22 +217,22 @@ class Mapa {
         return coordenadasAlRededor;
     }
 
-    void agregarUnidadHijo(Unidad padre, Unidad hijo, Point2D destino) throws FueraDeRangoException, PosicionOcupadaException {
-        validarCoordenada(destino);
+    void agregarUnidadCercana(Unidad unidad, Unidad unidadCercana, Point2D coordenadaDestino) throws FueraDeRangoException, PosicionOcupadaException {
+        validarCoordenada(coordenadaDestino);
 
-        boolean estaPegado = false;
+        boolean estaCerca = false;
 
-        List<Point2D> coordenadas = obtenerCoordenadas(padre);
+        List<Point2D> coordenadas = obtenerCoordenadas(unidad);
 
         for (int i = 0; i < coordenadas.size(); i++) {
-            if(Math.floor(coordenadas.get(i).distance(destino)) <= 1) {
-                estaPegado = true;
+            if(Math.floor(coordenadas.get(i).distance(coordenadaDestino)) <= 1) {
+                estaCerca = true;
             }
         }
 
-        if(estaPegado) {
+        if(estaCerca) {
             try {
-                colocarUnidad(hijo, destino);
+                colocarUnidad(unidadCercana, coordenadaDestino);
             } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
             }
         }
@@ -238,6 +244,10 @@ class Mapa {
         for (Point2D coordenada : coordenadas) {
             mapa[(int) coordenada.getX()][(int) coordenada.getY()] = null;
         }
+    }
+
+    void agregarUnidadCercana(Aldeano aldeano, PlazaCentral plazaCentral) {
+        //TODO: Gasti- Aldeanos iniciales
     }
 
     private void validarCoordenada(Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {

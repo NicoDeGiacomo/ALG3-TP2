@@ -4,6 +4,8 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.CreacionDeCastilloException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
+import unidades.edificio.PlazaCentral;
+import unidades.milicia.Aldeano;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -44,8 +46,10 @@ public class Jugador {
         this.unidades.add(unidad);
     }
 
-    void agregarCastillo(Castillo castillo) {
+    void agregarUnidadesIniciales(Castillo castillo, PlazaCentral plazaCentral, List<Aldeano> aldeanos) {
         this.unidades.add(castillo);
+        this.unidades.add(plazaCentral);
+        this.unidades.addAll(aldeanos);
     }
 
     public void devolverCostoDeUnidad(int precio, Unidad unidad) {
