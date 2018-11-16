@@ -15,7 +15,6 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class MapaTests {
 
@@ -26,7 +25,7 @@ public class MapaTests {
     @Test
     public void Test101MapaRecienCreadoObtenerDibujableDaNull() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
-        Dibujable dibujable = null;
+        Dibujable dibujable;
         dibujable = mapa.obtenerDibujable(new Point2D.Double(0,0));
 
         Assert.assertNull(dibujable);
@@ -49,23 +48,18 @@ public class MapaTests {
     @Test
     public void Test103QuitarUnidadDeMapaVacioNoHaceNada() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
-        Unidad unidad = null;
 
-        unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
+        Assert.assertNull(mapa.obtenerDibujable(new Point2D.Double(0,0)));
 
-        Assert.assertNull(unidad);
+        mapa.quitarUnidad(null);
 
-        mapa.quitarUnidad(unidad);
-
-        unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
-
-        Assert.assertNull(unidad);
+        Assert.assertNull(mapa.obtenerDibujable(new Point2D.Double(0,0)));
     }
 
     @Test
     public void Test104ColocarUnidadNullNoHaceNada() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Unidad unidad = null;
+        Unidad unidad;
 
         mapa.colocarUnidad(null, new Point2D.Double(0,0));
 
@@ -97,7 +91,7 @@ public class MapaTests {
     @Test
     public void Test201MapaColocaMiliciaEnCoordenadaProvista() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Nico");
+        Jugador jugador = new Jugador("Nico", new Mapa());
         Arquero arquero = new Arquero(jugador);
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2);
@@ -110,7 +104,7 @@ public class MapaTests {
     @Test
     public void Test202MapaColocaEdificioEnCoordenadaProvista() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Nico");
+        Jugador jugador = new Jugador("Nico", new Mapa());
         Cuartel cuartel = new Cuartel(jugador);
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2),
@@ -127,12 +121,12 @@ public class MapaTests {
     @Test
     public void Test203MapaDevuelveReferenciaAMilicia() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Arquero arquero = new Arquero(new Jugador("Nico"));
+        Arquero arquero = new Arquero(new Jugador("Nico", new Mapa()));
         Point2D coordenada1 = new Point2D.Double(1,1);
 
         mapa.colocarUnidad(arquero, coordenada1);
 
-        Arquero chequeo = null;
+        Arquero chequeo;
         chequeo = (Arquero) mapa.obtenerDibujable(coordenada1);
 
         Assert.assertEquals(arquero , chequeo);
@@ -141,7 +135,7 @@ public class MapaTests {
     @Test
     public void Test204MapaDevuelveReferenciaAEdificio() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2),
                 coordenada3 = new Point2D.Double(2,1),
@@ -149,10 +143,10 @@ public class MapaTests {
 
         mapa.colocarUnidad(cuartel, coordenada1);
 
-        Cuartel chequeo1 = null,
-                chequeo2 = null,
-                chequeo3 = null,
-                chequeo4 = null;
+        Cuartel chequeo1,
+                chequeo2,
+                chequeo3,
+                chequeo4;
         chequeo1 = (Cuartel) mapa.obtenerDibujable(coordenada1);
         chequeo2 = (Cuartel) mapa.obtenerDibujable(coordenada2);
         chequeo3 = (Cuartel) mapa.obtenerDibujable(coordenada3);
@@ -167,7 +161,7 @@ public class MapaTests {
     @Test
     public void Test205MapaDevuelveSiCeldaEstaAlAlcanceDeUnidad() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Arquero arquero = new Arquero(new Jugador("Nico"));
+        Arquero arquero = new Arquero(new Jugador("Nico", new Mapa()));
         Point2D coordenada1 = new Point2D.Double(1,1),
                 coordenada2 = new Point2D.Double(1,2),
                 coordenada3 = new Point2D.Double(2,2),
@@ -183,7 +177,7 @@ public class MapaTests {
     @Test
     public void Test206MapaDevuelveReferenciaAUnidadesCercanas() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Arquero arquero = new Arquero(jugador);
         Cuartel cuartel = new Cuartel(jugador);
 
@@ -200,7 +194,7 @@ public class MapaTests {
     @Test
     public void Test207UnidadSeMueveUnCasillero() throws FueraDeRangoException, PosicionOcupadaException, NoEsMovibleException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Arquero arquero = new Arquero(jugador);
         Point2D origen = new Point2D.Double(5,4),
                 destino1 = new Point2D.Double(5,5),
@@ -224,8 +218,8 @@ public class MapaTests {
     @Test
     public void Test208MapaCreaCastilloEnCuadranteOpuestoAlYaCreado() {
         Mapa mapa = new Mapa();
-        Jugador jugador1 = new Jugador("Nico"),
-                jugador2 = new Jugador("Piter");
+        Jugador jugador1 = new Jugador("Nico", new Mapa()),
+                jugador2 = new Jugador("Piter", new Mapa());
         Castillo castillo1 = new Castillo(jugador1),
                  castillo2 = new Castillo(jugador2);
 
@@ -251,7 +245,7 @@ public class MapaTests {
     @Test
     public void Test209MapaPuedeCrearSoloDosCastillos() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Nico");
+        Jugador jugador = new Jugador("Nico", new Mapa());
         Castillo castillo1 = new Castillo(jugador),
                  castillo2 = new Castillo(jugador),
                  castillo3 = new Castillo(jugador);
@@ -295,7 +289,7 @@ public class MapaTests {
     @Test
     public void Test302ColocarMiliciaEncimaDeOtraDaError() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Arquero arquero1 = new Arquero(jugador),
                 arquero2 = new Arquero(jugador);
         Point2D coordenada = new Point2D.Double(1,1);
@@ -311,7 +305,7 @@ public class MapaTests {
     @Test
     public void Test303ColocarEdificioEncimaDeOtroDaError() throws FueraDeRangoException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Cuartel cuartel1 = new Cuartel(jugador),
                 cuartel2 = new Cuartel(jugador);
         Point2D coordenada1 = new Point2D.Double(5,5);
@@ -336,7 +330,7 @@ public class MapaTests {
     @Test
     public void Test304ColocarUnidadFueraDeRangoDaError() throws PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Arquero arquero = new Arquero(jugador);
 
         try {
@@ -357,7 +351,7 @@ public class MapaTests {
     @Test
     public void Test305MoverUnidadNoMovibleDaError() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Cuartel cuartel = new Cuartel(jugador);
         Point2D origen = new Point2D.Double(1, 1),
                 destino = new Point2D.Double(5, 5);
@@ -386,7 +380,7 @@ public class MapaTests {
     @Test
     public void Test307MoverUnidadMasDeUnCasilleroDaError() throws FueraDeRangoException, PosicionOcupadaException, NoEsMovibleException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Arquero arquero = new Arquero(jugador);
         Point2D origen = new Point2D.Double(1, 1),
                 destino = new Point2D.Double(5, 5);
@@ -403,7 +397,7 @@ public class MapaTests {
     @Test
     public void Test308MoverUnidadEncimaDeOtraDaError() throws NoEsMovibleException, FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Arquero arquero1 = new Arquero(jugador),
                 arquero2 = new Arquero(jugador);
         Point2D origen = new Point2D.Double(1, 1),
@@ -422,7 +416,7 @@ public class MapaTests {
     @Test
     public void Test309ColocarUnidadCercanaEnLugarOcupadoDaError() throws FueraDeRangoException, PosicionOcupadaException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Piter");
+        Jugador jugador = new Jugador("Piter", new Mapa());
         Cuartel cuartel = new Cuartel(jugador);
         Arquero arquero = new Arquero(jugador);
         Point2D coordenada1 = new Point2D.Double(5, 5),

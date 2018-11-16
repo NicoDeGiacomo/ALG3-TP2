@@ -1,8 +1,6 @@
 package unidades;
 
-import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AtaqueIncorrectoException;
-import excepciones.unidades.UnidadNoAgregadaException;
 import main.Jugador;
 import unidades.estados.unidades.EstadoDeUnidad;
 import unidades.estados.unidades.Muerto;
@@ -26,14 +24,6 @@ public abstract class Unidad implements Dibujable {
         this.vida -= danio;
         if (this.vida <= 0)
             this.estadoDeUnidad = new Muerto();
-    }
-
-    public void cobrarCostoDeCreacion() throws OroInsuficienteException {
-        this.propietario.cobrarOro(this);
-    }
-
-    public void devolverCostoDeCreacion() throws UnidadNoAgregadaException {
-        this.propietario.devolverCostoDeUnidad(this);
     }
 
     public EstadoDeUnidad verEstadoDeUnidad() {

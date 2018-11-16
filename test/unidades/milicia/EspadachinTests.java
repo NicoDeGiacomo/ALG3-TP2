@@ -2,6 +2,7 @@ package unidades.milicia;
 
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
+import main.Mapa;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
 import unidades.estados.unidades.Muerto;
@@ -13,7 +14,7 @@ public class EspadachinTests {
 
     @Test
     public void test01espadachinSonCreadosCorrectamente() {
-        Espadachin espadachin = new Espadachin(new Jugador("Nico"));
+        Espadachin espadachin = new Espadachin(new Jugador("Nico", new Mapa()));
         assertEquals(100, espadachin.verVida());
         assertEquals(1, espadachin.verTamanio());
         espadachin.ejecutarTareas();
@@ -22,8 +23,8 @@ public class EspadachinTests {
 
     @Test
     public void test02espadachinProbocaDanioAMilicias() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
-        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico"));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico", new Mapa()));
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         assertEquals(100, espadachinHaceDanio.verVida());
         assertEquals(75, espadachinRecibeDanio.verVida());
@@ -31,8 +32,8 @@ public class EspadachinTests {
 
     @Test
     public void test03espadachinProbocanDanioAEdificios() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
-        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico"));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico", new Mapa()));
         espadachinHaceDanio.provocarDanio(plaza);
         assertEquals(espadachinHaceDanio.verVida(), 100);
         assertEquals(435, plaza.verVida());
@@ -40,7 +41,7 @@ public class EspadachinTests {
 
     @Test
     public void test04espadachinEsDaniado() {
-        Espadachin espadachin = new Espadachin(new Jugador("Nico"));
+        Espadachin espadachin = new Espadachin(new Jugador("Nico", new Mapa()));
         assertEquals(100, espadachin.verVida());
         espadachin.recibirDanio(20);
         assertEquals(80, espadachin.verVida());
@@ -48,8 +49,8 @@ public class EspadachinTests {
 
     @Test
     public void test05espadachinMataAMilicias() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
-        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico"));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico", new Mapa()));
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
@@ -63,8 +64,8 @@ public class EspadachinTests {
 
     @Test
     public void test06espadachinDestruyeEdificio() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
-        Cuartel cuartel = new Cuartel(new Jugador("Nico"));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
         cuartel.recibirDanio(235);
         assertTrue(cuartel.esMapeable());
         espadachinHaceDanio.provocarDanio(cuartel);
@@ -75,7 +76,7 @@ public class EspadachinTests {
     }
 
     /*
-    TODO: Unidades del mismo equipo se pueden atacar?
+    TODO: Unidades del mismo equipo se pueden atacar? - NO! Hacer test (y funcionalidad si es necesaria)
     @Test
     public void test07espadachinNoProbocaDanioAUnidadesDeMismoJugador() {
         Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));

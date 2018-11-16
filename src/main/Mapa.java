@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-class Mapa {
+public class Mapa {
     private static final int TAMANIO = 100;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
@@ -273,5 +273,9 @@ class Mapa {
 
     private boolean coordenadaEnMapa(Point2D coordenada) {
         return (!(coordenada.getX() >= TAMANIO)) && (!(coordenada.getY() >= TAMANIO)) && (!(coordenada.getX() < 0)) && (!(coordenada.getY() < 0));
+    }
+
+    public void agregarUnidadCercana(Unidad unidad, Unidad creador) {
+        //TODO: Gasti
     }
 }

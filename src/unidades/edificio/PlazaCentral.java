@@ -3,7 +3,6 @@ package unidades.edificio;
 import excepciones.main.OroInsuficienteException;
 import main.Jugador;
 import unidades.milicia.Aldeano;
-import unidades.milicia.Milicia;
 
 public class PlazaCentral extends Edificio {
 
@@ -26,10 +25,9 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
-    public Milicia crearUnidad() throws OroInsuficienteException {
+    public void crearUnidad() throws OroInsuficienteException {
         Aldeano aldeano = new Aldeano(this.propietario);
-        this.propietario.agregarUnidad(aldeano);
-        return aldeano;
+        this.propietario.agregarUnidad(aldeano, this);
     }
 
     @Override

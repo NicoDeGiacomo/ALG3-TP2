@@ -1,6 +1,8 @@
 package unidades.milicia;
 
 import excepciones.main.OroInsuficienteException;
+import excepciones.mapa.FueraDeRangoException;
+import excepciones.mapa.PosicionOcupadaException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
@@ -9,6 +11,8 @@ import unidades.Unidad;
 import unidades.edificio.Edificio;
 import unidades.estados.aldeano.EstadoDeAldeano;
 import unidades.estados.aldeano.Ocioso;
+
+import java.awt.geom.Point2D;
 
 public class Aldeano extends Milicia {
 
@@ -36,8 +40,8 @@ public class Aldeano extends Milicia {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 
-    public void construir(Edificio edificio) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException {
-        this.estado = this.estado.comenzarConstruccion(this.propietario, edificio);
+    void construir(Edificio edificio, Point2D pos) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+        this.estado = this.estado.comenzarConstruccion(this.propietario, edificio, this, pos);
     }
 
 }

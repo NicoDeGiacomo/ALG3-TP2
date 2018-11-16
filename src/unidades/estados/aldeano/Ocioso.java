@@ -1,9 +1,14 @@
 package unidades.estados.aldeano;
 
 import excepciones.main.OroInsuficienteException;
+import excepciones.mapa.FueraDeRangoException;
+import excepciones.mapa.PosicionOcupadaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import unidades.edificio.Edificio;
+import unidades.milicia.Aldeano;
+
+import java.awt.geom.Point2D;
 
 public class Ocioso extends EstadoDeAldeano {
 
@@ -17,8 +22,8 @@ public class Ocioso extends EstadoDeAldeano {
     }
 
     @Override
-    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws OroInsuficienteException, CreacionDeCastilloException {
-        return new Construyendo(this.propietario, edificio);
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+        return new Construyendo(this.propietario, edificio, aldeano, pos);
     }
 
     @Override

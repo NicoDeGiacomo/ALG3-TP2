@@ -3,6 +3,9 @@ package unidades.estados.aldeano;
 import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;
 import unidades.edificio.Edificio;
+import unidades.milicia.Aldeano;
+
+import java.awt.geom.Point2D;
 
 public class Reparando extends EstadoDeAldeano {
 
@@ -27,7 +30,7 @@ public class Reparando extends EstadoDeAldeano {
     }
 
     @Override
-    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException {
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws AldeanoOcupadoException {
         throw new AldeanoOcupadoException("El aldeano se encuentra reparando.");
     }
 }

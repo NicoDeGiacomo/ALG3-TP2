@@ -4,6 +4,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
 
+import main.Mapa;
 import org.junit.Test;
 import unidades.milicia.Espadachin;
 
@@ -14,7 +15,7 @@ public class PlazaCentralTests {
 
     @Test
     public void test01plazaCentralSonCreadosCorrectamente() {
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
         plazaCentral.ejecutarTareas();
         assertEquals(450, plazaCentral.verVida());
         assertEquals(4, plazaCentral.verTamanio());
@@ -24,8 +25,8 @@ public class PlazaCentralTests {
     
     @Test
     public void test02plazaCentralNoHaceDanio() {
-        PlazaCentral plazaCentral= new PlazaCentral(new Jugador("Nico"));
-        Espadachin armaDeAsedio = new Espadachin(new Jugador("Nico"));
+        PlazaCentral plazaCentral= new PlazaCentral(new Jugador("Nico", new Mapa()));
+        Espadachin armaDeAsedio = new Espadachin(new Jugador("Nico", new Mapa()));
         try {
             plazaCentral.provocarDanio(armaDeAsedio);
         } catch (AtaqueIncorrectoException e) {
@@ -35,7 +36,7 @@ public class PlazaCentralTests {
 
     @Test
     public void test03plazaCentralAldeanoConOro() throws OroInsuficienteException {
-        Jugador jugador = new Jugador("Nico");
+        Jugador jugador = new Jugador("Nico", new Mapa());
         agregarCienDeOroAJugador(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         plazaCentral.crearUnidad();
@@ -43,7 +44,7 @@ public class PlazaCentralTests {
 
     @Test
     public void test04plazaCentralCreaAldeanoSinOro() {
-        Jugador jugador = new Jugador("Nico");
+        Jugador jugador = new Jugador("Nico", new Mapa());
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         try {
             plazaCentral.crearUnidad();
@@ -54,7 +55,7 @@ public class PlazaCentralTests {
 
     @Test
     public void test05plazaCentralSonDaniadas() {
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
         assertEquals(450, plazaCentral.verVida());
         plazaCentral.recibirDanio(20);
         assertEquals(430, plazaCentral.verVida());
@@ -62,7 +63,7 @@ public class PlazaCentralTests {
 
     @Test
     public void test06plazaCentralEsArregladaYNoLlegaAVidaMaxima() {
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
         assertEquals(450, plazaCentral.verVida());
         plazaCentral.recibirDanio(30);
         assertEquals(420, plazaCentral.verVida());
@@ -72,7 +73,7 @@ public class PlazaCentralTests {
 
     @Test
     public void test07plazaCentralEsArregladaYLlegaAVidaMaxima() {
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico"));
+        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Nico", new Mapa()));
         assertEquals(450, plazaCentral.verVida());
         plazaCentral.recibirDanio(1);
         assertEquals(449, plazaCentral.verVida());

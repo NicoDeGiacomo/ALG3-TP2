@@ -4,8 +4,10 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import unidades.Unidad;
+import unidades.milicia.Aldeano;
 import unidades.milicia.ArmaDeAsedio;
-import unidades.milicia.Milicia;
+
+import java.awt.geom.Point2D;
 
 
 public class Castillo extends Edificio {
@@ -45,14 +47,13 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public Milicia crearUnidad() throws OroInsuficienteException {
+    public void crearUnidad() throws OroInsuficienteException {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(this.propietario);
-        this.propietario.agregarUnidad(armaDeAsedio);
-        return armaDeAsedio;
+        this.propietario.agregarUnidad(armaDeAsedio, this);
     }
 
     @Override
-    public void comenzarConstruccion() throws CreacionDeCastilloException {
+    public void comenzarConstruccion(Aldeano aldeano, Point2D pos) throws CreacionDeCastilloException {
         throw new CreacionDeCastilloException("No se puede construir un castillo.");
     }
 
