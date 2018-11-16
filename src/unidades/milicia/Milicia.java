@@ -7,6 +7,7 @@ public abstract class Milicia extends Unidad {
 
     int danio;
     int danioAEdificios;
+    int alcance = 1;
 
     @Override
     public boolean esMovible() {
@@ -20,7 +21,7 @@ public abstract class Milicia extends Unidad {
 
     @Override
     public int verAlcance() {
-        return 1;
+        return this.alcance;
     }
 
     public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {

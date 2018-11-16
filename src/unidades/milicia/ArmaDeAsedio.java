@@ -19,6 +19,7 @@ public class ArmaDeAsedio extends Milicia{
         this.vida = 150;
         this.danioAEdificios = 75;
         this.precio = 200;
+        this.alcance = 5;
     }
 
     @Override

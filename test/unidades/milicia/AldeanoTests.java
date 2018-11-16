@@ -1,5 +1,6 @@
 package unidades.milicia;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
@@ -113,11 +114,31 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test08aldeanoObtieneOro() throws OroInsuficienteException {
+    public void test08aldeanoObtieneOro() throws LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Aldeano aldeano = new Aldeano(jugador);
-        aldeano.ejecutarTareas();
-        //jugador.cobrarOro(aldeano); TODO: Fix este test
+        ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
+        Cuartel cuartel = new Cuartel(jugador);
+        try {
+            jugador.agregarUnidad(espadachin,cuartel);
+        } catch (OroInsuficienteException e) {
+            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
+        }
+    }
+    @Test
+    public void test09aldeanoObtieneOro() throws LimiteDePoblacionException {
+        Jugador jugador = new Jugador("Nico", new Mapa());
+        Aldeano aldeano = new Aldeano(jugador);
+        ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
+        Cuartel cuartel = new Cuartel(jugador);
+        for (int i = 0 ; i < 5; i ++ ){
+            aldeano.ejecutarTareas();
+        }
+        try {
+            jugador.agregarUnidad(espadachin,cuartel);
+        } catch (OroInsuficienteException e) {
+            fail("El oro del jugador es insuficiente.");
+        }
     }
 
     @Test

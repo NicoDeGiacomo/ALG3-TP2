@@ -74,16 +74,4 @@ public class EspadachinTests {
         assertEquals(Muerto.class, cuartel.verEstadoDeUnidad().getClass());
         assertFalse(cuartel.esMapeable());
     }
-
-    /*
-    TODO: Unidades del mismo equipo se pueden atacar? - NO! Hacer test (y funcionalidad si es necesaria)
-    @Test
-    public void test07espadachinNoProbocaDanioAUnidadesDeMismoJugador() {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico"));
-        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico"));
-        espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
-        assertEquals(100, espadachinHaceDanio.verVida());
-        assertEquals(100, espadachinRecibeDanio.verVida());
-    }
-*/
 }

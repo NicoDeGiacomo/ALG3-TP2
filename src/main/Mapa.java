@@ -78,10 +78,10 @@ public class Mapa {
         validarCoordenadaEnMapa(destino);
 
         Unidad atacante = (Unidad) obtenerDibujable(origen);
-
         if(atacante == null) return false;
 
-        return atacante.verAlcance() >= Math.floor(origen.distance(destino));
+        List<Point2D> coodenadas = obtenerCoordenadasCercanas(atacante);
+        return coodenadas.contains(destino);
     }
 
     List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
@@ -202,7 +202,7 @@ public class Mapa {
         colocarUnidad(unidad, destino);
     }
 
-    private List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
+    public List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
         List<Point2D> coordenadasAlRededor = new ArrayList<>();
         List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
@@ -210,10 +210,10 @@ public class Mapa {
 
         Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
         int alcance = (unidad.verAlcance() < 1) ? (1) : (unidad.verAlcance());
-        int tamanio = (unidad.verTamanio() < 1) ? (1) : (unidad.verTamanio() / 2);
+        int tamanio = (unidad.verTamanio() < 1) ? (1) : (unidad.verTamanio() / 4);
 
-        for (int i = -alcance; i < tamanio + alcance; i++) {
-            for (int j = -alcance; j < tamanio + alcance; j++) {
+        for (int i = -alcance; i <   tamanio + alcance + 1; i++) {
+            for (int j = -alcance; j < tamanio + alcance + 1; j++) {
                 Point2D chequeo = new Point2D.Double(coordenadaOrigen.getX() + i, coordenadaOrigen.getY() + j);
                 if (coordenadaEnMapa(chequeo) && !(coordenadasUnidad.contains(chequeo))) {
                     coordenadasAlRededor.add(chequeo);
