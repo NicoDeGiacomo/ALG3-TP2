@@ -1,5 +1,6 @@
 package main;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
@@ -37,7 +38,7 @@ public class JugadorTests {
     }
 
     @Test
-    public void noSePuedeAgregarUnidadConOroInsuficiente() {
+    public void noSePuedeAgregarUnidadConOroInsuficiente() throws LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
 
         try {
@@ -48,7 +49,7 @@ public class JugadorTests {
     }
 
     @Test
-    public void agregarUnidadConOroSuficiente() throws FueraDeRangoException, PosicionOcupadaException {
+    public void agregarUnidadConOroSuficiente() throws FueraDeRangoException, PosicionOcupadaException, LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
 
         try {

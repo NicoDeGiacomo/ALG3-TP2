@@ -1,5 +1,6 @@
 package unidades.edificio;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.UnidadNoEspecificadaException;
@@ -25,7 +26,7 @@ public class CuartelTests {
     }
 
     @Test
-    public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException {
+    public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException, LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Cuartel cuartel = new Cuartel(jugador);
         agregarCienDeOroAJugador(jugador);
@@ -46,7 +47,7 @@ public class CuartelTests {
     }
 
     @Test
-    public void test04cuartelCreaArqueroSinOro() {
+    public void test04cuartelCreaArqueroSinOro() throws LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Cuartel cuartel = new Cuartel(jugador);
         try {
@@ -57,7 +58,7 @@ public class CuartelTests {
     }
 
     @Test
-    public void test05cuartelCreaEspadachinSinOro() {
+    public void test05cuartelCreaEspadachinSinOro() throws LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Cuartel cuartel = new Cuartel(jugador);
         try {

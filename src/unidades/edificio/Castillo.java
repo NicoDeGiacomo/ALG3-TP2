@@ -1,5 +1,6 @@
 package unidades.edificio;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
@@ -47,7 +48,7 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws OroInsuficienteException {
+    public void crearUnidad() throws OroInsuficienteException, LimiteDePoblacionException {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(this.propietario);
         this.propietario.agregarUnidad(armaDeAsedio, this);
     }

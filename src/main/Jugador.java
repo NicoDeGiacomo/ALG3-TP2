@@ -1,5 +1,6 @@
 package main;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.FueraDeRangoException;
 import excepciones.mapa.PosicionOcupadaException;
@@ -18,11 +19,13 @@ import java.util.List;
 public class Jugador {
 
     private static final int CANTIDAD_ALDEANOS_INICIALES = 3;
+    private static final int CANTIDAD_MAX_POBLACION = 50; //TODO: Testear este limite
 
     private String nombre;
     private List<Unidad> unidades;
     private int oro;
     private Mapa mapa;
+    private int poblacion;
 
     public Jugador(String nombre, Mapa mapa) {
         this.nombre = nombre;
@@ -30,6 +33,7 @@ public class Jugador {
         this.mapa = mapa;
 
         this.oro = 100;
+        this.poblacion = CANTIDAD_ALDEANOS_INICIALES;
 
         Castillo castillo = new Castillo(this);
         PlazaCentral plazaCentral = new PlazaCentral(this);
@@ -58,21 +62,30 @@ public class Jugador {
         this.oro += estadoDeAldeano.obtenerRecollecion();
     }
 
-    public void agregarUnidad(Milicia unidad, Edificio creador) throws OroInsuficienteException {
-        if (this.oro < unidad.verPrecio())
-            throw new OroInsuficienteException("El oro del jugador es insuficiente.");
+    public void agregarUnidad(Milicia unidad, Edificio creador) throws OroInsuficienteException, LimiteDePoblacionException {
+        verificarOroSuficiente(unidad.verPrecio());
+        verificarPoblacionSuficiente();
 
-        this.unidades.add(unidad);//TODO: Verificar limite de poblacion
         this.mapa.agregarUnidadCercana(unidad, creador);
+        this.unidades.add(unidad);
         this.oro -= unidad.verPrecio();
     }
 
     public void agregarUnidad(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException {
-        if (this.oro < unidad.verPrecio())
-            throw new OroInsuficienteException("El oro del jugador es insuficiente.");
+        verificarOroSuficiente(unidad.verPrecio());
 
-        this.unidades.add(unidad);//TODO: Verificar limite de poblacion
-        this.mapa.agregarUnidadCercana(unidad, creador, pos);
+        this.mapa.agregarUnidadCercana(unidad, creador, pos); //TODO: Testear que no se agrega si falla el mapa
+        this.unidades.add(unidad);
         this.oro -= unidad.verPrecio();
+    }
+
+    private void verificarOroSuficiente(int precio) throws OroInsuficienteException {
+        if (oro < precio)
+            throw new OroInsuficienteException("El oro del jugador es insuficiente.");
+    }
+
+    private void verificarPoblacionSuficiente() throws LimiteDePoblacionException {
+        if (this.poblacion >= CANTIDAD_MAX_POBLACION)
+            throw new LimiteDePoblacionException("El limite de población llegó al máximo");
     }
 }

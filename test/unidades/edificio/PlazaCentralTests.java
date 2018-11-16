@@ -1,5 +1,6 @@
 package unidades.edificio;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
@@ -35,7 +36,7 @@ public class PlazaCentralTests {
     }
 
     @Test
-    public void test03plazaCentralAldeanoConOro() throws OroInsuficienteException {
+    public void test03plazaCentralAldeanoConOro() throws OroInsuficienteException, LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         agregarCienDeOroAJugador(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
@@ -43,7 +44,7 @@ public class PlazaCentralTests {
     }
 
     @Test
-    public void test04plazaCentralCreaAldeanoSinOro() {
+    public void test04plazaCentralCreaAldeanoSinOro() throws LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         try {

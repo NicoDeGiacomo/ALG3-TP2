@@ -1,5 +1,6 @@
 package unidades.edificio;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import main.Jugador;
@@ -31,12 +32,12 @@ public class Cuartel extends Edificio {
         throw new UnidadNoEspecificadaException("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
-    void crearEspadachin() throws OroInsuficienteException {
+    void crearEspadachin() throws OroInsuficienteException, LimiteDePoblacionException {
         Espadachin espadachin = new Espadachin(this.propietario);
         this.propietario.agregarUnidad(espadachin, this);
     }
 
-    void crearArquero() throws OroInsuficienteException {
+    void crearArquero() throws OroInsuficienteException, LimiteDePoblacionException {
         Arquero arquero = new Arquero(this.propietario);
         this.propietario.agregarUnidad(arquero, this);
     }

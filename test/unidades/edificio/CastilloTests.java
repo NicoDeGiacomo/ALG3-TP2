@@ -1,5 +1,6 @@
 package unidades.edificio;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import main.Jugador;
 import main.Mapa;
@@ -22,7 +23,7 @@ public class CastilloTests {
     }
 
     @Test
-    public void test02castilloCreaArmaDeAsedioConOro() throws OroInsuficienteException {
+    public void test02castilloCreaArmaDeAsedioConOro() throws OroInsuficienteException, LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         agregarCienDeOroAJugador(jugador);
         Castillo castillo = new Castillo(jugador);
@@ -30,7 +31,7 @@ public class CastilloTests {
     }
 
     @Test
-    public void test03castilloCreaArmaDeAsedioSinOro() {
+    public void test03castilloCreaArmaDeAsedioSinOro() throws LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Castillo castillo = new Castillo(jugador);
         try {
