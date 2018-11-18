@@ -84,15 +84,15 @@ public class AlcanceTests {
         Mapa mapa = new Mapa();
         Castillo castillo = new Castillo(new Jugador("Nico", new Mapa()));
         Point2D coordenada1 = new Point2D.Double(0, 0),
-                coordenada2 = new Point2D.Double(0, 7),
-                coordenada3 = new Point2D.Double(7, 7),
-                coordenada4 = new Point2D.Double(7, 8);
+                coordenada2 = new Point2D.Double(0, 4),
+                coordenada3 = new Point2D.Double(5, 5),
+                coordenada4 = new Point2D.Double(4, 5);
 
         mapa.colocarUnidad(castillo, coordenada1);
 
         Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
         Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
+        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada4));
     }
 
     @Test

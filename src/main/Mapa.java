@@ -19,7 +19,7 @@ public class Mapa {
     private static final int TAMANIO = 100;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
-    void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
+    public void colocarUnidad(Unidad unidad, Point2D coordenada) throws FueraDeRangoException, PosicionOcupadaException {
         if (unidad == null) return;
 
         int tamanioUnidad = (unidad.verTamanio() < 1) ? (1) : ((int) Math.sqrt(unidad.verTamanio()));
@@ -128,25 +128,67 @@ public class Mapa {
     }
 
     void colocarUnidadesEnExtremo(Unidad castillo, Unidad plazaCentral) {
-        colocarUnidadEnExtremo(castillo);
+        colocarUnidadEnExtremo(castillo, plazaCentral);
         //TODO: Implementar Plaza Central y Aldeanos.
         //TODO: Limpiarlo.
     }
 
-    void agregarUnidadCercana(Aldeano aldeano, PlazaCentral plazaCentral) {
-        //TODO: IMPLEMENT ME!
+    public void agregarUnidadCercana(Unidad unidad, Unidad creador) {
+        if(creador == null) return;
+        List<Point2D> lugaresLibres = obtenerCoordenadasCercanas(creador);
+
+        for (Point2D coordenada: lugaresLibres) {
+            try {
+                if(obtenerDibujable(coordenada) != null) lugaresLibres.remove(coordenada);
+            } catch (FueraDeRangoException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(lugaresLibres.size() == 0) {
+            //TODO: Revisar esto!
+            return;//throw new PosicionOcupadaException("No hay espacio para crear una nueva Unidad!");
+        }
+
+        Random random = new Random();
+
+        try {
+            colocarUnidad(unidad, lugaresLibres.get(random.nextInt(lugaresLibres.size())));
+        } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
+        }
     }
 
-    void colocarUnidadEnExtremo(Unidad castillo) {
+    public void agregarUnidadCercana(Unidad unidad, Unidad creador, Point2D coordenadaDestino) throws FueraDeRangoException, PosicionOcupadaException {
+        validarCoordenada(coordenadaDestino);
+
+        boolean estaCerca = false;
+
+        List<Point2D> coordenadas = obtenerCoordenadas(unidad);
+
+        for (Point2D coordenada : coordenadas) {
+            if (Math.floor(coordenada.distance(coordenadaDestino)) <= 1) {
+                estaCerca = true;
+            }
+        }
+
+        if(estaCerca) {
+            try {
+                colocarUnidad(creador, coordenadaDestino);
+            } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
+            }
+        }
+    }
+
+    public void colocarUnidadEnExtremo(Unidad castillo, Unidad plazaCentral) {
         if (castillo == null) return;
 
         List<Castillo> castillos = encontrarCastillos();
-        int xOrigen = 0,
-                yOrigen = 0,
-                xDestino = 0,
-                yDestino = 0,
-                cuadranteOrigen = 0,
-                cuadranteDestino = 0;
+        int xOrigen,
+            yOrigen,
+            xDestino,
+            yDestino,
+            cuadranteOrigen,
+            cuadranteDestino;
         Random random = new Random();
 
         if (castillos.size() > 1) {
@@ -179,6 +221,7 @@ public class Mapa {
 
         try {
             colocarUnidad(castillo, coordenada);
+            //TODO: Agregar PlazaCentral!
         } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
         }
     }
@@ -202,47 +245,27 @@ public class Mapa {
         colocarUnidad(unidad, destino);
     }
 
-    public List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
+    List<Point2D> obtenerCoordenadasCercanas(Unidad unidad) {
         List<Point2D> coordenadasAlRededor = new ArrayList<>();
         List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
-        if (unidad == null) return coordenadasAlRededor;
+        //TODO: Si no tiene coordenada en el mapa, hay que tirar excepcion? Tecnicamente no está y no va a hacer nada.
+        if (unidad == null || coordenadasUnidad.size() == 0) return coordenadasAlRededor;
 
         Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
         int alcance = (unidad.verAlcance() < 1) ? (1) : (unidad.verAlcance());
-        int tamanio = (unidad.verTamanio() < 1) ? (1) : (unidad.verTamanio() / 4);
+        int tamanio = (unidad.verTamanio() < 1) ? (1) : ((int) Math.sqrt(unidad.verTamanio()));
 
-        for (int i = -alcance; i <   tamanio + alcance + 1; i++) {
-            for (int j = -alcance; j < tamanio + alcance + 1; j++) {
+        for (int i = -alcance; i <   tamanio + alcance; i++) {
+            for (int j = -alcance; j < tamanio + alcance; j++) {
                 Point2D chequeo = new Point2D.Double(coordenadaOrigen.getX() + i, coordenadaOrigen.getY() + j);
-                if (coordenadaEnMapa(chequeo) && !(coordenadasUnidad.contains(chequeo))) {
+                if (coordenadaEnMapa(chequeo) && !(coordenadasUnidad.contains(chequeo)) ) {
                     coordenadasAlRededor.add(chequeo);
                 }
             }
         }
 
         return coordenadasAlRededor;
-    }
-
-    void agregarUnidadCercana(Unidad unidad, Unidad unidadCercana, Point2D coordenadaDestino) throws FueraDeRangoException, PosicionOcupadaException {
-        validarCoordenada(coordenadaDestino);
-
-        boolean estaCerca = false;
-
-        List<Point2D> coordenadas = obtenerCoordenadas(unidad);
-
-        for (Point2D coordenada : coordenadas) {
-            if (Math.floor(coordenada.distance(coordenadaDestino)) <= 1) {
-                estaCerca = true;
-            }
-        }
-
-        if(estaCerca) {
-            try {
-                colocarUnidad(unidadCercana, coordenadaDestino);
-            } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
-            }
-        }
     }
 
     void quitarUnidad(Unidad unidad) {
@@ -275,7 +298,5 @@ public class Mapa {
         return (!(coordenada.getX() >= TAMANIO)) && (!(coordenada.getY() >= TAMANIO)) && (!(coordenada.getX() < 0)) && (!(coordenada.getY() < 0));
     }
 
-    public void agregarUnidadCercana(Unidad unidad, Unidad creador) {
-        //TODO: Gasti
-    }
+
 }

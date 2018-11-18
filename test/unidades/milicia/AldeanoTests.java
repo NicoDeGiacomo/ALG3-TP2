@@ -127,10 +127,18 @@ public class AldeanoTests {
     }
     @Test
     public void test09aldeanoObtieneOro() throws LimiteDePoblacionException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Nico", mapa);
         Aldeano aldeano = new Aldeano(jugador);
         ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
         Cuartel cuartel = new Cuartel(jugador);
+
+        try {
+            mapa.colocarUnidad(cuartel, new Point2D.Double(1,1));
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error Inesperado");
+        }
+
         for (int i = 0 ; i < 5; i ++ ){
             aldeano.ejecutarTareas();
         }

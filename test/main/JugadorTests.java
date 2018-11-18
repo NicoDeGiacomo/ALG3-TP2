@@ -15,6 +15,7 @@ import java.awt.geom.Point2D;
 
 import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class JugadorTests {
 
@@ -39,17 +40,25 @@ public class JugadorTests {
 
     @Test
     public void noSePuedeAgregarUnidadConOroInsuficiente() throws LimiteDePoblacionException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Nico", mapa);
+        PlazaCentral plazaCentral = new PlazaCentral(jugador);
 
         try {
-            jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
+            mapa.colocarUnidad(plazaCentral, new Point2D.Double(1,1));
+        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            fail("Error Inesperado");
+        }
+
+        try {
+            jugador.agregarUnidad(new Aldeano(jugador), plazaCentral);
         } catch (OroInsuficienteException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }
 
     @Test
-    public void agregarUnidadConOroSuficiente() throws FueraDeRangoException, PosicionOcupadaException, LimiteDePoblacionException {
+    public void agregarUnidadConOroSuficiente() throws LimiteDePoblacionException {
         Jugador jugador = new Jugador("Nico", new Mapa());
 
         try {
