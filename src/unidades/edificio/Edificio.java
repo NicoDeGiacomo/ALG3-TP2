@@ -52,5 +52,8 @@ public abstract class Edificio extends Unidad {
         this.estadoDeUnidad = new Vivo();
     }
 
+    protected void reportarMuerte() {
+        this.propietario.removerUnidad(this);
+    }
 
 }

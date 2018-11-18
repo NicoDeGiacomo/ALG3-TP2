@@ -31,4 +31,8 @@ public abstract class Milicia extends Unidad {
             unidad.recibirDanio(this.danio);
     }
 
+    protected void reportarMuerte() {
+        this.propietario.removerUnidad(this);
+    }
+
 }

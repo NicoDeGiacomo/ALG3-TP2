@@ -19,7 +19,7 @@ import java.util.List;
 public class Jugador {
 
     private static final int CANTIDAD_ALDEANOS_INICIALES = 3;
-    private static final int CANTIDAD_MAX_POBLACION = 50; //TODO: Testear este limite
+    private static final int CANTIDAD_MAX_POBLACION = 50; //TODO: Testear este limite (sube al crear milicia, baja al crear aldeano)
 
     private String nombre;
     private List<Unidad> unidades;
@@ -88,4 +88,14 @@ public class Jugador {
         if (this.poblacion >= CANTIDAD_MAX_POBLACION)
             throw new LimiteDePoblacionException("El limite de población llegó al máximo");
     }
+
+    public void removerUnidad(Edificio unidad) {
+        this.unidades.remove(unidad);
+    }
+
+    public void removerUnidad(Milicia unidad) {
+        this.poblacion -= 1;
+        this.unidades.remove(unidad);
+    }
+
 }

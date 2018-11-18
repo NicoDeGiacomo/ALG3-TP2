@@ -22,9 +22,13 @@ public abstract class Unidad implements Dibujable {
 
     public void recibirDanio(int danio) {
         this.vida -= danio;
-        if (this.vida <= 0)
+        if (this.vida <= 0) {
             this.estadoDeUnidad = new Muerto();
+            reportarMuerte();
+        }
     }
+
+    protected abstract void reportarMuerte();
 
     public EstadoDeUnidad verEstadoDeUnidad() {
         return this.estadoDeUnidad;
