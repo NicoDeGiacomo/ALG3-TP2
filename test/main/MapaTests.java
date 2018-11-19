@@ -2,7 +2,6 @@ package main;
 
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
-import org.junit.Assert;
 import org.junit.Test;
 import unidades.Dibujable;
 import unidades.Unidad;
@@ -14,7 +13,6 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MapaTests {
@@ -73,7 +71,7 @@ public class MapaTests {
     }
 
     @Test
-    public void Test106ObtenerUnidadesAlAlcanceDeNullTraeConjuntoVacio() throws CoordenadaInvalidaException {
+    public void Test106ObtenerUnidadesAlAlcanceDeNullTraeConjuntoVacio() {
         Mapa mapa = new Mapa();
 
         assertThrows(CoordenadaInvalidaException.class, () -> mapa.dibujablesAlAlcance(null));

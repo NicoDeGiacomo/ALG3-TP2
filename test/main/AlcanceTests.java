@@ -2,7 +2,6 @@ package main;
 
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AtaqueIncorrectoException;
-import org.junit.Assert;
 import org.junit.Test;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
@@ -13,7 +12,8 @@ import unidades.milicia.Espadachin;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AlcanceTests {

@@ -9,7 +9,6 @@ import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import main.Mapa;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
@@ -17,7 +16,6 @@ import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
 
 import java.awt.geom.Point2D;
-import java.util.Map;
 
 import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
@@ -119,7 +117,6 @@ public class AldeanoTests {
     @Test
     public void test08aldeanoObtieneOro() throws LimiteDePoblacionException, CoordenadaInvalidaException {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
         ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
         Cuartel cuartel = new Cuartel(jugador);
         try {
