@@ -13,6 +13,7 @@ import unidades.milicia.Espadachin;
 import java.awt.geom.Point2D;
 import java.util.List;
 
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AlcanceTests {
@@ -30,12 +31,12 @@ public class AlcanceTests {
 
         mapa.colocarDibujable(arquero, coordenada1);
 
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada4));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada5));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada7));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada4));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada5));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada7));
     }
 
     @Test
@@ -51,11 +52,11 @@ public class AlcanceTests {
 
         mapa.colocarDibujable(arma, coordenada1);
 
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada5));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada7));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada5));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada7));
     }
 
     @Test
@@ -71,11 +72,11 @@ public class AlcanceTests {
 
         mapa.colocarDibujable(espadachin, coordenada1);
 
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada5));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada5));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
     }
 
     @Test
@@ -89,9 +90,9 @@ public class AlcanceTests {
 
         mapa.colocarDibujable(castillo, coordenada1);
 
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada4));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada4));
     }
 
     @Test
@@ -108,12 +109,12 @@ public class AlcanceTests {
 
         mapa.colocarDibujable(arquero, coordenada1);
 
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada4));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada5));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada7));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada4));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada5));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada6));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada7));
     }
 
     @Test
@@ -136,7 +137,7 @@ public class AlcanceTests {
 
         assertEquals(990, castillo.verVida());
 
-        List<Point2D> coordenadasCercana = mapa.obtenerCoordenadasCercanas(castillo);
+        List<Point2D> coordenadasCercana = mapa.obtenerCoordenadasAlAlcance(castillo);
 
         for(Point2D coordenada : coordenadasCercana) {
             Unidad atacado = (Unidad) mapa.obtenerDibujable(coordenada);

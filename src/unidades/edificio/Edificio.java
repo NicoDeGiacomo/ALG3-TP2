@@ -18,7 +18,7 @@ public abstract class Edificio extends Unidad {
     int tamanio;
     int alcance = 1;
 
-    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException;
+    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException;
 
     @Override
     public boolean esMovible() {

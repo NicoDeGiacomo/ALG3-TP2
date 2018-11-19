@@ -2,6 +2,7 @@ package unidades.edificio;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import main.Jugador;
 import unidades.milicia.Aldeano;
 
@@ -26,7 +27,7 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws OroInsuficienteException, LimiteDePoblacionException {
+    public void crearUnidad() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
         Aldeano aldeano = new Aldeano(this.propietario);
         this.propietario.agregarUnidad(aldeano, this);
     }

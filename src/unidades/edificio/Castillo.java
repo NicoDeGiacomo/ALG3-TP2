@@ -2,6 +2,7 @@ package unidades.edificio;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import unidades.Unidad;
@@ -48,7 +49,7 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws OroInsuficienteException, LimiteDePoblacionException {
+    public void crearUnidad() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
         ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(this.propietario);
         this.propietario.agregarUnidad(armaDeAsedio, this);
     }

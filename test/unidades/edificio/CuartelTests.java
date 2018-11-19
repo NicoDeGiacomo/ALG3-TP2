@@ -2,22 +2,25 @@ package unidades.edificio;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import main.Jugador;
 
 import main.Mapa;
 import org.junit.Test;
+import org.mockito.stubbing.Answer;
 import unidades.milicia.Espadachin;
 
 import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class CuartelTests {
 
     @Test
     public void test01cuartelSonCreadosCorrectamente() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         cuartel.ejecutarTareas();
         assertEquals(250, cuartel.verVida());
         assertEquals(4, cuartel.verTamanio());
@@ -26,8 +29,8 @@ public class CuartelTests {
     }
 
     @Test
-    public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException, LimiteDePoblacionException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+    public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException, CoordenadaInvalidaException, LimiteDePoblacionException {
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Cuartel cuartel = new Cuartel(jugador);
         agregarCienDeOroAJugador(jugador);
         cuartel.crearEspadachin();
@@ -37,8 +40,8 @@ public class CuartelTests {
 
     @Test
     public void test03cuartelNoHaceDanio() {
-        Cuartel cuartel= new Cuartel(new Jugador("Nico", new Mapa()));
-        Espadachin armaDeAsedio = new Espadachin(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel= new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Espadachin armaDeAsedio = new Espadachin(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         try {
             cuartel.provocarDanio(armaDeAsedio);
         } catch (AtaqueIncorrectoException e) {
@@ -47,8 +50,8 @@ public class CuartelTests {
     }
 
     @Test
-    public void test04cuartelCreaArqueroSinOro() throws LimiteDePoblacionException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+    public void test04cuartelCreaArqueroSinOro() throws CoordenadaInvalidaException, LimiteDePoblacionException {
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Cuartel cuartel = new Cuartel(jugador);
         try {
             cuartel.crearArquero();
@@ -58,8 +61,8 @@ public class CuartelTests {
     }
 
     @Test
-    public void test05cuartelCreaEspadachinSinOro() throws LimiteDePoblacionException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+    public void test05cuartelCreaEspadachinSinOro() throws CoordenadaInvalidaException, LimiteDePoblacionException {
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Cuartel cuartel = new Cuartel(jugador);
         try {
             cuartel.crearEspadachin();
@@ -70,7 +73,7 @@ public class CuartelTests {
 
     @Test
     public void test06cuartelCreaUnidadSinExpecificar() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         try {
             cuartel.crearUnidad();
         } catch (UnidadNoEspecificadaException e) {
@@ -80,7 +83,7 @@ public class CuartelTests {
 
     @Test
     public void test07cuartelSonDaniados() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(20);
         assertEquals(230, cuartel.verVida());
@@ -88,7 +91,7 @@ public class CuartelTests {
 
     @Test
     public void test08cuartelEsArregladoYNoLlegaAVidaMaxima() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(60);
         assertEquals(190, cuartel.verVida());
@@ -98,7 +101,7 @@ public class CuartelTests {
 
     @Test
     public void test05cuartelEsArregladoYLlegaAVidaMaxima() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(1);
         assertEquals(249, cuartel.verVida());

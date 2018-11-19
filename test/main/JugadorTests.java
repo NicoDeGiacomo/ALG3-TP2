@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.stubbing.Answer;
 import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
 
@@ -17,20 +18,16 @@ import static org.mockito.Mockito.mock;
 public class JugadorTests {
 
     @Test
-    public void noSePuedeAgregarUnidadConOroInsuficiente() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Nico", mapa);
+    public void noSePuedeAgregarUnidadConOroInsuficiente() {
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Whitebox.setInternalState(jugador, "oro", 0);
 
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        mapa.colocarDibujable(plazaCentral, new Point2D.Double(1, 1));
-
-        assertThrows(OroInsuficienteException.class, () -> jugador.agregarUnidad(new Aldeano(jugador), plazaCentral), "El oro del jugador es insuficiente.");
+        assertThrows(OroInsuficienteException.class, () -> jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador)), "El oro del jugador es insuficiente.");
     }
 
     @Test
     public void agregarUnidadConOroSuficiente() throws LimiteDePoblacionException, CoordenadaInvalidaException, OroInsuficienteException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = mock(Mapa.class, (Answer) invocation -> null);
         Jugador jugador = new Jugador("Nico", mapa);
         Whitebox.setInternalState(jugador, "oro", new Aldeano(jugador).verPrecio());
 
@@ -41,38 +38,29 @@ public class JugadorTests {
     }
 
     @Test
-    public void noSePuedeSuperarElLimiteDePoblacion() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Nico", mapa);
+    public void noSePuedeSuperarElLimiteDePoblacion() {
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Whitebox.setInternalState(jugador, "poblacion", 50);
         Whitebox.setInternalState(jugador, "oro", 1000000);
 
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        mapa.colocarDibujable(plazaCentral, new Point2D.Double(1, 1));
-
-        assertThrows(LimiteDePoblacionException.class, () -> jugador.agregarUnidad(new Aldeano(jugador), plazaCentral), "El limite de población llegó al máximo.");
+        assertThrows(LimiteDePoblacionException.class, () -> jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador)), "El limite de población llegó al máximo.");
     }
 
     @Test
     public void lasMiliciasMuertasBajanElLimiteDePoblacion() throws OroInsuficienteException, CoordenadaInvalidaException, LimiteDePoblacionException {
-        Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Nico", mapa);
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Whitebox.setInternalState(jugador, "poblacion", 49);
         Whitebox.setInternalState(jugador, "oro", 1000000);
 
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        mapa.colocarDibujable(plazaCentral, new Point2D.Double(1, 1));
-
         Aldeano aldeano = new Aldeano(jugador);
-        jugador.agregarUnidad(aldeano, plazaCentral);
+        jugador.agregarUnidad(aldeano, new PlazaCentral(jugador));
         aldeano.recibirDanio(1000000);
-        jugador.agregarUnidad(new Aldeano(jugador), plazaCentral);
+        jugador.agregarUnidad(new Aldeano(jugador), new PlazaCentral(jugador));
     }
 
     @Test
     public void losEdificiosMuertosNoBajanElLimiteDePoblacion() throws OroInsuficienteException, CoordenadaInvalidaException, LimiteDePoblacionException {
-        Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Nico", mapa);
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Whitebox.setInternalState(jugador, "poblacion", 49);
         Whitebox.setInternalState(jugador, "oro", 1000000);
 
@@ -86,7 +74,7 @@ public class JugadorTests {
     }
 
     @Test
-    public void siFallaElMapaLaUnidadNoSeAgrega() throws OroInsuficienteException, LimiteDePoblacionException {
+    public void siFallaElMapaLaUnidadNoSeAgrega() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
         Mapa mapa = mock(Mapa.class);
         Jugador jugador = new Jugador("Nico", mapa);
         Whitebox.setInternalState(jugador, "poblacion", 49);

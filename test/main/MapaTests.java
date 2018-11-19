@@ -13,7 +13,9 @@ import unidades.milicia.Arquero;
 import java.awt.geom.Point2D;
 import java.util.List;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MapaTests {
 
@@ -27,7 +29,7 @@ public class MapaTests {
         Dibujable dibujable;
         dibujable = mapa.obtenerDibujable(new Point2D.Double(0,0));
 
-        Assert.assertNull(dibujable);
+        assertNull(dibujable);
     }
 
     @Test
@@ -41,18 +43,14 @@ public class MapaTests {
             }
         }
 
-        Assert.assertFalse(estaOcupado);
+        assertFalse(estaOcupado);
     }
 
     @Test
     public void Test103QuitarUnidadDeMapaVacioNoHaceNada() throws CoordenadaInvalidaException {
         Mapa mapa = new Mapa();
 
-        Assert.assertNull(mapa.obtenerDibujable(new Point2D.Double(0,0)));
-
-        mapa.quitarUnidad(null);
-
-        Assert.assertNull(mapa.obtenerDibujable(new Point2D.Double(0,0)));
+        assertNull(mapa.obtenerDibujable(new Point2D.Double(0,0)));
     }
 
     @Test
@@ -64,25 +62,21 @@ public class MapaTests {
 
         unidad = (Unidad) mapa.obtenerDibujable(new Point2D.Double(0,0));
 
-        Assert.assertNull(unidad);
+        assertNull(unidad);
     }
 
     @Test
-    public void Test105ObtenerCoordenadasDeNullTraeConjuntoVacio(){
+    public void Test105ObtenerCoordenadasDeNullLanzaUnError() {
         Mapa mapa = new Mapa();
 
-        List<Point2D> coordenadas = mapa.obtenerCoordenadas(null);
-
-        Assert.assertEquals(0, coordenadas.size());
+        assertThrows(CoordenadaInvalidaException.class, () -> mapa.obtenerCoordenadas(null));
     }
 
     @Test
-    public void Test106ObtenerUnidadesAlAlcanceDeNullTraeConjuntoVacio(){
+    public void Test106ObtenerUnidadesAlAlcanceDeNullTraeConjuntoVacio() throws CoordenadaInvalidaException {
         Mapa mapa = new Mapa();
 
-        List<Dibujable> unidades = mapa.dibujablesAlAlcance(null);
-
-        Assert.assertEquals(0, unidades.size());
+        assertThrows(CoordenadaInvalidaException.class, () -> mapa.dibujablesAlAlcance(null));
     }
 
     /*2 - Tests con Unidades*/
@@ -96,8 +90,8 @@ public class MapaTests {
                 coordenada2 = new Point2D.Double(1,2);
 
         mapa.colocarDibujable(arquero, coordenada1);
-        Assert.assertNotNull(mapa.obtenerDibujable(coordenada1));
-        Assert.assertNull(mapa.obtenerDibujable(coordenada2));
+        assertNotNull(mapa.obtenerDibujable(coordenada1));
+        assertNull(mapa.obtenerDibujable(coordenada2));
     }
 
     @Test
@@ -111,10 +105,10 @@ public class MapaTests {
                 coordenada4 = new Point2D.Double(2,2);
 
         mapa.colocarDibujable(cuartel, coordenada1);
-        Assert.assertNotNull(mapa.obtenerDibujable(coordenada1));
-        Assert.assertNotNull(mapa.obtenerDibujable(coordenada2));
-        Assert.assertNotNull(mapa.obtenerDibujable(coordenada3));
-        Assert.assertNotNull(mapa.obtenerDibujable(coordenada4));
+        assertNotNull(mapa.obtenerDibujable(coordenada1));
+        assertNotNull(mapa.obtenerDibujable(coordenada2));
+        assertNotNull(mapa.obtenerDibujable(coordenada3));
+        assertNotNull(mapa.obtenerDibujable(coordenada4));
     }
 
     @Test
@@ -128,7 +122,7 @@ public class MapaTests {
         Arquero chequeo;
         chequeo = (Arquero) mapa.obtenerDibujable(coordenada1);
 
-        Assert.assertEquals(arquero , chequeo);
+        assertEquals(arquero , chequeo);
     }
 
     @Test
@@ -151,10 +145,10 @@ public class MapaTests {
         chequeo3 = (Cuartel) mapa.obtenerDibujable(coordenada3);
         chequeo4 = (Cuartel) mapa.obtenerDibujable(coordenada4);
 
-        Assert.assertEquals(cuartel , chequeo1);
-        Assert.assertEquals(cuartel , chequeo2);
-        Assert.assertEquals(cuartel , chequeo3);
-        Assert.assertEquals(cuartel , chequeo4);
+        assertEquals(cuartel , chequeo1);
+        assertEquals(cuartel , chequeo2);
+        assertEquals(cuartel , chequeo3);
+        assertEquals(cuartel , chequeo4);
     }
 
     @Test
@@ -168,9 +162,9 @@ public class MapaTests {
 
         mapa.colocarDibujable(arquero, coordenada1);
 
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
-        Assert.assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
-        Assert.assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada2));
+        assertTrue(mapa.estaAlAlcance(coordenada1, coordenada3));
+        assertFalse(mapa.estaAlAlcance(coordenada1, coordenada4));
     }
 
     @Test
@@ -182,12 +176,12 @@ public class MapaTests {
 
         mapa.colocarDibujable(cuartel, new Point2D.Double(5,5));
 
-        mapa.agregarUnidadCercana(cuartel,arquero, new Point2D.Double(4,5));
+        mapa.agregarUnidadCercana(arquero, cuartel, new Point2D.Double(4,5));
 
         List<Dibujable> unidades = mapa.dibujablesAlAlcance(cuartel);
 
-        Assert.assertEquals(1, unidades.size());
-        Assert.assertEquals( arquero, unidades.get(0));
+        assertEquals(1, unidades.size());
+        assertEquals( arquero, unidades.get(0));
     }
 
     @Test
@@ -201,21 +195,21 @@ public class MapaTests {
 
         mapa.colocarDibujable(arquero, origen);
 
-        Assert.assertEquals(origen, mapa.obtenerCoordenadas(arquero).get(0));
+        assertEquals(origen, mapa.obtenerCoordenadas(arquero).get(0));
 
         //Arquero se mueve en Y. Distancia es 1.
         mapa.moverUnidad(arquero, destino1);
 
-        Assert.assertEquals(destino1, mapa.obtenerCoordenadas(arquero).get(0));
+        assertEquals(destino1, mapa.obtenerCoordenadas(arquero).get(0));
 
         //Arquero se mueve en diagonal. Distancia es sqrt(2).
         mapa.moverUnidad(arquero, destino2);
 
-        Assert.assertEquals(destino2, mapa.obtenerCoordenadas(arquero).get(0));
+        assertEquals(destino2, mapa.obtenerCoordenadas(arquero).get(0));
     }
 
     @Test
-    public void Test208MapaCreaCastilloEnCuadranteOpuestoAlYaCreado() {
+    public void Test208MapaCreaCastilloEnCuadranteOpuestoAlYaCreado() throws CoordenadaInvalidaException {
         Mapa mapa = new Mapa();
         Jugador jugador1 = new Jugador("Nico", new Mapa()),
                 jugador2 = new Jugador("Piter", new Mapa());
@@ -238,7 +232,7 @@ public class MapaTests {
                 (coordenadaCastillo1.getY() < (TAMANIO/2) && coordenadaCastillo2.getY() >= (TAMANIO/2)) ||
                 (coordenadaCastillo1.getY() >= (TAMANIO/2) && coordenadaCastillo2.getY() < (TAMANIO/2));
 
-        Assert.assertTrue(comprobarX && comprobarY);
+        assertTrue(comprobarX && comprobarY);
     }
 
     @Test
@@ -261,7 +255,7 @@ public class MapaTests {
         }
 
         //Cantidad de casilleros ocupados por los castillos. 2 castillos x (4x4 casilleros) = 32.
-        Assert.assertEquals(32, count);
+        assertEquals(32, count);
     }
 
     /*3 - Tests de Excepciones*/
@@ -408,7 +402,7 @@ public class MapaTests {
         try {
             mapa.moverUnidad(arquero1, destino);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("La coordenada de Destino ya se encuentra ocupada!", e.getMessage());
+            assertEquals("Ya existe una Unidad en (2.0, 2.0)", e.getMessage());
         }
     }
 
@@ -423,10 +417,10 @@ public class MapaTests {
 
         mapa.colocarDibujable(cuartel, coordenada1);
 
-        mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
+        mapa.agregarUnidadCercana(arquero, cuartel, coordenada2);
 
         try {
-            mapa.agregarUnidadCercana(cuartel, arquero, coordenada2);
+            mapa.agregarUnidadCercana(arquero, cuartel, coordenada2);
         } catch (CoordenadaInvalidaException e) {
             assertEquals("Ya existe una Unidad en (4.0, 5.0)", e.getMessage());
         }
@@ -439,7 +433,7 @@ public class MapaTests {
         try {
             mapa.obtenerDibujable(null);
         } catch (CoordenadaInvalidaException e) {
-            Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
+            assertEquals("La coordenada es null.", e.getMessage());
         }
     }
 
@@ -452,13 +446,13 @@ public class MapaTests {
         try {
             mapa.estaAlAlcance(null, destino);
         } catch (CoordenadaInvalidaException e) {
-            Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
+            assertEquals("La coordenada es null.", e.getMessage());
         }
 
         try {
             mapa.estaAlAlcance(origen, null);
         } catch (CoordenadaInvalidaException e) {
-            Assert.assertEquals("No se puede validar una coordenada NULL!", e.getMessage());
+            assertEquals("La coordenada es null.", e.getMessage());
         }
     }
 
@@ -470,7 +464,7 @@ public class MapaTests {
         try {
             mapa.estaAlAlcance(origen, null);
         } catch (CoordenadaInvalidaException e) {
-            Assert.assertEquals("Posición (200.0, 200.0) fuera del Margen del Mapa!", e.getMessage());
+            assertEquals("Posición (200.0, 200.0) fuera del Margen del Mapa!", e.getMessage());
         }
     }
 }

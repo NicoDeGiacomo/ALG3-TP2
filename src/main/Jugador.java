@@ -42,7 +42,10 @@ public class Jugador {
 
         for (int i = 0; i < CANTIDAD_ALDEANOS_INICIALES; i++) {
             Aldeano aldeano = new Aldeano(this);
-            this.mapa.agregarUnidadCercana(aldeano, plazaCentral);
+            try {
+                this.mapa.agregarUnidadCercana(aldeano, plazaCentral);
+            } catch (CoordenadaInvalidaException ignore) {
+            }
             this.unidades.add(aldeano);
         }
     }
@@ -61,7 +64,7 @@ public class Jugador {
         this.oro += estadoDeAldeano.obtenerRecollecion();
     }
 
-    public void agregarUnidad(Milicia unidad, Edificio creador) throws OroInsuficienteException, LimiteDePoblacionException {
+    public void agregarUnidad(Milicia unidad, Edificio creador) throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
         verificarOroSuficiente(unidad.verPrecio());
         verificarPoblacionSuficiente();
 

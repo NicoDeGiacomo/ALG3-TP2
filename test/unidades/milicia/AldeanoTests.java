@@ -9,21 +9,25 @@ import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import main.Mapa;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
 
 import java.awt.geom.Point2D;
+import java.util.Map;
 
 import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class AldeanoTests {
 
     @Test
     public void test01aldeanoSonCreadosCorrectamente() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
+        Aldeano aldeano = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         assertEquals(50, aldeano.verVida());
         assertEquals(1, aldeano.verTamanio());
         assertTrue(aldeano.esMovible());
@@ -31,8 +35,8 @@ public class AldeanoTests {
 
     @Test
     public void test02aldeanoNoHaceDanio() {
-        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico", new Mapa()));
-        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico", new Mapa()));
+        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
 
         try {
             aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
@@ -46,7 +50,7 @@ public class AldeanoTests {
 
     @Test
     public void test03aldeanoSonDaniadas() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico", new Mapa()));
+        Aldeano aldeano = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         assertEquals(50, aldeano.verVida());
         aldeano.recibirDanio(20);
         assertEquals(30, aldeano.verVida());
@@ -55,7 +59,7 @@ public class AldeanoTests {
 
     @Test
     public void test05aldeanoReparandoEdificioTieneVidaMaximaYAldeanoCambiaDeEstado() throws AldeanoOcupadoException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
 
@@ -74,7 +78,7 @@ public class AldeanoTests {
 
     @Test
     public void test06aldeanoConstruyendoPlaza() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         agregarCienDeOroAJugador(jugador);
@@ -86,7 +90,7 @@ public class AldeanoTests {
 
     @Test
     public void test07aldeanoConstruyendoCuartel() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         Cuartel cuartel = new Cuartel(jugador);
         agregarCienDeOroAJugador(jugador);
@@ -98,7 +102,7 @@ public class AldeanoTests {
 
     @Test
     public void test06aldeanoConstruyePlazaYPasanTresTurnos() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         agregarCienDeOroAJugador(jugador);
@@ -113,8 +117,8 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test08aldeanoObtieneOro() throws LimiteDePoblacionException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+    public void test08aldeanoObtieneOro() throws LimiteDePoblacionException, CoordenadaInvalidaException {
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
         Cuartel cuartel = new Cuartel(jugador);
@@ -125,8 +129,8 @@ public class AldeanoTests {
         }
     }
     @Test
-    public void test09aldeanoObtieneOro() throws LimiteDePoblacionException {
-        Mapa mapa = new Mapa();
+    public void test09aldeanoObtieneOro() throws LimiteDePoblacionException, CoordenadaInvalidaException {
+        Mapa mapa = mock(Mapa.class, (Answer) invocation -> null);
         Jugador jugador = new Jugador("Nico", mapa);
         Aldeano aldeano = new Aldeano(jugador);
         ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
@@ -150,7 +154,7 @@ public class AldeanoTests {
 
     @Test
     public void test09aldeanoReparando() throws AldeanoOcupadoException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         plazaCentral.recibirDanio(100);
@@ -161,7 +165,7 @@ public class AldeanoTests {
 
     @Test
     public void test10aldeanoEstaOcupadoReparando() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         plazaCentral.recibirDanio(100);
@@ -176,7 +180,7 @@ public class AldeanoTests {
 
     @Test
     public void test11aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         agregarCienDeOroAJugador(jugador);
@@ -191,7 +195,7 @@ public class AldeanoTests {
 
     @Test
     public void test12aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         agregarCienDeOroAJugador(jugador);
@@ -206,7 +210,7 @@ public class AldeanoTests {
 
     @Test
     public void test14aldeanoEstaOcupadoReparando() throws AldeanoOcupadoException {
-        Jugador jugador = new Jugador("Nico", new Mapa());
+        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         plazaCentral.recibirDanio(100);
