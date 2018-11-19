@@ -50,7 +50,6 @@ public class Mapa {
     }
 
     List<Point2D> obtenerCoordenadas(Unidad unidad) throws CoordenadaInvalidaException {
-        //ToDO: Rompe en castillo
         if (unidad == null)
             throw new CoordenadaInvalidaException("La unidad es null");
 
@@ -67,7 +66,7 @@ public class Mapa {
         return coordenadas;
     }
 
-    List<Point2D> obtenerCoordenadasAlAlcance(Unidad unidad) throws CoordenadaInvalidaException {
+    private List<Point2D> obtenerCoordenadasAlAlcance(Unidad unidad) throws CoordenadaInvalidaException {
         List<Point2D> coordenadasAlAlcance = new ArrayList<>();
         List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
@@ -99,14 +98,17 @@ public class Mapa {
         return coodenadas.contains(destino);
     }
 
-    List<Dibujable> dibujablesAlAlcance(Unidad unidad) throws CoordenadaInvalidaException {
+    List<Dibujable> dibujablesAlAlcance(Unidad unidad) { //TODO: Esto tiene que devolver solo las unidades y no todos los dibujables
         List<Dibujable> unidades = new ArrayList<>();
 
-        for (Point2D coordenadaAlAlcance : obtenerCoordenadasAlAlcance(unidad)) {
-            Dibujable dibujable = obtenerDibujable(coordenadaAlAlcance);
-            if (dibujable != null && !unidades.contains(dibujable)) {
-                unidades.add(dibujable);
+        try {
+            for (Point2D coordenadaAlAlcance : obtenerCoordenadasAlAlcance(unidad)) {
+                Dibujable dibujable = obtenerDibujable(coordenadaAlAlcance);
+                if (dibujable != null && !unidades.contains(dibujable)) {
+                    unidades.add(dibujable);
+                }
             }
+        } catch (CoordenadaInvalidaException ignored) {
         }
 
         return unidades;

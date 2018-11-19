@@ -103,14 +103,7 @@ public class Jugador {
         this.unidades.remove(unidad);
     }
 
-    public List<Dibujable> unidadesCercanas(Unidad unidad) {
-        //ToDo: Devuelve al castillo la lista de unidades cercanas a el.
-        List<Dibujable> dibujables = new ArrayList<>();
-        try {
-            dibujables = mapa.dibujablesAlAlcance(unidad);
-        } catch (CoordenadaInvalidaException e) {
-            e.printStackTrace();
-        }
-        return dibujables;
+    public List<Dibujable> unidadesCercanas(Castillo castillo) {
+        return this.mapa.dibujablesAlAlcance(castillo);
     }
 }

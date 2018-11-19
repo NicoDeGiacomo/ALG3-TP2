@@ -36,7 +36,8 @@ public class Castillo extends Edificio {
     @Override
     public void ejecutarTareas() {
         List<Dibujable> unidades = propietario.unidadesCercanas(this);
-        for (Dibujable unidad : unidades ) this.provocarDanio((Unidad) unidad);
+        for (Dibujable unidad : unidades)
+            this.provocarDanio((Unidad) unidad);
     }
 
     @Override

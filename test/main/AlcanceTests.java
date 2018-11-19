@@ -118,31 +118,23 @@ public class AlcanceTests {
     }
 
     @Test
-    public void Test05CastilloEstaAlAlcanceDeArquero() throws CoordenadaInvalidaException, AtaqueIncorrectoException {
-        //TODO: Rompe
+    public void Test05CastilloAtacaALasUnidadesEnemicasAlAlcance() throws CoordenadaInvalidaException, AtaqueIncorrectoException {
         Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("Peter", new Mapa());
-        Arquero arquero = new Arquero(new Jugador("Nico", new Mapa()));
-        Arquero arqueroAliado = new Arquero(jugador);
-        Castillo castillo = new Castillo(jugador);
-        Point2D coordenada1 = new Point2D.Double(33, 33),
-                coordenada2 = new Point2D.Double(36, 36),
-                coordenada3 = new Point2D.Double(34, 34);
+        Jugador jugador1 = new Jugador("Peter", mapa);
+        Jugador jugador2 = new Jugador("Nico", mapa);
 
-        mapa.colocarDibujable(arquero , coordenada1);
-        mapa.colocarDibujable(arqueroAliado , coordenada3);
-        mapa.colocarDibujable(castillo, coordenada2);
+        Arquero arqueroEnemigo = new Arquero(jugador2);
+        Arquero arqueroAliado = new Arquero(jugador1);
+        Castillo castillo = new Castillo(jugador1);
 
-        if ( mapa.estaAlAlcance(coordenada1, coordenada2) ) arquero.provocarDanio(castillo);
+        mapa.colocarDibujable(castillo, new Point2D.Double(34, 34));
+        mapa.colocarDibujable(arqueroAliado, new Point2D.Double(33, 34));
+        mapa.colocarDibujable(arqueroEnemigo, new Point2D.Double(34, 33));
 
-        assertEquals(990, castillo.verVida());
-/*
-        ToDo: Rompe cuando es llamado
         castillo.ejecutarTareas();
-*/
-        assertEquals(55, arquero.verVida());
-        assertEquals(75, arqueroAliado.verVida());
 
+        assertEquals(75, arqueroAliado.verVida());
+        assertEquals(55, arqueroEnemigo.verVida());
     }
 
 }

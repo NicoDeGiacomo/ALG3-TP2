@@ -74,7 +74,7 @@ public class MapaTests {
     public void Test106ObtenerUnidadesAlAlcanceDeNullTraeConjuntoVacio() {
         Mapa mapa = new Mapa();
 
-        assertThrows(CoordenadaInvalidaException.class, () -> mapa.dibujablesAlAlcance(null));
+        assertEquals(0, mapa.dibujablesAlAlcance(null).size());
     }
 
     /*2 - Tests con Unidades*/
