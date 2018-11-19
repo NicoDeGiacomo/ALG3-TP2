@@ -50,6 +50,7 @@ public class Mapa {
     }
 
     List<Point2D> obtenerCoordenadas(Unidad unidad) throws CoordenadaInvalidaException {
+        //ToDO: Rompe en castillo
         if (unidad == null)
             throw new CoordenadaInvalidaException("La unidad es null");
 

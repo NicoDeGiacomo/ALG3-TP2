@@ -3,6 +3,7 @@ package main;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
+import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.Edificio;
@@ -12,6 +13,7 @@ import unidades.milicia.Aldeano;
 import unidades.milicia.Milicia;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,4 +103,14 @@ public class Jugador {
         this.unidades.remove(unidad);
     }
 
+    public List<Dibujable> unidadesCercanas(Unidad unidad) {
+        //ToDo: Devuelve al castillo la lista de unidades cercanas a el.
+        List<Dibujable> dibujables = new ArrayList<>();
+        try {
+            dibujables = mapa.dibujablesAlAlcance(unidad);
+        } catch (CoordenadaInvalidaException e) {
+            e.printStackTrace();
+        }
+        return dibujables;
+    }
 }

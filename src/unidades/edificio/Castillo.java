@@ -5,11 +5,13 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
+import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.milicia.Aldeano;
 import unidades.milicia.ArmaDeAsedio;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 
 
 public class Castillo extends Edificio {
@@ -33,9 +35,8 @@ public class Castillo extends Edificio {
 
     @Override
     public void ejecutarTareas() {
-        //TODO: El edificio debe atacar a todas las unidades enemigas a su alcance!!
-        //Una lista de las unidades proximas al castillo?
-        //for (Unidad unidad : unidades ) this.provocarDanio(unidad);
+        List<Dibujable> unidades = propietario.unidadesCercanas(this);
+        for (Dibujable unidad : unidades ) this.provocarDanio((Unidad) unidad);
     }
 
     @Override
