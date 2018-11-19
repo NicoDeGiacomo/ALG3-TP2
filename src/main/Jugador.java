@@ -69,6 +69,7 @@ public class Jugador {
         this.mapa.agregarUnidadCercana(unidad, creador);
         this.unidades.add(unidad);
         this.oro -= unidad.verPrecio();
+        this.poblacion += 1;
     }
 
     public void agregarUnidad(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException {
@@ -86,7 +87,7 @@ public class Jugador {
 
     private void verificarPoblacionSuficiente() throws LimiteDePoblacionException {
         if (this.poblacion >= CANTIDAD_MAX_POBLACION)
-            throw new LimiteDePoblacionException("El limite de población llegó al máximo");
+            throw new LimiteDePoblacionException("El limite de población llegó al máximo.");
     }
 
     public void removerUnidad(Edificio unidad) {
