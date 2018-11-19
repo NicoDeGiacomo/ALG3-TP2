@@ -232,7 +232,7 @@ public class Mapa {
 
         boolean estaCerca = false;
 
-        List<Point2D> coordenadas = obtenerCoordenadas(unidad);
+        List<Point2D> coordenadas = obtenerCoordenadas(unidad); //TODO: GASTI - FALLAR SI LA UNIDAD CREADORA NO ESTA AGREGADA
 
         for (Point2D coordenada : coordenadas) {
             if (Math.floor(coordenada.distance(coordenadaDestino)) <= 1) {
@@ -241,10 +241,7 @@ public class Mapa {
         }
 
         if(estaCerca) {
-            try {
-                colocarUnidad(creador, coordenadaDestino);
-            } catch (FueraDeRangoException | PosicionOcupadaException ignored) {
-            }
+            colocarUnidad(creador, coordenadaDestino);
         }
     }
 

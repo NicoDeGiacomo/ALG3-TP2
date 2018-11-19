@@ -19,7 +19,7 @@ import java.util.List;
 public class Jugador {
 
     private static final int CANTIDAD_ALDEANOS_INICIALES = 3;
-    private static final int CANTIDAD_MAX_POBLACION = 50; //TODO: Testear este limite (sube al crear milicia, baja al crear aldeano)
+    private static final int CANTIDAD_MAX_POBLACION = 50;
 
     private String nombre;
     private List<Unidad> unidades;
@@ -75,7 +75,7 @@ public class Jugador {
     public void agregarUnidad(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException {
         verificarOroSuficiente(unidad.verPrecio());
 
-        this.mapa.agregarUnidadCercana(unidad, creador, pos); //TODO: Testear que no se agrega si falla el mapa
+        this.mapa.agregarUnidadCercana(unidad, creador, pos);
         this.unidades.add(unidad);
         this.oro -= unidad.verPrecio();
     }
