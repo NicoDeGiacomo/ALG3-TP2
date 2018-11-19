@@ -2,8 +2,7 @@ package unidades.milicia;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.FueraDeRangoException;
-import excepciones.mapa.PosicionOcupadaException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
@@ -74,7 +73,7 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test06aldeanoConstruyendoPlaza() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public void test06aldeanoConstruyendoPlaza() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
@@ -86,7 +85,7 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test07aldeanoConstruyendoCuartel() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public void test07aldeanoConstruyendoCuartel() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Aldeano aldeano = new Aldeano(jugador);
         Cuartel cuartel = new Cuartel(jugador);
@@ -98,7 +97,7 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test06aldeanoConstruyePlazaYPasanTresTurnos() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public void test06aldeanoConstruyePlazaYPasanTresTurnos() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
@@ -134,8 +133,8 @@ public class AldeanoTests {
         Cuartel cuartel = new Cuartel(jugador);
 
         try {
-            mapa.colocarUnidad(cuartel, new Point2D.Double(1,1));
-        } catch (FueraDeRangoException | PosicionOcupadaException e) {
+            mapa.colocarDibujable(cuartel, new Point2D.Double(1,1));
+        } catch (CoordenadaInvalidaException ignored) {
             fail("Error Inesperado");
         }
 
@@ -161,7 +160,7 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test10aldeanoEstaOcupadoReparando() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public void test10aldeanoEstaOcupadoReparando() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
@@ -176,7 +175,7 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test11aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public void test11aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
@@ -191,7 +190,7 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test12aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public void test12aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         Jugador jugador = new Jugador("Nico", new Mapa());
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);

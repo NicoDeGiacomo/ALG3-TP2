@@ -1,12 +1,11 @@
 package unidades.edificio;
 
 import excepciones.main.LimiteDePoblacionException;
-import excepciones.mapa.FueraDeRangoException;
-import excepciones.mapa.PosicionOcupadaException;
+import excepciones.main.OroInsuficienteException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.UnidadNoEspecificadaException;
-import excepciones.main.OroInsuficienteException;
 import unidades.Unidad;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
@@ -43,7 +42,7 @@ public abstract class Edificio extends Unidad {
 
     public abstract boolean arreglar();
 
-    public void comenzarConstruccion(Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public void comenzarConstruccion(Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         this.propietario.agregarUnidad(this, aldeano, pos);
         this.estadoDeUnidad = new EnConstruccion();
     }

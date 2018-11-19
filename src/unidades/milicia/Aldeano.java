@@ -1,8 +1,7 @@
 package unidades.milicia;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.FueraDeRangoException;
-import excepciones.mapa.PosicionOcupadaException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
@@ -40,7 +39,7 @@ public class Aldeano extends Milicia {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 
-    void construir(Edificio edificio, Point2D pos) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    void construir(Edificio edificio, Point2D pos) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         this.estado = this.estado.comenzarConstruccion(this.propietario, edificio, this, pos);
     }
 

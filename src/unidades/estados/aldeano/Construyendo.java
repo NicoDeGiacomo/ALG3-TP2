@@ -1,8 +1,7 @@
 package unidades.estados.aldeano;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.FueraDeRangoException;
-import excepciones.mapa.PosicionOcupadaException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
@@ -15,7 +14,7 @@ public class Construyendo extends EstadoDeAldeano {
     private Edificio edificio;
     private int contadorDeTurnos;
 
-    Construyendo(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    Construyendo(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         super(propietario);
         this.edificio = edificio;
         this.contadorDeTurnos = 0;

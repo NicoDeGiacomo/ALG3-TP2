@@ -2,8 +2,7 @@ package main;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.FueraDeRangoException;
-import excepciones.mapa.PosicionOcupadaException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.Edificio;
@@ -72,7 +71,7 @@ public class Jugador {
         this.poblacion += 1;
     }
 
-    public void agregarUnidad(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, FueraDeRangoException, PosicionOcupadaException {
+    public void agregarUnidad(Edificio unidad, Aldeano creador, Point2D pos) throws OroInsuficienteException, CoordenadaInvalidaException {
         verificarOroSuficiente(unidad.verPrecio());
 
         this.mapa.agregarUnidadCercana(unidad, creador, pos);

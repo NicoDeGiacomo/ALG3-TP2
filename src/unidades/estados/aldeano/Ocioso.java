@@ -1,8 +1,7 @@
 package unidades.estados.aldeano;
 
 import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.FueraDeRangoException;
-import excepciones.mapa.PosicionOcupadaException;
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import unidades.edificio.Edificio;
@@ -22,7 +21,7 @@ public class Ocioso extends EstadoDeAldeano {
     }
 
     @Override
-    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, FueraDeRangoException, PosicionOcupadaException {
+    public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         return new Construyendo(this.propietario, edificio, aldeano, pos);
     }
 
