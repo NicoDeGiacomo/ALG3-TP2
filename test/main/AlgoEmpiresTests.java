@@ -1,9 +1,8 @@
 package main;
 
+import excepciones.main.ComienzoDePartidaException;
 import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
-import excepciones.main.PartidaComenzadaException;
-import excepciones.main.PartidaNoComenzadaException;
 import org.junit.Test;
 import unidades.estados.aldeano.Ocioso;
 
@@ -37,18 +36,18 @@ public class AlgoEmpiresTests {
     public void noSePuedePasarElTurnoAntesDeComenzarLaPartida() {
         AlgoEmpires algoEmpires = new AlgoEmpires();
 
-        assertThrows(PartidaNoComenzadaException.class, algoEmpires::pasarTurno);
+        assertThrows(ComienzoDePartidaException.class, algoEmpires::pasarTurno);
     }
 
     @Test
-    public void noSePuedeComenzarDosVecesLaPartida() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
+    public void noSePuedeComenzarDosVecesLaPartida() throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
         AlgoEmpires algoEmpires = crearEIniciarJuego();
 
-        assertThrows(PartidaComenzadaException.class, algoEmpires::comenzarPartida);
+        assertThrows(ComienzoDePartidaException.class, algoEmpires::comenzarPartida);
     }
 
     @Test
-    public void pasarElTurnoCambiaLosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException, PartidaNoComenzadaException {
+    public void pasarElTurnoCambiaLosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
         AlgoEmpires algoEmpires = crearEIniciarJuego();
 
         Jugador jugador = algoEmpires.pasarTurno();
@@ -62,7 +61,7 @@ public class AlgoEmpiresTests {
         return algoEmpires;
     }
 
-    private AlgoEmpires crearEIniciarJuego() throws NombreRepetidoException, NumeroDeJugadoresException, PartidaComenzadaException {
+    private AlgoEmpires crearEIniciarJuego() throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
         AlgoEmpires algoEmpires = crearJuego();
         algoEmpires.comenzarPartida();
         return algoEmpires;

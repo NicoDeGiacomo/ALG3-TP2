@@ -118,7 +118,7 @@ public class AlcanceTests {
     }
 
     @Test
-    public void Test05CastilloAtacaALasUnidadesEnemicasAlAlcance() throws CoordenadaInvalidaException, AtaqueIncorrectoException {
+    public void Test05CastilloAtacaALasUnidadesEnemicasAlAlcance() throws CoordenadaInvalidaException {
         Mapa mapa = new Mapa();
         Jugador jugador1 = new Jugador("Peter", mapa);
         Jugador jugador2 = new Jugador("Nico", mapa);

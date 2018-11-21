@@ -1,9 +1,8 @@
 package main;
 
+import excepciones.main.ComienzoDePartidaException;
 import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
-import excepciones.main.PartidaComenzadaException;
-import excepciones.main.PartidaNoComenzadaException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,9 +22,9 @@ public class AlgoEmpires {
         this.mapa = new Mapa();
     }
 
-    Jugador comenzarPartida() throws NumeroDeJugadoresException, PartidaComenzadaException {
+    Jugador comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {
         if (this.turno != null)
-            throw new PartidaComenzadaException("La partida ya está en juego");
+            throw new ComienzoDePartidaException("La partida ya está en juego");
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d jugadores", CANTIDAD_JUGADORES_MIN));
 
@@ -33,9 +32,9 @@ public class AlgoEmpires {
         return this.jugadores.get(this.turno);
     }
 
-    Jugador pasarTurno() throws PartidaNoComenzadaException {
+    Jugador pasarTurno() throws ComienzoDePartidaException {
         if (this.turno == null)
-            throw new PartidaNoComenzadaException("Se debe comenzar la partida antes de pasar el turno");
+            throw new ComienzoDePartidaException("Se debe comenzar la partida antes de pasar el turno");
 
         this.turno = (this.turno + 1) % this.jugadores.size();
         this.jugadores.get(this.turno).comenzarNuevoTurno();
