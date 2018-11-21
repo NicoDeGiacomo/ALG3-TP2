@@ -18,8 +18,6 @@ public abstract class Edificio extends Unidad {
     int tamanio;
     int alcance = 1;
 
-    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException;
-
     @Override
     public boolean esMovible() {
         return false;
@@ -40,8 +38,6 @@ public abstract class Edificio extends Unidad {
         return this.tamanio;
     }
 
-    public abstract boolean arreglar();
-
     public void comenzarConstruccion(Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         this.propietario.agregarUnidad(this, aldeano, pos);
         this.estadoDeUnidad = new EnConstruccion();
@@ -54,5 +50,9 @@ public abstract class Edificio extends Unidad {
     protected void reportarMuerte() {
         this.propietario.removerUnidad(this);
     }
+
+    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException;
+
+    public abstract boolean arreglar();
 
 }

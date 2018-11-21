@@ -17,7 +17,7 @@ public abstract class Unidad implements Dibujable {
     protected int precio;
 
     public Unidad() {
-        this.estadoDeUnidad = new Vivo(); //TODO Los edificios tienen vida ? wtf
+        this.estadoDeUnidad = new Vivo();
     }
 
     public void recibirDanio(int danio) {
@@ -27,8 +27,6 @@ public abstract class Unidad implements Dibujable {
             reportarMuerte();
         }
     }
-
-    protected abstract void reportarMuerte();
 
     public EstadoDeUnidad verEstadoDeUnidad() {
         return this.estadoDeUnidad;
@@ -59,5 +57,7 @@ public abstract class Unidad implements Dibujable {
     public abstract void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException;
 
     public abstract void ejecutarTareas();
+
+    protected abstract void reportarMuerte();
 
 }
