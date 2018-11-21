@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Mapa {
-    private static final int TAMANIO = 100;
+    private static final int TAMANIO = 100,
+                             ESPACIO_LIBRE = 8,
+                             DISTANCIA_PROXIMA = 1;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
     public void colocarDibujable(Dibujable dibujable, Point2D coordenada) throws CoordenadaInvalidaException {
@@ -51,7 +53,7 @@ public class Mapa {
 
     List<Point2D> obtenerCoordenadas(Unidad unidad) throws CoordenadaInvalidaException {
         if (unidad == null)
-            throw new CoordenadaInvalidaException("La unidad es null");
+            throw new CoordenadaInvalidaException("La Unidad es NULL!");
 
         List<Point2D> coordenadas = new ArrayList<>();
 
@@ -66,16 +68,15 @@ public class Mapa {
         return coordenadas;
     }
 
-    private List<Point2D> obtenerCoordenadasAlAlcance(Unidad unidad) throws CoordenadaInvalidaException {
+    private List<Point2D> obtenerCoordenadasADistancia(Unidad unidad, int distancia) throws CoordenadaInvalidaException {
         List<Point2D> coordenadasAlAlcance = new ArrayList<>();
         List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
         Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
-        int alcance = unidad.verAlcance();
         int tamanio = obtenerTamanioMapeable(unidad);
 
-        for (int i = -alcance; i < tamanio + alcance; i++) {
-            for (int j = -alcance; j < tamanio + alcance; j++) {
+        for (int i = -distancia; i < tamanio + distancia; i++) {
+            for (int j = -distancia; j < tamanio + distancia; j++) {
                 Point2D chequeo = new Point2D.Double(coordenadaOrigen.getX() + i, coordenadaOrigen.getY() + j);
                 if (coordenadaEnMapa(chequeo) && !(coordenadasUnidad.contains(chequeo))) {
                     coordenadasAlAlcance.add(chequeo);
@@ -94,21 +95,33 @@ public class Mapa {
         if (atacante == null)
             return false;
 
-        List<Point2D> coodenadas = obtenerCoordenadasAlAlcance(atacante);
+        List<Point2D> coodenadas = obtenerCoordenadasADistancia(atacante, atacante.verAlcance());
         return coodenadas.contains(destino);
     }
 
-    List<Dibujable> dibujablesAlAlcance(Unidad unidad) { //TODO: Esto tiene que devolver solo las unidades y no todos los dibujables
+    List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
         List<Dibujable> unidades = new ArrayList<>();
+        if(unidad == null) return unidades;
 
         try {
-            for (Point2D coordenadaAlAlcance : obtenerCoordenadasAlAlcance(unidad)) {
+            for (Point2D coordenadaAlAlcance : obtenerCoordenadasADistancia(unidad, unidad.verAlcance())) {
                 Dibujable dibujable = obtenerDibujable(coordenadaAlAlcance);
                 if (dibujable != null && !unidades.contains(dibujable)) {
                     unidades.add(dibujable);
                 }
             }
         } catch (CoordenadaInvalidaException ignored) {
+        }
+
+        return unidades;
+    }
+
+    List<Unidad> unidadesAlAlcance(Unidad unidad) {
+        List<Dibujable> dibujables = dibujablesAlAlcance(unidad);
+        List<Unidad> unidades = new ArrayList<Unidad>();
+
+        for (Dibujable dibujable: dibujables) {
+            if(dibujable.getClass() != Dibujable.class) unidades.add((Unidad) dibujable);
         }
 
         return unidades;
@@ -164,11 +177,11 @@ public class Mapa {
         int xDestinoCastillo = random.nextInt(TAMANIO / 2) + ((TAMANIO / 2) * (cuadranteDestino % 2));
         int yDestinoCastillo = random.nextInt(TAMANIO / 2) - ((TAMANIO / 2) * ((cuadranteDestino % 2 - (cuadranteDestino > 1 ? cuadranteDestino - 1 : cuadranteDestino))));
 
-        xDestinoCastillo = xDestinoCastillo / 2 + 8 >= TAMANIO / 2 ? xDestinoCastillo - 8 : xDestinoCastillo;
-        yDestinoCastillo = yDestinoCastillo / 2 + 8 >= TAMANIO / 2 ? yDestinoCastillo - 8 : yDestinoCastillo;
+        xDestinoCastillo = xDestinoCastillo / 2 + ESPACIO_LIBRE >= TAMANIO / 2 ? xDestinoCastillo - ESPACIO_LIBRE : xDestinoCastillo;
+        yDestinoCastillo = yDestinoCastillo / 2 + ESPACIO_LIBRE >= TAMANIO / 2 ? yDestinoCastillo - ESPACIO_LIBRE : yDestinoCastillo;
 
-        int xDestinoPlaza = cuadranteDestino % 2 == 0 ? xDestinoCastillo + 8 : xDestinoCastillo - 8;
-        int yDestinoPlaza = cuadranteDestino - 2 < 0 ? yDestinoCastillo + 8 : yDestinoCastillo - 8;
+        int xDestinoPlaza = cuadranteDestino % 2 == 0 ? xDestinoCastillo + ESPACIO_LIBRE : xDestinoCastillo - ESPACIO_LIBRE;
+        int yDestinoPlaza = cuadranteDestino - 2 < 0 ? yDestinoCastillo + ESPACIO_LIBRE : yDestinoCastillo - ESPACIO_LIBRE;
 
         Point2D coordenadaCastillo = new Point2D.Double(xDestinoCastillo, yDestinoCastillo),
                 coordenadaPlaza = new Point2D.Double(xDestinoPlaza, yDestinoPlaza);
@@ -183,7 +196,7 @@ public class Mapa {
     void agregarUnidadCercana(Unidad unidad, Unidad creador) throws CoordenadaInvalidaException {
         if (creador == null)
             return;
-        List<Point2D> lugaresLibres = obtenerCoordenadasAlAlcance(creador); //TODO: Esto deberia obtener unidades en la casilla de al lado
+        List<Point2D> lugaresLibres = obtenerCoordenadasADistancia(creador, DISTANCIA_PROXIMA);
 
         Iterator<Point2D> iter = lugaresLibres.iterator();
         while (iter.hasNext()) {
@@ -211,7 +224,7 @@ public class Mapa {
 
         List<Point2D> coordenadas = obtenerCoordenadas(creador);
         if (coordenadas.size() == 0)
-            throw new CoordenadaInvalidaException("No se encontro la unidad creadora en el mapa");
+            throw new CoordenadaInvalidaException("No se encontró la Unidad Creadora en el Mapa!");
 
         for (Point2D coordenada : coordenadas) {
             if (Math.floor(coordenada.distance(coordenadaDestino)) <= 1) {
@@ -220,7 +233,7 @@ public class Mapa {
             }
         }
 
-        throw new CoordenadaInvalidaException("La posicion de creacion debe estar al lado de la unidad creadora");
+        throw new CoordenadaInvalidaException("La Posición de Creación debe estar al lado de la Unidad Creadora!");
     }
 
     void moverUnidad(Unidad unidad, Point2D destino) throws UnidadNoMovibleException, CoordenadaInvalidaException {

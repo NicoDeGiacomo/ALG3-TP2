@@ -10,6 +10,7 @@ import unidades.edificio.Cuartel;
 import unidades.milicia.Arquero;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -75,6 +76,32 @@ public class MapaTests {
         Mapa mapa = new Mapa();
 
         assertEquals(0, mapa.dibujablesAlAlcance(null).size());
+    }
+
+    @Test
+    public void Test107AgregarUnidadCercanaANullNoHaceNada() throws CoordenadaInvalidaException {
+        Mapa mapa = new Mapa();
+        Arquero arquero = new Arquero(new Jugador("Nico", new Mapa()));
+        boolean estaOcupado = false;
+
+        mapa.agregarUnidadCercana(arquero, null);
+
+        for (int i = 0; i < TAMANIO; i++) {
+            for (int j = 0; j < TAMANIO; j++) {
+                estaOcupado = mapa.obtenerDibujable(new Point2D.Double(i,j)) != null;
+            }
+        }
+
+        assertFalse(estaOcupado);
+    }
+
+    @Test
+    public void Test108VerAlcanceDeNullDaFalse() throws CoordenadaInvalidaException {
+        Mapa mapa = new Mapa();
+        Point2D origen = new Point2D.Double(0,0),
+                destino = new Point2D.Double(1,1);
+
+        assertFalse(mapa.estaAlAlcance(origen, destino));
     }
 
     /*2 - Tests con Unidades*/
@@ -464,5 +491,58 @@ public class MapaTests {
         } catch (CoordenadaInvalidaException e) {
             assertEquals("Posición (200.0, 200.0) fuera del Margen del Mapa!", e.getMessage());
         }
+    }
+
+    @Test
+    public void Test312AgregarMuchasUnidadesCercanasDaError() throws CoordenadaInvalidaException {
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Nico", mapa);
+        Arquero arquero = new Arquero(jugador);
+        Cuartel cuartel = new Cuartel(jugador);
+
+
+        mapa.colocarDibujable(cuartel, new Point2D.Double(1,1));
+
+        for (int i = 0; i < 12; i++) {
+            mapa.agregarUnidadCercana(arquero, cuartel);
+        }
+
+        try {
+            mapa.agregarUnidadCercana(arquero, cuartel);
+        } catch (CoordenadaInvalidaException e) {
+            assertEquals("No hay espacio para crear una nueva Unidad!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void Test313AgregarUnidadCercanaEnCoordenadaSinDibujableDaError() throws CoordenadaInvalidaException {
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Nico", mapa);
+        Point2D coordenada = new Point2D.Double(0,0);
+        Cuartel cuartel = new Cuartel(jugador);
+
+        try {
+            mapa.agregarUnidadCercana(null, cuartel, coordenada);
+        } catch (CoordenadaInvalidaException e) {
+            assertEquals("No se encontró la Unidad Creadora en el Mapa!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void Test314AgregarUnidadCernadaEnCoordenadaLejanaDaError() throws CoordenadaInvalidaException {
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("Nico", mapa);
+        Point2D coordenada1 = new Point2D.Double(0,0),
+                coordenada2 = new Point2D.Double(15,15);
+        Cuartel cuartel = new Cuartel(jugador);
+
+        mapa.colocarDibujable(cuartel, coordenada1);
+
+        try {
+            mapa.agregarUnidadCercana(null, cuartel, coordenada2);
+        } catch (CoordenadaInvalidaException e) {
+            assertEquals("La Posición de Creación debe estar al lado de la Unidad Creadora!", e.getMessage());
+        }
+
     }
 }
