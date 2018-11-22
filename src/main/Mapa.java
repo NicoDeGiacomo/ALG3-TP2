@@ -52,8 +52,7 @@ public class Mapa {
     }
 
     List<Point2D> obtenerCoordenadas(Unidad unidad) throws CoordenadaInvalidaException {
-        if (unidad == null)
-            throw new CoordenadaInvalidaException("La Unidad es NULL!");
+        if (unidad == null) throw new CoordenadaInvalidaException("La Unidad es NULL!");
 
         List<Point2D> coordenadas = new ArrayList<>();
 
@@ -68,11 +67,19 @@ public class Mapa {
         return coordenadas;
     }
 
+    private int obtenerTamanioMapeable(Dibujable dibujable) {
+        return (dibujable.verTamanio() < 1) ? (1) : ((int) Math.sqrt(dibujable.verTamanio()));
+    }
+
+    private boolean estaOcupado(Point2D coordenada) throws CoordenadaInvalidaException {
+        return obtenerDibujable(coordenada) != null;
+    }
+
     private List<Point2D> obtenerCoordenadasADistancia(Unidad unidad, int distancia) throws CoordenadaInvalidaException {
         List<Point2D> coordenadasAlAlcance = new ArrayList<>();
         List<Point2D> coordenadasUnidad = obtenerCoordenadas(unidad);
 
-        Point2D coordenadaOrigen = obtenerCoordenadas(unidad).get(0);
+        Point2D coordenadaOrigen = coordenadasUnidad.get(0);
         int tamanio = obtenerTamanioMapeable(unidad);
 
         for (int i = -distancia; i < tamanio + distancia; i++) {
@@ -92,8 +99,7 @@ public class Mapa {
         validarCoordenadaEnMapa(destino);
 
         Unidad atacante = (Unidad) obtenerDibujable(origen);
-        if (atacante == null)
-            return false;
+        if (atacante == null) return false;
 
         List<Point2D> coodenadas = obtenerCoordenadasADistancia(atacante, atacante.verAlcance());
         return coodenadas.contains(destino);
@@ -116,6 +122,7 @@ public class Mapa {
         return unidades;
     }
 
+    //TODO: Fijarse bien esto. En un futuro quizás el criterio sea otro.
     List<Unidad> unidadesAlAlcance(Unidad unidad) {
         List<Dibujable> dibujables = dibujablesAlAlcance(unidad);
         List<Unidad> unidades = new ArrayList<Unidad>();
@@ -280,14 +287,4 @@ public class Mapa {
     private boolean coordenadaEnMapa(Point2D coordenada) {
         return (!(coordenada.getX() >= TAMANIO)) && (!(coordenada.getY() >= TAMANIO)) && (!(coordenada.getX() < 0)) && (!(coordenada.getY() < 0));
     }
-
-    private int obtenerTamanioMapeable(Dibujable dibujable) {
-        return (dibujable.verTamanio() < 1) ? (1) : ((int) Math.sqrt(dibujable.verTamanio()));
-    }
-
-    private boolean estaOcupado(Point2D coordenada) throws CoordenadaInvalidaException {
-        return obtenerDibujable(coordenada) != null;
-    }
-
-
 }
