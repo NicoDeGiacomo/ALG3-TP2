@@ -250,6 +250,7 @@ public class Mapa {
         }
 
         Point2D origen = obtenerCoordenadas(unidad).get(0);
+        //TODO: Fijarse de cambiar este 1 por una variable en unidad. Nico dice 'Velocidad'.
         if (Math.floor(origen.distance(destino)) > 1) {
             throw new CoordenadaInvalidaException("Las Unidades se pueden mover a lo sumo 1 casillero por turno!");
         }
