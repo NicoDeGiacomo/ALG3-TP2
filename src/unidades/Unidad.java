@@ -16,8 +16,9 @@ public abstract class Unidad implements Dibujable {
 
     protected int precio;
 
-    public Unidad() {
+    public Unidad(Jugador propietario) {
         this.estadoDeUnidad = new Vivo();
+        this.propietario = propietario;
     }
 
     public void recibirDanio(int danio) {

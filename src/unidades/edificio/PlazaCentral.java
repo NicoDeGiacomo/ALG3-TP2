@@ -9,8 +9,7 @@ import unidades.milicia.Aldeano;
 public class PlazaCentral extends Edificio {
 
     public PlazaCentral(Jugador propietario){
-        super();
-        this.propietario = propietario;
+        super(propietario);
         this.vida = 450;
         this.tamanio = 4;
         this.precio = 100;

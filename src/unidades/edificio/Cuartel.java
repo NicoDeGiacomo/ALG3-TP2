@@ -11,8 +11,7 @@ import unidades.milicia.Espadachin;
 public class Cuartel extends Edificio {
 
     public Cuartel(Jugador propietario) {
-        super();
-        this.propietario = propietario;
+        super(propietario);
         this.vida = 250;
         this.tamanio = 4;
         this.precio = 50;

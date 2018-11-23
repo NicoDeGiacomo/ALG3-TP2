@@ -18,8 +18,7 @@ public class Aldeano extends Milicia {
     private EstadoDeAldeano estado;
 
     public Aldeano(Jugador propietario) {
-        super();
-        this.propietario = propietario;
+        super(propietario);
         this.vida = 50;
         this.estado = new Ocioso(this.propietario);
         this.precio = 25;

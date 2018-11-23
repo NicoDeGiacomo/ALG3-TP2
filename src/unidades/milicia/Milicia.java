@@ -1,6 +1,7 @@
 package unidades.milicia;
 
 import excepciones.unidades.AtaqueIncorrectoException;
+import main.Jugador;
 import unidades.Unidad;
 
 public abstract class Milicia extends Unidad {
@@ -8,6 +9,10 @@ public abstract class Milicia extends Unidad {
     int danio;
     int danioAEdificios;
     int alcance = 1;
+
+    public Milicia(Jugador propietario) {
+        super(propietario);
+    }
 
     @Override
     public boolean esMovible() {

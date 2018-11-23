@@ -18,8 +18,7 @@ public class Castillo extends Edificio {
     private int danio;
 
     public Castillo(Jugador propietario) {
-        super();
-        this.propietario = propietario;
+        super(propietario);
         this.vida = 1000;
         this.danio = 20;
         this.tamanio = 16;

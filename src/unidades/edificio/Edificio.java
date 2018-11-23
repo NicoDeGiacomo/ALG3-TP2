@@ -6,6 +6,7 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.UnidadNoEspecificadaException;
+import main.Jugador;
 import unidades.Unidad;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
@@ -17,6 +18,10 @@ public abstract class Edificio extends Unidad {
 
     int tamanio;
     int alcance = 1;
+
+    public Edificio(Jugador propietario) {
+        super(propietario);
+    }
 
     @Override
     public boolean esMovible() {

@@ -6,8 +6,7 @@ import main.Jugador;
 public class Arquero extends Milicia {
 
     public Arquero(Jugador propietario){
-        super();
-        this.propietario = propietario;
+        super(propietario);
         this.vida = 75;
         this.danio = 15;
         this.danioAEdificios = 10;

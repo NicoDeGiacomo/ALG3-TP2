@@ -13,9 +13,8 @@ public class ArmaDeAsedio extends Milicia{
     private EstadoDeArmaDeAsedio estadoDeArma;
 
     public ArmaDeAsedio(Jugador propietario){
-        super();
+        super(propietario);
         this.estadoDeArma = new ArmaDesmontada();
-        this.propietario = propietario;
         this.vida = 150;
         this.danioAEdificios = 75;
         this.precio = 200;
