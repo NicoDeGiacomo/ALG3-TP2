@@ -1,6 +1,7 @@
 package ui;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,7 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import main.Mapa;
 
@@ -35,30 +39,23 @@ public class Pantalla extends Application {
         primaryStage.show();
 
 
-
-
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setVgap(1);
+        gridPane.setHgap(1);
         gridPane.setGridLinesVisible(true);
-        Image image = new Image(new FileInputStream("assets/pasto.jpg"));
 
-        //Controlar el tamanio de la imagen!!!
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                ImageView imageView = new ImageView(image);
-                imageView.setFitHeight(10);
-                imageView.setFitWidth(10);
-                gridPane.add(imageView, i, j);
+        for (int i = 0; i <= Mapa.TAMANIO; i++) {
+            for (int j = 0; j <= Mapa.TAMANIO; j++) {
+                Rectangle rectangle = new Rectangle(15, 15);
+                rectangle.setFill(Color.GREEN);
+                gridPane.add(rectangle, i, j);
             }
         }
 
         Scene juego = new Scene(gridPane);
         button.setOnAction(e -> primaryStage.setScene(juego));
-
-
-
-
-
 
 
         //ImageView selectedImage = new ImageView(new Image(new FileInputStream("assets/pasto.jpg")));
