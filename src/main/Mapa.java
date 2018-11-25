@@ -7,10 +7,7 @@ import unidades.Unidad;
 import unidades.edificio.Castillo;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Mapa {
     public static final int TAMANIO = 50;
@@ -51,7 +48,20 @@ public class Mapa {
         return dibujable;
     }
 
-    List<Point2D> obtenerCoordenadas(Unidad unidad) throws CoordenadaInvalidaException {
+    public List<Dibujable> obtenerTodosLosDibujables() {
+        List<Dibujable> dibujables = new LinkedList<>();
+
+        for (int i = 0; i < TAMANIO; i++) {
+            for (int j = 0; j < TAMANIO; j++) {
+                if (this.mapa[i][j] != null)
+                    dibujables.add(this.mapa[i][j]);
+            }
+        }
+
+        return dibujables;
+    }
+
+    public List<Point2D> obtenerCoordenadas(Unidad unidad) throws CoordenadaInvalidaException {
         if (unidad == null) throw new CoordenadaInvalidaException("La Unidad es NULL!");
 
         List<Point2D> coordenadas = new ArrayList<>();
@@ -117,18 +127,6 @@ public class Mapa {
                 }
             }
         } catch (CoordenadaInvalidaException ignored) {
-        }
-
-        return unidades;
-    }
-
-    //TODO: Fijarse bien esto. En un futuro quizás el criterio sea otro.
-    List<Unidad> unidadesAlAlcance(Unidad unidad) {
-        List<Dibujable> dibujables = dibujablesAlAlcance(unidad);
-        List<Unidad> unidades = new ArrayList<Unidad>();
-
-        for (Dibujable dibujable: dibujables) {
-            if(dibujable.getClass() != Dibujable.class) unidades.add((Unidad) dibujable);
         }
 
         return unidades;

@@ -14,25 +14,24 @@ public class AlgoEmpires {
 
     private List<Jugador> jugadores;
     private Integer turno;
-    private Mapa mapa;
+    public Mapa mapa;
 
-    AlgoEmpires() {
+    public AlgoEmpires() {
         this.jugadores = new LinkedList<>();
         this.turno = null;
         this.mapa = new Mapa();
     }
 
-    Jugador comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {
+    public void comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {
         if (this.turno != null)
             throw new ComienzoDePartidaException("La partida ya está en juego");
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d jugadores", CANTIDAD_JUGADORES_MIN));
 
         this.turno = 0;
-        return this.jugadores.get(this.turno);
     }
 
-    Jugador pasarTurno() throws ComienzoDePartidaException {
+    public Jugador pasarTurno() throws ComienzoDePartidaException {
         if (this.turno == null)
             throw new ComienzoDePartidaException("Se debe comenzar la partida antes de pasar el turno");
 
@@ -41,7 +40,7 @@ public class AlgoEmpires {
         return this.jugadores.get(this.turno);
     }
 
-    void agregarJugador(String nombre) throws NombreRepetidoException, NumeroDeJugadoresException {
+    public void agregarJugador(String nombre) throws NombreRepetidoException, NumeroDeJugadoresException {
         if (this.jugadores.size() >= CANTIDAD_JUGADORES_MAX)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar mas de %d jugadores", CANTIDAD_JUGADORES_MAX));
         for (Jugador jugador : this.jugadores) {
@@ -51,5 +50,9 @@ public class AlgoEmpires {
         }
 
         this.jugadores.add(new Jugador(nombre, this.mapa));
+    }
+
+    public Jugador obtenerJugadorEnTurno() {
+        return this.jugadores.get(this.turno);
     }
 }
