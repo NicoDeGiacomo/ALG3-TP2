@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MapaTests {
 
-    private static final int TAMANIO = 100;
-
     /*1 - Tests Iniciales*/
 
     @Test
@@ -34,8 +32,8 @@ public class MapaTests {
         Mapa mapa = new Mapa();
         boolean estaOcupado = false;
 
-        for (int i = 0; i < TAMANIO; i++) {
-            for (int j = 0; j < TAMANIO; j++) {
+        for (int i = 0; i < Mapa.TAMANIO; i++) {
+            for (int j = 0; j < Mapa.TAMANIO; j++) {
                 estaOcupado = mapa.obtenerDibujable(new Point2D.Double(i,j)) != null;
             }
         }
@@ -77,8 +75,8 @@ public class MapaTests {
 
         mapa.agregarUnidadCercana(arquero, null);
 
-        for (int i = 0; i < TAMANIO; i++) {
-            for (int j = 0; j < TAMANIO; j++) {
+        for (int i = 0; i < Mapa.TAMANIO; i++) {
+            for (int j = 0; j < Mapa.TAMANIO; j++) {
                 estaOcupado = mapa.obtenerDibujable(new Point2D.Double(i,j)) != null;
             }
         }
@@ -240,15 +238,15 @@ public class MapaTests {
         Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
                 coordenadaCastillo2 = mapa.obtenerCoordenadas(castillo2).get(0);
 
-        boolean comprobarX = (coordenadaCastillo1.getX() < (TAMANIO/2) && coordenadaCastillo2.getX() < (TAMANIO/2)) ||
-                             (coordenadaCastillo1.getX() >= (TAMANIO/2) && coordenadaCastillo2.getX() >= (TAMANIO/2)) ||
-                             (coordenadaCastillo1.getX() < (TAMANIO/2) && coordenadaCastillo2.getX() >= (TAMANIO/2)) ||
-                             (coordenadaCastillo1.getX() >= (TAMANIO/2) && coordenadaCastillo2.getX() < (TAMANIO/2));
+        boolean comprobarX = (coordenadaCastillo1.getX() < (Mapa.TAMANIO/2) && coordenadaCastillo2.getX() < (Mapa.TAMANIO/2)) ||
+                             (coordenadaCastillo1.getX() >= (Mapa.TAMANIO/2) && coordenadaCastillo2.getX() >= (Mapa.TAMANIO/2)) ||
+                             (coordenadaCastillo1.getX() < (Mapa.TAMANIO/2) && coordenadaCastillo2.getX() >= (Mapa.TAMANIO/2)) ||
+                             (coordenadaCastillo1.getX() >= (Mapa.TAMANIO/2) && coordenadaCastillo2.getX() < (Mapa.TAMANIO/2));
 
-        boolean comprobarY = (coordenadaCastillo1.getY() < (TAMANIO/2) && coordenadaCastillo2.getY() < (TAMANIO/2)) ||
-                (coordenadaCastillo1.getY() >= (TAMANIO/2) && coordenadaCastillo2.getY() >= (TAMANIO/2)) ||
-                (coordenadaCastillo1.getY() < (TAMANIO/2) && coordenadaCastillo2.getY() >= (TAMANIO/2)) ||
-                (coordenadaCastillo1.getY() >= (TAMANIO/2) && coordenadaCastillo2.getY() < (TAMANIO/2));
+        boolean comprobarY = (coordenadaCastillo1.getY() < (Mapa.TAMANIO/2) && coordenadaCastillo2.getY() < (Mapa.TAMANIO/2)) ||
+                (coordenadaCastillo1.getY() >= (Mapa.TAMANIO/2) && coordenadaCastillo2.getY() >= (Mapa.TAMANIO/2)) ||
+                (coordenadaCastillo1.getY() < (Mapa.TAMANIO/2) && coordenadaCastillo2.getY() >= (Mapa.TAMANIO/2)) ||
+                (coordenadaCastillo1.getY() >= (Mapa.TAMANIO/2) && coordenadaCastillo2.getY() < (Mapa.TAMANIO/2));
 
         assertTrue(comprobarX && comprobarY);
     }
@@ -266,8 +264,8 @@ public class MapaTests {
         mapa.colocarUnidadesEnExtremo(castillo2, null);
         mapa.colocarUnidadesEnExtremo(castillo3, null);
 
-        for (int i = 0; i < TAMANIO; i++) {
-            for (int j = 0; j < TAMANIO; j++) {
+        for (int i = 0; i < Mapa.TAMANIO; i++) {
+            for (int j = 0; j < Mapa.TAMANIO; j++) {
                 if(mapa.obtenerDibujable(new Point2D.Double(i,j)) != null) count++;
             }
         }
