@@ -10,15 +10,23 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sun.tools.jstat.Operator;
 import unidades.edificio.Castillo;
+import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
 
-class Menu {
+import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Executable;
+import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
+
+public class Menu {
 
     //TODO: Arreglar la repeticion de codigo
-    static boolean answer;
+    static private boolean answer;
 
-    static boolean mostrarMenuDeCastillo(Castillo castillo) {
+    public static boolean mostrarMenuDeCastillo(Castillo castillo) {
         Stage window = new Stage();
 
         Button crearUnidad = new Button("Crear unidad");
@@ -37,7 +45,7 @@ class Menu {
         return answer;
     }
 
-    static boolean mostrarMenuDePlazaCentral(PlazaCentral plazaCentral) {
+    public static boolean mostrarMenuDePlazaCentral(PlazaCentral plazaCentral) {
         Stage window = new Stage();
 
         Button crearUnidad = new Button("Crear unidad");
@@ -53,6 +61,11 @@ class Menu {
         });
 
         return mostrarMenu(window, "Menu de Plaza Central", crearUnidad);
+    }
+
+    public static boolean mostrarMenuDeCuartel(Cuartel cuartel) {
+        //TODO: IMPLEMENTAR
+        return false;
     }
 
     static private boolean mostrarMenu(Stage window, String titulo, Button... buttons) {
@@ -74,5 +87,4 @@ class Menu {
 
         return answer;
     }
-
 }

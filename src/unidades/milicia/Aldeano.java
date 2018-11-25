@@ -48,4 +48,9 @@ public class Aldeano extends Milicia {
         return Color.WHITE;
     }
 
+    @Override
+    public boolean mostrarMenu() {
+        return false;
+    }
+
 }

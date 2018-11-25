@@ -6,6 +6,7 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import javafx.scene.paint.Color;
 import main.Jugador;
+import ui.Menu;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.milicia.Aldeano;
@@ -64,5 +65,10 @@ public class Castillo extends Edificio {
     @Override
     public Color obtenerColor() {
         return Color.GRAY;
+    }
+
+    @Override
+    public boolean mostrarMenu() {
+        return Menu.mostrarMenuDeCastillo(this);
     }
 }

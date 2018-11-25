@@ -25,6 +25,11 @@ public class Arquero extends Milicia {
         return Color.RED;
     }
 
+    @Override
+    public boolean mostrarMenu() {
+        return false;
+    }
+
 
 }
 

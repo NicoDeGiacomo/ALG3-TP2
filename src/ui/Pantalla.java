@@ -22,6 +22,7 @@ import main.Mapa;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
+import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
 
 import java.awt.geom.Point2D;
@@ -128,14 +129,7 @@ public class Pantalla extends Application {
             if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()))
                 return;
 
-            boolean success = false;
-            if (dibujable.getClass() == Castillo.class) {
-                success = Menu.mostrarMenuDeCastillo((Castillo) dibujable);
-            } else if (dibujable.getClass() == PlazaCentral.class) {
-                success = Menu.mostrarMenuDePlazaCentral((PlazaCentral) dibujable);
-            }
-
-            if (success) {
+            if (dibujable.mostrarMenu()) {
                 pasarTurno();
                 actualizarMapa();
             }

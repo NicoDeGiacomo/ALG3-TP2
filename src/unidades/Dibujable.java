@@ -8,4 +8,5 @@ public interface Dibujable {
 
     Color obtenerColor();
 
+    boolean mostrarMenu();
 }

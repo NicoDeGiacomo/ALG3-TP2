@@ -51,6 +51,11 @@ public class ArmaDeAsedio extends Milicia {
         return Color.WHEAT;
     }
 
+    @Override
+    public boolean mostrarMenu() {
+        return false;
+    }
+
 }
 
 

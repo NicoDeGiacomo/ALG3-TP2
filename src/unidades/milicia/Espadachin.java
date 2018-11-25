@@ -23,4 +23,9 @@ public class Espadachin extends Milicia {
         return Color.BLUE;
     }
 
+    @Override
+    public boolean mostrarMenu() {
+        return false;
+    }
+
 }

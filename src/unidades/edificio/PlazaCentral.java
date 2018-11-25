@@ -5,11 +5,12 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import javafx.scene.paint.Color;
 import main.Jugador;
+import ui.Menu;
 import unidades.milicia.Aldeano;
 
 public class PlazaCentral extends Edificio {
 
-    public PlazaCentral(Jugador propietario){
+    public PlazaCentral(Jugador propietario) {
         super(propietario);
         this.vida = 450;
         this.tamanio = 4;
@@ -17,9 +18,9 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
-    public boolean arreglar(){
+    public boolean arreglar() {
         this.vida += 25;
-        if (this.vida >= 450){
+        if (this.vida >= 450) {
             this.vida = 450;
             return true;
         }
@@ -39,5 +40,10 @@ public class PlazaCentral extends Edificio {
     @Override
     public Color obtenerColor() {
         return Color.YELLOW;
+    }
+
+    @Override
+    public boolean mostrarMenu() {
+        return Menu.mostrarMenuDePlazaCentral(this);
     }
 }

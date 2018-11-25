@@ -6,6 +6,7 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import javafx.scene.paint.Color;
 import main.Jugador;
+import ui.Menu;
 import unidades.milicia.Arquero;
 import unidades.milicia.Espadachin;
 
@@ -50,5 +51,10 @@ public class Cuartel extends Edificio {
     @Override
     public Color obtenerColor() {
         return Color.BROWN;
+    }
+
+    @Override
+    public boolean mostrarMenu() {
+        return Menu.mostrarMenuDeCuartel(this);
     }
 }
