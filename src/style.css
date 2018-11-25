@@ -18,3 +18,11 @@
 .label {
     -fx-text-fill: white;
 }
+
+.grid-pane {
+    -fx-grid-lines-visible: true;
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-hgap: 1;
+    -fx-vgap: 1;
+}

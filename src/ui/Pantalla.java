@@ -43,7 +43,7 @@ public class Pantalla extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         stage = primaryStage;
         primaryStage.setTitle("Algo Empires");
 
@@ -51,19 +51,16 @@ public class Pantalla extends Application {
 
         crearMenuDeJuego();
 
-        primaryStage.setScene(menuPrincipal);
+        primaryStage.setScene(this.menuPrincipal);
         primaryStage.show();
     }
 
     private void crearMenuDeJuego() {
         this.gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-        gridPane.setVgap(1);
-        gridPane.setHgap(1);
-        gridPane.setGridLinesVisible(true);
+        this.gridPane.getStyleClass().add("grid-pane");
 
-        menuDeJuego = new Scene(gridPane, 1000, 1000);
+        this.menuDeJuego = new Scene(this.gridPane, 1000, 1000);
+        this.menuDeJuego.getStylesheets().add("style.css");
     }
 
     private void crearMenuPrincipal() {
@@ -78,8 +75,8 @@ public class Pantalla extends Application {
         label.getStyleClass().add("label");
         layout.getChildren().addAll(label, nombre1, nombre2, button);
 
-        menuPrincipal = new Scene(layout, 800, 600);
-        menuPrincipal.getStylesheets().add("style.css");
+        this.menuPrincipal = new Scene(layout, 800, 600);
+        this.menuPrincipal.getStylesheets().add("style.css");
 
         button.setOnAction(e -> {
             try {
@@ -99,7 +96,7 @@ public class Pantalla extends Application {
             for (int j = 0; j <= Mapa.TAMANIO; j++) {
                 Rectangle rectangle = new Rectangle(15, 15);
                 rectangle.setFill(Color.GREEN);
-                gridPane.add(rectangle, i, j);
+                this.gridPane.add(rectangle, i, j);
             }
         }
 
@@ -119,7 +116,7 @@ public class Pantalla extends Application {
                     StackPane stack = new StackPane();
                     stack.getChildren().addAll(rectangle, text);
                     stack.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
-                    gridPane.add(stack, (int) point2D.getX(), (int) point2D.getY());
+                    this.gridPane.add(stack, (int) point2D.getX(), (int) point2D.getY());
                 }
 
             } catch (CoordenadaInvalidaException ignore) {
@@ -159,11 +156,9 @@ public class Pantalla extends Application {
     private void crearJuego(String jugador1, String jugador2) throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
         this.algoEmpires = new AlgoEmpires();
 
-        algoEmpires.agregarJugador(jugador1);
-        algoEmpires.agregarJugador(jugador2);
+        this.algoEmpires.agregarJugador(jugador1);
+        this.algoEmpires.agregarJugador(jugador2);
 
-        algoEmpires.comenzarPartida();
-
-        this.mapa = algoEmpires.mapa; //TODO: Esto es feo, cambiar despues
+        this.mapa = this.algoEmpires.comenzarPartida();
     }
 }
