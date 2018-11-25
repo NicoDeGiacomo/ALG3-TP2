@@ -5,6 +5,7 @@ import excepciones.unidades.ArmaDeAsedioYaMontadaException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import javafx.scene.paint.Color;
 import main.Jugador;
+import ui.Menu;
 import unidades.Unidad;
 import unidades.estados.armaDeAsedio.EstadoDeArmaDeAsedio;
 import unidades.estados.armaDeAsedio.ArmaDesmontada;
@@ -53,7 +54,7 @@ public class ArmaDeAsedio extends Milicia {
 
     @Override
     public boolean mostrarMenu() {
-        return false;
+        return Menu.mostrarMenuDeArmaDeAsedio(this);
     }
 
 }

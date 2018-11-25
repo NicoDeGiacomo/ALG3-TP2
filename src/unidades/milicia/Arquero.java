@@ -3,6 +3,7 @@ package unidades.milicia;
 
 import javafx.scene.paint.Color;
 import main.Jugador;
+import ui.Menu;
 
 public class Arquero extends Milicia {
 
@@ -27,7 +28,7 @@ public class Arquero extends Milicia {
 
     @Override
     public boolean mostrarMenu() {
-        return false;
+        return Menu.mostrarMenuDeArquero(this);
     }
 
 

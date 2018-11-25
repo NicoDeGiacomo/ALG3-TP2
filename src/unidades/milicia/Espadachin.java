@@ -2,6 +2,7 @@ package unidades.milicia;
 
 import javafx.scene.paint.Color;
 import main.Jugador;
+import ui.Menu;
 
 public class Espadachin extends Milicia {
 
@@ -25,7 +26,7 @@ public class Espadachin extends Milicia {
 
     @Override
     public boolean mostrarMenu() {
-        return false;
+        return Menu.mostrarMenuDeEspadachin(this);
     }
 
 }

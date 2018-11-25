@@ -7,6 +7,7 @@ import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
 import javafx.scene.paint.Color;
 import main.Jugador;
+import ui.Menu;
 import unidades.Unidad;
 import unidades.edificio.Edificio;
 import unidades.estados.aldeano.EstadoDeAldeano;
@@ -50,7 +51,7 @@ public class Aldeano extends Milicia {
 
     @Override
     public boolean mostrarMenu() {
-        return false;
+        return Menu.mostrarMenuDeAldeano(this);
     }
 
 }

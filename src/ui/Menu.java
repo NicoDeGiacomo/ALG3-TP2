@@ -10,16 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.tools.jstat.Operator;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
-
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.Executable;
-import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
-import java.util.function.Function;
+import unidades.milicia.Aldeano;
+import unidades.milicia.ArmaDeAsedio;
+import unidades.milicia.Arquero;
+import unidades.milicia.Espadachin;
 
 public class Menu {
 
@@ -68,6 +65,26 @@ public class Menu {
         return false;
     }
 
+    public static boolean mostrarMenuDeAldeano(Aldeano aldeano) {
+        //TODO: IMPLEMENTAR
+        return false;
+    }
+
+    public static boolean mostrarMenuDeArquero(Arquero arquero) {
+        //TODO: IMPLEMENTAR
+        return false;
+    }
+
+    public static boolean mostrarMenuDeEspadachin(Espadachin espadachin) {
+        //TODO: IMPLEMENTAR
+        return false;
+    }
+
+    public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio) {
+        //TODO: IMPLEMENTAR
+        return false;
+    }
+
     static private boolean mostrarMenu(Stage window, String titulo, Button... buttons) {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(titulo);
@@ -87,4 +104,5 @@ public class Menu {
 
         return answer;
     }
+
 }
