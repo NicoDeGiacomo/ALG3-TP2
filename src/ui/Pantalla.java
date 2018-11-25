@@ -35,6 +35,8 @@ public class Pantalla extends Application {
     private AlgoEmpires algoEmpires;
 
     private GridPane gridPane;
+    private Scene menuPrincipal, menuDeJuego;
+    private Stage stage;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,10 +44,31 @@ public class Pantalla extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
         primaryStage.setTitle("Algo Empires");
 
-        /*Primero aparece una Scene para agregar dos jugadores y luego la Scene que es el juego principal*/
-        Button button = new Button("OK");
+        crearMenuPrincipal();
+
+        crearMenuDeJuego();
+
+        primaryStage.setScene(menuPrincipal);
+        primaryStage.show();
+    }
+
+    private void crearMenuDeJuego() {
+        this.gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setVgap(1);
+        gridPane.setHgap(1);
+        gridPane.setGridLinesVisible(true);
+
+        menuDeJuego = new Scene(gridPane, 1000, 1000);
+    }
+
+    private void crearMenuPrincipal() {
+        Button button = new Button("Comenzar juego");
+
         VBox layout = new VBox();
         layout.getStyleClass().add("vbox");
 
@@ -55,21 +78,9 @@ public class Pantalla extends Application {
         label.getStyleClass().add("label");
         layout.getChildren().addAll(label, nombre1, nombre2, button);
 
-        Scene crearJugadores = new Scene(layout, 800, 600);
-        crearJugadores.getStylesheets().add("style.css");
-        primaryStage.setScene(crearJugadores);
-        primaryStage.show();
+        menuPrincipal = new Scene(layout, 800, 600);
+        menuPrincipal.getStylesheets().add("style.css");
 
-
-        this.gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-        gridPane.setVgap(1);
-        gridPane.setHgap(1);
-        gridPane.setGridLinesVisible(true);
-
-        Scene juego = new Scene(gridPane, 1000, 1000);
-        //button.setOnAction(e -> primaryStage.setScene(juego));
         button.setOnAction(e -> {
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
@@ -77,10 +88,9 @@ public class Pantalla extends Application {
                 Alerta.display("Error al crear partida", error.getMessage());
                 return;
             }
-            primaryStage.setScene(juego);
+            stage.setScene(menuDeJuego);
             actualizarMapa();
         });
-
     }
 
     private void actualizarMapa() {
@@ -100,7 +110,7 @@ public class Pantalla extends Application {
 
                 for (Point2D point2D : point2DList) {
                     Rectangle rectangle = new Rectangle(15, 15);
-                    rectangle.setFill(((Unidad) dibujable).obtenerColor());
+                    rectangle.setFill(dibujable.obtenerColor());
                     //rectangle.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
 
                     Text text = new Text(((Unidad) dibujable).obtenerPropietario().verNombre().substring(0, 1));
