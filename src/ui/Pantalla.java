@@ -32,8 +32,9 @@ import java.util.List;
 public class Pantalla extends Application {
 
     private Mapa mapa;
-    private GridPane gridPane;
     private AlgoEmpires algoEmpires;
+
+    private GridPane gridPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -46,12 +47,16 @@ public class Pantalla extends Application {
         /*Primero aparece una Scene para agregar dos jugadores y luego la Scene que es el juego principal*/
         Button button = new Button("OK");
         VBox layout = new VBox();
+        layout.getStyleClass().add("vbox");
 
         TextField nombre1 = new TextField();
         TextField nombre2 = new TextField();
-        layout.getChildren().addAll(new Label("Ingrese los nombres de los jugadores:"), nombre1, nombre2, button);
+        Label label = new Label("Ingrese los nombres de los jugadores:");
+        label.getStyleClass().add("label");
+        layout.getChildren().addAll(label, nombre1, nombre2, button);
 
         Scene crearJugadores = new Scene(layout, 800, 600);
+        crearJugadores.getStylesheets().add("style.css");
         primaryStage.setScene(crearJugadores);
         primaryStage.show();
 
