@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Mapa {
-    private static final int TAMANIO = 100,
-                             ESPACIO_LIBRE = 8,
+    public static final int TAMANIO = 100;
+    private static final int ESPACIO_LIBRE = 8,
                              DISTANCIA_PROXIMA = 1;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
