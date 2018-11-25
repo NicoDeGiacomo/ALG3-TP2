@@ -106,4 +106,8 @@ public class Jugador {
     public List<Dibujable> unidadesCercanas(Castillo castillo) {
         return this.mapa.dibujablesAlAlcance(castillo);
     }
+
+    public String verNombre() {
+        return this.nombre;
+    }
 }

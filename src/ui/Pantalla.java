@@ -106,19 +106,27 @@ public class Pantalla extends Application {
             Dibujable dibujable = this.mapa.obtenerDibujable(point2D);
             if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()))
                 return;
+
+            boolean success = false;
             if (dibujable.getClass() == Castillo.class) {
-                Boolean answer = Menu.mostrarMenuDeCastillo((Castillo) dibujable);
-                actualizarMapa();
-                //if (answer)
-                    //pasarTurno()
+                success = Menu.mostrarMenuDeCastillo((Castillo) dibujable);
             }
             else if (dibujable.getClass() == PlazaCentral.class) {
-                Boolean answer =  Menu.mostrarMenuDePlazaCentral((PlazaCentral) dibujable);
+                success =  Menu.mostrarMenuDePlazaCentral((PlazaCentral) dibujable);
+            }
+
+            if (success) {
+                pasarTurno();
                 actualizarMapa();
-                //if (answer)
-                    //pasarTurno()
             }
         } catch (CoordenadaInvalidaException ignore) {}
+    }
+
+    private void pasarTurno() {
+        try {
+            this.algoEmpires.pasarTurno();
+            Alerta.display("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
+        } catch (ComienzoDePartidaException ignore) {}
     }
 
     private void crearJuego(String jugador1, String jugador2) throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
