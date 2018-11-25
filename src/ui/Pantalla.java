@@ -5,8 +5,6 @@ import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,39 +42,37 @@ public class Pantalla extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        stage = primaryStage;
-        primaryStage.setTitle("Algo Empires");
+        this.stage = primaryStage;
+        this.stage.setTitle("Algo Empires");
 
-        crearMenuPrincipal();
+        this.menuPrincipal = crearMenuPrincipal();
+        this.menuDeJuego = crearMenuDeJuego();
 
-        crearMenuDeJuego();
-
-        primaryStage.setScene(this.menuPrincipal);
-        primaryStage.show();
+        this.stage.setScene(this.menuPrincipal);
+        this.menuDeJuego.getStylesheets().add("style.css");
+        this.menuPrincipal.getStylesheets().add("style.css");
+        this.stage.show();
     }
 
-    private void crearMenuDeJuego() {
+    private Scene crearMenuDeJuego() {
         this.gridPane = new GridPane();
         this.gridPane.getStyleClass().add("grid-pane");
 
-        this.menuDeJuego = new Scene(this.gridPane, 1000, 1000);
-        this.menuDeJuego.getStylesheets().add("style.css");
+        return new Scene(this.gridPane, 850, 850);
     }
 
-    private void crearMenuPrincipal() {
+    private Scene crearMenuPrincipal() {
+        Label label = new Label("Ingrese los nombres de los jugadores:");
+        label.getStyleClass().add("label");
+
+        TextField nombre1 = new TextField();
+        TextField nombre2 = new TextField();
+
         Button button = new Button("Comenzar juego");
 
         VBox layout = new VBox();
         layout.getStyleClass().add("vbox");
-
-        TextField nombre1 = new TextField();
-        TextField nombre2 = new TextField();
-        Label label = new Label("Ingrese los nombres de los jugadores:");
-        label.getStyleClass().add("label");
         layout.getChildren().addAll(label, nombre1, nombre2, button);
-
-        this.menuPrincipal = new Scene(layout, 800, 600);
-        this.menuPrincipal.getStylesheets().add("style.css");
 
         button.setOnAction(e -> {
             try {
@@ -88,6 +84,8 @@ public class Pantalla extends Application {
             stage.setScene(menuDeJuego);
             actualizarMapa();
         });
+
+        return new Scene(layout, 850, 850);
     }
 
     private void actualizarMapa() {
