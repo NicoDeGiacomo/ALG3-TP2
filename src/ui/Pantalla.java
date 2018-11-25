@@ -39,13 +39,18 @@ public class Pantalla extends Application {
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
+        gridPane.setGridLinesVisible(true);
+        Image image = new Image(new FileInputStream("assets/pasto.jpg"));
 
         //Controlar el tamanio de la imagen!!!
-        /*for (int i = 0; i < Mapa.TAMANIO; i++) {
-            for (int j = 0; j < Mapa.TAMANIO; j++) {
-                gridPane.add(new ImageView(new Image(new FileInputStream("assets/pasto.jpg"))), i, j);
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(10);
+                imageView.setFitWidth(10);
+                gridPane.add(imageView, i, j);
             }
-        }*/
+        }
 
         Scene juego = new Scene(gridPane);
         button.setOnAction(e -> primaryStage.setScene(juego));
