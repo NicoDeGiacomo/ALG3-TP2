@@ -3,6 +3,7 @@ package unidades.edificio;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
+import javafx.scene.paint.Color;
 import main.Jugador;
 import unidades.milicia.Aldeano;
 
@@ -33,5 +34,10 @@ public class PlazaCentral extends Edificio {
 
     @Override
     public void ejecutarTareas() {
+    }
+
+    @Override
+    public Color obtenerColor() {
+        return Color.YELLOW;
     }
 }

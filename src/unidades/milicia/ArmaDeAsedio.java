@@ -3,16 +3,17 @@ package unidades.milicia;
 import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
 import excepciones.unidades.ArmaDeAsedioYaMontadaException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import javafx.scene.paint.Color;
 import main.Jugador;
 import unidades.Unidad;
 import unidades.estados.armaDeAsedio.EstadoDeArmaDeAsedio;
 import unidades.estados.armaDeAsedio.ArmaDesmontada;
 
-public class ArmaDeAsedio extends Milicia{
+public class ArmaDeAsedio extends Milicia {
 
     private EstadoDeArmaDeAsedio estadoDeArma;
 
-    public ArmaDeAsedio(Jugador propietario){
+    public ArmaDeAsedio(Jugador propietario) {
         super(propietario);
         this.estadoDeArma = new ArmaDesmontada();
         this.vida = 150;
@@ -27,7 +28,7 @@ public class ArmaDeAsedio extends Milicia{
     }
 
     void montarArma() throws ArmaDeAsedioYaMontadaException {
-        this.estadoDeArma =  this.estadoDeArma.montarArma();
+        this.estadoDeArma = this.estadoDeArma.montarArma();
     }
 
     void desmontarArma() throws ArmaDeAsedioYaDesmontadaException {
@@ -43,6 +44,11 @@ public class ArmaDeAsedio extends Milicia{
 
     @Override
     public void ejecutarTareas() {
+    }
+
+    @Override
+    public Color obtenerColor() {
+        return Color.WHEAT;
     }
 
 }

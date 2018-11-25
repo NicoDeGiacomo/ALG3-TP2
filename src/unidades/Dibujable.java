@@ -6,6 +6,6 @@ public interface Dibujable {
 
     int verTamanio();
 
-    //Color obtenerColor();
+    Color obtenerColor();
 
 }

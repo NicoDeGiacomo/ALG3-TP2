@@ -5,6 +5,7 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
+import javafx.scene.paint.Color;
 import main.Jugador;
 import unidades.Unidad;
 import unidades.edificio.Edificio;
@@ -40,6 +41,11 @@ public class Aldeano extends Milicia {
 
     void construir(Edificio edificio, Point2D pos) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         this.estado = this.estado.comenzarConstruccion(this.propietario, edificio, this, pos);
+    }
+
+    @Override
+    public Color obtenerColor() {
+        return Color.WHITE;
     }
 
 }

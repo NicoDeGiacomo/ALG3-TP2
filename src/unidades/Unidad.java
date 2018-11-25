@@ -49,6 +49,10 @@ public abstract class Unidad implements Dibujable {
         return propietario == this.propietario;
     }
 
+    public Jugador obtenerPropietario() {
+        return this.propietario;
+    }
+
     public abstract int verTamanio();
 
     public abstract int verAlcance();

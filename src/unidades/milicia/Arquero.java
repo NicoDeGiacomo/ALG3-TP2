@@ -1,11 +1,12 @@
 package unidades.milicia;
 
 
+import javafx.scene.paint.Color;
 import main.Jugador;
 
 public class Arquero extends Milicia {
 
-    public Arquero(Jugador propietario){
+    public Arquero(Jugador propietario) {
         super(propietario);
         this.vida = 75;
         this.danio = 15;
@@ -17,6 +18,11 @@ public class Arquero extends Milicia {
     @Override
     public void ejecutarTareas() {
 
+    }
+
+    @Override
+    public Color obtenerColor() {
+        return Color.RED;
     }
 
 

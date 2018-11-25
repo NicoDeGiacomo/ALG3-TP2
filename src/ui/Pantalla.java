@@ -12,9 +12,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.AlgoEmpires;
 import main.Mapa;
@@ -92,12 +95,20 @@ public class Pantalla extends Application {
 
                 for (Point2D point2D : point2DList) {
                     Rectangle rectangle = new Rectangle(15, 15);
-                    rectangle.setFill(Color.RED);
-                    rectangle.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
-                    gridPane.add(rectangle, (int) point2D.getX(), (int) point2D.getY());
+                    rectangle.setFill(((Unidad) dibujable).obtenerColor());
+                    //rectangle.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
+
+                    Text text = new Text(((Unidad) dibujable).obtenerPropietario().verNombre().substring(0, 1));
+                    text.setFont(Font.font("Verdana", 10));
+
+                    StackPane stack = new StackPane();
+                    stack.getChildren().addAll(rectangle, text);
+                    stack.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
+                    gridPane.add(stack, (int) point2D.getX(), (int) point2D.getY());
                 }
 
-            } catch (CoordenadaInvalidaException ignore) {}
+            } catch (CoordenadaInvalidaException ignore) {
+            }
         }
     }
 
@@ -110,23 +121,24 @@ public class Pantalla extends Application {
             boolean success = false;
             if (dibujable.getClass() == Castillo.class) {
                 success = Menu.mostrarMenuDeCastillo((Castillo) dibujable);
-            }
-            else if (dibujable.getClass() == PlazaCentral.class) {
-                success =  Menu.mostrarMenuDePlazaCentral((PlazaCentral) dibujable);
+            } else if (dibujable.getClass() == PlazaCentral.class) {
+                success = Menu.mostrarMenuDePlazaCentral((PlazaCentral) dibujable);
             }
 
             if (success) {
                 pasarTurno();
                 actualizarMapa();
             }
-        } catch (CoordenadaInvalidaException ignore) {}
+        } catch (CoordenadaInvalidaException ignore) {
+        }
     }
 
     private void pasarTurno() {
         try {
             this.algoEmpires.pasarTurno();
             Alerta.display("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
-        } catch (ComienzoDePartidaException ignore) {}
+        } catch (ComienzoDePartidaException ignore) {
+        }
     }
 
     private void crearJuego(String jugador1, String jugador2) throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {

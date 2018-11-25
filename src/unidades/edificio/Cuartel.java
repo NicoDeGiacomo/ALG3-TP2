@@ -4,6 +4,7 @@ import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.UnidadNoEspecificadaException;
+import javafx.scene.paint.Color;
 import main.Jugador;
 import unidades.milicia.Arquero;
 import unidades.milicia.Espadachin;
@@ -44,5 +45,10 @@ public class Cuartel extends Edificio {
 
     @Override
     public void ejecutarTareas() {
+    }
+
+    @Override
+    public Color obtenerColor() {
+        return Color.BROWN;
     }
 }

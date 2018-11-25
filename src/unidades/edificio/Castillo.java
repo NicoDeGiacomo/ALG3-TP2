@@ -4,6 +4,7 @@ import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
+import javafx.scene.paint.Color;
 import main.Jugador;
 import unidades.Dibujable;
 import unidades.Unidad;
@@ -60,4 +61,8 @@ public class Castillo extends Edificio {
         throw new CreacionDeCastilloException("No se puede construir un castillo.");
     }
 
+    @Override
+    public Color obtenerColor() {
+        return Color.GRAY;
+    }
 }
