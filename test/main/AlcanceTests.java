@@ -127,9 +127,9 @@ public class AlcanceTests {
         Arquero arqueroAliado = new Arquero(jugador1);
         Castillo castillo = new Castillo(jugador1);
 
-        mapa.colocarDibujable(castillo, new Point2D.Double(34, 34));
-        mapa.colocarDibujable(arqueroAliado, new Point2D.Double(33, 34));
-        mapa.colocarDibujable(arqueroEnemigo, new Point2D.Double(34, 33));
+        mapa.colocarDibujable(castillo, new Point2D.Double(25, 25));
+        mapa.colocarDibujable(arqueroAliado, new Point2D.Double(24, 25));
+        mapa.colocarDibujable(arqueroEnemigo, new Point2D.Double(25, 24));
 
         castillo.ejecutarTareas();
 

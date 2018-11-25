@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Mapa {
     public static final int TAMANIO = 50;
-    private static final int ESPACIO_LIBRE = 8,
+    private static final int ESPACIO_LIBRE = 6,
                              DISTANCIA_PROXIMA = 1;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
@@ -49,11 +49,11 @@ public class Mapa {
     }
 
     public List<Dibujable> obtenerTodosLosDibujables() {
-        List<Dibujable> dibujables = new LinkedList<>();
+        List<Dibujable> dibujables = new ArrayList<>();
 
         for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
-                if (this.mapa[i][j] != null)
+                if (this.mapa[i][j] != null && !dibujables.contains(mapa[i][j]))
                     dibujables.add(this.mapa[i][j]);
             }
         }
@@ -83,6 +83,40 @@ public class Mapa {
 
     private boolean estaOcupado(Point2D coordenada) throws CoordenadaInvalidaException {
         return obtenerDibujable(coordenada) != null;
+    }
+
+    private Point2D obtenerEsquinaCuadrante(int cuadrante) {
+        Point2D coordenadaEsquina = null;
+
+        switch (cuadrante) {
+            case 0: coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, ESPACIO_LIBRE / 2);
+                break;
+            case 1: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE, ESPACIO_LIBRE / 2);
+                break;
+            case 2: coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, TAMANIO - ESPACIO_LIBRE);
+                break;
+            case 3: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE, TAMANIO - ESPACIO_LIBRE);
+                break;
+        }
+
+        return coordenadaEsquina;
+    }
+
+    private int obtenerCuadranteEsquina(Point2D esquina) {
+
+        int xOrigen = (int) esquina.getX();
+        int yOrigen = (int) esquina.getY();
+
+        int cuadranteOrigen = 0;
+        if ((xOrigen < TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
+            cuadranteOrigen = 2;
+        } else if (yOrigen >= TAMANIO / 2) {
+            cuadranteOrigen = 3;
+        } else if (xOrigen >= TAMANIO / 2) {
+            cuadranteOrigen = 1;
+        }
+
+        return cuadranteOrigen;
     }
 
     private List<Point2D> obtenerCoordenadasADistancia(Unidad unidad, int distancia) throws CoordenadaInvalidaException {
@@ -157,39 +191,29 @@ public class Mapa {
         if (castillos.size() > 1) {
             return;
         } else if (castillos.size() == 1) {
-            int xOrigen = 0, yOrigen = 0;
+            Point2D origenCastillo = null;
+
             try {
-                Point2D origenCastillo = obtenerCoordenadas(castillos.get(0)).get(0);
-                xOrigen = (int) origenCastillo.getX();
-                yOrigen = (int) origenCastillo.getY();
+                origenCastillo = obtenerCoordenadas(castillos.get(0)).get(0);
             } catch (CoordenadaInvalidaException ignored) {
             }
 
-            int cuadranteOrigen;
-            if ((xOrigen < TAMANIO / 2) && (yOrigen >= TAMANIO / 2)) {
-                cuadranteOrigen = 2;
-            } else if (yOrigen < TAMANIO / 2) {
-                cuadranteOrigen = 1;
-            } else {
-                cuadranteOrigen = 3;
-            }
+            int cuadranteOrigen = obtenerCuadranteEsquina(origenCastillo);
 
             cuadranteDestino = (cuadranteOrigen % 2) == 0 ? (cuadranteOrigen + 3) % 4 : (cuadranteOrigen + 1) % 4;
         } else {
             cuadranteDestino = random.nextInt(4);
         }
 
-        int xDestinoCastillo = random.nextInt(TAMANIO / 2) + ((TAMANIO / 2) * (cuadranteDestino % 2));
-        int yDestinoCastillo = random.nextInt(TAMANIO / 2) - ((TAMANIO / 2) * ((cuadranteDestino % 2 - (cuadranteDestino > 1 ? cuadranteDestino - 1 : cuadranteDestino))));
+        Point2D coordenadaCastillo = obtenerEsquinaCuadrante(cuadranteDestino);
 
-        xDestinoCastillo = xDestinoCastillo / 2 + ESPACIO_LIBRE >= TAMANIO / 2 ? xDestinoCastillo - ESPACIO_LIBRE : xDestinoCastillo;
-        yDestinoCastillo = yDestinoCastillo / 2 + ESPACIO_LIBRE >= TAMANIO / 2 ? yDestinoCastillo - ESPACIO_LIBRE : yDestinoCastillo;
+        int xDestinoCastillo = (int) coordenadaCastillo.getX();
+        int yDestinoCastillo = (int) coordenadaCastillo.getY();
 
-        int xDestinoPlaza = cuadranteDestino % 2 == 0 ? xDestinoCastillo + ESPACIO_LIBRE : xDestinoCastillo - ESPACIO_LIBRE;
-        int yDestinoPlaza = cuadranteDestino - 2 < 0 ? yDestinoCastillo + ESPACIO_LIBRE : yDestinoCastillo - ESPACIO_LIBRE;
+        int xDestinoPlaza = cuadranteDestino % 2 == 0 ? xDestinoCastillo + ESPACIO_LIBRE : xDestinoCastillo - ESPACIO_LIBRE / 2;
+        int yDestinoPlaza = cuadranteDestino - 2 < 0 ? yDestinoCastillo + ESPACIO_LIBRE : yDestinoCastillo - ESPACIO_LIBRE / 2;
 
-        Point2D coordenadaCastillo = new Point2D.Double(xDestinoCastillo, yDestinoCastillo),
-                coordenadaPlaza = new Point2D.Double(xDestinoPlaza, yDestinoPlaza);
+        Point2D coordenadaPlaza = new Point2D.Double(xDestinoPlaza, yDestinoPlaza);
 
         try {
             colocarDibujable(castillo, coordenadaCastillo);
@@ -264,6 +288,8 @@ public class Mapa {
             mapa[(int) coordenada.getX()][(int) coordenada.getY()] = null;
         }
     }
+
+    //Validaciones
 
     private void validarCoordenada(Point2D coordenada) throws CoordenadaInvalidaException {
         validarCoordenadaEnMapa(coordenada);

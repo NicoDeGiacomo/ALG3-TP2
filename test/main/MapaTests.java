@@ -187,9 +187,9 @@ public class MapaTests {
         Arquero arquero = new Arquero(jugador);
         Cuartel cuartel = new Cuartel(jugador);
 
-        mapa.colocarDibujable(cuartel, new Point2D.Double(5,5));
+        mapa.colocarDibujable(cuartel, new Point2D.Double(15,15));
 
-        mapa.agregarUnidadCercana(arquero, cuartel, new Point2D.Double(4,5));
+        mapa.agregarUnidadCercana(arquero, cuartel, new Point2D.Double(14,15));
 
         List<Dibujable> unidades = mapa.dibujablesAlAlcance(cuartel);
 
@@ -202,9 +202,9 @@ public class MapaTests {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter", mapa);
         Arquero arquero = new Arquero(jugador);
-        Point2D origen = new Point2D.Double(5,4),
-                destino1 = new Point2D.Double(5,5),
-                destino2 = new Point2D.Double(6,6);
+        Point2D origen = new Point2D.Double(20,19),
+                destino1 = new Point2D.Double(20,20),
+                destino2 = new Point2D.Double(21,21);
 
         mapa.colocarDibujable(arquero, origen);
 
@@ -231,9 +231,6 @@ public class MapaTests {
 
         mapa.colocarUnidadesEnExtremo(castillo1, null);
         mapa.colocarUnidadesEnExtremo(castillo2, null);
-
-        System.out.println("" + castillo1); //TODO: Gasti - Sacar prints usados para debug
-        System.out.println("" + mapa.obtenerCoordenadas(castillo1));
 
         Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
                 coordenadaCastillo2 = mapa.obtenerCoordenadas(castillo2).get(0);
@@ -317,22 +314,22 @@ public class MapaTests {
         Jugador jugador = new Jugador("Piter", mapa);
         Cuartel cuartel1 = new Cuartel(jugador),
                 cuartel2 = new Cuartel(jugador);
-        Point2D coordenada1 = new Point2D.Double(5,5);
-        Point2D coordenada2 = new Point2D.Double(4,4);
+        Point2D coordenada1 = new Point2D.Double(10,10);
+        Point2D coordenada2 = new Point2D.Double(12,12);
 
         //En la misma coordenada.
         try {
             mapa.colocarDibujable(cuartel1, coordenada1);
             mapa.colocarDibujable(cuartel2, coordenada1);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("Ya existe una Unidad en (5.0, 5.0)", e.getMessage());
+            assertEquals("Ya existe una Unidad en (10.0, 10.0)", e.getMessage());
         }
 
         //En una coordenada que lo pisa al cuartel anterior solo en una 'esquina'.
         try {
             mapa.colocarDibujable(cuartel2, coordenada2);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("Ya existe una Unidad en (5.0, 5.0)", e.getMessage());
+            assertEquals("Ya existe una Unidad en (12.0, 12.0)", e.getMessage());
         }
     }
 
@@ -362,8 +359,8 @@ public class MapaTests {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter", mapa);
         Cuartel cuartel = new Cuartel(jugador);
-        Point2D origen = new Point2D.Double(1, 1),
-                destino = new Point2D.Double(5, 5);
+        Point2D origen = new Point2D.Double(25, 25),
+                destino = new Point2D.Double(29, 29);
 
         mapa.colocarDibujable(cuartel, origen);
 
@@ -391,8 +388,8 @@ public class MapaTests {
         Mapa mapa = new Mapa();
         Jugador jugador = new Jugador("Piter", mapa);
         Arquero arquero = new Arquero(jugador);
-        Point2D origen = new Point2D.Double(1, 1),
-                destino = new Point2D.Double(5, 5);
+        Point2D origen = new Point2D.Double(15, 15),
+                destino = new Point2D.Double(19, 19);
 
         mapa.colocarDibujable(arquero, origen);
 
@@ -428,8 +425,8 @@ public class MapaTests {
         Jugador jugador = new Jugador("Piter", mapa);
         Cuartel cuartel = new Cuartel(jugador);
         Arquero arquero = new Arquero(jugador);
-        Point2D coordenada1 = new Point2D.Double(5, 5),
-                coordenada2 = new Point2D.Double(4, 5);
+        Point2D coordenada1 = new Point2D.Double(15, 15),
+                coordenada2 = new Point2D.Double(14, 15);
 
         mapa.colocarDibujable(cuartel, coordenada1);
 
@@ -438,7 +435,7 @@ public class MapaTests {
         try {
             mapa.agregarUnidadCercana(arquero, cuartel, coordenada2);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("Ya existe una Unidad en (4.0, 5.0)", e.getMessage());
+            assertEquals("Ya existe una Unidad en (14.0, 15.0)", e.getMessage());
         }
     }
 
@@ -492,7 +489,7 @@ public class MapaTests {
         Cuartel cuartel = new Cuartel(jugador);
 
 
-        mapa.colocarDibujable(cuartel, new Point2D.Double(1,1));
+        mapa.colocarDibujable(cuartel, new Point2D.Double(15,15));
 
         for (int i = 0; i < 12; i++) {
             mapa.agregarUnidadCercana(arquero, cuartel);
