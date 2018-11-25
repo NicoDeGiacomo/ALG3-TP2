@@ -11,31 +11,26 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import main.AlgoEmpires;
-import main.Jugador;
 import main.Mapa;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
-import unidades.edificio.Edificio;
+import unidades.edificio.PlazaCentral;
 
 import java.awt.geom.Point2D;
-import java.io.FileInputStream;
 import java.util.List;
-import java.util.Map;
 
 public class Pantalla extends Application {
 
-    private AlgoEmpires algoEmpires;
     private Mapa mapa;
+    private GridPane gridPane;
+    private AlgoEmpires algoEmpires;
 
     public static void main(String[] args) {
         launch(args);
@@ -58,7 +53,7 @@ public class Pantalla extends Application {
         primaryStage.show();
 
 
-        GridPane gridPane = new GridPane();
+        this.gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         gridPane.setVgap(1);
@@ -75,13 +70,13 @@ public class Pantalla extends Application {
                 return;
             }
             primaryStage.setScene(juego);
-            construirMapa(gridPane);
+            actualizarMapa();
         });
 
     }
 
-    private void construirMapa(GridPane gridPane) {
-        //Pinto todo de verde
+    private void actualizarMapa() {
+        //Pinto el mapa entero de verde
         for (int i = 0; i <= Mapa.TAMANIO; i++) {
             for (int j = 0; j <= Mapa.TAMANIO; j++) {
                 Rectangle rectangle = new Rectangle(15, 15);
@@ -93,11 +88,12 @@ public class Pantalla extends Application {
         //Pinto las unidades de rojo -> Para mas tarde que Dibujable implemente un metodo OBTENERCOLOR y llamarlo
         for (Dibujable dibujable : this.mapa.obtenerTodosLosDibujables()) {
             try {
-                List<Point2D> point2DList = this.mapa.obtenerCoordenadas((Unidad) dibujable); //TODO: Este cast es feo -> El mapa deberia recibir un dibujable
+                List<Point2D> point2DList = this.mapa.obtenerCoordenadas((Unidad) dibujable); //TODO: Este cast es feo -> El mapa deberia recibir un dibujable ?
 
                 for (Point2D point2D : point2DList) {
                     Rectangle rectangle = new Rectangle(15, 15);
                     rectangle.setFill(Color.RED);
+                    rectangle.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
                     gridPane.add(rectangle, (int) point2D.getX(), (int) point2D.getY());
                 }
 
@@ -105,14 +101,34 @@ public class Pantalla extends Application {
         }
     }
 
+    private void mostrarMenuDeOpciones(Point2D point2D) {
+        try {
+            Dibujable dibujable = this.mapa.obtenerDibujable(point2D);
+            if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()))
+                return;
+            if (dibujable.getClass() == Castillo.class) {
+                Boolean answer = Menu.mostrarMenuDeCastillo((Castillo) dibujable);
+                actualizarMapa();
+                //if (answer)
+                    //pasarTurno()
+            }
+            else if (dibujable.getClass() == PlazaCentral.class) {
+                Boolean answer =  Menu.mostrarMenuDePlazaCentral((PlazaCentral) dibujable);
+                actualizarMapa();
+                //if (answer)
+                    //pasarTurno()
+            }
+        } catch (CoordenadaInvalidaException ignore) {}
+    }
+
     private void crearJuego(String jugador1, String jugador2) throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
         this.algoEmpires = new AlgoEmpires();
 
-        this.algoEmpires.agregarJugador(jugador1);
-        this.algoEmpires.agregarJugador(jugador2);
+        algoEmpires.agregarJugador(jugador1);
+        algoEmpires.agregarJugador(jugador2);
 
-        this.algoEmpires.comenzarPartida();
+        algoEmpires.comenzarPartida();
 
-        this.mapa = this.algoEmpires.mapa; //TODO: Esto es feo, cambiar despues
+        this.mapa = algoEmpires.mapa; //TODO: Esto es feo, cambiar despues
     }
 }

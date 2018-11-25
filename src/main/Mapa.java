@@ -35,7 +35,7 @@ public class Mapa {
         }
     }
 
-    Dibujable obtenerDibujable(Point2D coordenada) throws CoordenadaInvalidaException {
+    public Dibujable obtenerDibujable(Point2D coordenada) throws CoordenadaInvalidaException {
         validarCoordenadaEnMapa(coordenada);
 
         Dibujable dibujable = mapa[(int) coordenada.getX()][(int) coordenada.getY()];
