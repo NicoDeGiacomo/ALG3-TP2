@@ -232,7 +232,7 @@ public class MapaTests {
         mapa.colocarUnidadesEnExtremo(castillo1, null);
         mapa.colocarUnidadesEnExtremo(castillo2, null);
 
-        System.out.println("" + castillo1);
+        System.out.println("" + castillo1); //TODO: Gasti - Sacar prints usados para debug
         System.out.println("" + mapa.obtenerCoordenadas(castillo1));
 
         Point2D coordenadaCastillo1 = mapa.obtenerCoordenadas(castillo1).get(0),
