@@ -145,22 +145,7 @@ public class Menu {
 
         Button moverArquero = crearBotonDeMovimiento("Mover Arquero", arquero, point2D, window);
 
-        Button atacarUnidad = new Button("Atacar Unidad");
-        atacarUnidad.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, arquero.verAlcance());
-            if (coordenada == null)
-                return;
-
-            try {
-                arquero.atacarUnidad(arquero, coordenada);
-                answer = true;
-            } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al atacar", error.getMessage());
-                answer = false;
-            }
-
-            window.close();
-        });
+        Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window);
 
         return mostrarMenu(window, "Menu de Arquero", moverArquero, atacarUnidad);
     }
@@ -170,22 +155,7 @@ public class Menu {
 
         Button moverEspadachin = crearBotonDeMovimiento("Mover Espadachin", espadachin, point2D, window);
 
-        Button atacarUnidad = new Button("Atacar Unidad");
-        atacarUnidad.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, espadachin.verAlcance());
-            if (coordenada == null)
-                return;
-
-            try {
-                espadachin.atacarUnidad(espadachin, coordenada);
-                answer = true;
-            } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al atacar", error.getMessage());
-                answer = false;
-            }
-
-            window.close();
-        });
+        Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window);
 
         return mostrarMenu(window, "Menu de Espadachin", moverEspadachin, atacarUnidad);
     }
@@ -195,22 +165,7 @@ public class Menu {
 
         Button moverArmaDeAsedio = crearBotonDeMovimiento("Mover Arma de Asedio", armaDeAsedio, point2D, window);
 
-        Button atacarUnidad = new Button("Atacar Unidad");
-        atacarUnidad.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, armaDeAsedio.verAlcance());
-            if (coordenada == null)
-                return;
-
-            try {
-                armaDeAsedio.atacarUnidad(armaDeAsedio, coordenada);
-                answer = true;
-            } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al atacar", error.getMessage());
-                answer = false;
-            }
-
-            window.close();
-        });
+        Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window);
 
         return mostrarMenu(window, "Menu de Arma de Asedio", moverArmaDeAsedio, atacarUnidad);
     }
@@ -280,6 +235,27 @@ public class Menu {
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al mover la unidad", error.getMessage());
+                answer = false;
+            }
+
+            window.close();
+        });
+
+        return mover;
+    }
+
+    private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window) {
+        Button mover = new Button("Atacar Unidad");
+        mover.setOnAction(e -> {
+            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verVelocidad());
+            if (coordenada == null)
+                return;
+
+            try {
+                unidad.atacarUnidad(unidad, coordenada);
+                answer = true;
+            } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al atacar", error.getMessage());
                 answer = false;
             }
 
