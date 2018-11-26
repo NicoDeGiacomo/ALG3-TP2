@@ -17,6 +17,11 @@ public class Reparando extends EstadoDeAldeano {
     }
 
     @Override
+    public boolean esMovible(){
+        return false;
+    }
+
+    @Override
     public EstadoDeAldeano ejecutarTareas() {
         if (this.edificio.arreglar()) {
             return new Ocioso(propietario);

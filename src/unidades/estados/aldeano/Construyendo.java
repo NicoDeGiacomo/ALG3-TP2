@@ -22,6 +22,11 @@ public class Construyendo extends EstadoDeAldeano {
     }
 
     @Override
+    public boolean esMovible(){
+        return false;
+    }
+
+    @Override
     public EstadoDeAldeano ejecutarTareas() {
         this.contadorDeTurnos++;
         if (this.contadorDeTurnos == 3){

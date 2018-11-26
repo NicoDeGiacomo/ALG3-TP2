@@ -23,4 +23,6 @@ public abstract class EstadoDeAldeano {
     public abstract EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException;
 
     public abstract EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException;
+
+    public abstract boolean esMovible();
 }

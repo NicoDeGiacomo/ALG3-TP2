@@ -30,6 +30,8 @@ public abstract class Milicia extends Unidad {
     }
 
     public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {
+        if (unidad.unidadesSonDelMismoEquipo(this.propietario))
+            return;
         if (!unidad.esMovible())
             unidad.recibirDanio(this.danioAEdificios);
         else

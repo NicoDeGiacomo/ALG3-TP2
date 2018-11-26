@@ -21,6 +21,12 @@ public class Ocioso extends EstadoDeAldeano {
     }
 
     @Override
+    public boolean esMovible(){
+        return true;
+    }
+
+
+    @Override
     public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         return new Construyendo(this.propietario, edificio, aldeano, pos);
     }

@@ -26,7 +26,6 @@ public abstract class Unidad implements Dibujable {
     }
 
     public void recibirDanio(int danio) {
-        //TODO: Verificar que son del mismo equipo SIEMPRE.
         this.vida -= danio;
         if (this.vida <= 0) {
             this.estadoDeUnidad = new Muerto();

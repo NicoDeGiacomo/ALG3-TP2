@@ -36,6 +36,11 @@ public class Aldeano extends Milicia {
         throw new AtaqueIncorrectoException("El aldeano no puede atacar.");
     }
 
+    @Override
+    public boolean esMovible(){
+        return this.estado.esMovible();
+    }
+
     public void reparar(Edificio edificio) throws AldeanoOcupadoException {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }

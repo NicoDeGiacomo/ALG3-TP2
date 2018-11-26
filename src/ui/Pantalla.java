@@ -66,8 +66,8 @@ public class Pantalla extends Application {
         Label label = new Label("Ingrese los nombres de los jugadores:");
         label.getStyleClass().add("label");
 
-        TextField nombre1 = new TextField();
-        TextField nombre2 = new TextField();
+        TextField nombre1 = new TextField("Jugador 1");
+        TextField nombre2 = new TextField("Jugador 2");
 
         Button button = new Button("Comenzar juego");
 
