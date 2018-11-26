@@ -36,11 +36,11 @@ public class Aldeano extends Milicia {
         throw new AtaqueIncorrectoException("El aldeano no puede atacar.");
     }
 
-    void reparar(Edificio edificio) throws AldeanoOcupadoException {
+    public void reparar(Edificio edificio) throws AldeanoOcupadoException {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 
-    void construir(Edificio edificio, Point2D pos) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
+    public void construir(Edificio edificio, Point2D pos) throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         this.estado = this.estado.comenzarConstruccion(this.propietario, edificio, this, pos);
     }
 

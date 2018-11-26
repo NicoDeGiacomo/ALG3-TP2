@@ -91,6 +91,7 @@ public class Pantalla extends Application {
 
     private void actualizarMapa() {
         //Pinto el mapa entero de verde
+
         for (int i = 0; i <= Mapa.TAMANIO; i++) {
             for (int j = 0; j <= Mapa.TAMANIO; j++) {
                 Rectangle rectangle = new Rectangle(15, 15);

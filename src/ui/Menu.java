@@ -3,10 +3,15 @@ package ui;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
+import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,6 +22,8 @@ import unidades.milicia.Aldeano;
 import unidades.milicia.ArmaDeAsedio;
 import unidades.milicia.Arquero;
 import unidades.milicia.Espadachin;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Menu {
 
@@ -66,8 +73,50 @@ public class Menu {
     }
 
     public static boolean mostrarMenuDeAldeano(Aldeano aldeano) {
-        //TODO: IMPLEMENTAR
-        return false;
+        //TODO: Terminar de implementar.
+        Stage window = new Stage();
+
+        Button crearCuartel= new Button("Construir Cuartel");
+        crearCuartel.setOnAction(e -> {
+
+            answer = false;
+
+            Point2D coordenada = mostrarMenuConstruccion(aldeano);
+
+            window.close();
+
+        });
+
+        return mostrarMenu(window, "Menu de Aldeano", crearCuartel);
+    }
+
+    public static Point2D mostrarMenuConstruccion(Aldeano aldeano) {
+        //TODO: Ver si se puede devolver una posición apta para construir.
+        Stage window = new Stage();
+
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(5));
+        grid.setHgap(5);
+        grid.setVgap(5);
+
+        int alcance = aldeano.verAlcance();
+
+        for (int i = -alcance; i <= alcance; i++) {
+            for (int j = -alcance; j <= alcance; j++) {
+                String valor = (i == 0 && j == 0) ? "A" : "  ";
+                Button button = new Button(valor);
+                button.setOnAction(e -> {
+                    window.close();
+                });
+                grid.add(button, i + alcance, j + alcance);
+            }
+        }
+
+        ScrollPane scrollPane = new ScrollPane(grid);
+        window.setScene(new Scene(scrollPane));
+        window.show();
+
+        return new Point2D(1,1);
     }
 
     public static boolean mostrarMenuDeArquero(Arquero arquero) {
