@@ -248,6 +248,7 @@ public class Menu {
     }
 
     static private boolean mostrarMenu(Stage window, String titulo, Button... buttons) {
+        answer = false;
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(titulo);
         window.setMinWidth(250);
