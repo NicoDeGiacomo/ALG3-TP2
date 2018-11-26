@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
@@ -29,7 +30,7 @@ import java.awt.geom.Point2D;
 
 public class Menu {
 
-    static private boolean answer;
+    static private boolean answer = false;
     static private Point2D posAnswer;
 
     public static boolean mostrarMenuDeCastillo(Castillo castillo) {
@@ -134,22 +135,7 @@ public class Menu {
             window.close();
         });
 
-        Button moverAldeano = new Button("Mover Aldeano");
-        moverAldeano.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, aldeano.verVelocidad());
-            if (coordenada == null)
-                return;
-
-            try {
-                aldeano.moverUnidad(aldeano, coordenada);
-                answer = true;
-            } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al mover", error.getMessage());
-                answer = false;
-            }
-
-            window.close();
-        });
+        Button moverAldeano = crearBotonDeMovimiento("Mover Aldeano", aldeano, point2D, window);
 
         return mostrarMenu(window, "Menu de Aldeano", crearCuartel, crearPlazaCentral, moverAldeano);
     }
@@ -157,22 +143,7 @@ public class Menu {
     public static boolean mostrarMenuDeArquero(Arquero arquero, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArquero = new Button("Mover Arquero");
-        moverArquero.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, arquero.verVelocidad());
-            if (coordenada == null)
-                return;
-
-            try {
-                arquero.moverUnidad(arquero, coordenada);
-                answer = true;
-            } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al mover", error.getMessage());
-                answer = false;
-            }
-
-            window.close();
-        });
+        Button moverArquero = crearBotonDeMovimiento("Mover Arquero", arquero, point2D, window);
 
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
@@ -197,22 +168,7 @@ public class Menu {
     public static boolean mostrarMenuDeEspadachin(Espadachin espadachin, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverEspadachin = new Button("Mover Espadachin");
-        moverEspadachin.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, espadachin.verVelocidad());
-            if (coordenada == null)
-                return;
-
-            try {
-                espadachin.moverUnidad(espadachin, coordenada);
-                answer = true;
-            } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al mover", error.getMessage());
-                answer = false;
-            }
-
-            window.close();
-        });
+        Button moverEspadachin = crearBotonDeMovimiento("Mover Espadachin", espadachin, point2D, window);
 
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
@@ -237,22 +193,7 @@ public class Menu {
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArmaDeAsedio = new Button("Mover Arma de Asedio");
-        moverArmaDeAsedio.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, armaDeAsedio.verVelocidad());
-            if (coordenada == null)
-                return;
-
-            try {
-                armaDeAsedio.moverUnidad(armaDeAsedio, coordenada);
-                answer = true;
-            } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificio", error.getMessage());
-                answer = false;
-            }
-
-            window.close();
-        });
+        Button moverArmaDeAsedio = crearBotonDeMovimiento("Mover Arma de Asedio", armaDeAsedio, point2D, window);
 
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
@@ -324,6 +265,27 @@ public class Menu {
         window.showAndWait();
 
         return answer;
+    }
+
+    private static Button crearBotonDeMovimiento(String texto, Unidad unidad, Point2D point2D, Stage window) {
+        Button mover = new Button(texto);
+        mover.setOnAction(e -> {
+            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verVelocidad());
+            if (coordenada == null)
+                return;
+
+            try {
+                unidad.moverUnidad(unidad, coordenada);
+                answer = true;
+            } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al mover la unidad", error.getMessage());
+                answer = false;
+            }
+
+            window.close();
+        });
+
+        return mover;
     }
 
 }
