@@ -1,12 +1,10 @@
 package ui;
 
+import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
-import excepciones.unidades.AldeanoOcupadoException;
-import excepciones.unidades.AtaqueIncorrectoException;
-import excepciones.unidades.CreacionDeCastilloException;
-import excepciones.unidades.ErrorDeConstruccionException;
+import excepciones.unidades.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,6 +18,7 @@ import javafx.stage.Stage;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
+import unidades.edificio.Edificio;
 import unidades.edificio.PlazaCentral;
 import unidades.milicia.Aldeano;
 import unidades.milicia.ArmaDeAsedio;
@@ -36,17 +35,7 @@ public class Menu {
     public static boolean mostrarMenuDeCastillo(Castillo castillo) {
         Stage window = new Stage();
 
-        Button crearUnidad = new Button("Crear unidad");
-        crearUnidad.setOnAction(e -> {
-            try {
-                castillo.crearUnidad();
-                answer = true;
-            } catch (ErrorDeConstruccionException error) {
-                Alerta.display("Error al crear la unidad", error.getMessage());
-                answer = false;
-            }
-            window.close();
-        });
+        Button crearUnidad = crearBotonDeCreacion(castillo, window);
 
         mostrarMenu(window, "Menu de Castillo", crearUnidad);
         return answer;
@@ -55,17 +44,7 @@ public class Menu {
     public static boolean mostrarMenuDePlazaCentral(PlazaCentral plazaCentral) {
         Stage window = new Stage();
 
-        Button crearUnidad = new Button("Crear unidad");
-        crearUnidad.setOnAction(e -> {
-            try {
-                plazaCentral.crearUnidad();
-                answer = true;
-            } catch (ErrorDeConstruccionException error) {
-                Alerta.display("Error al crear la unidad", error.getMessage());
-                answer = false;
-            }
-            window.close();
-        });
+        Button crearUnidad = crearBotonDeCreacion(plazaCentral, window);
 
         return mostrarMenu(window, "Menu de Plaza Central", crearUnidad);
     }
@@ -135,7 +114,7 @@ public class Menu {
             window.close();
         });
 
-        Button moverAldeano = crearBotonDeMovimiento("Mover Aldeano", aldeano, point2D, window);
+        Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window);
 
         return mostrarMenu(window, "Menu de Aldeano", crearCuartel, crearPlazaCentral, moverAldeano);
     }
@@ -143,7 +122,7 @@ public class Menu {
     public static boolean mostrarMenuDeArquero(Arquero arquero, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArquero = crearBotonDeMovimiento("Mover Arquero", arquero, point2D, window);
+        Button moverArquero = crearBotonDeMovimiento(arquero, point2D, window);
 
         Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window);
 
@@ -153,7 +132,7 @@ public class Menu {
     public static boolean mostrarMenuDeEspadachin(Espadachin espadachin, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverEspadachin = crearBotonDeMovimiento("Mover Espadachin", espadachin, point2D, window);
+        Button moverEspadachin = crearBotonDeMovimiento(espadachin, point2D, window);
 
         Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window);
 
@@ -163,7 +142,7 @@ public class Menu {
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArmaDeAsedio = crearBotonDeMovimiento("Mover Arma de Asedio", armaDeAsedio, point2D, window);
+        Button moverArmaDeAsedio = crearBotonDeMovimiento(armaDeAsedio, point2D, window);
 
         Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window);
 
@@ -223,8 +202,8 @@ public class Menu {
         return answer;
     }
 
-    private static Button crearBotonDeMovimiento(String texto, Unidad unidad, Point2D point2D, Stage window) {
-        Button mover = new Button(texto);
+    private static Button crearBotonDeMovimiento(Unidad unidad, Point2D point2D, Stage window) {
+        Button mover = new Button("Mover unidad");
         mover.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verVelocidad());
             if (coordenada == null)
@@ -245,7 +224,7 @@ public class Menu {
     }
 
     private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window) {
-        Button mover = new Button("Atacar Unidad");
+        Button mover = new Button("Atacar");
         mover.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verVelocidad());
             if (coordenada == null)
@@ -263,6 +242,23 @@ public class Menu {
         });
 
         return mover;
+    }
+
+    private static Button crearBotonDeCreacion(Edificio edificio, Stage window) {
+
+        Button crearUnidad = new Button("Crear unidad");
+        crearUnidad.setOnAction(e -> {
+            try {
+                edificio.crearUnidad();
+                answer = true;
+            } catch (ErrorDeConstruccionException | OroInsuficienteException | UnidadNoEspecificadaException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al crear la unidad", error.getMessage());
+                answer = false;
+            }
+            window.close();
+        });
+
+        return crearUnidad;
     }
 
 }
