@@ -105,6 +105,9 @@ public class Menu {
         Button crearCuartel = new Button("Construir Cuartel");
         crearCuartel.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, aldeano.verAlcance());
+            if (coordenada == null)
+                return;
+
             try {
                 aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
@@ -118,6 +121,9 @@ public class Menu {
         Button crearPlazaCentral = new Button("Construir Plaza Central");
         crearPlazaCentral.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, aldeano.verVelocidad());
+            if (coordenada == null)
+                return;
+
             try {
                 aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
@@ -131,6 +137,8 @@ public class Menu {
         Button moverAldeano = new Button("Mover Aldeano");
         moverAldeano.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, aldeano.verVelocidad());
+            if (coordenada == null)
+                return;
 
             try {
                 aldeano.moverUnidad(aldeano, coordenada);
@@ -152,6 +160,8 @@ public class Menu {
         Button moverArquero = new Button("Mover Arquero");
         moverArquero.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, arquero.verVelocidad());
+            if (coordenada == null)
+                return;
 
             try {
                 arquero.moverUnidad(arquero, coordenada);
@@ -167,6 +177,8 @@ public class Menu {
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, arquero.verAlcance());
+            if (coordenada == null)
+                return;
 
             try {
                 arquero.atacarUnidad(arquero, coordenada);
@@ -188,6 +200,8 @@ public class Menu {
         Button moverEspadachin = new Button("Mover Espadachin");
         moverEspadachin.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, espadachin.verVelocidad());
+            if (coordenada == null)
+                return;
 
             try {
                 espadachin.moverUnidad(espadachin, coordenada);
@@ -203,6 +217,8 @@ public class Menu {
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, espadachin.verAlcance());
+            if (coordenada == null)
+                return;
 
             try {
                 espadachin.atacarUnidad(espadachin, coordenada);
@@ -224,6 +240,8 @@ public class Menu {
         Button moverArmaDeAsedio = new Button("Mover Arma de Asedio");
         moverArmaDeAsedio.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, armaDeAsedio.verVelocidad());
+            if (coordenada == null)
+                return;
 
             try {
                 armaDeAsedio.moverUnidad(armaDeAsedio, coordenada);
@@ -239,6 +257,8 @@ public class Menu {
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, armaDeAsedio.verAlcance());
+            if (coordenada == null)
+                return;
 
             try {
                 armaDeAsedio.atacarUnidad(armaDeAsedio, coordenada);
@@ -255,6 +275,7 @@ public class Menu {
     }
 
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {
+        answer = false;
         Stage window = new Stage();
 
         GridPane grid = new GridPane();
