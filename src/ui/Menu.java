@@ -169,7 +169,7 @@ public class Menu {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, arquero.verAlcance());
 
             try {
-                arquero.atacarUnidad(arquero, point2D);
+                arquero.atacarUnidad(arquero, coordenada);
                 answer = true;
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al atacar", error.getMessage());
@@ -205,7 +205,7 @@ public class Menu {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, espadachin.verAlcance());
 
             try {
-                espadachin.atacarUnidad(espadachin, point2D);
+                espadachin.atacarUnidad(espadachin, coordenada);
                 answer = true;
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al atacar", error.getMessage());
@@ -241,7 +241,7 @@ public class Menu {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, armaDeAsedio.verAlcance());
 
             try {
-                armaDeAsedio.atacarUnidad(armaDeAsedio, point2D);
+                armaDeAsedio.atacarUnidad(armaDeAsedio, coordenada);
                 answer = true;
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al atacar", error.getMessage());

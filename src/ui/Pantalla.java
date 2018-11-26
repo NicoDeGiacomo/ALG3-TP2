@@ -129,7 +129,7 @@ public class Pantalla extends Application {
             if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()))
                 return;
 
-            //TODO: Ojo con esto, que si cierro la ventana pasa el turno! Habría que controlar Exceptions también.
+            //TODO: Ojo con esto, que si cierro la ventana pasa el turno!
             if (dibujable.mostrarMenu(point2D)) {
                 pasarTurno();
                 actualizarMapa();
