@@ -68,7 +68,7 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public boolean mostrarMenu() {
+    public boolean mostrarMenu(Point2D point2D) {
         return Menu.mostrarMenuDeCastillo(this);
     }
 }

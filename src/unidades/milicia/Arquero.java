@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 
+import java.awt.geom.Point2D;
+
 public class Arquero extends Milicia {
 
     public Arquero(Jugador propietario) {
@@ -27,7 +29,7 @@ public class Arquero extends Milicia {
     }
 
     @Override
-    public boolean mostrarMenu() {
+    public boolean mostrarMenu(Point2D point2D) {
         return Menu.mostrarMenuDeArquero(this);
     }
 

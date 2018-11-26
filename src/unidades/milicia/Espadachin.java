@@ -4,6 +4,8 @@ import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 
+import java.awt.geom.Point2D;
+
 public class Espadachin extends Milicia {
 
     public Espadachin(Jugador propietario) {
@@ -25,7 +27,7 @@ public class Espadachin extends Milicia {
     }
 
     @Override
-    public boolean mostrarMenu() {
+    public boolean mostrarMenu(Point2D point2D) {
         return Menu.mostrarMenuDeEspadachin(this);
     }
 

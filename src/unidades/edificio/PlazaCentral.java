@@ -8,6 +8,8 @@ import main.Jugador;
 import ui.Menu;
 import unidades.milicia.Aldeano;
 
+import java.awt.geom.Point2D;
+
 public class PlazaCentral extends Edificio {
 
     public PlazaCentral(Jugador propietario) {
@@ -43,7 +45,7 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
-    public boolean mostrarMenu() {
+    public boolean mostrarMenu(Point2D point2D) {
         return Menu.mostrarMenuDePlazaCentral(this);
     }
 }

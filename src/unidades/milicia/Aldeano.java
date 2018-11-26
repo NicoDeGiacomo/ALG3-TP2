@@ -50,8 +50,8 @@ public class Aldeano extends Milicia {
     }
 
     @Override
-    public boolean mostrarMenu() {
-        return Menu.mostrarMenuDeAldeano(this);
+    public boolean mostrarMenu(Point2D point2D) {
+        return Menu.mostrarMenuDeAldeano(this, point2D);
     }
 
 }

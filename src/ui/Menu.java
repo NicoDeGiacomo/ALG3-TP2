@@ -3,14 +3,14 @@ package ui;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
+import excepciones.unidades.AldeanoOcupadoException;
+import excepciones.unidades.CreacionDeCastilloException;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -23,12 +23,12 @@ import unidades.milicia.ArmaDeAsedio;
 import unidades.milicia.Arquero;
 import unidades.milicia.Espadachin;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.awt.geom.Point2D;
 
 public class Menu {
 
-    //TODO: Arreglar la repeticion de codigo
     static private boolean answer;
+    static private Point2D posAnswer;
 
     public static boolean mostrarMenuDeCastillo(Castillo castillo) {
         Stage window = new Stage();
@@ -72,26 +72,39 @@ public class Menu {
         return false;
     }
 
-    public static boolean mostrarMenuDeAldeano(Aldeano aldeano) {
-        //TODO: Terminar de implementar.
+    public static boolean mostrarMenuDeAldeano(Aldeano aldeano, Point2D point2D) {
         Stage window = new Stage();
 
-        Button crearCuartel= new Button("Construir Cuartel");
+        Button crearCuartel = new Button("Construir Cuartel");
         crearCuartel.setOnAction(e -> {
-
-            answer = false;
-
-            Point2D coordenada = mostrarMenuConstruccion(aldeano);
-
+            Point2D coordenada = mostrarMenuConstruccion(aldeano, point2D);
+            try {
+                aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
+                answer = true;
+            } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al crear edificio", error.getMessage());
+                answer = false;
+            }
             window.close();
-
         });
 
-        return mostrarMenu(window, "Menu de Aldeano", crearCuartel);
+        Button crearPlazaCentral = new Button("Construir Plaza Central");
+        crearPlazaCentral.setOnAction(e -> {
+            Point2D coordenada = mostrarMenuConstruccion(aldeano, point2D);
+            try {
+                aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
+                answer = true;
+            } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al crear edificio", error.getMessage());
+                answer = false;
+            }
+            window.close();
+        });
+
+        return mostrarMenu(window, "Menu de Aldeano", crearCuartel, crearPlazaCentral);
     }
 
-    public static Point2D mostrarMenuConstruccion(Aldeano aldeano) {
-        //TODO: Ver si se puede devolver una posición apta para construir.
+    private static Point2D mostrarMenuConstruccion(Aldeano aldeano, Point2D point2D) {
         Stage window = new Stage();
 
         GridPane grid = new GridPane();
@@ -103,9 +116,12 @@ public class Menu {
 
         for (int i = -alcance; i <= alcance; i++) {
             for (int j = -alcance; j <= alcance; j++) {
-                String valor = (i == 0 && j == 0) ? "A" : "  ";
+                Point2D show = new Point2D.Double(point2D.getX() + i, point2D.getY() + j);
+                String valor = (i == 0 && j == 0) ? "A" : String.format("(%d; %d)", (long) show.getX(), (long) show.getY());
                 Button button = new Button(valor);
                 button.setOnAction(e -> {
+                    //Devolver el valor
+                    posAnswer = show;
                     window.close();
                 });
                 grid.add(button, i + alcance, j + alcance);
@@ -114,9 +130,9 @@ public class Menu {
 
         ScrollPane scrollPane = new ScrollPane(grid);
         window.setScene(new Scene(scrollPane));
-        window.show();
+        window.showAndWait();
 
-        return new Point2D(1,1);
+        return posAnswer;
     }
 
     public static boolean mostrarMenuDeArquero(Arquero arquero) {

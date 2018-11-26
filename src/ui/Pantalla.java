@@ -130,7 +130,7 @@ public class Pantalla extends Application {
             if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()))
                 return;
 
-            if (dibujable.mostrarMenu()) {
+            if (dibujable.mostrarMenu(point2D)) {
                 pasarTurno();
                 actualizarMapa();
             }

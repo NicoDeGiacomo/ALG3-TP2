@@ -10,6 +10,8 @@ import unidades.Unidad;
 import unidades.estados.armaDeAsedio.EstadoDeArmaDeAsedio;
 import unidades.estados.armaDeAsedio.ArmaDesmontada;
 
+import java.awt.geom.Point2D;
+
 public class ArmaDeAsedio extends Milicia {
 
     private EstadoDeArmaDeAsedio estadoDeArma;
@@ -53,7 +55,7 @@ public class ArmaDeAsedio extends Milicia {
     }
 
     @Override
-    public boolean mostrarMenu() {
+    public boolean mostrarMenu(Point2D point2D) {
         return Menu.mostrarMenuDeArmaDeAsedio(this);
     }
 
