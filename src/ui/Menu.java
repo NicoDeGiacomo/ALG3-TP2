@@ -77,7 +77,7 @@ public class Menu {
 
         Button crearCuartel = new Button("Construir Cuartel");
         crearCuartel.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuConstruccion(aldeano, point2D);
+            Point2D coordenada = mostrarGrillaDeCoordenadas(aldeano, point2D);
             try {
                 aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
@@ -90,7 +90,7 @@ public class Menu {
 
         Button crearPlazaCentral = new Button("Construir Plaza Central");
         crearPlazaCentral.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuConstruccion(aldeano, point2D);
+            Point2D coordenada = mostrarGrillaDeCoordenadas(aldeano, point2D);
             try {
                 aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
@@ -104,7 +104,7 @@ public class Menu {
         return mostrarMenu(window, "Menu de Aldeano", crearCuartel, crearPlazaCentral);
     }
 
-    private static Point2D mostrarMenuConstruccion(Aldeano aldeano, Point2D point2D) {
+    private static Point2D mostrarGrillaDeCoordenadas(Aldeano aldeano, Point2D point2D) {
         Stage window = new Stage();
 
         GridPane grid = new GridPane();
