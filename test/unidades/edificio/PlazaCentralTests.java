@@ -1,18 +1,16 @@
 package unidades.edificio;
 
-import excepciones.main.LimiteDePoblacionException;
-import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import main.Jugador;
-
 import main.Mapa;
 import org.junit.Test;
 import org.mockito.stubbing.Answer;
 import unidades.milicia.Espadachin;
 
 import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
 public class PlazaCentralTests {
@@ -39,20 +37,22 @@ public class PlazaCentralTests {
     }
 
     @Test
-    public void test03plazaCentralAldeanoConOro() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
+    public void test03plazaCentralAldeanoConOro() throws ErrorDeConstruccionException {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         agregarCienDeOroAJugador(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
+        plazaCentral.terminarConstruccion();
         plazaCentral.crearUnidad();
     }
 
     @Test
-    public void test04plazaCentralCreaAldeanoSinOro() throws LimiteDePoblacionException, CoordenadaInvalidaException {
+    public void test04plazaCentralCreaAldeanoSinOro() {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
+        plazaCentral.terminarConstruccion();
         try {
             plazaCentral.crearUnidad();
-        } catch (OroInsuficienteException e) {
+        } catch (ErrorDeConstruccionException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }

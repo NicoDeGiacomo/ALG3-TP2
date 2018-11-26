@@ -3,6 +3,7 @@ package unidades.edificio;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import javafx.scene.paint.Color;
 import main.Jugador;
@@ -36,14 +37,26 @@ public class Cuartel extends Edificio {
         throw new UnidadNoEspecificadaException("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
-    public void crearEspadachin() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
-        Espadachin espadachin = new Espadachin(this.propietario);
-        this.propietario.agregarUnidad(espadachin, this);
+    public void crearEspadachin() throws ErrorDeConstruccionException {
+        if (!this.estadoDeUnidad.estaHabilitado())
+            throw new ErrorDeConstruccionException("El edificio está en construcción");
+
+        try {
+            this.propietario.agregarUnidad(new Espadachin(this.propietario), this);
+        } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException e) {
+            throw new ErrorDeConstruccionException(e.getMessage());
+        }
     }
 
-    public void crearArquero() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
-        Arquero arquero = new Arquero(this.propietario);
-        this.propietario.agregarUnidad(arquero, this);
+    public void crearArquero() throws ErrorDeConstruccionException {
+        if (!this.estadoDeUnidad.estaHabilitado())
+            throw new ErrorDeConstruccionException("El edificio está en construcción");
+
+        try {
+            this.propietario.agregarUnidad(new Arquero(this.propietario), this);
+        } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException e) {
+            throw new ErrorDeConstruccionException(e.getMessage());
+        }
     }
 
     @Override

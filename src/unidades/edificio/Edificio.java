@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import main.Jugador;
 import unidades.Unidad;
@@ -49,19 +50,16 @@ public abstract class Edificio extends Unidad {
         this.estadoDeUnidad = new EnConstruccion();
     }
 
-    public boolean terminoConstruccion() {
-        return this.estadoDeUnidad.getClass() != EnConstruccion.class;
+    public void terminarConstruccion() {
+        this.estadoDeUnidad = new Vivo();
     }
 
     protected void reportarMuerte() {
         this.propietario.removerUnidad(this);
     }
 
-    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException;
+    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException, ErrorDeConstruccionException;
 
     public abstract boolean arreglar();
 
-    public void turnoConstruido() {
-        this.estadoDeUnidad = this.estadoDeUnidad.aumentarTurnoDeConstruccion();
-    }
 }

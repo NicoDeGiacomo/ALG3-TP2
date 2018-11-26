@@ -12,6 +12,7 @@ import java.awt.geom.Point2D;
 
 public class Construyendo extends EstadoDeAldeano {
     private Edificio edificio;
+    private int contadorDeTurnos = 0;
 
     Construyendo(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
         super(propietario);
@@ -20,14 +21,15 @@ public class Construyendo extends EstadoDeAldeano {
     }
 
     @Override
-    public boolean esMovible(){
+    public boolean esMovible() {
         return false;
     }
 
     @Override
     public EstadoDeAldeano ejecutarTareas() {
-        this.edificio.turnoConstruido();
-        if (edificio.terminoConstruccion()){
+        this.contadorDeTurnos++;
+        if (this.contadorDeTurnos == 3) {
+            this.edificio.terminarConstruccion();
             return new Ocioso(this.propietario);
         }
         return this;

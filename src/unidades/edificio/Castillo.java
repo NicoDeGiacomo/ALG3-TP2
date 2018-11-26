@@ -4,11 +4,13 @@ import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 import unidades.Dibujable;
 import unidades.Unidad;
+import unidades.estados.unidades.Vivo;
 import unidades.milicia.Aldeano;
 import unidades.milicia.ArmaDeAsedio;
 
@@ -25,6 +27,7 @@ public class Castillo extends Edificio {
         this.danio = 20;
         this.tamanio = 16;
         this.alcance = 3;
+        this.estadoDeUnidad = new Vivo();
     }
 
     @Override
@@ -52,14 +55,21 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(this.propietario);
-        this.propietario.agregarUnidad(armaDeAsedio, this);
+    public void crearUnidad() throws ErrorDeConstruccionException {
+        try {
+            this.propietario.agregarUnidad(new ArmaDeAsedio(this.propietario), this);
+        } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException e) {
+            throw new ErrorDeConstruccionException(e.getMessage());
+        }
     }
 
     @Override
     public void comenzarConstruccion(Aldeano aldeano, Point2D pos) throws CreacionDeCastilloException {
         throw new CreacionDeCastilloException("No se puede construir un castillo.");
+    }
+
+    @Override
+    public void terminarConstruccion() {
     }
 
     @Override

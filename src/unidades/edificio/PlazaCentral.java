@@ -3,6 +3,7 @@ package unidades.edificio;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
@@ -30,9 +31,15 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
-        Aldeano aldeano = new Aldeano(this.propietario);
-        this.propietario.agregarUnidad(aldeano, this);
+    public void crearUnidad() throws ErrorDeConstruccionException {
+        if (!this.estadoDeUnidad.estaHabilitado())
+            throw new ErrorDeConstruccionException("El edificio está en construcción");
+
+        try {
+            this.propietario.agregarUnidad(new Aldeano(this.propietario), this);
+        } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException e) {
+            throw new ErrorDeConstruccionException(e.getMessage());
+        }
     }
 
     @Override

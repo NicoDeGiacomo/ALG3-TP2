@@ -1,12 +1,12 @@
 package ui;
 
-import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -40,7 +40,7 @@ public class Menu {
             try {
                 castillo.crearUnidad();
                 answer = true;
-            } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
+            } catch (ErrorDeConstruccionException error) {
                 Alerta.display("Error al crear la unidad", error.getMessage());
                 answer = false;
             }
@@ -59,7 +59,7 @@ public class Menu {
             try {
                 plazaCentral.crearUnidad();
                 answer = true;
-            } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
+            } catch (ErrorDeConstruccionException error) {
                 Alerta.display("Error al crear la unidad", error.getMessage());
                 answer = false;
             }
@@ -77,7 +77,7 @@ public class Menu {
             try {
                 cuartel.crearArquero();
                 answer = true;
-            } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
+            } catch (ErrorDeConstruccionException error) {
                 Alerta.display("Error al crear la unidad", error.getMessage());
                 answer = false;
             }
@@ -89,7 +89,7 @@ public class Menu {
             try {
                 cuartel.crearEspadachin();
                 answer = true;
-            } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
+            } catch (ErrorDeConstruccionException error) {
                 Alerta.display("Error al crear la unidad", error.getMessage());
                 answer = false;
             }

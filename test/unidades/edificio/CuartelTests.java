@@ -1,19 +1,17 @@
 package unidades.edificio;
 
-import excepciones.main.LimiteDePoblacionException;
-import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import main.Jugador;
-
 import main.Mapa;
 import org.junit.Test;
 import org.mockito.stubbing.Answer;
 import unidades.milicia.Espadachin;
 
 import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
 public class CuartelTests {
@@ -29,10 +27,11 @@ public class CuartelTests {
     }
 
     @Test
-    public void test02cuartelCreaArqueroYEspadachinConOro() throws OroInsuficienteException, CoordenadaInvalidaException, LimiteDePoblacionException {
+    public void test02cuartelCreaArqueroYEspadachinConOro() throws ErrorDeConstruccionException {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Cuartel cuartel = new Cuartel(jugador);
         agregarCienDeOroAJugador(jugador);
+        cuartel.terminarConstruccion();
         cuartel.crearEspadachin();
         cuartel.crearArquero();
     }
@@ -50,23 +49,25 @@ public class CuartelTests {
     }
 
     @Test
-    public void test04cuartelCreaArqueroSinOro() throws CoordenadaInvalidaException, LimiteDePoblacionException {
+    public void test04cuartelCreaArqueroSinOro() {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Cuartel cuartel = new Cuartel(jugador);
+        cuartel.terminarConstruccion();
         try {
             cuartel.crearArquero();
-        } catch (OroInsuficienteException e) {
+        } catch (ErrorDeConstruccionException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }
 
     @Test
-    public void test05cuartelCreaEspadachinSinOro() throws CoordenadaInvalidaException, LimiteDePoblacionException {
+    public void test05cuartelCreaEspadachinSinOro() {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Cuartel cuartel = new Cuartel(jugador);
+        cuartel.terminarConstruccion();
         try {
             cuartel.crearEspadachin();
-        } catch (OroInsuficienteException e) {
+        } catch (ErrorDeConstruccionException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }

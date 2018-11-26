@@ -40,6 +40,7 @@ public class Jugador {
 
         Castillo castillo = new Castillo(this);
         PlazaCentral plazaCentral = new PlazaCentral(this);
+        plazaCentral.terminarConstruccion();
         this.unidades.add(castillo);
         this.unidades.add(plazaCentral);
         this.mapa.colocarUnidadesEnExtremo(castillo, plazaCentral);

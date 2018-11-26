@@ -1,17 +1,15 @@
 package unidades.edificio;
 
-import excepciones.main.LimiteDePoblacionException;
-import excepciones.main.OroInsuficienteException;
-import excepciones.mapa.CoordenadaInvalidaException;
+import excepciones.unidades.ErrorDeConstruccionException;
 import main.Jugador;
 import main.Mapa;
+import org.junit.Test;
 import org.mockito.stubbing.Answer;
 import unidades.milicia.ArmaDeAsedio;
 
-import org.junit.Test;
-
 import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
 public class CastilloTests {
@@ -26,7 +24,7 @@ public class CastilloTests {
     }
 
     @Test
-    public void test02castilloCreaArmaDeAsedioConOro() throws OroInsuficienteException, LimiteDePoblacionException, CoordenadaInvalidaException {
+    public void test02castilloCreaArmaDeAsedioConOro() throws ErrorDeConstruccionException {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         agregarCienDeOroAJugador(jugador);
         Castillo castillo = new Castillo(jugador);
@@ -34,12 +32,12 @@ public class CastilloTests {
     }
 
     @Test
-    public void test03castilloCreaArmaDeAsedioSinOro() throws LimiteDePoblacionException, CoordenadaInvalidaException {
+    public void test03castilloCreaArmaDeAsedioSinOro() {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Castillo castillo = new Castillo(jugador);
         try {
             castillo.crearUnidad();
-        } catch (OroInsuficienteException e) {
+        } catch (ErrorDeConstruccionException e) {
             assertEquals("El oro del jugador es insuficiente.", e.getMessage());
         }
     }
