@@ -104,7 +104,7 @@ public class Menu {
 
         Button crearCuartel = new Button("Construir Cuartel");
         crearCuartel.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(aldeano, point2D, aldeano.verAlcance());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(aldeano, point2D, aldeano.verAlcance());
             try {
                 aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
@@ -117,7 +117,7 @@ public class Menu {
 
         Button crearPlazaCentral = new Button("Construir Plaza Central");
         crearPlazaCentral.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(aldeano, point2D, aldeano.verVelocidad());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(aldeano, point2D, aldeano.verVelocidad());
             try {
                 aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
@@ -130,7 +130,7 @@ public class Menu {
 
         Button moverAldeano = new Button("Mover Aldeano");
         moverAldeano.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(aldeano, point2D, aldeano.verVelocidad());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(aldeano, point2D, aldeano.verVelocidad());
 
             try {
                 aldeano.moverUnidad(aldeano, coordenada);
@@ -151,7 +151,7 @@ public class Menu {
 
         Button moverArquero = new Button("Mover Arquero");
         moverArquero.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(arquero, point2D, arquero.verVelocidad());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(arquero, point2D, arquero.verVelocidad());
 
             try {
                 arquero.moverUnidad(arquero, coordenada);
@@ -166,7 +166,7 @@ public class Menu {
 
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(arquero, point2D, arquero.verAlcance());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(arquero, point2D, arquero.verAlcance());
 
             //TODO: Necesito obtener la referencia a la Unidad Enemiga para provocarDanio(Unidad unidad).
             //arquero.provocarDanio();
@@ -183,7 +183,7 @@ public class Menu {
 
         Button moverEspadachin = new Button("Mover Arquero");
         moverEspadachin.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(espadachin, point2D, espadachin.verVelocidad());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(espadachin, point2D, espadachin.verVelocidad());
 
             try {
                 espadachin.moverUnidad(espadachin, coordenada);
@@ -198,7 +198,7 @@ public class Menu {
 
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(espadachin, point2D, espadachin.verAlcance());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(espadachin, point2D, espadachin.verAlcance());
 
             //TODO: Necesito obtener la referencia a la Unidad Enemiga para provocarDanio(Unidad unidad).
             //arquero.provocarDanio();
@@ -215,7 +215,7 @@ public class Menu {
 
         Button moverArmaDeAsedio = new Button("Mover Arquero");
         moverArmaDeAsedio.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(armaDeAsedio, point2D, armaDeAsedio.verVelocidad());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(armaDeAsedio, point2D, armaDeAsedio.verVelocidad());
 
             try {
                 armaDeAsedio.moverUnidad(armaDeAsedio, coordenada);
@@ -230,7 +230,7 @@ public class Menu {
 
         Button atacarUnidad = new Button("Atacar Unidad");
         atacarUnidad.setOnAction(e -> {
-            Point2D coordenada = mostrarMenuDistancia(armaDeAsedio, point2D, armaDeAsedio.verAlcance());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(armaDeAsedio, point2D, armaDeAsedio.verAlcance());
 
             //TODO: Necesito obtener la referencia a la Unidad Enemiga para provocarDanio(Unidad unidad).
             //arquero.provocarDanio();
@@ -242,7 +242,7 @@ public class Menu {
         return mostrarMenu(window, "Menu de Arquero", moverArmaDeAsedio, atacarUnidad);
     }
 
-    private static Point2D mostrarMenuDistancia(Unidad unidad, Point2D point2D, int distancia) {
+    private static Point2D mostrarGrillaDeCoordenadas(Unidad unidad, Point2D point2D, int distancia) {
         Stage window = new Stage();
 
         GridPane grid = new GridPane();
@@ -253,7 +253,7 @@ public class Menu {
         for (int i = -distancia; i <= distancia; i++) {
             for (int j = -distancia; j <= distancia; j++) {
                 Point2D show = new Point2D.Double(point2D.getX() + i, point2D.getY() + j);
-                String valor = (i == 0 && j == 0) ? "A" : String.format("(%d; %d)", (long) show.getX(), (long) show.getY());
+                String valor = String.format("(%d; %d)", (long) show.getX(), (long) show.getY());
                 Button button = new Button(valor);
                 button.setOnAction(e -> {
                     //TODO: Ojo que si no está en el Mapa no debería aparecer!!
@@ -261,6 +261,8 @@ public class Menu {
                     window.close();
                 });
                 grid.add(button, i + distancia, j + distancia);
+                if (i == 0 && j == 0)
+                    button.setDisable(true);
             }
         }
 
