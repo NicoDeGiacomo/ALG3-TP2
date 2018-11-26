@@ -280,7 +280,7 @@ public class Mapa {
         colocarDibujable(unidad, destino);
     }
 
-    private void quitarUnidad(Unidad unidad) throws CoordenadaInvalidaException {
+    public void quitarUnidad(Unidad unidad) throws CoordenadaInvalidaException {
         List<Point2D> coordenadas = obtenerCoordenadas(unidad);
 
         for (Point2D coordenada : coordenadas) {

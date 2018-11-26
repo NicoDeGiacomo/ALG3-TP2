@@ -99,11 +99,17 @@ public class Jugador {
 
     public void removerUnidad(Edificio unidad) {
         this.unidades.remove(unidad);
+        try {
+            this.mapa.quitarUnidad(unidad);
+        } catch (CoordenadaInvalidaException ignored) {}
     }
 
     public void removerUnidad(Milicia unidad) {
         this.poblacion -= 1;
         this.unidades.remove(unidad);
+        try {
+            this.mapa.quitarUnidad(unidad);
+        } catch (CoordenadaInvalidaException ignored) {}
     }
 
     public List<Dibujable> unidadesCercanas(Castillo castillo) {
