@@ -3,6 +3,7 @@ package main;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
+import excepciones.mapa.UnidadNoMovibleException;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
@@ -109,5 +110,9 @@ public class Jugador {
 
     public String verNombre() {
         return this.nombre;
+    }
+
+    public void moverUnidad(Unidad unidad, Point2D coordenada) throws UnidadNoMovibleException, CoordenadaInvalidaException {
+        this.mapa.moverUnidad(unidad, coordenada);
     }
 }

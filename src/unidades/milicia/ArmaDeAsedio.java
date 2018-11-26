@@ -56,7 +56,7 @@ public class ArmaDeAsedio extends Milicia {
 
     @Override
     public boolean mostrarMenu(Point2D point2D) {
-        return Menu.mostrarMenuDeArmaDeAsedio(this);
+        return Menu.mostrarMenuDeArmaDeAsedio(this, point2D);
     }
 
 }

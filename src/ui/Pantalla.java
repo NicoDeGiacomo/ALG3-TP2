@@ -100,7 +100,6 @@ public class Pantalla extends Application {
             }
         }
 
-        //Pinto las unidades de rojo -> Para mas tarde que Dibujable implemente un metodo OBTENERCOLOR y llamarlo
         for (Dibujable dibujable : this.mapa.obtenerTodosLosDibujables()) {
             try {
                 List<Point2D> point2DList = this.mapa.obtenerCoordenadas((Unidad) dibujable); //TODO: Este cast es feo -> El mapa deberia recibir un dibujable ?

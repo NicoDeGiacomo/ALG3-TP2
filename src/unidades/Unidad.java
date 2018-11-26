@@ -1,10 +1,14 @@
 package unidades;
 
+import excepciones.mapa.CoordenadaInvalidaException;
+import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
 import unidades.estados.unidades.EstadoDeUnidad;
 import unidades.estados.unidades.Muerto;
 import unidades.estados.unidades.Vivo;
+
+import java.awt.geom.Point2D;
 
 public abstract class Unidad implements Dibujable {
 
@@ -45,6 +49,10 @@ public abstract class Unidad implements Dibujable {
         return this.estadoDeUnidad.esMapleable();
     }
 
+    public void moverUnidad(Unidad unidad, Point2D coordenada) throws UnidadNoMovibleException, CoordenadaInvalidaException {
+        this.propietario.moverUnidad(unidad, coordenada);
+    }
+
     public boolean unidadesSonDelMismoEquipo(Jugador propietario) {
         return propietario == this.propietario;
     }
@@ -56,6 +64,10 @@ public abstract class Unidad implements Dibujable {
     public abstract int verTamanio();
 
     public abstract int verAlcance();
+
+    public int verVelocidad() {
+        return 1;
+    };
 
     public abstract boolean esMovible();
 

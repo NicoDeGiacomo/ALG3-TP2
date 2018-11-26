@@ -28,7 +28,7 @@ public class Espadachin extends Milicia {
 
     @Override
     public boolean mostrarMenu(Point2D point2D) {
-        return Menu.mostrarMenuDeEspadachin(this);
+        return Menu.mostrarMenuDeEspadachin(this, point2D);
     }
 
 }

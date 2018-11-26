@@ -265,16 +265,15 @@ public class Mapa {
         throw new CoordenadaInvalidaException("La Posición de Creación debe estar al lado de la Unidad Creadora!");
     }
 
-    void moverUnidad(Unidad unidad, Point2D destino) throws UnidadNoMovibleException, CoordenadaInvalidaException {
+    public void moverUnidad(Unidad unidad, Point2D destino) throws UnidadNoMovibleException, CoordenadaInvalidaException {
         validarCoordenada(destino);
         if (unidad == null || !unidad.esMovible()) {
             throw new UnidadNoMovibleException("La Unidad que se trata de mover no es Movible!");
         }
 
         Point2D origen = obtenerCoordenadas(unidad).get(0);
-        //TODO: Fijarse de cambiar este 1 por una variable en unidad. Nico dice 'Velocidad'.
-        if (Math.floor(origen.distance(destino)) > 1) {
-            throw new CoordenadaInvalidaException("Las Unidades se pueden mover a lo sumo 1 casillero por turno!");
+        if (Math.floor(origen.distance(destino)) > unidad.verVelocidad()) {
+            throw new CoordenadaInvalidaException("La Unidad se puede mover a lo sumo " + unidad.verVelocidad() + " casillero/s por turno!");
         }
 
         quitarUnidad(unidad);

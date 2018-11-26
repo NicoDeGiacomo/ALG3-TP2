@@ -396,7 +396,7 @@ public class MapaTests {
         try {
             mapa.moverUnidad(arquero, destino);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("Las Unidades se pueden mover a lo sumo 1 casillero por turno!", e.getMessage());
+            assertEquals("La Unidad se puede mover a lo sumo 1 casillero/s por turno!", e.getMessage());
         }
     }
 

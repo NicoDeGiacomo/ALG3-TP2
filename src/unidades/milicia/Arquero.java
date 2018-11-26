@@ -30,7 +30,7 @@ public class Arquero extends Milicia {
 
     @Override
     public boolean mostrarMenu(Point2D point2D) {
-        return Menu.mostrarMenuDeArquero(this);
+        return Menu.mostrarMenuDeArquero(this, point2D);
     }
 
 
