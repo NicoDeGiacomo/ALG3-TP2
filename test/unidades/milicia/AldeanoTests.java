@@ -107,11 +107,13 @@ public class AldeanoTests {
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         assertTrue(plazaCentral.esMapeable());
+        assertFalse(plazaCentral.estaHabilitado());
         aldeano.ejecutarTareas();
         aldeano.ejecutarTareas();
         aldeano.ejecutarTareas();
         assertEquals(Vivo.class, plazaCentral.verEstadoDeUnidad().getClass());
         assertTrue(plazaCentral.esMapeable());
+        assertTrue(plazaCentral.estaHabilitado());
     }
 
     @Test

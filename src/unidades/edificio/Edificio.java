@@ -21,6 +21,7 @@ public abstract class Edificio extends Unidad {
 
     public Edificio(Jugador propietario) {
         super(propietario);
+        this.estadoDeUnidad = new EnConstruccion();
     }
 
     @Override
@@ -48,8 +49,8 @@ public abstract class Edificio extends Unidad {
         this.estadoDeUnidad = new EnConstruccion();
     }
 
-    public void terminarConstruccion() {
-        this.estadoDeUnidad = new Vivo();
+    public boolean terminoConstruccion() {
+        return this.estadoDeUnidad.getClass() != EnConstruccion.class;
     }
 
     protected void reportarMuerte() {
@@ -60,4 +61,7 @@ public abstract class Edificio extends Unidad {
 
     public abstract boolean arreglar();
 
+    public void turnoConstruido() {
+        this.estadoDeUnidad = this.estadoDeUnidad.aumentarTurnoDeConstruccion();
+    }
 }

@@ -33,6 +33,10 @@ public abstract class Unidad implements Dibujable {
         }
     }
 
+    public boolean estaHabilitado(){
+        return estadoDeUnidad.estaHabilitado();
+    }
+
     public EstadoDeUnidad verEstadoDeUnidad() {
         return this.estadoDeUnidad;
     }
