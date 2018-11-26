@@ -102,7 +102,7 @@ public class Pantalla extends Application {
 
         for (Dibujable dibujable : this.mapa.obtenerTodosLosDibujables()) {
             try {
-                List<Point2D> point2DList = this.mapa.obtenerCoordenadas((Unidad) dibujable); //TODO: Este cast es feo -> El mapa deberia recibir un dibujable ?
+                List<Point2D> point2DList = this.mapa.obtenerCoordenadas(dibujable);
 
                 for (Point2D point2D : point2DList) {
                     Rectangle rectangle = new Rectangle(15, 15);
@@ -129,6 +129,7 @@ public class Pantalla extends Application {
             if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()))
                 return;
 
+            //TODO: Ojo con esto, que si cierro la ventana pasa el turno! Habría que controlar Exceptions también.
             if (dibujable.mostrarMenu(point2D)) {
                 pasarTurno();
                 actualizarMapa();

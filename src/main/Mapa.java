@@ -61,14 +61,14 @@ public class Mapa {
         return dibujables;
     }
 
-    public List<Point2D> obtenerCoordenadas(Unidad unidad) throws CoordenadaInvalidaException {
-        if (unidad == null) throw new CoordenadaInvalidaException("La Unidad es NULL!");
+    public List<Point2D> obtenerCoordenadas(Dibujable dibujable) throws CoordenadaInvalidaException {
+        if (dibujable == null) throw new CoordenadaInvalidaException("La Unidad es NULL!");
 
         List<Point2D> coordenadas = new ArrayList<>();
 
         for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
-                if (mapa[i][j] == unidad) {
+                if (mapa[i][j] == dibujable) {
                     coordenadas.add(new Point2D.Double(i, j));
                 }
             }

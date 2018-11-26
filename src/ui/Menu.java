@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.AldeanoOcupadoException;
+import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -135,7 +136,7 @@ public class Menu {
                 aldeano.moverUnidad(aldeano, coordenada);
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificio", error.getMessage());
+                Alerta.display("Error al mover", error.getMessage());
                 answer = false;
             }
 
@@ -156,7 +157,7 @@ public class Menu {
                 arquero.moverUnidad(arquero, coordenada);
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificio", error.getMessage());
+                Alerta.display("Error al mover", error.getMessage());
                 answer = false;
             }
 
@@ -167,9 +168,13 @@ public class Menu {
         atacarUnidad.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, arquero.verAlcance());
 
-            //TODO: Necesito obtener la referencia a la Unidad Enemiga para provocarDanio(Unidad unidad).
-            //arquero.provocarDanio();
-            answer = true;
+            try {
+                arquero.atacarUnidad(arquero, point2D);
+                answer = true;
+            } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al atacar", error.getMessage());
+                answer = false;
+            }
 
             window.close();
         });
@@ -180,7 +185,7 @@ public class Menu {
     public static boolean mostrarMenuDeEspadachin(Espadachin espadachin, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverEspadachin = new Button("Mover Arquero");
+        Button moverEspadachin = new Button("Mover Espadachin");
         moverEspadachin.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, espadachin.verVelocidad());
 
@@ -188,7 +193,7 @@ public class Menu {
                 espadachin.moverUnidad(espadachin, coordenada);
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificio", error.getMessage());
+                Alerta.display("Error al mover", error.getMessage());
                 answer = false;
             }
 
@@ -199,20 +204,24 @@ public class Menu {
         atacarUnidad.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, espadachin.verAlcance());
 
-            //TODO: Necesito obtener la referencia a la Unidad Enemiga para provocarDanio(Unidad unidad).
-            //arquero.provocarDanio();
-            answer = true;
+            try {
+                espadachin.atacarUnidad(espadachin, point2D);
+                answer = true;
+            } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al atacar", error.getMessage());
+                answer = false;
+            }
 
             window.close();
         });
 
-        return mostrarMenu(window, "Menu de Arquero", moverEspadachin, atacarUnidad);
+        return mostrarMenu(window, "Menu de Espadachin", moverEspadachin, atacarUnidad);
     }
 
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArmaDeAsedio = new Button("Mover Arquero");
+        Button moverArmaDeAsedio = new Button("Mover Arma de Asedio");
         moverArmaDeAsedio.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, armaDeAsedio.verVelocidad());
 
@@ -231,14 +240,18 @@ public class Menu {
         atacarUnidad.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, armaDeAsedio.verAlcance());
 
-            //TODO: Necesito obtener la referencia a la Unidad Enemiga para provocarDanio(Unidad unidad).
-            //arquero.provocarDanio();
-            answer = true;
+            try {
+                armaDeAsedio.atacarUnidad(armaDeAsedio, point2D);
+                answer = true;
+            } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
+                Alerta.display("Error al atacar", error.getMessage());
+                answer = false;
+            }
 
             window.close();
         });
 
-        return mostrarMenu(window, "Menu de Arquero", moverArmaDeAsedio, atacarUnidad);
+        return mostrarMenu(window, "Menu de Arma de Asedio", moverArmaDeAsedio, atacarUnidad);
     }
 
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {

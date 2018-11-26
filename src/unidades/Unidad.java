@@ -26,6 +26,7 @@ public abstract class Unidad implements Dibujable {
     }
 
     public void recibirDanio(int danio) {
+        //TODO: Verificar que son del mismo equipo SIEMPRE.
         this.vida -= danio;
         if (this.vida <= 0) {
             this.estadoDeUnidad = new Muerto();
@@ -51,6 +52,10 @@ public abstract class Unidad implements Dibujable {
 
     public void moverUnidad(Unidad unidad, Point2D coordenada) throws UnidadNoMovibleException, CoordenadaInvalidaException {
         this.propietario.moverUnidad(unidad, coordenada);
+    }
+
+    public void atacarUnidad(Unidad unidad, Point2D coordenada) throws AtaqueIncorrectoException, CoordenadaInvalidaException {
+        this.propietario.atacarUnidad(unidad, coordenada);
     }
 
     public boolean unidadesSonDelMismoEquipo(Jugador propietario) {
