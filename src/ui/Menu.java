@@ -104,37 +104,6 @@ public class Menu {
         return mostrarMenu(window, "Menu de Aldeano", crearCuartel, crearPlazaCentral);
     }
 
-    private static Point2D mostrarGrillaDeCoordenadas(Aldeano aldeano, Point2D point2D) {
-        Stage window = new Stage();
-
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(5));
-        grid.setHgap(5);
-        grid.setVgap(5);
-
-        int alcance = aldeano.verAlcance();
-
-        for (int i = -alcance; i <= alcance; i++) {
-            for (int j = -alcance; j <= alcance; j++) {
-                Point2D show = new Point2D.Double(point2D.getX() + i, point2D.getY() + j);
-                String valor = (i == 0 && j == 0) ? "A" : String.format("(%d; %d)", (long) show.getX(), (long) show.getY());
-                Button button = new Button(valor);
-                button.setOnAction(e -> {
-                    //Devolver el valor
-                    posAnswer = show;
-                    window.close();
-                });
-                grid.add(button, i + alcance, j + alcance);
-            }
-        }
-
-        ScrollPane scrollPane = new ScrollPane(grid);
-        window.setScene(new Scene(scrollPane));
-        window.showAndWait();
-
-        return posAnswer;
-    }
-
     public static boolean mostrarMenuDeArquero(Arquero arquero) {
         //TODO: IMPLEMENTAR
         return false;
@@ -168,6 +137,39 @@ public class Menu {
         window.showAndWait();
 
         return answer;
+    }
+
+    private static Point2D mostrarGrillaDeCoordenadas(Aldeano aldeano, Point2D point2D) {
+        Stage window = new Stage();
+
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(5));
+        grid.setHgap(5);
+        grid.setVgap(5);
+
+        int alcance = aldeano.verAlcance();
+
+        for (int i = -alcance; i <= alcance; i++) {
+            for (int j = -alcance; j <= alcance; j++) {
+                Point2D show = new Point2D.Double(point2D.getX() + i, point2D.getY() + j);
+                String valor = String.format("(%d; %d)", (long) show.getX(), (long) show.getY());
+                Button button = new Button(valor);
+                button.setOnAction(e -> {
+                    //Devolver el valor
+                    posAnswer = show;
+                    window.close();
+                });
+                grid.add(button, i + alcance, j + alcance);
+                if (i == 0 && j == 0)
+                    button.setDisable(true);
+            }
+        }
+
+        ScrollPane scrollPane = new ScrollPane(grid);
+        window.setScene(new Scene(scrollPane));
+        window.showAndWait();
+
+        return posAnswer;
     }
 
 }
