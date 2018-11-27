@@ -5,6 +5,7 @@ import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -60,16 +61,13 @@ public class Pantalla extends Application {
 
     private Scene crearMenuDeJuego() {
         this.gridPane = new GridPane();
-        this.gridPane.getStyleClass().add("grid-pane");
+        addStyle(this.gridPane, "grid-pane");
 
         this.infoLabel = new Label("");
-        //Label label = new Label("ORO: 20000 - POBLACION: 20000");
-        this.infoLabel.getStyleClass().clear();
-        this.infoLabel.getStyleClass().add("game-info");
+        addStyle(this.infoLabel, "game-info");
 
         VBox layout = new VBox();
-        layout.getStyleClass().clear();
-        layout.getStyleClass().add("vbox");
+        addStyle(layout, "vbox");
         layout.getChildren().addAll(this.infoLabel, this.gridPane);
 
         return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
@@ -77,7 +75,7 @@ public class Pantalla extends Application {
 
     private Scene crearMenuPrincipal() {
         Label label = new Label("Ingrese los nombres de los jugadores:");
-        label.getStyleClass().add("label");
+        addStyle(label, "label");
 
         TextField nombre1 = new TextField("Jugador");
         TextField nombre2 = new TextField("Player");
@@ -85,7 +83,7 @@ public class Pantalla extends Application {
         Button button = new Button("Comenzar juego");
 
         VBox layout = new VBox();
-        layout.getStyleClass().add("vbox");
+        addStyle(layout, "vbox");
         layout.getChildren().addAll(label, nombre1, nombre2, button);
 
         button.setOnAction(e -> {
@@ -170,4 +168,10 @@ public class Pantalla extends Application {
 
         this.mapa = this.algoEmpires.comenzarPartida();
     }
+
+    private void addStyle(Node node, String style) {
+        node.getStyleClass().clear();
+        node.getStyleClass().add(style);
+    }
+
 }
