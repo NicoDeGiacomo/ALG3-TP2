@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Mapa {
     //Para obtener una óptima experiencia probando la pantalla, dejar TAMANIO = 25;
-    public static final int TAMANIO = 50;
+    public static final int TAMANIO = 25;
     private static final int ESPACIO_LIBRE = 6,
                              DISTANCIA_PROXIMA = 1;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
@@ -258,6 +258,12 @@ public class Mapa {
 
         for (Point2D coordenada : coordenadas) {
             if (Math.floor(coordenada.distance(coordenadaDestino)) <= 1) {
+
+                if (coordenadas.size() == 1) {
+                    if(coordenadaDestino.getX() == coordenadas.get(0).getX() - 1) coordenadaDestino.setLocation(coordenadaDestino.getX() - 1, coordenadaDestino.getY());
+                    else if(coordenadaDestino.getY() == coordenadas.get(0).getY() - 1) coordenadaDestino.setLocation(coordenadaDestino.getX(), coordenadaDestino.getY() -1);
+                }
+
                 colocarDibujable(unidad, coordenadaDestino);
                 return;
             }
