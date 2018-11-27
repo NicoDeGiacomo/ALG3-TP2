@@ -30,11 +30,11 @@ public class ArmaDeAsedio extends Milicia {
         return estadoDeArma.esMovible();
     }
 
-    void montarArma() throws ArmaDeAsedioYaMontadaException {
+    public void montarArma() throws ArmaDeAsedioYaMontadaException {
         this.estadoDeArma = this.estadoDeArma.montarArma();
     }
 
-    void desmontarArma() throws ArmaDeAsedioYaDesmontadaException {
+    public void desmontarArma() throws ArmaDeAsedioYaDesmontadaException {
         this.estadoDeArma = this.estadoDeArma.desmontarArma();
     }
 

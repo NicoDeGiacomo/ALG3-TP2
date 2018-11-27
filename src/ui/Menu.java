@@ -147,7 +147,31 @@ public class Menu {
 
         Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window);
 
-        return mostrarMenu(window, "Menu de Arma de Asedio", moverArmaDeAsedio, atacarUnidad);
+        Button montar = new Button("Montar");
+        montar.setOnAction(e -> {
+            try {
+                armaDeAsedio.montarArma();
+                answer = true;
+            } catch (ArmaDeAsedioYaMontadaException error) {
+                Alerta.display("Error al montar.", error.getMessage());
+                answer = false;
+            }
+            window.close();
+        });
+
+        Button desmontar = new Button("Desmontar");
+        desmontar.setOnAction(e -> {
+            try {
+                armaDeAsedio.desmontarArma();
+                answer = true;
+            } catch (ArmaDeAsedioYaDesmontadaException error) {
+                Alerta.display("Error al desmontar.", error.getMessage());
+                answer = false;
+            }
+            window.close();
+        });
+
+        return mostrarMenu(window, "Menu de Arma de Asedio", moverArmaDeAsedio, atacarUnidad, montar, desmontar);
     }
 
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {

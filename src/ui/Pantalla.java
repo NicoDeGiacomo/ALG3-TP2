@@ -21,9 +21,6 @@ import main.AlgoEmpires;
 import main.Mapa;
 import unidades.Dibujable;
 import unidades.Unidad;
-import unidades.edificio.Castillo;
-import unidades.edificio.Cuartel;
-import unidades.edificio.PlazaCentral;
 
 import java.awt.geom.Point2D;
 import java.util.List;
