@@ -32,11 +32,12 @@ public class Pantalla extends Application {
     private Mapa mapa;
     private AlgoEmpires algoEmpires;
 
-    private final int TAMANIO_VENTANA = 850;
+    private final int TAMANIO_VENTANA = 600;
     private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 3;
 
     private GridPane gridPane;
     private Label infoLabel;
+    private Button botonPasarTurno;
     private Scene menuPrincipal, menuDeJuego;
     private Stage stage;
 
@@ -65,9 +66,14 @@ public class Pantalla extends Application {
         this.infoLabel = new Label("");
         addStyle(this.infoLabel, "game-info");
 
+        this.botonPasarTurno = new Button("Terminar turno");
+
+        this.botonPasarTurno.setOnAction(e -> {
+            this.pasarTurno();
+        });
         VBox layout = new VBox();
         addStyle(layout, "vbox");
-        layout.getChildren().addAll(this.infoLabel, this.gridPane);
+        layout.getChildren().addAll(this.infoLabel, this.gridPane, this.botonPasarTurno);
 
         return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
     }
@@ -93,16 +99,16 @@ public class Pantalla extends Application {
                 return;
             }
             stage.setScene(menuDeJuego);
-            //stage.show();
-            actualizarMapa();
+            actualizarPantalla();
         });
 
         return new Scene(layout, 850, 850);
     }
 
-    private void actualizarMapa() { //TODO: Rename -> Actualizar pantalla
+    private void actualizarPantalla() {
         Jugador jugadorEnTurno = this.algoEmpires.obtenerJugadorEnTurno();
         this.infoLabel.setText(String.format("JUGADOR: %s | ORO: %d | POBLACION: %d", jugadorEnTurno.verNombre(), jugadorEnTurno.verOro(), jugadorEnTurno.verPoblacion()));
+
 
         //Pinto el mapa entero de verde
 
@@ -144,8 +150,7 @@ public class Pantalla extends Application {
                 return;
 
             if (dibujable.mostrarMenu(point2D)) {
-                pasarTurno();
-                actualizarMapa();
+                actualizarPantalla();
             }
         } catch (CoordenadaInvalidaException ignore) {
         }
@@ -154,6 +159,7 @@ public class Pantalla extends Application {
     private void pasarTurno() {
         try {
             this.algoEmpires.pasarTurno();
+            this.actualizarPantalla();
             Alerta.display("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
         } catch (ComienzoDePartidaException ignore) {
         }

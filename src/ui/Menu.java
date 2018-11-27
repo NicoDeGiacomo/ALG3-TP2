@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -38,7 +39,7 @@ public class Menu {
 
         Button crearUnidad = crearBotonDeCreacion(castillo, window);
 
-        mostrarMenu(window, "Menu de Castillo", crearUnidad);
+        mostrarMenu(window, "Menu de Castillo", castillo.verVida(), crearUnidad);
         return answer;
     }
 
@@ -47,7 +48,7 @@ public class Menu {
 
         Button crearUnidad = crearBotonDeCreacion(plazaCentral, window);
 
-        return mostrarMenu(window, "Menu de Plaza Central", crearUnidad);
+        return mostrarMenu(window, "Menu de Plaza Central", plazaCentral.verVida(), crearUnidad);
     }
 
     public static boolean mostrarMenuDeCuartel(Cuartel cuartel) {
@@ -77,7 +78,7 @@ public class Menu {
             window.close();
         });
 
-        return mostrarMenu(window, "Menu de Cuartel", crearArquero, crearEspadachin);
+        return mostrarMenu(window, "Menu de Cuartel", cuartel.verVida(), crearArquero, crearEspadachin);
     }
 
     public static boolean mostrarMenuDeAldeano(Aldeano aldeano, Point2D point2D) {
@@ -117,7 +118,7 @@ public class Menu {
 
         Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window);
 
-        return mostrarMenu(window, "Menu de Aldeano", crearCuartel, crearPlazaCentral, moverAldeano);
+        return mostrarMenu(window, "Menu de Aldeano", aldeano.verVida(), crearCuartel, crearPlazaCentral, moverAldeano);
     }
 
     public static boolean mostrarMenuDeArquero(Arquero arquero, Point2D point2D) {
@@ -127,7 +128,7 @@ public class Menu {
 
         Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window);
 
-        return mostrarMenu(window, "Menu de Arquero", moverArquero, atacarUnidad);
+        return mostrarMenu(window, "Menu de Arquero", arquero.verVida(), moverArquero, atacarUnidad);
     }
 
     public static boolean mostrarMenuDeEspadachin(Espadachin espadachin, Point2D point2D) {
@@ -137,7 +138,7 @@ public class Menu {
 
         Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window);
 
-        return mostrarMenu(window, "Menu de Espadachin", moverEspadachin, atacarUnidad);
+        return mostrarMenu(window, "Menu de Espadachin", espadachin.verVida() , moverEspadachin, atacarUnidad);
     }
 
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
@@ -171,7 +172,7 @@ public class Menu {
             window.close();
         });
 
-        return mostrarMenu(window, "Menu de Arma de Asedio", moverArmaDeAsedio, atacarUnidad, montar, desmontar);
+        return mostrarMenu(window, "Menu de Arma de Asedio",armaDeAsedio.verVida(), moverArmaDeAsedio, atacarUnidad, montar, desmontar);
     }
 
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {
@@ -211,15 +212,18 @@ public class Menu {
         return posAnswer;
     }
 
-    static private boolean mostrarMenu(Stage window, String titulo, Button... buttons) {
+    static private boolean mostrarMenu(Stage window, String titulo, int vida, Button... buttons) {
         answer = false;
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(titulo);
-        window.setMinWidth(250);
+        window.setMinWidth(300);
         Label label = new Label();
         label.setText("Elija la acción a realizar:");
-
         VBox layout = new VBox(10);
+
+        Label vidaActual = new Label( String.format("Vida: %s",vida) );
+
+        layout.getChildren().add(vidaActual);
         layout.getChildren().add(label);
         for (Button button : buttons) {
             layout.getChildren().add(button);
