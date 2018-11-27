@@ -170,11 +170,11 @@ public class Menu {
                     window.close();
                 });
 
-                //try {
-                    //mapa.validarCoordenada(show);
+                try {
+                    mapa.validarCoordenada(show);
                     grid.add(button, i + distancia, j + distancia);
-                //} catch (CoordenadaInvalidaException error) {
-                //}
+                } catch (CoordenadaInvalidaException error) {
+                }
 
                 if (i == 0 && j == 0)
                     button.setDisable(true);
