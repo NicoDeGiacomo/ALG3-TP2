@@ -15,10 +15,7 @@ import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
-
 import java.awt.geom.Point2D;
-
-import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -93,7 +90,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         Cuartel cuartel = new Cuartel(jugador);
-        agregarCienDeOroAJugador(jugador);
+        Whitebox.setInternalState(jugador, "oro", 200);
         aldeano.construir(cuartel, new Point2D.Double(1, 1));
         assertEquals(EnConstruccion.class, cuartel.verEstadoDeUnidad().getClass());
         assertTrue(cuartel.esMapeable());
@@ -105,7 +102,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        agregarCienDeOroAJugador(jugador);
+        Whitebox.setInternalState(jugador, "oro", 200);
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         assertTrue(plazaCentral.esMapeable());
@@ -184,7 +181,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        agregarCienDeOroAJugador(jugador);
+        Whitebox.setInternalState(jugador, "oro", 200);
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         try {
             aldeano.reparar(plazaCentral);
@@ -199,7 +196,7 @@ public class AldeanoTests {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        agregarCienDeOroAJugador(jugador);
+        Whitebox.setInternalState(jugador, "oro", 200);
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         try {
             aldeano.construir(plazaCentral, new Point2D.Double(1, 1));

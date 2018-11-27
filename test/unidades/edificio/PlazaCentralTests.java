@@ -5,10 +5,9 @@ import excepciones.unidades.ErrorDeConstruccionException;
 import main.Jugador;
 import main.Mapa;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.stubbing.Answer;
 import unidades.milicia.Espadachin;
-
-import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
@@ -39,7 +38,7 @@ public class PlazaCentralTests {
     @Test
     public void test03plazaCentralAldeanoConOro() throws ErrorDeConstruccionException {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        agregarCienDeOroAJugador(jugador);
+        Whitebox.setInternalState(jugador, "oro", 200);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
         plazaCentral.terminarConstruccion();
         plazaCentral.crearUnidad();

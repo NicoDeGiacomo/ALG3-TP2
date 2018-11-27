@@ -6,10 +6,9 @@ import excepciones.unidades.UnidadNoEspecificadaException;
 import main.Jugador;
 import main.Mapa;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.stubbing.Answer;
 import unidades.milicia.Espadachin;
-
-import static main.AlgoEmpiresTests.agregarCienDeOroAJugador;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
@@ -30,7 +29,7 @@ public class CuartelTests {
     public void test02cuartelCreaArqueroYEspadachinConOro() throws ErrorDeConstruccionException {
         Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
         Cuartel cuartel = new Cuartel(jugador);
-        agregarCienDeOroAJugador(jugador);
+        Whitebox.setInternalState(jugador, "oro", 200);
         cuartel.terminarConstruccion();
         cuartel.crearEspadachin();
         cuartel.crearArquero();
@@ -39,13 +38,13 @@ public class CuartelTests {
 
     @Test
     public void test03cuartelNoHaceDanio() {
-        Cuartel cuartel= new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         Espadachin armaDeAsedio = new Espadachin(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
         try {
             cuartel.provocarDanio(armaDeAsedio);
         } catch (AtaqueIncorrectoException e) {
-            assertEquals(        "Los edificios no pueden atacar.", e.getMessage());
-        }         
+            assertEquals("Los edificios no pueden atacar.", e.getMessage());
+        }
     }
 
     @Test
