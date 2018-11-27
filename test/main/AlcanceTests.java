@@ -2,12 +2,14 @@ package main;
 
 import excepciones.mapa.CoordenadaInvalidaException;
 import org.junit.Test;
+import org.mockito.Mockito;
 import unidades.edificio.Castillo;
 import unidades.milicia.ArmaDeAsedio;
 import unidades.milicia.Arquero;
 import unidades.milicia.Espadachin;
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -116,18 +118,14 @@ public class AlcanceTests {
     }
 
     @Test
-    public void Test05CastilloAtacaALasUnidadesEnemicasAlAlcance() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
-        Jugador jugador1 = new Jugador("Nico", mapa);
+    public void Test05CastilloAtacaSoloALasUnidadesEnemigasAlAlcance() {
+        Jugador jugador1 = mock(Jugador.class);
 
         Arquero arqueroEnemigo = new Arquero(mock(Jugador.class));
         Arquero arqueroAliado = new Arquero(jugador1);
         Castillo castillo = new Castillo(jugador1);
 
-        mapa.colocarDibujable(castillo, new Point2D.Double(10, 10));
-        mapa.colocarDibujable(arqueroAliado, new Point2D.Double(9, 10));
-        mapa.colocarDibujable(arqueroEnemigo, new Point2D.Double(10, 9));
-
+        Mockito.when(jugador1.unidadesCercanas(castillo)).thenReturn(Arrays.asList(arqueroAliado, arqueroEnemigo));
         castillo.ejecutarTareas();
 
         assertEquals(75, arqueroAliado.verVida());
