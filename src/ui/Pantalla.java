@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.AlgoEmpires;
+import main.Jugador;
 import main.Mapa;
 import unidades.Dibujable;
 import unidades.Unidad;
@@ -34,6 +36,7 @@ public class Pantalla extends Application {
     private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 3;
 
     private GridPane gridPane;
+    private Label infoLabel;
     private Scene menuPrincipal, menuDeJuego;
     private Stage stage;
 
@@ -59,15 +62,25 @@ public class Pantalla extends Application {
         this.gridPane = new GridPane();
         this.gridPane.getStyleClass().add("grid-pane");
 
-        return new Scene(this.gridPane, TAMANIO_VENTANA, TAMANIO_VENTANA);
+        this.infoLabel = new Label("");
+        //Label label = new Label("ORO: 20000 - POBLACION: 20000");
+        this.infoLabel.getStyleClass().clear();
+        this.infoLabel.getStyleClass().add("game-info");
+
+        VBox layout = new VBox();
+        layout.getStyleClass().clear();
+        layout.getStyleClass().add("vbox");
+        layout.getChildren().addAll(this.infoLabel, this.gridPane);
+
+        return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
     }
 
     private Scene crearMenuPrincipal() {
         Label label = new Label("Ingrese los nombres de los jugadores:");
         label.getStyleClass().add("label");
 
-        TextField nombre1 = new TextField("Jugador 1");
-        TextField nombre2 = new TextField("Jugador 2");
+        TextField nombre1 = new TextField("Jugador");
+        TextField nombre2 = new TextField("Player");
 
         Button button = new Button("Comenzar juego");
 
@@ -83,13 +96,17 @@ public class Pantalla extends Application {
                 return;
             }
             stage.setScene(menuDeJuego);
+            //stage.show();
             actualizarMapa();
         });
 
         return new Scene(layout, 850, 850);
     }
 
-    private void actualizarMapa() {
+    private void actualizarMapa() { //TODO: Rename -> Actualizar pantalla
+        Jugador jugadorEnTurno = this.algoEmpires.obtenerJugadorEnTurno();
+        this.infoLabel.setText(String.format("JUGADOR: %s | ORO: %d | POBLACION: %d", jugadorEnTurno.verNombre(), jugadorEnTurno.verOro(), jugadorEnTurno.verPoblacion()));
+
         //Pinto el mapa entero de verde
 
         for (int i = 0; i < Mapa.TAMANIO; i++) {

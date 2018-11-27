@@ -129,4 +129,12 @@ public class Jugador {
             throw new AtaqueIncorrectoException("No hay una unidad enemiga en esa coordenada!");
         unidad.provocarDanio(unidadEnemiga);
     }
+
+    public int verOro() {
+        return this.oro;
+    }
+
+    public int verPoblacion() {
+        return this.poblacion;
+    }
 }

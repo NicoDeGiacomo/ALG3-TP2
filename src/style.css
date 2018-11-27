@@ -26,3 +26,10 @@
     -fx-hgap: 1;
     -fx-vgap: 1;
 }
+
+.game-info {
+    -fx-text-fill: beige;
+    -fx-label-padding: 0, 0, 10, 10;
+    -fx-alignment: center;
+    -fx-underline: true;
+}
