@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 import java.util.*;
 
 public class Mapa {
+    //Para obtener una óptima experiencia probando la pantalla, dejar TAMANIO = 25;
     public static final int TAMANIO = 50;
     private static final int ESPACIO_LIBRE = 6,
                              DISTANCIA_PROXIMA = 1;
@@ -91,11 +92,11 @@ public class Mapa {
         switch (cuadrante) {
             case 0: coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, ESPACIO_LIBRE / 2);
                 break;
-            case 1: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE, ESPACIO_LIBRE / 2);
+            case 1: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0), ESPACIO_LIBRE / 2);
                 break;
-            case 2: coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, TAMANIO - ESPACIO_LIBRE);
+            case 2: coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0));
                 break;
-            case 3: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE, TAMANIO - ESPACIO_LIBRE);
+            case 3: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0), TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0));
                 break;
         }
 
@@ -290,7 +291,7 @@ public class Mapa {
 
     //Validaciones
 
-    private void validarCoordenada(Point2D coordenada) throws CoordenadaInvalidaException {
+    public void validarCoordenada(Point2D coordenada) throws CoordenadaInvalidaException {
         validarCoordenadaEnMapa(coordenada);
 
         if (estaOcupado(coordenada)) {

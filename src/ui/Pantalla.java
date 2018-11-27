@@ -33,6 +33,9 @@ public class Pantalla extends Application {
     private Mapa mapa;
     private AlgoEmpires algoEmpires;
 
+    private final int TAMANIO_VENTANA = 850;
+    private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 3;
+
     private GridPane gridPane;
     private Scene menuPrincipal, menuDeJuego;
     private Stage stage;
@@ -59,7 +62,7 @@ public class Pantalla extends Application {
         this.gridPane = new GridPane();
         this.gridPane.getStyleClass().add("grid-pane");
 
-        return new Scene(this.gridPane, 850, 850);
+        return new Scene(this.gridPane, TAMANIO_VENTANA, TAMANIO_VENTANA);
     }
 
     private Scene crearMenuPrincipal() {
@@ -92,9 +95,9 @@ public class Pantalla extends Application {
     private void actualizarMapa() {
         //Pinto el mapa entero de verde
 
-        for (int i = 0; i <= Mapa.TAMANIO; i++) {
-            for (int j = 0; j <= Mapa.TAMANIO; j++) {
-                Rectangle rectangle = new Rectangle(15, 15);
+        for (int i = 0; i < Mapa.TAMANIO; i++) {
+            for (int j = 0; j < Mapa.TAMANIO; j++) {
+                Rectangle rectangle = new Rectangle(TAMANIO_CELDA, TAMANIO_CELDA);
                 rectangle.setFill(Color.GREEN);
                 this.gridPane.add(rectangle, i, j);
             }
@@ -105,7 +108,7 @@ public class Pantalla extends Application {
                 List<Point2D> point2DList = this.mapa.obtenerCoordenadas(dibujable);
 
                 for (Point2D point2D : point2DList) {
-                    Rectangle rectangle = new Rectangle(15, 15);
+                    Rectangle rectangle = new Rectangle(TAMANIO_CELDA, TAMANIO_CELDA);
                     rectangle.setFill(dibujable.obtenerColor());
                     //rectangle.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
 

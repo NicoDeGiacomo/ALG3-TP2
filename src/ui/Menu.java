@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Mapa;
 import unidades.Unidad;
 import unidades.edificio.Castillo;
 import unidades.edificio.Cuartel;
@@ -152,6 +153,7 @@ public class Menu {
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {
         answer = false;
         Stage window = new Stage();
+        Mapa mapa = new Mapa();
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(5));
@@ -161,14 +163,19 @@ public class Menu {
         for (int i = -distancia; i <= distancia; i++) {
             for (int j = -distancia; j <= distancia; j++) {
                 Point2D show = new Point2D.Double(point2D.getX() + i, point2D.getY() + j);
-                String valor = String.format("(%d; %d)", (long) show.getX(), (long) show.getY());
+                String valor = String.format("(%d; %d)", (long) show.getX() + 1, (long) show.getY() + 1);
                 Button button = new Button(valor);
                 button.setOnAction(e -> {
                     posAnswer = show;
                     window.close();
                 });
-                grid.add(button, i + distancia, j + distancia);
-                //TODO: Agregar condicion de que la coordenada este en el mapa
+
+                //try {
+                    //mapa.validarCoordenada(show);
+                    grid.add(button, i + distancia, j + distancia);
+                //} catch (CoordenadaInvalidaException error) {
+                //}
+
                 if (i == 0 && j == 0)
                     button.setDisable(true);
             }
