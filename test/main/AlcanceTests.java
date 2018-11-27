@@ -118,18 +118,19 @@ public class AlcanceTests {
     }
 
     @Test
-    public void Test05CastilloAtacaSoloALasUnidadesEnemigasAlAlcance() {
-        Jugador jugador1 = mock(Jugador.class);
+    public void Test05ObtenerDibujablesAlAlcance() throws CoordenadaInvalidaException {
+        Mapa mapa = new Mapa();
+        Jugador jugador = mock(Jugador.class);
 
         Arquero arqueroEnemigo = new Arquero(mock(Jugador.class));
-        Arquero arqueroAliado = new Arquero(jugador1);
-        Castillo castillo = new Castillo(jugador1);
+        Arquero arqueroAliado = new Arquero(jugador);
+        Castillo castillo = new Castillo(jugador);
 
-        Mockito.when(jugador1.unidadesCercanas(castillo)).thenReturn(Arrays.asList(arqueroAliado, arqueroEnemigo));
-        castillo.ejecutarTareas();
+        mapa.colocarDibujable(castillo, new Point2D.Double(10, 10));
+        mapa.colocarDibujable(arqueroAliado, new Point2D.Double(9, 10));
+        mapa.colocarDibujable(arqueroEnemigo, new Point2D.Double(10, 9));
 
-        assertEquals(75, arqueroAliado.verVida());
-        assertEquals(55, arqueroEnemigo.verVida());
+        assertEquals(mapa.dibujablesAlAlcance(castillo), Arrays.asList(arqueroAliado, arqueroEnemigo));
     }
 
 }

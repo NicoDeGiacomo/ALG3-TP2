@@ -9,6 +9,7 @@ import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
 import main.Mapa;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.stubbing.Answer;
 import unidades.edificio.Cuartel;
 import unidades.edificio.PlazaCentral;
@@ -76,10 +77,11 @@ public class AldeanoTests {
 
     @Test
     public void test06aldeanoConstruyendoPlaza() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
+        Jugador jugador = mock(Jugador.class);
         Aldeano aldeano = new Aldeano(jugador);
         PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        agregarCienDeOroAJugador(jugador);
+        Whitebox.setInternalState(jugador, "oro", 100);
+
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         aldeano.ejecutarTareas();

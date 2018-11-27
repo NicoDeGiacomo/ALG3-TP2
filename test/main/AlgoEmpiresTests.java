@@ -4,6 +4,7 @@ import excepciones.main.ComienzoDePartidaException;
 import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import unidades.estados.aldeano.Ocioso;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -68,8 +69,6 @@ public class AlgoEmpiresTests {
     }
 
     public static void agregarCienDeOroAJugador(Jugador jugador) {
-        for (int i = 0; i < 5; i++) {
-            jugador.recolectarOro(new Ocioso(jugador));
-        }
+        Whitebox.setInternalState(jugador, "oro", 200);
     }
 }
