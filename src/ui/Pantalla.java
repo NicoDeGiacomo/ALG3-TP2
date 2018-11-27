@@ -25,20 +25,21 @@ import unidades.Dibujable;
 import unidades.Unidad;
 
 import java.awt.geom.Point2D;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Pantalla extends Application {
 
     private Mapa mapa;
     private AlgoEmpires algoEmpires;
+    private List<Dibujable> dibujablesUsados;
 
     private final int TAMANIO_VENTANA = 600;
     private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 3;
 
     private GridPane gridPane;
     private Label infoLabel;
-    private Button botonPasarTurno;
-    private Scene menuPrincipal, menuDeJuego;
+    private Scene menuDeJuego;
     private Stage stage;
 
     public static void main(String[] args) {
@@ -47,15 +48,16 @@ public class Pantalla extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        this.dibujablesUsados = new LinkedList<>();
         this.stage = primaryStage;
         this.stage.setTitle("Algo Empires");
 
-        this.menuPrincipal = crearMenuPrincipal();
+        Scene menuPrincipal = crearMenuPrincipal();
         this.menuDeJuego = crearMenuDeJuego();
 
-        this.stage.setScene(this.menuPrincipal);
+        this.stage.setScene(menuPrincipal);
         this.menuDeJuego.getStylesheets().add("style.css");
-        this.menuPrincipal.getStylesheets().add("style.css");
+        menuPrincipal.getStylesheets().add("style.css");
         this.stage.show();
     }
 
@@ -66,14 +68,12 @@ public class Pantalla extends Application {
         this.infoLabel = new Label("");
         addStyle(this.infoLabel, "game-info");
 
-        this.botonPasarTurno = new Button("Terminar turno");
+        Button botonPasarTurno = new Button("Terminar turno");
+        botonPasarTurno.setOnAction(e -> this.pasarTurno());
 
-        this.botonPasarTurno.setOnAction(e -> {
-            this.pasarTurno();
-        });
         VBox layout = new VBox();
         addStyle(layout, "vbox");
-        layout.getChildren().addAll(this.infoLabel, this.gridPane, this.botonPasarTurno);
+        layout.getChildren().addAll(this.infoLabel, this.gridPane, botonPasarTurno);
 
         return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
     }
@@ -102,7 +102,7 @@ public class Pantalla extends Application {
             actualizarPantalla();
         });
 
-        return new Scene(layout, 850, 850);
+        return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
     }
 
     private void actualizarPantalla() {
@@ -146,10 +146,11 @@ public class Pantalla extends Application {
     private void mostrarMenuDeOpciones(Point2D point2D) {
         try {
             Dibujable dibujable = this.mapa.obtenerDibujable(point2D);
-            if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()))
+            if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()) || this.dibujablesUsados.contains(dibujable))
                 return;
 
             if (dibujable.mostrarMenu(point2D)) {
+                this.dibujablesUsados.add(dibujable);
                 actualizarPantalla();
             }
         } catch (CoordenadaInvalidaException ignore) {
@@ -157,6 +158,7 @@ public class Pantalla extends Application {
     }
 
     private void pasarTurno() {
+        this.dibujablesUsados.clear();
         try {
             this.algoEmpires.pasarTurno();
             this.actualizarPantalla();
