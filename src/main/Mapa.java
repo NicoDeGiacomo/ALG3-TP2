@@ -261,10 +261,9 @@ public class Mapa {
 
                 if (coordenadas.size() == 1) {
                     double xCreador = coordenadas.get(0).getX(),
-                           yCreador = coordenadas.get(0).getY();
-
-                    if(coordenadaDestino.getX() == xCreador - 1 && coordenadaDestino.getY() == yCreador) coordenadaDestino.setLocation(coordenadaDestino.getX() - 1, coordenadaDestino.getY());
-                    if(coordenadaDestino.getY() == yCreador - 1 && coordenadaDestino.getX() == xCreador) coordenadaDestino.setLocation(coordenadaDestino.getX(), coordenadaDestino.getY() -1);
+                            yCreador = coordenadas.get(0).getY();
+                    if(coordenadaDestino.getX() == xCreador - 1) coordenadaDestino.setLocation(xCreador - obtenerTamanioMapeable(unidad), coordenadaDestino.getY());
+                    if(coordenadaDestino.getY() == yCreador - 1) coordenadaDestino.setLocation(coordenadaDestino.getX(), yCreador - obtenerTamanioMapeable(unidad));
                 }
 
                 colocarDibujable(unidad, coordenadaDestino);
