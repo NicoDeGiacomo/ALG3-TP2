@@ -260,8 +260,11 @@ public class Mapa {
             if (Math.floor(coordenada.distance(coordenadaDestino)) <= 1) {
 
                 if (coordenadas.size() == 1) {
-                    if(coordenadaDestino.getX() == coordenadas.get(0).getX() - 1) coordenadaDestino.setLocation(coordenadaDestino.getX() - 1, coordenadaDestino.getY());
-                    else if(coordenadaDestino.getY() == coordenadas.get(0).getY() - 1) coordenadaDestino.setLocation(coordenadaDestino.getX(), coordenadaDestino.getY() -1);
+                    double xCreador = coordenadas.get(0).getX(),
+                           yCreador = coordenadas.get(0).getY();
+
+                    if(coordenadaDestino.getX() == xCreador - 1 && coordenadaDestino.getY() == yCreador) coordenadaDestino.setLocation(coordenadaDestino.getX() - 1, coordenadaDestino.getY());
+                    if(coordenadaDestino.getY() == yCreador - 1 && coordenadaDestino.getX() == xCreador) coordenadaDestino.setLocation(coordenadaDestino.getX(), coordenadaDestino.getY() -1);
                 }
 
                 colocarDibujable(unidad, coordenadaDestino);
