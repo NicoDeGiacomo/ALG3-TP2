@@ -260,7 +260,7 @@ public class Menu {
     private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window) {
         Button mover = new Button("Atacar");
         mover.setOnAction(e -> {
-            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verVelocidad());
+            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verAlcance());
             if (coordenada == null)
                 return;
 
