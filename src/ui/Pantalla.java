@@ -35,7 +35,7 @@ public class Pantalla extends Application {
     private List<Dibujable> dibujablesUsados;
 
     private final int TAMANIO_VENTANA = 600;
-    private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 3;
+    private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 5;
 
     private GridPane gridPane;
     private Label infoLabel;
