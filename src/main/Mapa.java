@@ -13,7 +13,7 @@ public class Mapa {
     //Para obtener una óptima experiencia probando la pantalla, dejar TAMANIO = 25;
     public static final int TAMANIO = 25;
     private static final int ESPACIO_LIBRE = 6,
-                             DISTANCIA_PROXIMA = 1;
+            DISTANCIA_PROXIMA = 1;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
 
     public void colocarDibujable(Dibujable dibujable, Point2D coordenada) throws CoordenadaInvalidaException {
@@ -90,13 +90,17 @@ public class Mapa {
         Point2D coordenadaEsquina = null;
 
         switch (cuadrante) {
-            case 0: coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, ESPACIO_LIBRE / 2);
+            case 0:
+                coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, ESPACIO_LIBRE / 2);
                 break;
-            case 1: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0), ESPACIO_LIBRE / 2);
+            case 1:
+                coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0), ESPACIO_LIBRE / 2);
                 break;
-            case 2: coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0));
+            case 2:
+                coordenadaEsquina = new Point2D.Double(ESPACIO_LIBRE / 2, TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0));
                 break;
-            case 3: coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0), TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0));
+            case 3:
+                coordenadaEsquina = new Point2D.Double(TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0), TAMANIO - ESPACIO_LIBRE - (TAMANIO % 2 != 0 ? 1 : 0));
                 break;
         }
 
@@ -152,7 +156,7 @@ public class Mapa {
 
     List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
         List<Dibujable> unidades = new ArrayList<>();
-        if(unidad == null) return unidades;
+        if (unidad == null) return unidades;
 
         try {
             for (Point2D coordenadaAlAlcance : obtenerCoordenadasADistancia(unidad, unidad.verAlcance())) {
@@ -262,8 +266,10 @@ public class Mapa {
                 if (coordenadas.size() == 1) {
                     double xCreador = coordenadas.get(0).getX(),
                             yCreador = coordenadas.get(0).getY();
-                    if(coordenadaDestino.getX() == xCreador - 1) coordenadaDestino.setLocation(xCreador - obtenerTamanioMapeable(unidad), coordenadaDestino.getY());
-                    if(coordenadaDestino.getY() == yCreador - 1) coordenadaDestino.setLocation(coordenadaDestino.getX(), yCreador - obtenerTamanioMapeable(unidad));
+                    if (coordenadaDestino.getX() == xCreador - 1)
+                        coordenadaDestino.setLocation(xCreador - obtenerTamanioMapeable(unidad), coordenadaDestino.getY());
+                    if (coordenadaDestino.getY() == yCreador - 1)
+                        coordenadaDestino.setLocation(coordenadaDestino.getX(), yCreador - obtenerTamanioMapeable(unidad));
                 }
 
                 colocarDibujable(unidad, coordenadaDestino);
@@ -274,7 +280,7 @@ public class Mapa {
         throw new CoordenadaInvalidaException("La Posición de Creación debe estar al lado de la Unidad Creadora!");
     }
 
-    public void moverUnidad(Unidad unidad, Point2D destino) throws UnidadNoMovibleException, CoordenadaInvalidaException {
+    void moverUnidad(Unidad unidad, Point2D destino) throws UnidadNoMovibleException, CoordenadaInvalidaException {
         validarCoordenada(destino);
         if (unidad == null || !unidad.esMovible()) {
             throw new UnidadNoMovibleException("La Unidad que se trata de mover no es Movible!");
@@ -289,7 +295,7 @@ public class Mapa {
         colocarDibujable(unidad, destino);
     }
 
-    public void quitarUnidad(Unidad unidad) throws CoordenadaInvalidaException {
+    void quitarUnidad(Unidad unidad) throws CoordenadaInvalidaException {
         List<Point2D> coordenadas = obtenerCoordenadas(unidad);
 
         for (Point2D coordenada : coordenadas) {
@@ -299,7 +305,7 @@ public class Mapa {
 
     //Validaciones
 
-    public void validarCoordenada(Point2D coordenada) throws CoordenadaInvalidaException {
+    private void validarCoordenada(Point2D coordenada) throws CoordenadaInvalidaException {
         validarCoordenadaEnMapa(coordenada);
 
         if (estaOcupado(coordenada)) {
@@ -307,7 +313,7 @@ public class Mapa {
         }
     }
 
-    private void validarCoordenadaEnMapa(Point2D coordenada) throws CoordenadaInvalidaException {
+    public static void validarCoordenadaEnMapa(Point2D coordenada) throws CoordenadaInvalidaException {
         if (coordenada == null) {
             throw new CoordenadaInvalidaException("La coordenada es null.");
         }
@@ -317,7 +323,7 @@ public class Mapa {
         }
     }
 
-    private boolean coordenadaEnMapa(Point2D coordenada) {
+    private static boolean coordenadaEnMapa(Point2D coordenada) {
         return (!(coordenada.getX() >= TAMANIO)) && (!(coordenada.getY() >= TAMANIO)) && (!(coordenada.getX() < 0)) && (!(coordenada.getY() < 0));
     }
 }

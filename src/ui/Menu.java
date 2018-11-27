@@ -153,7 +153,6 @@ public class Menu {
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {
         answer = false;
         Stage window = new Stage();
-        Mapa mapa = new Mapa();
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(5));
@@ -171,9 +170,9 @@ public class Menu {
                 });
 
                 try {
-                    mapa.validarCoordenada(show);
+                    Mapa.validarCoordenadaEnMapa(show);
                     grid.add(button, i + distancia, j + distancia);
-                } catch (CoordenadaInvalidaException error) {
+                } catch (CoordenadaInvalidaException ignored) {
                 }
 
                 if (i == 0 && j == 0)
