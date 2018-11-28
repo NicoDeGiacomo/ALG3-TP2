@@ -12,6 +12,7 @@ import unidades.milicias.Aldeano;
 import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 
 public class PlazaCentral extends Edificio {
 
@@ -72,7 +73,6 @@ public class PlazaCentral extends Edificio {
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        //TODO: Implementar
-        return null;
+        return new Media(new File("src/assets/sounds/unidades/plazasCentrales/creacion.wav").toURI().toString());
     }
 }

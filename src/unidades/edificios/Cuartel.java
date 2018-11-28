@@ -14,6 +14,7 @@ import unidades.milicias.Espadachin;
 import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 
 public class Cuartel extends Edificio {
 
@@ -93,6 +94,6 @@ public class Cuartel extends Edificio {
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        return null;
+        return new Media(new File("src/assets/sounds/unidades/cuarteles/creacion.wav").toURI().toString());
     }
 }
