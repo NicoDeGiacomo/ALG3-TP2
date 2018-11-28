@@ -35,16 +35,16 @@ public class Espadachin extends Milicia {
 
     @Override
     public Media obtenerSonidoDeAtaque() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/ataqueEspadachin.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/ataque.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeMovimiento() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/movimientoEspadachin.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/movimiento.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/creacionEspadachin.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/creacion.wav").toURI().toString());
     }
 }

@@ -68,11 +68,11 @@ public class Aldeano extends Milicia {
 
     @Override
     public Media obtenerSonidoDeMovimiento() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/aldeanos/movimientoAldeano.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/aldeanos/movimiento.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/aldeanos/creacionAldeano.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/aldeanos/creacion.wav").toURI().toString());
     }
 }

@@ -89,7 +89,7 @@ public class Castillo extends Edificio {
 
     @Override
     public Media obtenerSonidoDeAtaque() {
-        return new Media(new File("src/assets/sounds/unidades/edificios/ataqueCastillo.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/edificios/ataque.wav").toURI().toString());
     }
 
     @Override

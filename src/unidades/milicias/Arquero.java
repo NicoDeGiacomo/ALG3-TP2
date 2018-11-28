@@ -38,17 +38,17 @@ public class Arquero extends Milicia {
 
     @Override
     public Media obtenerSonidoDeAtaque() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/ataqueArquero.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/ataque.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeMovimiento() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/movimientoArquero.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/movimiento.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/creacionArquero.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/creacion.wav").toURI().toString());
     }
 }
 
