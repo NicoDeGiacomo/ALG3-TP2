@@ -13,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Mapa;
@@ -29,7 +27,6 @@ import unidades.milicias.Arquero;
 import unidades.milicias.Espadachin;
 
 import java.awt.geom.Point2D;
-import java.io.File;
 
 public class Menu {
 
@@ -255,7 +252,7 @@ public class Menu {
 
             try {
                 unidad.moverUnidad(coordenada);
-                reproducirSonido(unidad.obtenerSonidoDeMovimiento());
+                Sonido.reproducirSonido(unidad.obtenerSonidoDeMovimiento());
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al mover la unidad", error.getMessage());
@@ -280,7 +277,7 @@ public class Menu {
 
             try {
                 unidad.atacarUnidad(coordenada);
-                reproducirSonido(unidad.obtenerSonidoDeAtaque());
+                Sonido.reproducirSonido(unidad.obtenerSonidoDeAtaque());
                 answer = true;
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al atacar", error.getMessage());
@@ -298,7 +295,7 @@ public class Menu {
         Button crearUnidad = new Button("Crear unidad");
         crearUnidad.setOnAction(e -> {
             try {
-                reproducirSonido(edificio.crearUnidad().obtenerSonidoDeCreacion());
+                Sonido.reproducirSonido(edificio.crearUnidad().obtenerSonidoDeCreacion());
                 answer = true;
             } catch (ErrorDeConstruccionException | OroInsuficienteException | UnidadNoEspecificadaException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al crear la unidad", error.getMessage());
@@ -308,17 +305,6 @@ public class Menu {
         });
 
         return crearUnidad;
-    }
-
-    private static void reproducirSonido(String nombre) {
-        Media sound = new Media(new File(String.format("src/assets/sounds/%s.wav", nombre)).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
-    }
-
-    private static void reproducirSonido(Media sonido) {
-        MediaPlayer mediaPlayer = new MediaPlayer(sonido);
-        mediaPlayer.play();
     }
 
 }

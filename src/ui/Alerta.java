@@ -30,6 +30,9 @@ class Alerta {
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
         window.setScene(scene);
+
+        Sonido.reproducirSonidoDeError();
+
         window.showAndWait();
     }
 
