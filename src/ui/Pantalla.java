@@ -5,11 +5,14 @@ import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -25,6 +28,8 @@ import unidades.Dibujable;
 import unidades.Unidad;
 
 import java.awt.geom.Point2D;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,6 +84,9 @@ public class Pantalla extends Application {
     }
 
     private Scene crearMenuPrincipal() {
+        Image logo = new Image("/main/Resources/AlgoEmpiresLogo.png", true);
+        ImageView logoView = new ImageView(logo);
+
         Label label = new Label("Ingrese los nombres de los jugadores:");
         addStyleClass(label, "label");
 
@@ -89,7 +97,7 @@ public class Pantalla extends Application {
 
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
-        layout.getChildren().addAll(label, nombre1, nombre2, button);
+        layout.getChildren().addAll(logoView, label, nombre1, nombre2, button);
 
         button.setOnAction(e -> {
             try {

@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Mapa {
     //Para obtener una óptima experiencia probando la pantalla, dejar TAMANIO = 25;
-    public static final int TAMANIO = 25;
+    public static final int TAMANIO = 30;
     private static final int ESPACIO_LIBRE = 6,
             DISTANCIA_PROXIMA = 1;
     private Dibujable[][] mapa = new Dibujable[TAMANIO][TAMANIO];
