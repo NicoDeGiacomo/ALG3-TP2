@@ -12,6 +12,7 @@ import unidades.Unidad;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
 import unidades.milicia.Aldeano;
+import unidades.milicia.Milicia;
 
 import java.awt.geom.Point2D;
 
@@ -58,7 +59,7 @@ public abstract class Edificio extends Unidad {
         this.propietario.removerUnidad(this);
     }
 
-    public abstract void crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException, ErrorDeConstruccionException;
+    public abstract Milicia crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException, ErrorDeConstruccionException;
 
     public abstract boolean arreglar();
 

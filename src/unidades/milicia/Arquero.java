@@ -1,11 +1,13 @@
 package unidades.milicia;
 
 
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 
 public class Arquero extends Milicia {
 
@@ -34,5 +36,19 @@ public class Arquero extends Milicia {
     }
 
 
+    @Override
+    public Media obtenerSonidoDeAtaque() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/ataqueArquero.wav").toURI().toString());
+    }
+
+    @Override
+    public Media obtenerSonidoDeMovimiento() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/movimientoArquero.wav").toURI().toString());
+    }
+
+    @Override
+    public Media obtenerSonidoDeCreacion() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/creacionArquero.wav").toURI().toString());
+    }
 }
 

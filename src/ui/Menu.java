@@ -39,7 +39,7 @@ public class Menu {
     public static boolean mostrarMenuDeCastillo(Castillo castillo) {
         Stage window = new Stage();
 
-        Button crearUnidad = crearBotonDeCreacion(castillo, window, "creacionArmaDeAsedio");
+        Button crearUnidad = crearBotonDeCreacion(castillo, window);
 
         mostrarMenu(window, "Menu de Castillo", castillo.verVida(), crearUnidad);
         return answer;
@@ -48,7 +48,7 @@ public class Menu {
     public static boolean mostrarMenuDePlazaCentral(PlazaCentral plazaCentral) {
         Stage window = new Stage();
 
-        Button crearUnidad = crearBotonDeCreacion(plazaCentral, window, "creacionAldeano");
+        Button crearUnidad = crearBotonDeCreacion(plazaCentral, window);
 
         return mostrarMenu(window, "Menu de Plaza Central", plazaCentral.verVida(), crearUnidad);
     }
@@ -122,7 +122,7 @@ public class Menu {
             window.close();
         });
 
-        Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window, "movimientoAldeano");
+        Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window);
 
         return mostrarMenu(window, "Menu de Aldeano", aldeano.verVida(), crearCuartel, crearPlazaCentral, moverAldeano);
     }
@@ -130,9 +130,9 @@ public class Menu {
     public static boolean mostrarMenuDeArquero(Arquero arquero, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArquero = crearBotonDeMovimiento(arquero, point2D, window, "movimientoArquero");
+        Button moverArquero = crearBotonDeMovimiento(arquero, point2D, window);
 
-        Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window, "ataqueArquero");
+        Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window);
 
         return mostrarMenu(window, "Menu de Arquero", arquero.verVida(), moverArquero, atacarUnidad);
     }
@@ -140,9 +140,9 @@ public class Menu {
     public static boolean mostrarMenuDeEspadachin(Espadachin espadachin, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverEspadachin = crearBotonDeMovimiento(espadachin, point2D, window, "movimientoEspadachin");
+        Button moverEspadachin = crearBotonDeMovimiento(espadachin, point2D, window);
 
-        Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window, "ataqueEspadachin");
+        Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window);
 
         return mostrarMenu(window, "Menu de Espadachin", espadachin.verVida(), moverEspadachin, atacarUnidad);
     }
@@ -150,9 +150,9 @@ public class Menu {
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArmaDeAsedio = crearBotonDeMovimiento(armaDeAsedio, point2D, window, "movimientoArmaDeAsedio");
+        Button moverArmaDeAsedio = crearBotonDeMovimiento(armaDeAsedio, point2D, window);
 
-        Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window, "ataqueArmaDeAsedio");
+        Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window);
 
         Button montar = new Button("Montar");
         montar.setOnAction(e -> {
@@ -243,7 +243,7 @@ public class Menu {
         return answer;
     }
 
-    private static Button crearBotonDeMovimiento(Unidad unidad, Point2D point2D, Stage window, String sonido) {
+    private static Button crearBotonDeMovimiento(Unidad unidad, Point2D point2D, Stage window) {
         answer = false;
         Button mover = new Button("Mover unidad");
         mover.setOnAction(e -> {
@@ -254,9 +254,9 @@ public class Menu {
             }
 
             try {
-                unidad.moverUnidad(unidad, coordenada);
+                unidad.moverUnidad(coordenada);
+                reproducirSonido(unidad.obtenerSonidoDeMovimiento());
                 answer = true;
-                reproducirSonido(sonido);
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al mover la unidad", error.getMessage());
                 answer = false;
@@ -268,7 +268,7 @@ public class Menu {
         return mover;
     }
 
-    private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window, String sonido) {
+    private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window) {
         answer = false;
         Button atacar = new Button("Atacar");
         atacar.setOnAction(e -> {
@@ -279,9 +279,9 @@ public class Menu {
             }
 
             try {
-                unidad.atacarUnidad(unidad, coordenada);
+                unidad.atacarUnidad(coordenada);
+                reproducirSonido(unidad.obtenerSonidoDeAtaque());
                 answer = true;
-                reproducirSonido(sonido);
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al atacar", error.getMessage());
                 answer = false;
@@ -293,14 +293,13 @@ public class Menu {
         return atacar;
     }
 
-    private static Button crearBotonDeCreacion(Edificio edificio, Stage window, String sonido) {
+    private static Button crearBotonDeCreacion(Edificio edificio, Stage window) {
         answer = false;
         Button crearUnidad = new Button("Crear unidad");
         crearUnidad.setOnAction(e -> {
             try {
-                edificio.crearUnidad();
+                reproducirSonido(edificio.crearUnidad().obtenerSonidoDeCreacion());
                 answer = true;
-                reproducirSonido(sonido);
             } catch (ErrorDeConstruccionException | OroInsuficienteException | UnidadNoEspecificadaException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al crear la unidad", error.getMessage());
                 answer = false;
@@ -314,6 +313,11 @@ public class Menu {
     private static void reproducirSonido(String nombre) {
         Media sound = new Media(new File(String.format("src/assets/sounds/%s.wav", nombre)).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
+
+    private static void reproducirSonido(Media sonido) {
+        MediaPlayer mediaPlayer = new MediaPlayer(sonido);
         mediaPlayer.play();
     }
 

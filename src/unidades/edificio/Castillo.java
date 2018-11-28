@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.ErrorDeConstruccionException;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
@@ -13,8 +14,10 @@ import unidades.Unidad;
 import unidades.estados.unidades.Vivo;
 import unidades.milicia.Aldeano;
 import unidades.milicia.ArmaDeAsedio;
+import unidades.milicia.Milicia;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.List;
 
 
@@ -55,12 +58,14 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws ErrorDeConstruccionException {
+    public Milicia crearUnidad() throws ErrorDeConstruccionException {
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(this.propietario);
         try {
-            this.propietario.agregarUnidad(new ArmaDeAsedio(this.propietario), this);
+            this.propietario.agregarUnidad(armaDeAsedio, this);
         } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException e) {
             throw new ErrorDeConstruccionException(e.getMessage());
         }
+        return armaDeAsedio;
     }
 
     @Override
@@ -80,5 +85,20 @@ public class Castillo extends Edificio {
     @Override
     public boolean mostrarMenu(Point2D point2D) {
         return Menu.mostrarMenuDeCastillo(this);
+    }
+
+    @Override
+    public Media obtenerSonidoDeAtaque() {
+        return new Media(new File("src/assets/sounds/unidades/edificios/ataqueCastillo.wav").toURI().toString());
+    }
+
+    @Override
+    public Media obtenerSonidoDeMovimiento() {
+        return null;
+    }
+
+    @Override
+    public Media obtenerSonidoDeCreacion() {
+        return null;
     }
 }

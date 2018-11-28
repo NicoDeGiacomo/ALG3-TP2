@@ -10,7 +10,7 @@ import unidades.estados.unidades.Vivo;
 
 import java.awt.geom.Point2D;
 
-public abstract class Unidad implements Dibujable {
+public abstract class Unidad implements Dibujable, Escuchable {
 
     protected EstadoDeUnidad estadoDeUnidad;
 
@@ -33,7 +33,7 @@ public abstract class Unidad implements Dibujable {
         }
     }
 
-    public boolean estaHabilitado(){
+    public boolean estaHabilitado() {
         return estadoDeUnidad.estaHabilitado();
     }
 
@@ -53,12 +53,12 @@ public abstract class Unidad implements Dibujable {
         return this.estadoDeUnidad.esMapleable();
     }
 
-    public void moverUnidad(Unidad unidad, Point2D coordenada) throws UnidadNoMovibleException, CoordenadaInvalidaException {
-        this.propietario.moverUnidad(unidad, coordenada);
+    public void moverUnidad(Point2D coordenada) throws UnidadNoMovibleException, CoordenadaInvalidaException {
+        this.propietario.moverUnidad(this, coordenada);
     }
 
-    public void atacarUnidad(Unidad unidad, Point2D coordenada) throws AtaqueIncorrectoException, CoordenadaInvalidaException {
-        this.propietario.atacarUnidad(unidad, coordenada);
+    public void atacarUnidad(Point2D coordenada) throws AtaqueIncorrectoException, CoordenadaInvalidaException {
+        this.propietario.atacarConUnidadACoordenada(this, coordenada);
     }
 
     public boolean unidadesSonDelMismoEquipo(Jugador propietario) {
@@ -75,7 +75,7 @@ public abstract class Unidad implements Dibujable {
 
     public int verVelocidad() {
         return 1;
-    };
+    }
 
     public abstract boolean esMovible();
 

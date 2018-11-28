@@ -4,10 +4,12 @@ import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.ErrorDeConstruccionException;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 import unidades.milicia.Aldeano;
+import unidades.milicia.Milicia;
 
 import java.awt.geom.Point2D;
 
@@ -31,15 +33,17 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
-    public void crearUnidad() throws ErrorDeConstruccionException {
+    public Milicia crearUnidad() throws ErrorDeConstruccionException {
         if (!this.estadoDeUnidad.estaHabilitado())
             throw new ErrorDeConstruccionException("El edificio está en construcción");
 
+        Aldeano aldeano = new Aldeano(this.propietario);
         try {
-            this.propietario.agregarUnidad(new Aldeano(this.propietario), this);
+            this.propietario.agregarUnidad(aldeano, this);
         } catch (OroInsuficienteException | LimiteDePoblacionException | CoordenadaInvalidaException e) {
             throw new ErrorDeConstruccionException(e.getMessage());
         }
+        return aldeano;
     }
 
     @Override
@@ -54,5 +58,21 @@ public class PlazaCentral extends Edificio {
     @Override
     public boolean mostrarMenu(Point2D point2D) {
         return Menu.mostrarMenuDePlazaCentral(this);
+    }
+
+    @Override
+    public Media obtenerSonidoDeAtaque() {
+        return null;
+    }
+
+    @Override
+    public Media obtenerSonidoDeMovimiento() {
+        return null;
+    }
+
+    @Override
+    public Media obtenerSonidoDeCreacion() {
+        //TODO: Implementar
+        return null;
     }
 }

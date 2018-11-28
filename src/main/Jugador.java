@@ -123,7 +123,7 @@ public class Jugador {
         this.mapa.moverUnidad(unidad, coordenada);
     }
 
-    public void atacarUnidad(Unidad unidad, Point2D coordenada) throws CoordenadaInvalidaException, AtaqueIncorrectoException {
+    public void atacarConUnidadACoordenada(Unidad unidad, Point2D coordenada) throws CoordenadaInvalidaException, AtaqueIncorrectoException {
         Unidad unidadEnemiga = (Unidad) this.mapa.obtenerDibujable(coordenada);
         if (unidadEnemiga == null)
             throw new AtaqueIncorrectoException("No hay una unidad enemiga en esa coordenada!");

@@ -3,6 +3,7 @@ package unidades.milicia;
 import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
 import excepciones.unidades.ArmaDeAsedioYaMontadaException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
@@ -11,6 +12,7 @@ import unidades.estados.armaDeAsedio.EstadoDeArmaDeAsedio;
 import unidades.estados.armaDeAsedio.ArmaDesmontada;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 
 public class ArmaDeAsedio extends Milicia {
 
@@ -59,6 +61,20 @@ public class ArmaDeAsedio extends Milicia {
         return Menu.mostrarMenuDeArmaDeAsedio(this, point2D);
     }
 
+    @Override
+    public Media obtenerSonidoDeAtaque() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/ataqueArmaDeAsedio.wav").toURI().toString());
+    }
+
+    @Override
+    public Media obtenerSonidoDeMovimiento() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/movimientoArmaDeAsedio.wav").toURI().toString());
+    }
+
+    @Override
+    public Media obtenerSonidoDeCreacion() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/creacionArmaDeAsedio.wav").toURI().toString());
+    }
 }
 
 
