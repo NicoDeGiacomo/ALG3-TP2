@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Mapa;
@@ -27,6 +29,7 @@ import unidades.milicia.Arquero;
 import unidades.milicia.Espadachin;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 
 public class Menu {
 
@@ -36,7 +39,7 @@ public class Menu {
     public static boolean mostrarMenuDeCastillo(Castillo castillo) {
         Stage window = new Stage();
 
-        Button crearUnidad = crearBotonDeCreacion(castillo, window);
+        Button crearUnidad = crearBotonDeCreacion(castillo, window, "creacionArmaDeAsedio");
 
         mostrarMenu(window, "Menu de Castillo", castillo.verVida(), crearUnidad);
         return answer;
@@ -45,7 +48,7 @@ public class Menu {
     public static boolean mostrarMenuDePlazaCentral(PlazaCentral plazaCentral) {
         Stage window = new Stage();
 
-        Button crearUnidad = crearBotonDeCreacion(plazaCentral, window);
+        Button crearUnidad = crearBotonDeCreacion(plazaCentral, window, "creacionAldeano");
 
         return mostrarMenu(window, "Menu de Plaza Central", plazaCentral.verVida(), crearUnidad);
     }
@@ -129,7 +132,7 @@ public class Menu {
 
         Button moverArquero = crearBotonDeMovimiento(arquero, point2D, window);
 
-        Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window);
+        Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window, "ataqueArquero");
 
         return mostrarMenu(window, "Menu de Arquero", arquero.verVida(), moverArquero, atacarUnidad);
     }
@@ -139,9 +142,9 @@ public class Menu {
 
         Button moverEspadachin = crearBotonDeMovimiento(espadachin, point2D, window);
 
-        Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window);
+        Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window, "ataqueEspadachin");
 
-        return mostrarMenu(window, "Menu de Espadachin", espadachin.verVida() , moverEspadachin, atacarUnidad);
+        return mostrarMenu(window, "Menu de Espadachin", espadachin.verVida(), moverEspadachin, atacarUnidad);
     }
 
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
@@ -149,7 +152,7 @@ public class Menu {
 
         Button moverArmaDeAsedio = crearBotonDeMovimiento(armaDeAsedio, point2D, window);
 
-        Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window);
+        Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window, "ataqueArmaDeAsedio");
 
         Button montar = new Button("Montar");
         montar.setOnAction(e -> {
@@ -175,7 +178,7 @@ public class Menu {
             window.close();
         });
 
-        return mostrarMenu(window, "Menu de Arma de Asedio",armaDeAsedio.verVida(), moverArmaDeAsedio, atacarUnidad, montar, desmontar);
+        return mostrarMenu(window, "Menu de Arma de Asedio", armaDeAsedio.verVida(), moverArmaDeAsedio, atacarUnidad, montar, desmontar);
     }
 
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {
@@ -225,7 +228,7 @@ public class Menu {
         label.setText("Elija la acción a realizar:");
         VBox layout = new VBox(10);
 
-        Label vidaActual = new Label( String.format("Vida: %s",vida) );
+        Label vidaActual = new Label(String.format("Vida: %s", vida));
 
         layout.getChildren().add(vidaActual);
         layout.getChildren().add(label);
@@ -264,7 +267,7 @@ public class Menu {
         return mover;
     }
 
-    private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window) {
+    private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window, String sonido) {
         answer = false;
         Button atacar = new Button("Atacar");
         atacar.setOnAction(e -> {
@@ -277,6 +280,7 @@ public class Menu {
             try {
                 unidad.atacarUnidad(unidad, coordenada);
                 answer = true;
+                reproducirSonido(sonido);
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al atacar", error.getMessage());
                 answer = false;
@@ -288,13 +292,14 @@ public class Menu {
         return atacar;
     }
 
-    private static Button crearBotonDeCreacion(Edificio edificio, Stage window) {
+    private static Button crearBotonDeCreacion(Edificio edificio, Stage window, String sonido) {
         answer = false;
         Button crearUnidad = new Button("Crear unidad");
         crearUnidad.setOnAction(e -> {
             try {
                 edificio.crearUnidad();
                 answer = true;
+                reproducirSonido(sonido);
             } catch (ErrorDeConstruccionException | OroInsuficienteException | UnidadNoEspecificadaException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al crear la unidad", error.getMessage());
                 answer = false;
@@ -303,6 +308,12 @@ public class Menu {
         });
 
         return crearUnidad;
+    }
+
+    private static void reproducirSonido(String nombre) {
+        Media sound = new Media(new File(String.format("src/assets/sounds/%s.wav", nombre)).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
 }
