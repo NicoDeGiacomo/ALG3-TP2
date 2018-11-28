@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -87,8 +86,10 @@ public class Menu {
         Button crearCuartel = new Button("Construir Cuartel");
         crearCuartel.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, aldeano.verAlcance());
-            if (coordenada == null)
+            if (coordenada == null) {
+                answer = false;
                 return;
+            }
 
             try {
                 aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
@@ -103,8 +104,10 @@ public class Menu {
         Button crearPlazaCentral = new Button("Construir Plaza Central");
         crearPlazaCentral.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, aldeano.verVelocidad());
-            if (coordenada == null)
+            if (coordenada == null) {
+                answer = false;
                 return;
+            }
 
             try {
                 aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
@@ -177,6 +180,7 @@ public class Menu {
 
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {
         answer = false;
+        posAnswer = null;
         Stage window = new Stage();
 
         GridPane grid = new GridPane();
@@ -237,11 +241,14 @@ public class Menu {
     }
 
     private static Button crearBotonDeMovimiento(Unidad unidad, Point2D point2D, Stage window) {
+        answer = false;
         Button mover = new Button("Mover unidad");
         mover.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verVelocidad());
-            if (coordenada == null)
+            if (coordenada == null) {
+                answer = false;
                 return;
+            }
 
             try {
                 unidad.moverUnidad(unidad, coordenada);
@@ -258,11 +265,14 @@ public class Menu {
     }
 
     private static Button crearBotonDeAtaque(Unidad unidad, Point2D point2D, Stage window) {
-        Button mover = new Button("Atacar");
-        mover.setOnAction(e -> {
+        answer = false;
+        Button atacar = new Button("Atacar");
+        atacar.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verAlcance());
-            if (coordenada == null)
+            if (coordenada == null) {
+                answer = false;
                 return;
+            }
 
             try {
                 unidad.atacarUnidad(unidad, coordenada);
@@ -275,11 +285,11 @@ public class Menu {
             window.close();
         });
 
-        return mover;
+        return atacar;
     }
 
     private static Button crearBotonDeCreacion(Edificio edificio, Stage window) {
-
+        answer = false;
         Button crearUnidad = new Button("Crear unidad");
         crearUnidad.setOnAction(e -> {
             try {

@@ -56,23 +56,23 @@ public class Pantalla extends Application {
         this.menuDeJuego = crearMenuDeJuego();
 
         this.stage.setScene(menuPrincipal);
-        this.menuDeJuego.getStylesheets().add("style.css");
-        menuPrincipal.getStylesheets().add("style.css");
+        addStyleSheets(this.menuDeJuego, "style.css");
+        addStyleSheets(menuPrincipal, "style.css");
         this.stage.show();
     }
 
     private Scene crearMenuDeJuego() {
         this.gridPane = new GridPane();
-        addStyle(this.gridPane, "grid-pane");
+        addStyleClass(this.gridPane, "grid-pane");
 
         this.infoLabel = new Label("");
-        addStyle(this.infoLabel, "game-info");
+        addStyleClass(this.infoLabel, "game-info");
 
         Button botonPasarTurno = new Button("Terminar turno");
         botonPasarTurno.setOnAction(e -> this.pasarTurno());
 
         VBox layout = new VBox();
-        addStyle(layout, "vbox");
+        addStyleClass(layout, "vbox");
         layout.getChildren().addAll(this.infoLabel, this.gridPane, botonPasarTurno);
 
         return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
@@ -80,7 +80,7 @@ public class Pantalla extends Application {
 
     private Scene crearMenuPrincipal() {
         Label label = new Label("Ingrese los nombres de los jugadores:");
-        addStyle(label, "label");
+        addStyleClass(label, "label");
 
         TextField nombre1 = new TextField("Jugador");
         TextField nombre2 = new TextField("Player");
@@ -88,7 +88,7 @@ public class Pantalla extends Application {
         Button button = new Button("Comenzar juego");
 
         VBox layout = new VBox();
-        addStyle(layout, "vbox");
+        addStyleClass(layout, "vbox");
         layout.getChildren().addAll(label, nombre1, nombre2, button);
 
         button.setOnAction(e -> {
@@ -174,15 +174,15 @@ public class Pantalla extends Application {
 
     private void mostarPantallaDeVictoria(String nombreAnterior) {
         VBox layout = new VBox();
-        addStyle(layout, "vbox");
+        addStyleClass(layout, "vbox");
         Label label1 = new Label("Juego terminado.");
-        addStyle(label1, "label");
+        addStyleClass(label1, "label");
         Label label2 = new Label(String.format("%s es el ganador!", nombreAnterior));
-        addStyle(label2, "label");
+        addStyleClass(label2, "label");
         layout.getChildren().addAll(label1, label2);
 
         Scene scene = new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
-        scene.getStylesheets().add("style.css");
+        addStyleSheets(scene, "style.css");
         this.stage.setScene(scene);
     }
 
@@ -195,9 +195,14 @@ public class Pantalla extends Application {
         this.mapa = this.algoEmpires.comenzarPartida();
     }
 
-    private void addStyle(Node node, String style) {
+    private void addStyleClass(Node node, String style) {
         node.getStyleClass().clear();
         node.getStyleClass().add(style);
+    }
+
+    private void addStyleSheets(Scene scene, String style) {
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(style);
     }
 
 }
