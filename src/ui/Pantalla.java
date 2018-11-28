@@ -158,13 +158,32 @@ public class Pantalla extends Application {
     }
 
     private void pasarTurno() {
+        String nombreAnterior = this.algoEmpires.obtenerJugadorEnTurno().verNombre();
         this.dibujablesUsados.clear();
         try {
             this.algoEmpires.pasarTurno();
             this.actualizarPantalla();
+            if (!this.algoEmpires.obtenerJugadorEnTurno().todaviaEnJuego()) {
+                mostarPantallaDeVictoria(nombreAnterior);
+                return;
+            }
             Alerta.display("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
         } catch (ComienzoDePartidaException ignore) {
         }
+    }
+
+    private void mostarPantallaDeVictoria(String nombreAnterior) {
+        VBox layout = new VBox();
+        addStyle(layout, "vbox");
+        Label label1 = new Label("Juego terminado.");
+        addStyle(label1, "label");
+        Label label2 = new Label(String.format("%s es el ganador!", nombreAnterior));
+        addStyle(label2, "label");
+        layout.getChildren().addAll(label1, label2);
+
+        Scene scene = new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
+        scene.getStylesheets().add("style.css");
+        this.stage.setScene(scene);
     }
 
     private void crearJuego(String jugador1, String jugador2) throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {

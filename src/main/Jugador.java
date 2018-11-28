@@ -137,4 +137,9 @@ public class Jugador {
     public int verPoblacion() {
         return this.poblacion;
     }
+
+    public boolean todaviaEnJuego() {
+        //return this.unidades.stream().anyMatch(u -> u.getClass() == Castillo.class);
+        return false;
+    }
 }
