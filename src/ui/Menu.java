@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Mapa;
@@ -199,13 +200,16 @@ public class Menu {
                 });
 
                 try {
+                    button.setStyle("-fx-background-color: GREEN; -fx-text-fill: WHITE; " );
                     Mapa.validarCoordenadaEnMapa(show);
                     grid.add(button, i + distancia, j + distancia);
                 } catch (CoordenadaInvalidaException ignored) {
                 }
 
-                if (i == 0 && j == 0)
+                if (i == 0 && j == 0) {
+                    button.setStyle("-fx-background-color: WHITE; ");
                     button.setDisable(true);
+                }
             }
         }
 
