@@ -170,12 +170,12 @@ public class Pantalla extends Application {
         this.dibujablesUsados.clear();
         try {
             this.algoEmpires.pasarTurno();
-            this.actualizarPantalla();
             if (!this.algoEmpires.obtenerJugadorEnTurno().todaviaEnJuego()) {
                 mostarPantallaDeVictoria(nombreAnterior);
                 return;
             }
             Alerta.display("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
+            this.actualizarPantalla();
         } catch (ComienzoDePartidaException ignore) {
         }
     }
