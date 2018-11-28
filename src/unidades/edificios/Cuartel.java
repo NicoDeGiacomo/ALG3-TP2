@@ -96,4 +96,10 @@ public class Cuartel extends Edificio {
     public Media obtenerSonidoDeCreacion() {
         return new Media(new File("src/assets/sounds/unidades/cuarteles/creacion.wav").toURI().toString());
     }
+
+    @Override
+    public Media obtenerSonidoDeMuerte() {
+        return new Media(new File("src/assets/sounds/unidades/cuarteles/muerte.wav").toURI().toString());
+    }
+
 }

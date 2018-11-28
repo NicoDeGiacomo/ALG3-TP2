@@ -101,4 +101,9 @@ public class Castillo extends Edificio {
     public Media obtenerSonidoDeCreacion() {
         return null;
     }
+
+    @Override
+    public Media obtenerSonidoDeMuerte() {
+        return new Media(new File("src/assets/sounds/unidades/castillos/muerte.wav").toURI().toString());
+    }
 }

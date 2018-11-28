@@ -75,6 +75,11 @@ public class ArmaDeAsedio extends Milicia {
     public Media obtenerSonidoDeCreacion() {
         return new Media(new File("src/assets/sounds/unidades/milicias/armasDeAsedio/creacion.wav").toURI().toString());
     }
+
+    @Override
+    public Media obtenerSonidoDeMuerte() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/armasDeAsedio/muerte.wav").toURI().toString());
+    }
 }
 
 

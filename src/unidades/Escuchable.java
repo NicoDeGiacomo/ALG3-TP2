@@ -9,5 +9,7 @@ public interface Escuchable {
 
     Media obtenerSonidoDeCreacion();
 
-    //Media obtenerSonidoDeMuerte(); TODO: Implementar! (Ya están los sonidos de muerte en las carpetas)
+    Media obtenerSonidoDeMuerte(); //TODO: Implementar! (Ya están los sonidos de muerte en las carpetas)
+
+    //Media obtenerSonidoDeConstruccion();
 }

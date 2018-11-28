@@ -50,5 +50,10 @@ public class Arquero extends Milicia {
     public Media obtenerSonidoDeCreacion() {
         return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/creacion.wav").toURI().toString());
     }
+
+    @Override
+    public Media obtenerSonidoDeMuerte() {
+        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/muerte.wav").toURI().toString());
+    }
 }
 
