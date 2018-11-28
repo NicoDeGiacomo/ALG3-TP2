@@ -1,10 +1,10 @@
 .text-field {
-    -fx-background-color: #a9a9a9 , gray , white;
+    -fx-background-color: #a9a9a9, gray, white;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
 }
 
 .text-field:focused {
-    -fx-background-color: #a9a9a9 , gray , white;
+    -fx-background-color: #a9a9a9, gray, white;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
 }
 
@@ -12,7 +12,7 @@
     -fx-alignment: center;
     -fx-background-color: #2f4f4f;
     -fx-padding: 15;
-    -fx-spacing: 10;
+    -fx-spacing: 15;
 }
 
 .label {
@@ -32,4 +32,8 @@
     -fx-label-padding: 0, 0, 10, 10;
     -fx-alignment: center;
     -fx-underline: true;
+}
+
+.logo {
+    -fx-image: url(/main/Resources/AlgoEmpiresLogo.png);
 }

@@ -84,8 +84,8 @@ public class Pantalla extends Application {
     }
 
     private Scene crearMenuPrincipal() {
-        Image logo = new Image("/main/Resources/AlgoEmpiresLogo.png", true);
-        ImageView logoView = new ImageView(logo);
+        ImageView logoView = new ImageView();
+        addStyleClass(logoView, "logo");
 
         Label label = new Label("Ingrese los nombres de los jugadores:");
         addStyleClass(label, "label");
