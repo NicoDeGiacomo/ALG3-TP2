@@ -182,6 +182,7 @@ public class Pantalla extends Application {
     }
 
     private void mostarPantallaDeVictoria(String nombreAnterior) {
+        Sonido.reproducirSonidoDeVictoria();
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
         Label label1 = new Label("Juego terminado.");

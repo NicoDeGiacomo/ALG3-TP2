@@ -24,6 +24,12 @@ class Sonido {
         reproducirSonido(sonido);
     }
 
+    static void reproducirSonidoDeVictoria() {
+        detenerSonidos();
+        Media sonido = new Media(new File("src/assets/sounds/main/victoria.wav").toURI().toString());
+        reproducirSonido(sonido);
+    }
+
     static void reproducirSonido(Media sonido) {
         mediaPlayer = new MediaPlayer(sonido);
         mediaPlayer.play();
