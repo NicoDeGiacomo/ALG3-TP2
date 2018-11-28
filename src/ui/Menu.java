@@ -122,7 +122,7 @@ public class Menu {
             window.close();
         });
 
-        Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window);
+        Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window, "movimientoAldeano");
 
         return mostrarMenu(window, "Menu de Aldeano", aldeano.verVida(), crearCuartel, crearPlazaCentral, moverAldeano);
     }
@@ -130,7 +130,7 @@ public class Menu {
     public static boolean mostrarMenuDeArquero(Arquero arquero, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArquero = crearBotonDeMovimiento(arquero, point2D, window);
+        Button moverArquero = crearBotonDeMovimiento(arquero, point2D, window, "movimientoArquero");
 
         Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window, "ataqueArquero");
 
@@ -140,7 +140,7 @@ public class Menu {
     public static boolean mostrarMenuDeEspadachin(Espadachin espadachin, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverEspadachin = crearBotonDeMovimiento(espadachin, point2D, window);
+        Button moverEspadachin = crearBotonDeMovimiento(espadachin, point2D, window, "movimientoEspadachin");
 
         Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window, "ataqueEspadachin");
 
@@ -150,7 +150,7 @@ public class Menu {
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
         Stage window = new Stage();
 
-        Button moverArmaDeAsedio = crearBotonDeMovimiento(armaDeAsedio, point2D, window);
+        Button moverArmaDeAsedio = crearBotonDeMovimiento(armaDeAsedio, point2D, window, "movimientoArmaDeAsedio");
 
         Button atacarUnidad = crearBotonDeAtaque(armaDeAsedio, point2D, window, "ataqueArmaDeAsedio");
 
@@ -243,7 +243,7 @@ public class Menu {
         return answer;
     }
 
-    private static Button crearBotonDeMovimiento(Unidad unidad, Point2D point2D, Stage window) {
+    private static Button crearBotonDeMovimiento(Unidad unidad, Point2D point2D, Stage window, String sonido) {
         answer = false;
         Button mover = new Button("Mover unidad");
         mover.setOnAction(e -> {
@@ -256,6 +256,7 @@ public class Menu {
             try {
                 unidad.moverUnidad(unidad, coordenada);
                 answer = true;
+                reproducirSonido(sonido);
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
                 Alerta.display("Error al mover la unidad", error.getMessage());
                 answer = false;
