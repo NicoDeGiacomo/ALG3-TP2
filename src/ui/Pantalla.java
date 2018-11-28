@@ -5,13 +5,11 @@ import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -28,8 +26,6 @@ import unidades.Dibujable;
 import unidades.Unidad;
 
 import java.awt.geom.Point2D;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
