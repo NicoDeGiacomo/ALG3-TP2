@@ -59,6 +59,9 @@ public class Pantalla extends Application {
         this.stage.setScene(menuPrincipal);
         addStyleSheets(this.menuDeJuego, "style.css");
         addStyleSheets(menuPrincipal, "style.css");
+
+        Sonido.reproducirSonidoDeMenu();
+
         this.stage.show();
     }
 
@@ -96,6 +99,8 @@ public class Pantalla extends Application {
         layout.getChildren().addAll(logoView, label, nombre1, nombre2, button);
 
         button.setOnAction(e -> {
+            Sonido.detenerSonidos();
+            Sonido.reproducirSonidoDeBoton();
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
             } catch (NombreRepetidoException | NumeroDeJugadoresException | ComienzoDePartidaException error) {
