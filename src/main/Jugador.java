@@ -7,12 +7,12 @@ import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import unidades.Dibujable;
 import unidades.Unidad;
-import unidades.edificio.Castillo;
-import unidades.edificio.Edificio;
-import unidades.edificio.PlazaCentral;
+import unidades.edificios.Castillo;
+import unidades.edificios.Edificio;
+import unidades.edificios.PlazaCentral;
 import unidades.estados.aldeano.Ocioso;
-import unidades.milicia.Aldeano;
-import unidades.milicia.Milicia;
+import unidades.milicias.Aldeano;
+import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;

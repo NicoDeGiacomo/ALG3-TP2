@@ -1,4 +1,4 @@
-package unidades.edificio;
+package unidades.edificios;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
@@ -9,9 +9,9 @@ import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
-import unidades.milicia.Arquero;
-import unidades.milicia.Espadachin;
-import unidades.milicia.Milicia;
+import unidades.milicias.Arquero;
+import unidades.milicias.Espadachin;
+import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
 
@@ -41,7 +41,7 @@ public class Cuartel extends Edificio {
 
     public Milicia crearEspadachin() throws ErrorDeConstruccionException {
         if (!this.estadoDeUnidad.estaHabilitado())
-            throw new ErrorDeConstruccionException("El edificio está en construcción");
+            throw new ErrorDeConstruccionException("El edificios está en construcción");
 
         Espadachin espadachin = new Espadachin(this.propietario);
         try {
@@ -55,7 +55,7 @@ public class Cuartel extends Edificio {
 
     public Milicia crearArquero() throws ErrorDeConstruccionException {
         if (!this.estadoDeUnidad.estaHabilitado())
-            throw new ErrorDeConstruccionException("El edificio está en construcción");
+            throw new ErrorDeConstruccionException("El edificios está en construcción");
 
         Arquero arquero = new Arquero(this.propietario);
         try {

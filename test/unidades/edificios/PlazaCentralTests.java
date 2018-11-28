@@ -1,4 +1,4 @@
-package unidades.edificio;
+package unidades.edificios;
 
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.ErrorDeConstruccionException;
@@ -7,7 +7,7 @@ import main.Mapa;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.stubbing.Answer;
-import unidades.milicia.Espadachin;
+import unidades.milicias.Espadachin;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;

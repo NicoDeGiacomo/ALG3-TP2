@@ -1,4 +1,4 @@
-package unidades.milicia;
+package unidades.milicias;
 
 
 import javafx.scene.media.Media;
@@ -38,17 +38,17 @@ public class Arquero extends Milicia {
 
     @Override
     public Media obtenerSonidoDeAtaque() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/ataqueArquero.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/ataqueArquero.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeMovimiento() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/movimientoArquero.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/movimientoArquero.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/creacionArquero.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/arqueros/creacionArquero.wav").toURI().toString());
     }
 }
 

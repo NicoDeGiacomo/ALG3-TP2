@@ -1,4 +1,4 @@
-package unidades.edificio;
+package unidades.edificios;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
@@ -8,8 +8,8 @@ import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
-import unidades.milicia.Aldeano;
-import unidades.milicia.Milicia;
+import unidades.milicias.Aldeano;
+import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
 
@@ -35,7 +35,7 @@ public class PlazaCentral extends Edificio {
     @Override
     public Milicia crearUnidad() throws ErrorDeConstruccionException {
         if (!this.estadoDeUnidad.estaHabilitado())
-            throw new ErrorDeConstruccionException("El edificio está en construcción");
+            throw new ErrorDeConstruccionException("El edificios está en construcción");
 
         Aldeano aldeano = new Aldeano(this.propietario);
         try {

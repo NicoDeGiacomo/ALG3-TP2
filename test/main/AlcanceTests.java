@@ -2,11 +2,10 @@ package main;
 
 import excepciones.mapa.CoordenadaInvalidaException;
 import org.junit.Test;
-import org.mockito.Mockito;
-import unidades.edificio.Castillo;
-import unidades.milicia.ArmaDeAsedio;
-import unidades.milicia.Arquero;
-import unidades.milicia.Espadachin;
+import unidades.edificios.Castillo;
+import unidades.milicias.ArmaDeAsedio;
+import unidades.milicias.Arquero;
+import unidades.milicias.Espadachin;
 
 import java.awt.geom.Point2D;
 import java.util.Arrays;

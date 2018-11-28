@@ -1,9 +1,9 @@
-package unidades.milicia;
+package unidades.milicias;
 
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
 import main.Mapa;
-import unidades.edificio.PlazaCentral;
+import unidades.edificios.PlazaCentral;
 
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;

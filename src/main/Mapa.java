@@ -4,7 +4,7 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
 import unidades.Dibujable;
 import unidades.Unidad;
-import unidades.edificio.Castillo;
+import unidades.edificios.Castillo;
 
 import java.awt.geom.Point2D;
 import java.util.*;

@@ -1,4 +1,4 @@
-package unidades.milicia;
+package unidades.milicias;
 
 import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
 import excepciones.unidades.ArmaDeAsedioYaMontadaException;
@@ -63,17 +63,17 @@ public class ArmaDeAsedio extends Milicia {
 
     @Override
     public Media obtenerSonidoDeAtaque() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/ataqueArmaDeAsedio.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/armasDeAsedio/ataqueArmaDeAsedio.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeMovimiento() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/movimientoArmaDeAsedio.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/armasDeAsedio/movimientoArmaDeAsedio.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/creacionArmaDeAsedio.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/armasDeAsedio/creacionArmaDeAsedio.wav").toURI().toString());
     }
 }
 

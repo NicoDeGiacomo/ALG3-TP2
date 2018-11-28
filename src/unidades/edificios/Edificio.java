@@ -1,4 +1,4 @@
-package unidades.edificio;
+package unidades.edificios;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
@@ -11,8 +11,8 @@ import main.Jugador;
 import unidades.Unidad;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
-import unidades.milicia.Aldeano;
-import unidades.milicia.Milicia;
+import unidades.milicias.Aldeano;
+import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
 

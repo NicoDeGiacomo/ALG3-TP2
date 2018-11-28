@@ -2,8 +2,8 @@ package unidades.estados.aldeano;
 
 import excepciones.unidades.AldeanoOcupadoException;
 import main.Jugador;
-import unidades.edificio.Edificio;
-import unidades.milicia.Aldeano;
+import unidades.edificios.Edificio;
+import unidades.milicias.Aldeano;
 
 import java.awt.geom.Point2D;
 

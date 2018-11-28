@@ -1,4 +1,4 @@
-package unidades.milicia;
+package unidades.milicias;
 
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 import unidades.Unidad;
-import unidades.edificio.Edificio;
+import unidades.edificios.Edificio;
 import unidades.estados.aldeano.EstadoDeAldeano;
 import unidades.estados.aldeano.Ocioso;
 
@@ -63,16 +63,16 @@ public class Aldeano extends Milicia {
 
     @Override
     public Media obtenerSonidoDeAtaque() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/ataqueAldeano.wav").toURI().toString());
+        return null;
     }
 
     @Override
     public Media obtenerSonidoDeMovimiento() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/movimientoAldeano.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/aldeanos/movimientoAldeano.wav").toURI().toString());
     }
 
     @Override
     public Media obtenerSonidoDeCreacion() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/creacionAldeano.wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/aldeanos/creacionAldeano.wav").toURI().toString());
     }
 }

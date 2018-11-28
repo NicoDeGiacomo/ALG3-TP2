@@ -5,9 +5,9 @@ import excepciones.mapa.UnidadNoMovibleException;
 import org.junit.Test;
 import unidades.Dibujable;
 import unidades.Unidad;
-import unidades.edificio.Castillo;
-import unidades.edificio.Cuartel;
-import unidades.milicia.Arquero;
+import unidades.edificios.Castillo;
+import unidades.edificios.Cuartel;
+import unidades.milicias.Arquero;
 
 import java.awt.geom.Point2D;
 import java.util.List;

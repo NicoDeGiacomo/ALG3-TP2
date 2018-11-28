@@ -4,8 +4,8 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import main.Jugador;
-import unidades.edificio.Edificio;
-import unidades.milicia.Aldeano;
+import unidades.edificios.Edificio;
+import unidades.milicias.Aldeano;
 
 import java.awt.geom.Point2D;
 

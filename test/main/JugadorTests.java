@@ -6,8 +6,8 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.stubbing.Answer;
-import unidades.edificio.PlazaCentral;
-import unidades.milicia.Aldeano;
+import unidades.edificios.PlazaCentral;
+import unidades.milicias.Aldeano;
 
 import java.awt.geom.Point2D;
 

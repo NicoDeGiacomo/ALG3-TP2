@@ -1,4 +1,4 @@
-package unidades.milicia;
+package unidades.milicias;
 
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;

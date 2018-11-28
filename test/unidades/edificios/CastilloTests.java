@@ -1,12 +1,12 @@
-package unidades.edificio;
+package unidades.edificios;
 
 import excepciones.unidades.ErrorDeConstruccionException;
 import main.Jugador;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.util.reflection.Whitebox;
-import unidades.milicia.ArmaDeAsedio;
-import unidades.milicia.Arquero;
+import unidades.milicias.ArmaDeAsedio;
+import unidades.milicias.Arquero;
 
 import java.util.Arrays;
 

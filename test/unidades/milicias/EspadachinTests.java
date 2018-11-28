@@ -1,10 +1,10 @@
-package unidades.milicia;
+package unidades.milicias;
 
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
 import main.Mapa;
-import unidades.edificio.Cuartel;
-import unidades.edificio.PlazaCentral;
+import unidades.edificios.Cuartel;
+import unidades.edificios.PlazaCentral;
 import unidades.estados.unidades.Muerto;
 
 import org.junit.Test;

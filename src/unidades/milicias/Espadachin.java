@@ -1,4 +1,4 @@
-package unidades.milicia;
+package unidades.milicias;
 
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;

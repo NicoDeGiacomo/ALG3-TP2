@@ -19,14 +19,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Mapa;
 import unidades.Unidad;
-import unidades.edificio.Castillo;
-import unidades.edificio.Cuartel;
-import unidades.edificio.Edificio;
-import unidades.edificio.PlazaCentral;
-import unidades.milicia.Aldeano;
-import unidades.milicia.ArmaDeAsedio;
-import unidades.milicia.Arquero;
-import unidades.milicia.Espadachin;
+import unidades.edificios.Castillo;
+import unidades.edificios.Cuartel;
+import unidades.edificios.Edificio;
+import unidades.edificios.PlazaCentral;
+import unidades.milicias.Aldeano;
+import unidades.milicias.ArmaDeAsedio;
+import unidades.milicias.Arquero;
+import unidades.milicias.Espadachin;
 
 import java.awt.geom.Point2D;
 import java.io.File;
@@ -98,7 +98,7 @@ public class Menu {
                 aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
             } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificio", error.getMessage());
+                Alerta.display("Error al crear edificios", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -116,7 +116,7 @@ public class Menu {
                 aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
             } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificio", error.getMessage());
+                Alerta.display("Error al crear edificios", error.getMessage());
                 answer = false;
             }
             window.close();

@@ -1,4 +1,4 @@
-package unidades.milicia;
+package unidades.milicias;
 
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
@@ -11,8 +11,8 @@ import main.Mapa;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.stubbing.Answer;
-import unidades.edificio.Cuartel;
-import unidades.edificio.PlazaCentral;
+import unidades.edificios.Cuartel;
+import unidades.edificios.PlazaCentral;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
 import java.awt.geom.Point2D;
