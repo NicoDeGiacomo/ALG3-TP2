@@ -139,7 +139,6 @@ public class Jugador {
     }
 
     public boolean todaviaEnJuego() {
-        //return this.unidades.stream().anyMatch(u -> u.getClass() == Castillo.class);
-        return false;
+        return this.unidades.stream().anyMatch(u -> u.getClass() == Castillo.class);
     }
 }
