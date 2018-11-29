@@ -20,14 +20,14 @@
 }
 
 .boton-coord {
+    -fx-max-height: 75;
+    -fx-min-height: 75;
+    -fx-max-width: 75;
+    -fx-min-width: 75;
     -fx-background-color: green;
     -fx-padding: 10;
     -fx-hgap: 1;
     -fx-vgap: 1;
-    -fx-max-height: 40;
-    -fx-min-height: 40;
-    -fx-max-width: 70;
-    -fx-min-width: 70;
     -fx-text-alignment: center;
 }
 
@@ -36,10 +36,10 @@
     -fx-padding: 10;
     -fx-hgap: 1;
     -fx-vgap: 1;
-    -fx-max-height: 40;
-    -fx-min-height: 40;
-    -fx-max-width: 70;
-    -fx-min-width: 70;
+    -fx-max-height: 75;
+    -fx-min-height: 75;
+    -fx-max-width: 75;
+    -fx-min-width: 75;
     -fx-text-alignment: center;
 }
 
