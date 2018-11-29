@@ -24,6 +24,11 @@
     -fx-padding: 10;
     -fx-hgap: 1;
     -fx-vgap: 1;
+    -fx-max-height: 40;
+    -fx-min-height: 40;
+    -fx-max-width: 70;
+    -fx-min-width: 70;
+    -fx-text-alignment: center;
 }
 
 .boton-coord:disabled{
@@ -31,6 +36,11 @@
     -fx-padding: 10;
     -fx-hgap: 1;
     -fx-vgap: 1;
+    -fx-max-height: 40;
+    -fx-min-height: 40;
+    -fx-max-width: 70;
+    -fx-min-width: 70;
+    -fx-text-alignment: center;
 }
 
 .grid-pane {

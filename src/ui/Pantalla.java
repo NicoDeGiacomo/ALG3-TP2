@@ -104,7 +104,7 @@ public class Pantalla extends Application {
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
             } catch (NombreRepetidoException | NumeroDeJugadoresException | ComienzoDePartidaException error) {
-                Alerta.display("Error al crear partida", error.getMessage());
+                Alerta.displayError("Error al crear partida", error.getMessage());
                 return;
             }
             stage.setScene(menuDeJuego);
@@ -175,7 +175,7 @@ public class Pantalla extends Application {
                 mostarPantallaDeVictoria(nombreAnterior);
                 return;
             }
-            Alerta.display("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
+            Alerta.displayMessage("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
             this.actualizarPantalla();
         } catch (ComienzoDePartidaException ignore) {
         }

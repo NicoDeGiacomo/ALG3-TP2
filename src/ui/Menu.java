@@ -5,7 +5,6 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.*;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -59,7 +58,7 @@ public class Menu {
                 cuartel.crearArquero();
                 answer = true;
             } catch (ErrorDeConstruccionException error) {
-                Alerta.display("Error al crear la unidad", error.getMessage());
+                Alerta.displayError("Error al crear la unidad", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -71,7 +70,7 @@ public class Menu {
                 cuartel.crearEspadachin();
                 answer = true;
             } catch (ErrorDeConstruccionException error) {
-                Alerta.display("Error al crear la unidad", error.getMessage());
+                Alerta.displayError("Error al crear la unidad", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -95,7 +94,7 @@ public class Menu {
                 aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
             } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificios", error.getMessage());
+                Alerta.displayError("Error al crear edificios", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -113,7 +112,7 @@ public class Menu {
                 aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
             } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear edificios", error.getMessage());
+                Alerta.displayError("Error al crear edificios", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -157,7 +156,7 @@ public class Menu {
                 armaDeAsedio.montarArma();
                 answer = true;
             } catch (ArmaDeAsedioYaMontadaException error) {
-                Alerta.display("Error al montar.", error.getMessage());
+                Alerta.displayError("Error al montar.", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -169,7 +168,7 @@ public class Menu {
                 armaDeAsedio.desmontarArma();
                 answer = true;
             } catch (ArmaDeAsedioYaDesmontadaException error) {
-                Alerta.display("Error al desmontar.", error.getMessage());
+                Alerta.displayError("Error al desmontar.", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -259,7 +258,7 @@ public class Menu {
                 Sonido.reproducirSonido(unidad.obtenerSonidoDeMovimiento());
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al mover la unidad", error.getMessage());
+                Alerta.displayError("Error al mover la unidad", error.getMessage());
                 answer = false;
             }
 
@@ -284,7 +283,7 @@ public class Menu {
                 Sonido.reproducirSonido(unidad.obtenerSonidoDeAtaque());
                 answer = true;
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al atacar", error.getMessage());
+                Alerta.displayError("Error al atacar", error.getMessage());
                 answer = false;
             }
 
@@ -302,7 +301,7 @@ public class Menu {
                 Sonido.reproducirSonido(edificio.crearUnidad().obtenerSonidoDeCreacion());
                 answer = true;
             } catch (ErrorDeConstruccionException | OroInsuficienteException | UnidadNoEspecificadaException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
-                Alerta.display("Error al crear la unidad", error.getMessage());
+                Alerta.displayError("Error al crear la unidad", error.getMessage());
                 answer = false;
             }
             window.close();
