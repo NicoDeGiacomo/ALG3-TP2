@@ -3,6 +3,7 @@ package unidades.milicias;
 import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
 import excepciones.unidades.ArmaDeAsedioYaMontadaException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
@@ -54,6 +55,11 @@ public class ArmaDeAsedio extends Milicia {
     @Override
     public Color obtenerColor() {
         return Color.WHEAT;
+    }
+
+    @Override
+    public ImageView obtenerImagen() {
+        return null;
     }
 
     @Override

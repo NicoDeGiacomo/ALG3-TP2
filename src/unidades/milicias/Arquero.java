@@ -1,6 +1,7 @@
 package unidades.milicias;
 
 
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
@@ -28,6 +29,11 @@ public class Arquero extends Milicia {
     @Override
     public Color obtenerColor() {
         return Color.RED;
+    }
+
+    @Override
+    public ImageView obtenerImagen() {
+        return null;
     }
 
     @Override

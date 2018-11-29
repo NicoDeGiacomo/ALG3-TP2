@@ -1,5 +1,6 @@
 package unidades;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.awt.geom.Point2D;
@@ -10,5 +11,9 @@ public interface Dibujable {
 
     Color obtenerColor();
 
+    ImageView obtenerImagen();
+
     boolean mostrarMenu(Point2D point2D);
+
+
 }

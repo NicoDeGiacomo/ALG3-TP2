@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.ErrorDeConstruccionException;
 import excepciones.unidades.UnidadNoEspecificadaException;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import main.Jugador;
@@ -75,6 +76,11 @@ public class Cuartel extends Edificio {
     @Override
     public Color obtenerColor() {
         return Color.BROWN;
+    }
+
+    @Override
+    public ImageView obtenerImagen() {
+        return null;
     }
 
     @Override

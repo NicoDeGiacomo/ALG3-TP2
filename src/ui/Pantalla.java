@@ -24,6 +24,7 @@ import main.Jugador;
 import main.Mapa;
 import unidades.Dibujable;
 import unidades.Unidad;
+import unidades.edificios.Castillo;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
@@ -137,6 +138,17 @@ public class Pantalla extends Application {
             try {
                 List<Point2D> point2DList = this.mapa.obtenerCoordenadas(dibujable);
 
+                ImageView imagen = dibujable.obtenerImagen();
+                if (imagen != null) { //TODO: Provisorio - Solo tenemos imagen de castillo
+                    imagen.setFitWidth(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
+                    imagen.setFitHeight(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
+                    GridPane.setColumnSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
+                    GridPane.setRowSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
+                    imagen.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2DList.get(0)));
+                    this.gridPane.add(imagen, ((int) point2DList.get(0).getX()), ((int) point2DList.get(0).getY()));
+                    continue;
+                }
+
                 for (Point2D point2D : point2DList) {
                     Rectangle rectangle = new Rectangle(TAMANIO_CELDA, TAMANIO_CELDA);
                     rectangle.setFill(dibujable.obtenerColor());
@@ -150,6 +162,7 @@ public class Pantalla extends Application {
                     stack.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
                     this.gridPane.add(stack, (int) point2D.getX(), (int) point2D.getY());
                 }
+
 
             } catch (CoordenadaInvalidaException ignore) {
             }
