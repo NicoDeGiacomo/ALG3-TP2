@@ -57,8 +57,8 @@ public class Pantalla extends Application {
         this.menuDeJuego = crearMenuDeJuego();
 
         this.stage.setScene(menuPrincipal);
-        addStyleSheets(this.menuDeJuego, "style.css");
-        addStyleSheets(menuPrincipal, "style.css");
+        addStyleSheet(this.menuDeJuego);
+        addStyleSheet(menuPrincipal);
 
         Sonido.reproducirSonidoDeMenu();
 
@@ -195,7 +195,7 @@ public class Pantalla extends Application {
         layout.getChildren().addAll(label1, label2);
 
         Scene scene = new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
-        addStyleSheets(scene, "style.css");
+        addStyleSheet(scene);
         this.stage.setScene(scene);
     }
 
@@ -213,9 +213,9 @@ public class Pantalla extends Application {
         node.getStyleClass().add(style);
     }
 
-    static void addStyleSheets(Scene scene, String style) {
+    static void addStyleSheet(Scene scene) {
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(style);
+        scene.getStylesheets().add("style.css");
     }
 
 }

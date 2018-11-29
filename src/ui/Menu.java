@@ -212,7 +212,7 @@ public class Menu {
 
         ScrollPane scrollPane = new ScrollPane(grid);
         Scene scene = new Scene(scrollPane);
-        Pantalla.addStyleSheets(scene, "style.css");
+        Pantalla.addStyleSheet(scene);
         window.setScene(scene);
         window.showAndWait();
 
