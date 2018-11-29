@@ -15,7 +15,12 @@ class Sonido {
     }
 
     static void reproducirSonidoDeMenu() {
-        Media sonido = new Media(new File("src/assets/sounds/main/menu1.wav").toURI().toString());
+        Media sonido = new Media(new File("src/assets/sounds/main/menu3.wav").toURI().toString());
+        reproducirSonido(sonido);
+    }
+
+    static void reproducirSonidoDeFondo() {
+        Media sonido = new Media(new File("src/assets/sounds/main/menu2.wav").toURI().toString());
         reproducirSonido(sonido);
     }
 
@@ -33,6 +38,7 @@ class Sonido {
     static void reproducirSonido(Media sonido) {
         mediaPlayer = new MediaPlayer(sonido);
         mediaPlayer.play();
+        //TODO: Que haga loop!
     }
 
     static void detenerSonidos() {

@@ -101,6 +101,7 @@ public class Pantalla extends Application {
         button.setOnAction(e -> {
             Sonido.detenerSonidos();
             Sonido.reproducirSonidoDeBoton();
+            Sonido.reproducirSonidoDeFondo();
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
             } catch (NombreRepetidoException | NumeroDeJugadoresException | ComienzoDePartidaException error) {
