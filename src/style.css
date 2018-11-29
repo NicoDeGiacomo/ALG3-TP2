@@ -19,6 +19,20 @@
     -fx-text-fill: white;
 }
 
+.boton-coord {
+    -fx-background-color: green;
+    -fx-padding: 10;
+    -fx-hgap: 1;
+    -fx-vgap: 1;
+}
+
+.boton-coord:disabled{
+    -fx-background-color: lightgreen;
+    -fx-padding: 10;
+    -fx-hgap: 1;
+    -fx-vgap: 1;
+}
+
 .grid-pane {
     -fx-grid-lines-visible: true;
     -fx-padding: 10;

@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Mapa;
@@ -185,36 +184,37 @@ public class Menu {
         Stage window = new Stage();
 
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(5));
-        grid.setHgap(5);
-        grid.setVgap(5);
+        Pantalla.addStyleClass(grid, "grid-pane");
 
         for (int i = -distancia; i <= distancia; i++) {
             for (int j = -distancia; j <= distancia; j++) {
                 Point2D show = new Point2D.Double(point2D.getX() + i, point2D.getY() + j);
                 String valor = String.format("(%d; %d)", (long) show.getX() + 1, (long) show.getY() + 1);
                 Button button = new Button(valor);
+                Pantalla.addStyleClass(button, "boton-coord");
                 button.setOnAction(e -> {
                     posAnswer = show;
                     window.close();
                 });
 
                 try {
-                    button.setStyle("-fx-background-color: GREEN; -fx-text-fill: WHITE; " );
                     Mapa.validarCoordenadaEnMapa(show);
                     grid.add(button, i + distancia, j + distancia);
                 } catch (CoordenadaInvalidaException ignored) {
                 }
 
                 if (i == 0 && j == 0) {
-                    button.setStyle("-fx-background-color: WHITE; ");
                     button.setDisable(true);
+                    //Pantalla.addStyleClass(button, "boton-coord-disabled");
+                    //button.getStyleClass().clear();
                 }
             }
         }
 
         ScrollPane scrollPane = new ScrollPane(grid);
-        window.setScene(new Scene(scrollPane));
+        Scene scene = new Scene(scrollPane);
+        Pantalla.addStyleSheets(scene, "style.css");
+        window.setScene(scene);
         window.showAndWait();
 
         return posAnswer;

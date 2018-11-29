@@ -205,12 +205,12 @@ public class Pantalla extends Application {
         this.mapa = this.algoEmpires.comenzarPartida();
     }
 
-    private void addStyleClass(Node node, String style) {
+    static void addStyleClass(Node node, String style) {
         node.getStyleClass().clear();
         node.getStyleClass().add(style);
     }
 
-    private void addStyleSheets(Scene scene, String style) {
+    static void addStyleSheets(Scene scene, String style) {
         scene.getStylesheets().clear();
         scene.getStylesheets().add(style);
     }
