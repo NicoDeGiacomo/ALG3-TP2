@@ -33,7 +33,7 @@ public class Arquero extends Milicia {
 
     @Override
     public ImageView obtenerImagen() {
-        return null;
+        return new ImageView("/assets/graphics/archer.png");
     }
 
     @Override

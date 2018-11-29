@@ -80,7 +80,7 @@ public class Cuartel extends Edificio {
 
     @Override
     public ImageView obtenerImagen() {
-        return null;
+        return new ImageView("/assets/graphics/barracks.png");
     }
 
     @Override

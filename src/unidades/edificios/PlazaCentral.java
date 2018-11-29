@@ -59,7 +59,7 @@ public class PlazaCentral extends Edificio {
 
     @Override
     public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/plazaCentral.png");
+        return new ImageView("/assets/graphics/village.png");
     }
 
     @Override
