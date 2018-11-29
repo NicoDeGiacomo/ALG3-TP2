@@ -59,7 +59,8 @@ public class ArmaDeAsedio extends Milicia {
 
     @Override
     public ImageView obtenerImagen() {
-        return null;
+        return new ImageView("/assets/graphics/ballista.png");
+
     }
 
     @Override

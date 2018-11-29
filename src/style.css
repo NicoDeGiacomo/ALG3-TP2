@@ -61,3 +61,12 @@
 .logo {
     -fx-image: url(/assets/graphics/AlgoEmpiresLogoScroll.png);
 }
+
+
+.colorunidadesjugador1 {
+    -fx-effect: innershadow( one-pass-box , orangered , 150 , 10 , 0 , 0 );
+}
+
+.colorunidadesjugador2 {
+    -fx-effect: innershadow( one-pass-box , white , 150 , 10 , 0 , 0 );
+}

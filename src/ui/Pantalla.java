@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -35,6 +36,8 @@ public class Pantalla extends Application {
     private Mapa mapa;
     private AlgoEmpires algoEmpires;
     private List<Dibujable> dibujablesUsados;
+    private String jugador1;
+    private String jugador2;
 
     private final int TAMANIO_VENTANA = 600;
     private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 5;
@@ -79,9 +82,20 @@ public class Pantalla extends Application {
             this.pasarTurno();
         });
 
+        Rectangle colorJugador1 = new Rectangle();
+        colorJugador1.setHeight(10);
+        colorJugador1.setWidth(10);
+        addStyleClass(colorJugador1,"colorunidadesjugador1");
+
+        //colorJugador1.setText(this.jugador1);
+
+        colorJugador1.setTranslateY(-TAMANIO_VENTANA/10);
+        colorJugador1.setTranslateX(-TAMANIO_VENTANA/3);
+
+
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
-        layout.getChildren().addAll(this.infoLabel, this.gridPane, botonPasarTurno);
+        layout.getChildren().addAll(this.infoLabel, this.gridPane, botonPasarTurno,colorJugador1);
 
         return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
     }
@@ -95,6 +109,8 @@ public class Pantalla extends Application {
 
         TextField nombre1 = new TextField("Jugador");
         TextField nombre2 = new TextField("Player");
+        this.jugador1 = nombre1.getText();
+        this.jugador2 = nombre2.getText();
 
         Button button = new Button("Comenzar juego");
 
@@ -123,13 +139,12 @@ public class Pantalla extends Application {
         Jugador jugadorEnTurno = this.algoEmpires.obtenerJugadorEnTurno();
         this.infoLabel.setText(String.format("JUGADOR: %s | ORO: %d | POBLACION: %d", jugadorEnTurno.verNombre(), jugadorEnTurno.verOro(), jugadorEnTurno.verPoblacion()));
 
-
         //Pinto el mapa entero de verde
 
         for (int i = 0; i < Mapa.TAMANIO; i++) {
             for (int j = 0; j < Mapa.TAMANIO; j++) {
                 Rectangle rectangle = new Rectangle(TAMANIO_CELDA, TAMANIO_CELDA);
-                rectangle.setFill(Color.GREEN);
+                rectangle.setFill( Color.FORESTGREEN);
                 this.gridPane.add(rectangle, i, j);
             }
         }
@@ -139,34 +154,27 @@ public class Pantalla extends Application {
                 List<Point2D> point2DList = this.mapa.obtenerCoordenadas(dibujable);
 
                 ImageView imagen = dibujable.obtenerImagen();
-                if (imagen != null) { //TODO: Provisorio - Solo tenemos imagen de castillo
+                String propietario = ((Unidad)dibujable).obtenerPropietario().verNombre();
+                    String style = obtenerColorDeJugador(propietario) ;
                     imagen.setFitWidth(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
                     imagen.setFitHeight(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
                     GridPane.setColumnSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
                     GridPane.setRowSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
                     imagen.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2DList.get(0)));
+                    addStyleClass(imagen,style);
                     this.gridPane.add(imagen, ((int) point2DList.get(0).getX()), ((int) point2DList.get(0).getY()));
-                    continue;
-                }
 
-                for (Point2D point2D : point2DList) {
-                    Rectangle rectangle = new Rectangle(TAMANIO_CELDA, TAMANIO_CELDA);
-                    rectangle.setFill(dibujable.obtenerColor());
-                    //rectangle.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
-
-                    Text text = new Text(((Unidad) dibujable).obtenerPropietario().verNombre().substring(0, 1));
-                    text.setFont(Font.font("Verdana", 10));
-
-                    StackPane stack = new StackPane();
-                    stack.getChildren().addAll(rectangle, text);
-                    stack.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2D));
-                    this.gridPane.add(stack, (int) point2D.getX(), (int) point2D.getY());
-                }
 
 
             } catch (CoordenadaInvalidaException ignore) {
             }
         }
+    }
+
+    private String obtenerColorDeJugador(String propietario) {
+        if (propietario.equals(jugador1)) return "colorunidadesjugador1";
+        return "colorunidadesjugador2";
+
     }
 
     private void mostrarMenuDeOpciones(Point2D point2D) {

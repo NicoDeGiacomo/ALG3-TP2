@@ -12,6 +12,7 @@ import unidades.edificios.Edificio;
 import unidades.edificios.PlazaCentral;
 import unidades.estados.aldeano.Ocioso;
 import unidades.milicias.Aldeano;
+import unidades.milicias.Espadachin;
 import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
