@@ -156,7 +156,7 @@ public class Menu {
                 armaDeAsedio.montarArma();
                 answer = true;
             } catch (ArmaDeAsedioYaMontadaException error) {
-                Alerta.displayError("Error al montar.", error.getMessage());
+                Alerta.displayError("El arma ya esta montada.", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -168,7 +168,7 @@ public class Menu {
                 armaDeAsedio.desmontarArma();
                 answer = true;
             } catch (ArmaDeAsedioYaDesmontadaException error) {
-                Alerta.displayError("Error al desmontar.", error.getMessage());
+                Alerta.displayError("El arma ya esta desmontada.", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -204,8 +204,6 @@ public class Menu {
 
                 if (i == 0 && j == 0) {
                     button.setDisable(true);
-                    //Pantalla.addStyleClass(button, "boton-coord-disabled");
-                    //button.getStyleClass().clear();
                 }
             }
         }

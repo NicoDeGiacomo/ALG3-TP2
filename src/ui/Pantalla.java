@@ -87,15 +87,32 @@ public class Pantalla extends Application {
         colorJugador1.setWidth(10);
         addStyleClass(colorJugador1,"colorunidadesjugador1");
 
-        //colorJugador1.setText(this.jugador1);
+        Rectangle colorJugador2 = new Rectangle();
+        colorJugador2.setHeight(10);
+        colorJugador2.setWidth(10);
+        addStyleClass(colorJugador2,"colorunidadesjugador2");
 
         colorJugador1.setTranslateY(-TAMANIO_VENTANA/10);
         colorJugador1.setTranslateX(-TAMANIO_VENTANA/3);
 
+        colorJugador2.setTranslateY(-TAMANIO_VENTANA/10-30);
+        colorJugador2.setTranslateX(-TAMANIO_VENTANA/3);
+
+        Label nombreJugador1 = new Label();
+        nombreJugador1.setText(this.jugador1);
+
+        Label nombreJugador2 = new Label();
+        nombreJugador2.setText(this.jugador2);
+
+        nombreJugador1.setTranslateY(-TAMANIO_VENTANA/10-30);
+        nombreJugador1.setTranslateX(-TAMANIO_VENTANA/3+35);
+
+        nombreJugador2.setTranslateY(-TAMANIO_VENTANA/10-60);
+        nombreJugador2.setTranslateX(-TAMANIO_VENTANA/3+30);
 
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
-        layout.getChildren().addAll(this.infoLabel, this.gridPane, botonPasarTurno,colorJugador1);
+        layout.getChildren().addAll(this.infoLabel, this.gridPane, botonPasarTurno,colorJugador1,nombreJugador1,colorJugador2,nombreJugador2);
 
         return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
     }
@@ -155,17 +172,14 @@ public class Pantalla extends Application {
 
                 ImageView imagen = dibujable.obtenerImagen();
                 String propietario = ((Unidad)dibujable).obtenerPropietario().verNombre();
-                    String style = obtenerColorDeJugador(propietario) ;
-                    imagen.setFitWidth(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
-                    imagen.setFitHeight(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
-                    GridPane.setColumnSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
-                    GridPane.setRowSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
-                    imagen.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2DList.get(0)));
-                    addStyleClass(imagen,style);
-                    this.gridPane.add(imagen, ((int) point2DList.get(0).getX()), ((int) point2DList.get(0).getY()));
-
-
-
+                String style = obtenerColorDeJugador(propietario) ;
+                imagen.setFitWidth(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
+                imagen.setFitHeight(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
+                GridPane.setColumnSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
+                GridPane.setRowSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
+                imagen.setOnMouseClicked(e -> mostrarMenuDeOpciones(point2DList.get(0)));
+                addStyleClass(imagen,style);
+                this.gridPane.add(imagen, ((int) point2DList.get(0).getX()), ((int) point2DList.get(0).getY()));
             } catch (CoordenadaInvalidaException ignore) {
             }
         }

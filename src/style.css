@@ -55,7 +55,6 @@
     -fx-text-fill: beige;
     -fx-label-padding: 0, 0, 10, 10;
     -fx-alignment: center;
-    -fx-underline: true;
 }
 
 .logo {
@@ -64,7 +63,7 @@
 
 
 .colorunidadesjugador1 {
-    -fx-effect: innershadow( one-pass-box , orangered , 150 , 10 , 0 , 0 );
+    -fx-effect: innershadow( one-pass-box , yellow , 150 , 10 , 0 , 0 );
 }
 
 .colorunidadesjugador2 {
