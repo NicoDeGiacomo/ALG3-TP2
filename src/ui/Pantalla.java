@@ -57,8 +57,8 @@ public class Pantalla extends Application {
         this.menuDeJuego = crearMenuDeJuego();
 
         this.stage.setScene(menuPrincipal);
-        addStyleSheets(this.menuDeJuego, "style.css");
-        addStyleSheets(menuPrincipal, "style.css");
+        addStyleSheet(this.menuDeJuego);
+        addStyleSheet(menuPrincipal);
 
         Sonido.reproducirSonidoDeMenu();
 
@@ -73,7 +73,10 @@ public class Pantalla extends Application {
         addStyleClass(this.infoLabel, "game-info");
 
         Button botonPasarTurno = new Button("Terminar turno");
-        botonPasarTurno.setOnAction(e -> this.pasarTurno());
+        botonPasarTurno.setOnAction(e -> {
+            Sonido.reproducirSonidoDeBoton();
+            this.pasarTurno();
+        });
 
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
@@ -105,7 +108,7 @@ public class Pantalla extends Application {
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
             } catch (NombreRepetidoException | NumeroDeJugadoresException | ComienzoDePartidaException error) {
-                Alerta.display("Error al crear partida", error.getMessage());
+                Alerta.displayError("Error al crear partida", error.getMessage());
                 return;
             }
             stage.setScene(menuDeJuego);
@@ -176,7 +179,7 @@ public class Pantalla extends Application {
                 mostarPantallaDeVictoria(nombreAnterior);
                 return;
             }
-            Alerta.display("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
+            Alerta.displayMessage("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
             this.actualizarPantalla();
         } catch (ComienzoDePartidaException ignore) {
         }
@@ -193,7 +196,7 @@ public class Pantalla extends Application {
         layout.getChildren().addAll(label1, label2);
 
         Scene scene = new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
-        addStyleSheets(scene, "style.css");
+        addStyleSheet(scene);
         this.stage.setScene(scene);
     }
 
@@ -211,9 +214,9 @@ public class Pantalla extends Application {
         node.getStyleClass().add(style);
     }
 
-    static void addStyleSheets(Scene scene, String style) {
+    static void addStyleSheet(Scene scene) {
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(style);
+        scene.getStylesheets().add("style.css");
     }
 
 }

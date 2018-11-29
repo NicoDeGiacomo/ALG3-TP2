@@ -20,10 +20,15 @@
 }
 
 .boton-coord {
+    -fx-max-height: 75;
+    -fx-min-height: 75;
+    -fx-max-width: 75;
+    -fx-min-width: 75;
     -fx-background-color: green;
     -fx-padding: 10;
     -fx-hgap: 1;
     -fx-vgap: 1;
+    -fx-text-alignment: center;
 }
 
 .boton-coord:disabled{
@@ -31,6 +36,11 @@
     -fx-padding: 10;
     -fx-hgap: 1;
     -fx-vgap: 1;
+    -fx-max-height: 75;
+    -fx-min-height: 75;
+    -fx-max-width: 75;
+    -fx-min-width: 75;
+    -fx-text-alignment: center;
 }
 
 .grid-pane {

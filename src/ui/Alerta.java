@@ -10,7 +10,18 @@ import javafx.stage.Stage;
 
 class Alerta {
 
-    static void display(String title, String message) {
+    static void displayError(String title, String message) {
+
+        Sonido.reproducirSonidoDeError();
+
+        display(title, message);
+    }
+
+    static void displayMessage(String title, String message) {
+        display(title, message);
+    }
+
+    private static void display(String title, String message) {
         Stage window = new Stage();
 
         //Block events to other windows
@@ -30,8 +41,6 @@ class Alerta {
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
         window.setScene(scene);
-
-        Sonido.reproducirSonidoDeError();
 
         window.showAndWait();
     }
