@@ -74,8 +74,8 @@ public class Pantalla extends Application {
 
         Button botonPasarTurno = new Button("Terminar turno");
         botonPasarTurno.setOnAction(e -> {
-            this.pasarTurno();
             Sonido.reproducirSonidoDeBoton();
+            this.pasarTurno();
         });
 
         VBox layout = new VBox();
