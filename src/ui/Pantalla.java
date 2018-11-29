@@ -73,7 +73,10 @@ public class Pantalla extends Application {
         addStyleClass(this.infoLabel, "game-info");
 
         Button botonPasarTurno = new Button("Terminar turno");
-        botonPasarTurno.setOnAction(e -> this.pasarTurno());
+        botonPasarTurno.setOnAction(e -> {
+            this.pasarTurno();
+            Sonido.reproducirSonidoDeBoton();
+        });
 
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
