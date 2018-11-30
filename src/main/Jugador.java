@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import javafx.scene.paint.Color;
 import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificios.Castillo;
@@ -12,7 +13,6 @@ import unidades.edificios.Edificio;
 import unidades.edificios.PlazaCentral;
 import unidades.estados.aldeano.Ocioso;
 import unidades.milicias.Aldeano;
-import unidades.milicias.Espadachin;
 import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
@@ -29,6 +29,7 @@ public class Jugador {
     private int oro;
     private Mapa mapa;
     private int poblacion;
+    private Color color;
 
     public Jugador(String nombre, Mapa mapa) {
         this.nombre = nombre;
@@ -53,6 +54,11 @@ public class Jugador {
             }
             this.unidades.add(aldeano);
         }
+    }
+
+    public Jugador(String nombre, Mapa mapa, Color color) {
+        this(nombre, mapa);
+        this.color = color;
     }
 
     boolean tieneComoNombre(String nombre) {
@@ -101,7 +107,8 @@ public class Jugador {
         this.unidades.remove(unidad);
         try {
             this.mapa.quitarUnidad(unidad);
-        } catch (CoordenadaInvalidaException ignored) {}
+        } catch (CoordenadaInvalidaException ignored) {
+        }
     }
 
     public void removerUnidad(Milicia unidad) {
@@ -109,7 +116,8 @@ public class Jugador {
         this.unidades.remove(unidad);
         try {
             this.mapa.quitarUnidad(unidad);
-        } catch (CoordenadaInvalidaException ignored) {}
+        } catch (CoordenadaInvalidaException ignored) {
+        }
     }
 
     public List<Dibujable> unidadesCercanas(Castillo castillo) {
@@ -142,4 +150,9 @@ public class Jugador {
     public boolean todaviaEnJuego() {
         return this.unidades.stream().anyMatch(u -> u.getClass() == Castillo.class);
     }
+
+    public Color obtenerColor() {
+        return (this.color == null) ? Color.WHITE : this.color;
+    }
+
 }

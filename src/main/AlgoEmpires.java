@@ -3,6 +3,7 @@ package main;
 import excepciones.main.ComienzoDePartidaException;
 import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
+import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class AlgoEmpires {
         return this.jugadores.get(this.turno);
     }
 
-    public void agregarJugador(String nombre) throws NombreRepetidoException, NumeroDeJugadoresException {
+    public void agregarJugador(String nombre, Color color) throws NombreRepetidoException, NumeroDeJugadoresException {
         if (this.jugadores.size() >= CANTIDAD_JUGADORES_MAX)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar mas de %d jugadores", CANTIDAD_JUGADORES_MAX));
         for (Jugador jugador : this.jugadores) {
@@ -49,11 +50,14 @@ public class AlgoEmpires {
                 throw new NombreRepetidoException("No puede haber jugadores con el mismo nombre");
             }
         }
-
-        this.jugadores.add(new Jugador(nombre, this.mapa));
+        this.jugadores.add(new Jugador(nombre, this.mapa, color));
     }
 
     public Jugador obtenerJugadorEnTurno() {
         return this.jugadores.get(this.turno);
+    }
+
+    public List<Jugador> obtenerJugadores() {
+        return jugadores;
     }
 }

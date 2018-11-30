@@ -31,7 +31,7 @@
     -fx-text-alignment: center;
 }
 
-.boton-coord:disabled{
+.boton-coord:disabled {
     -fx-background-color: lightgreen;
     -fx-padding: 10;
     -fx-hgap: 1;
@@ -59,13 +59,4 @@
 
 .logo {
     -fx-image: url(/assets/graphics/AlgoEmpiresLogoScroll.png);
-}
-
-
-.colorunidadesjugador1 {
-    -fx-effect: innershadow( one-pass-box , yellow , 150 , 10 , 0 , 0 );
-}
-
-.colorunidadesjugador2 {
-    -fx-effect: innershadow( one-pass-box , white , 150 , 10 , 0 , 0 );
 }

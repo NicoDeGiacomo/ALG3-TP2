@@ -9,11 +9,8 @@ public interface Dibujable {
 
     int verTamanio();
 
-    Color obtenerColor();
-
     ImageView obtenerImagen();
 
     boolean mostrarMenu(Point2D point2D);
-
 
 }

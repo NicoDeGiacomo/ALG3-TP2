@@ -7,7 +7,6 @@ import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.ErrorDeConstruccionException;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 import unidades.Dibujable;
@@ -76,11 +75,6 @@ public class Castillo extends Edificio {
 
     @Override
     public void terminarConstruccion() {
-    }
-
-    @Override
-    public Color obtenerColor() {
-        return Color.GRAY;
     }
 
     @Override

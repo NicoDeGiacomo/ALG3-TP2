@@ -3,9 +3,9 @@ package main;
 import excepciones.main.ComienzoDePartidaException;
 import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
+import javafx.scene.paint.Color;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
-import unidades.estados.aldeano.Ocioso;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,16 +21,16 @@ public class AlgoEmpiresTests {
     @Test
     public void agregarDosJugadoresConElMismoNombreLanzaUnError() throws NombreRepetidoException, NumeroDeJugadoresException {
         AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
+        algoEmpires.agregarJugador("Nico", Color.web("#b04e50"));
 
-        assertThrows(NombreRepetidoException.class, () -> algoEmpires.agregarJugador("Nico"));
+        assertThrows(NombreRepetidoException.class, () -> algoEmpires.agregarJugador("Nico", Color.web("#b04e50")));
     }
 
     @Test
     public void noSePuedeAgregarMasDeDosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException {
         AlgoEmpires algoEmpires = crearJuego();
 
-        assertThrows(NumeroDeJugadoresException.class, () -> algoEmpires.agregarJugador("Peter"));
+        assertThrows(NumeroDeJugadoresException.class, () -> algoEmpires.agregarJugador("Peter", Color.web("#b04e50")));
     }
 
     @Test
@@ -57,8 +57,8 @@ public class AlgoEmpiresTests {
 
     private AlgoEmpires crearJuego() throws NombreRepetidoException, NumeroDeJugadoresException {
         AlgoEmpires algoEmpires = new AlgoEmpires();
-        algoEmpires.agregarJugador("Nico");
-        algoEmpires.agregarJugador("Gaston");
+        algoEmpires.agregarJugador("Nico", Color.web("#b04e50"));
+        algoEmpires.agregarJugador("Gaston", Color.web("#b04e50"));
         return algoEmpires;
     }
 

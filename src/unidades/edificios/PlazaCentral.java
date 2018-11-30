@@ -6,7 +6,6 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.ErrorDeConstruccionException;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 import unidades.milicias.Aldeano;
@@ -50,11 +49,6 @@ public class PlazaCentral extends Edificio {
 
     @Override
     public void ejecutarTareas() {
-    }
-
-    @Override
-    public Color obtenerColor() {
-        return Color.YELLOW;
     }
 
     @Override

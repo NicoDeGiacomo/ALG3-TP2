@@ -7,7 +7,6 @@ import excepciones.unidades.ErrorDeConstruccionException;
 import excepciones.unidades.UnidadNoEspecificadaException;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 import main.Jugador;
 import ui.Menu;
 import unidades.milicias.Arquero;
@@ -71,11 +70,6 @@ public class Cuartel extends Edificio {
 
     @Override
     public void ejecutarTareas() {
-    }
-
-    @Override
-    public Color obtenerColor() {
-        return Color.BROWN;
     }
 
     @Override
