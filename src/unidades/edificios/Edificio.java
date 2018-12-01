@@ -7,6 +7,7 @@ import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.ErrorDeConstruccionException;
 import excepciones.unidades.UnidadNoEspecificadaException;
+import javafx.scene.media.Media;
 import main.Jugador;
 import unidades.Unidad;
 import unidades.estados.unidades.EnConstruccion;
@@ -15,11 +16,14 @@ import unidades.milicias.Aldeano;
 import unidades.milicias.Milicia;
 
 import java.awt.geom.Point2D;
+import java.io.File;
+import java.util.Random;
 
 public abstract class Edificio extends Unidad {
 
     int tamanio;
     int alcance = 1;
+    private final int CANTIDAD_SONIDOS_MUERTE = 4;
 
     public Edificio(Jugador propietario) {
         super(propietario);
@@ -62,5 +66,10 @@ public abstract class Edificio extends Unidad {
     public abstract Milicia crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException, ErrorDeConstruccionException;
 
     public abstract boolean arreglar();
+
+    @Override
+    public Media obtenerSonidoDeMuerte() {
+        return new Media(new File("src/assets/sounds/unidades/edificios/muerte/muerte" + (new Random().nextInt(CANTIDAD_SONIDOS_MUERTE) + 1) + ".wav").toURI().toString());
+    }
 
 }

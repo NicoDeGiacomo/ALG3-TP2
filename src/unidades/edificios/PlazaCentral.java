@@ -75,9 +75,4 @@ public class PlazaCentral extends Edificio {
     public Media obtenerSonidoDeCreacion() {
         return new Media(new File("src/assets/sounds/unidades/plazasCentrales/creacion.wav").toURI().toString());
     }
-
-    @Override
-    public Media obtenerSonidoDeMuerte() {
-        return new Media(new File("src/assets/sounds/unidades/castillos/muerte.wav").toURI().toString());
-    }
 }

@@ -5,6 +5,7 @@ import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -120,6 +121,8 @@ public class Pantalla extends Application {
 
     private void actualizarPantalla() {
         List<Jugador> jugadores = this.algoEmpires.obtenerJugadores();
+
+        //TODO: Esto produce un BUG importantísimo. No borra las Labels viejas, solo las pisa. Despues de varios turnos se vuelve ilegible.
         for (Jugador jugador : jugadores) {
             Label label = new Label(String.format("JUGADOR: %s | ORO: %d | POBLACION: %d", jugador.verNombre(), jugador.verOro(), jugador.verPoblacion()));
             label.setPadding(new Insets(0, 0, 0, 10));
@@ -127,7 +130,6 @@ public class Pantalla extends Application {
             color.setHeight(10);
             color.setWidth(10);
             color.setFill(jugador.obtenerColor());
-
             this.infoPane.add(color, 0, jugadores.indexOf(jugador));
             this.infoPane.add(label, 1, jugadores.indexOf(jugador));
         }
