@@ -60,6 +60,7 @@ public abstract class Edificio extends Unidad {
     }
 
     protected void reportarMuerte() {
+        sonido.reproducirSonido(obtenerSonidoDeMuerte());
         this.propietario.removerUnidad(this);
     }
 

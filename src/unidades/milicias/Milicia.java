@@ -4,7 +4,6 @@ import excepciones.unidades.AtaqueIncorrectoException;
 import javafx.scene.media.Media;
 import main.Jugador;
 import unidades.Unidad;
-
 import java.io.File;
 import java.util.Random;
 
@@ -44,11 +43,12 @@ public abstract class Milicia extends Unidad {
     }
 
     protected void reportarMuerte() {
+        sonido.reproducirSonido(obtenerSonidoDeMuerte());
         this.propietario.removerUnidad(this);
     }
 
     @Override
     public Media obtenerSonidoDeMuerte() {
-        return new Media(new File("src/assets/sounds/unidades/milicias/muerte/muerte" + new Random().nextInt(CANTIDAD_SONIDOS_MUERTE) + 1 + ".wav").toURI().toString());
+        return new Media(new File("src/assets/sounds/unidades/milicias/muerte/muerte" + (new Random().nextInt(CANTIDAD_SONIDOS_MUERTE) + 1) + ".wav").toURI().toString());
     }
 }

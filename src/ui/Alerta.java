@@ -10,9 +10,11 @@ import javafx.stage.Stage;
 
 class Alerta {
 
+    private static Sonido sonido = new Sonido();
+
     static void displayError(String title, String message) {
 
-        Sonido.reproducirSonidoDeError();
+        sonido.reproducirSonidoDeError();
 
         display(title, message);
     }

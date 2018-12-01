@@ -5,37 +5,40 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 
-class Sonido {
+public class Sonido {
 
     static private MediaPlayer mediaPlayer;
 
-    static void reproducirSonidoDeError() {
+    public Sonido() {
+    }
+
+    public void reproducirSonidoDeError() {
         Media sonido = new Media(new File("src/assets/sounds/main/error.wav").toURI().toString());
         reproducirSonido(sonido);
     }
 
-    static void reproducirSonidoDeMenu() {
+    public void reproducirSonidoDeMenu() {
         Media sonido = new Media(new File("src/assets/sounds/main/menu3.wav").toURI().toString());
         reproducirSonido(sonido);
     }
 
-    static void reproducirSonidoDeFondo() {
+    public void reproducirSonidoDeFondo() {
         Media sonido = new Media(new File("src/assets/sounds/main/menu2.wav").toURI().toString());
         reproducirSonido(sonido);
     }
 
-    static void reproducirSonidoDeBoton() {
+    public void reproducirSonidoDeBoton() {
         Media sonido = new Media(new File("src/assets/sounds/main/clickboton.wav").toURI().toString());
         reproducirSonido(sonido);
     }
 
-    static void reproducirSonidoDeVictoria() {
+    public void reproducirSonidoDeVictoria() {
         detenerSonidos();
         Media sonido = new Media(new File("src/assets/sounds/main/victoria.wav").toURI().toString());
         reproducirSonido(sonido);
     }
 
-    static void reproducirSonido(Media sonido) {
+    public void reproducirSonido(Media sonido) {
         mediaPlayer = new MediaPlayer(sonido);
         mediaPlayer.play();
         //TODO: Que haga loop!

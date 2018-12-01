@@ -4,6 +4,7 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
+import ui.Sonido;
 import unidades.estados.unidades.EstadoDeUnidad;
 import unidades.estados.unidades.Muerto;
 import unidades.estados.unidades.Vivo;
@@ -15,6 +16,8 @@ public abstract class Unidad implements Dibujable, Escuchable {
     protected EstadoDeUnidad estadoDeUnidad;
 
     protected Jugador propietario;
+
+    protected Sonido sonido = new Sonido();
 
     protected int vida;
 

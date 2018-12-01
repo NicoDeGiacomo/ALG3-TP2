@@ -27,6 +27,7 @@ import unidades.Dibujable;
 import unidades.Unidad;
 
 import java.awt.geom.Point2D;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class Pantalla extends Application {
     private Mapa mapa;
     private AlgoEmpires algoEmpires;
     private List<Dibujable> dibujablesUsados;
+    private Sonido sonido = new Sonido();
 
     private final int TAMANIO_VENTANA = 600;
     private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 5;
@@ -61,7 +63,7 @@ public class Pantalla extends Application {
         addStyleSheet(this.menuDeJuego);
         addStyleSheet(menuPrincipal);
 
-        Sonido.reproducirSonidoDeMenu();
+        sonido.reproducirSonidoDeMenu();
 
         this.stage.show();
     }
@@ -75,7 +77,7 @@ public class Pantalla extends Application {
 
         Button botonPasarTurno = new Button("Terminar turno");
         botonPasarTurno.setOnAction(e -> {
-            Sonido.reproducirSonidoDeBoton();
+            sonido.reproducirSonidoDeBoton();
             this.pasarTurno();
         });
 
@@ -104,8 +106,8 @@ public class Pantalla extends Application {
 
         button.setOnAction(e -> {
             Sonido.detenerSonidos();
-            Sonido.reproducirSonidoDeBoton();
-            Sonido.reproducirSonidoDeFondo();
+            sonido.reproducirSonidoDeBoton();
+            sonido.reproducirSonidoDeFondo();
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
             } catch (NombreRepetidoException | NumeroDeJugadoresException | ComienzoDePartidaException error) {
@@ -122,7 +124,6 @@ public class Pantalla extends Application {
     private void actualizarPantalla() {
         List<Jugador> jugadores = this.algoEmpires.obtenerJugadores();
 
-        //TODO: Esto produce un BUG importantísimo. No borra las Labels viejas, solo las pisa. Despues de varios turnos se vuelve ilegible.
         for (Jugador jugador : jugadores) {
             Label label = new Label(String.format("JUGADOR: %s | ORO: %d | POBLACION: %d", jugador.verNombre(), jugador.verOro(), jugador.verPoblacion()));
             label.setPadding(new Insets(0, 0, 0, 10));
@@ -130,6 +131,13 @@ public class Pantalla extends Application {
             color.setHeight(10);
             color.setWidth(10);
             color.setFill(jugador.obtenerColor());
+
+            ObservableList<Node> children = this.infoPane.getChildren();
+
+            if(children.size() != 0)
+                children.remove(jugadores.indexOf(jugador) * 2, children.size());
+
+
             this.infoPane.add(color, 0, jugadores.indexOf(jugador));
             this.infoPane.add(label, 1, jugadores.indexOf(jugador));
         }
@@ -191,7 +199,7 @@ public class Pantalla extends Application {
     }
 
     private void mostarPantallaDeVictoria(String nombreAnterior) {
-        Sonido.reproducirSonidoDeVictoria();
+        sonido.reproducirSonidoDeVictoria();
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
         Label label1 = new Label("Juego terminado.");
