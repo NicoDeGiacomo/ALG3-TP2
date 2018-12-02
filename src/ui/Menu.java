@@ -280,6 +280,10 @@ public class Menu {
                 unidad.atacarUnidad(coordenada);
                 Sonido.reproducirSonido(unidad.obtenerSonidoDeAtaque());
                 answer = true;
+                Mapa mapa = Mapa.obtenerInstancia();
+                mapa.obtenerDibujable(coordenada);
+                if (unidad.verVida() <= 0)
+                    Sonido.reproducirSonido(unidad.obtenerSonidoDeMuerte());
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.displayError("Error al atacar", error.getMessage());
                 answer = false;
