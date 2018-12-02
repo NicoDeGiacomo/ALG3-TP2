@@ -138,6 +138,7 @@ public class Pantalla extends Application {
 
                 ImageView imagen = new ImageView();
                 imagen.setImage(dibujable.obtenerImagen());
+                imagen.setPickOnBounds(true);
                 imagen.setFitWidth(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
                 imagen.setFitHeight(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
                 GridPane.setColumnSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));
