@@ -4,7 +4,6 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import main.Jugador;
-import ui.Sonido;
 import unidades.estados.unidades.EstadoDeUnidad;
 import unidades.estados.unidades.Muerto;
 import unidades.estados.unidades.Vivo;
@@ -30,7 +29,7 @@ public abstract class Unidad implements Dibujable, Escuchable {
         this.vida -= danio;
         if (this.vida <= 0) {
             this.estadoDeUnidad = new Muerto();
-            reportarMuerte();
+            destruir();
         }
     }
 
@@ -84,6 +83,6 @@ public abstract class Unidad implements Dibujable, Escuchable {
 
     public abstract void ejecutarTareas();
 
-    protected abstract void reportarMuerte();
+    public abstract void destruir();
 
 }
