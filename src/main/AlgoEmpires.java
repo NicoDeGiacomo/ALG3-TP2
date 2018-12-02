@@ -20,7 +20,7 @@ public class AlgoEmpires {
     public AlgoEmpires() {
         this.jugadores = new LinkedList<>();
         this.turno = null;
-        this.mapa = new Mapa();
+        this.mapa = Mapa.obtenerInstancia();
     }
 
     public Mapa comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {

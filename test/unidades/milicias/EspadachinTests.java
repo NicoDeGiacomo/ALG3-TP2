@@ -9,12 +9,13 @@ import unidades.estados.unidades.Muerto;
 
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class EspadachinTests {
 
     @Test
     public void test01espadachinSonCreadosCorrectamente() {
-        Espadachin espadachin = new Espadachin(new Jugador("Nico", new Mapa()));
+        Espadachin espadachin = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
         assertEquals(100, espadachin.verVida());
         assertEquals(1, espadachin.verTamanio());
         espadachin.ejecutarTareas();
@@ -23,8 +24,8 @@ public class EspadachinTests {
 
     @Test
     public void test02espadachinProbocaDanioAMilicias() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
-        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
+        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         assertEquals(100, espadachinHaceDanio.verVida());
         assertEquals(75, espadachinRecibeDanio.verVida());
@@ -32,8 +33,8 @@ public class EspadachinTests {
 
     @Test
     public void test03espadachinProbocanDanioAEdificios() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
-        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico", new Mapa()));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
+        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico", mock(Mapa.class)));
         espadachinHaceDanio.provocarDanio(plaza);
         assertEquals(espadachinHaceDanio.verVida(), 100);
         assertEquals(435, plaza.verVida());
@@ -41,7 +42,7 @@ public class EspadachinTests {
 
     @Test
     public void test04espadachinEsDaniado() {
-        Espadachin espadachin = new Espadachin(new Jugador("Nico", new Mapa()));
+        Espadachin espadachin = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
         assertEquals(100, espadachin.verVida());
         espadachin.recibirDanio(20);
         assertEquals(80, espadachin.verVida());
@@ -49,8 +50,8 @@ public class EspadachinTests {
 
     @Test
     public void test05espadachinMataAMilicias() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
-        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico", new Mapa()));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
+        Espadachin espadachinRecibeDanio = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
         espadachinHaceDanio.provocarDanio(espadachinRecibeDanio);
@@ -64,8 +65,8 @@ public class EspadachinTests {
 
     @Test
     public void test06espadachinDestruyeEdificio() throws AtaqueIncorrectoException {
-        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", new Mapa()));
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", new Mapa()));
+        Espadachin espadachinHaceDanio = new Espadachin(new Jugador("Nico", mock(Mapa.class)));
+        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class)));
         cuartel.recibirDanio(235);
         assertTrue(cuartel.esMapeable());
         espadachinHaceDanio.provocarDanio(cuartel);

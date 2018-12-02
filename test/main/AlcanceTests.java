@@ -1,7 +1,10 @@
 package main;
 
 import excepciones.mapa.CoordenadaInvalidaException;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import unidades.edificios.Castillo;
 import unidades.milicias.ArmaDeAsedio;
 import unidades.milicias.Arquero;
@@ -16,9 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 public class AlcanceTests {
+    @Before
+    public void before() {
+        Mapa.destruir();
+    }
+
     @Test
     public void Test01UnidadEstaAlAlcanceDeArqueroEnOrigen() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Arquero arquero = new Arquero(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(0, 0),
                 coordenada2 = new Point2D.Double(3, 0),
@@ -40,7 +48,7 @@ public class AlcanceTests {
 
     @Test
     public void Test01UnidadEstaAlAlcanceDeArmaDeAsedio() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         ArmaDeAsedio arma = new ArmaDeAsedio(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(0, 0),
                 coordenada2 = new Point2D.Double(5, 0),
@@ -60,7 +68,7 @@ public class AlcanceTests {
 
     @Test
     public void Test02UnidadEstaAlAlcanceDeEspadachin() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Espadachin espadachin = new Espadachin(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(0, 0),
                 coordenada2 = new Point2D.Double(1, 0),
@@ -80,7 +88,7 @@ public class AlcanceTests {
 
     @Test
     public void Test03UnidadEstaAlAlcanceDeCastillo() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Castillo castillo = new Castillo(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(0, 0),
                 coordenada2 = new Point2D.Double(0, 4),
@@ -96,7 +104,7 @@ public class AlcanceTests {
 
     @Test
     public void Test04UnidadEstaAlAlcanceDeArqueroDesplazado() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Arquero arquero = new Arquero(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(3, 3),
                 coordenada2 = new Point2D.Double(0, 0),
@@ -118,7 +126,7 @@ public class AlcanceTests {
 
     @Test
     public void Test05ObtenerDibujablesAlAlcance() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
 
         Arquero arqueroEnemigo = new Arquero(mock(Jugador.class));

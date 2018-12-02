@@ -2,6 +2,7 @@ package main;
 
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.mapa.UnidadNoMovibleException;
+import org.junit.Before;
 import org.junit.Test;
 import unidades.Dibujable;
 import unidades.Unidad;
@@ -18,11 +19,16 @@ import static org.mockito.Mockito.mock;
 
 public class MapaTests {
 
+    @Before
+    public void before() {
+        Mapa.destruir();
+    }
+
     /*1 - Tests Iniciales*/
 
     @Test
     public void Test101MapaRecienCreadoObtenerDibujableDaNull() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Dibujable dibujable = mapa.obtenerDibujable(new Point2D.Double(0, 0));
 
         assertNull(dibujable);
@@ -30,7 +36,7 @@ public class MapaTests {
 
     @Test
     public void Test102MapaSeCreaDesocupado() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         boolean estaOcupado = false;
 
         for (int i = 0; i < Mapa.TAMANIO; i++) {
@@ -44,14 +50,14 @@ public class MapaTests {
 
     @Test
     public void Test103QuitarUnidadDeMapaVacioNoHaceNada() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
 
         assertNull(mapa.obtenerDibujable(new Point2D.Double(0, 0)));
     }
 
     @Test
     public void Test104ColocarUnidadNullNoHaceNada() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Unidad unidad;
 
         mapa.colocarDibujable(null, new Point2D.Double(0, 0));
@@ -63,14 +69,14 @@ public class MapaTests {
 
     @Test
     public void Test106ObtenerUnidadesAlAlcanceDeNullTraeConjuntoVacio() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
 
         assertEquals(0, mapa.dibujablesAlAlcance(null).size());
     }
 
     @Test
     public void Test107AgregarUnidadCercanaANullNoHaceNada() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Arquero arquero = new Arquero(mock(Jugador.class));
         boolean estaOcupado = false;
 
@@ -87,7 +93,7 @@ public class MapaTests {
 
     @Test
     public void Test108VerAlcanceDeNullDaFalse() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Point2D origen = new Point2D.Double(0, 0),
                 destino = new Point2D.Double(1, 1);
 
@@ -98,7 +104,7 @@ public class MapaTests {
 
     @Test
     public void Test201MapaColocaMiliciaEnCoordenadaProvista() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero = new Arquero(jugador);
         Point2D coordenada1 = new Point2D.Double(1, 1),
@@ -111,7 +117,7 @@ public class MapaTests {
 
     @Test
     public void Test202MapaColocaEdificioEnCoordenadaProvista() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Cuartel cuartel = new Cuartel(jugador);
         Point2D coordenada1 = new Point2D.Double(1, 1),
@@ -128,7 +134,7 @@ public class MapaTests {
 
     @Test
     public void Test203MapaDevuelveReferenciaAMilicia() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Arquero arquero = new Arquero(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(1, 1);
 
@@ -141,7 +147,7 @@ public class MapaTests {
 
     @Test
     public void Test204MapaDevuelveReferenciaAEdificio() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Cuartel cuartel = new Cuartel(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(1, 1),
                 coordenada2 = new Point2D.Double(1, 2),
@@ -167,7 +173,7 @@ public class MapaTests {
 
     @Test
     public void Test205MapaDevuelveSiCeldaEstaAlAlcanceDeUnidad() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Arquero arquero = new Arquero(mock(Jugador.class));
         Point2D coordenada1 = new Point2D.Double(1, 1),
                 coordenada2 = new Point2D.Double(1, 2),
@@ -183,7 +189,7 @@ public class MapaTests {
 
     @Test
     public void Test206MapaDevuelveReferenciaAUnidadesCercanas() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero = new Arquero(jugador);
         Cuartel cuartel = new Cuartel(jugador);
@@ -200,7 +206,7 @@ public class MapaTests {
 
     @Test
     public void Test207UnidadSeMueveUnCasillero() throws CoordenadaInvalidaException, UnidadNoMovibleException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero = new Arquero(jugador);
         Point2D origen = new Point2D.Double(20, 19),
@@ -224,7 +230,7 @@ public class MapaTests {
 
     @Test
     public void Test208MapaCreaCastilloEnCuadranteOpuestoAlYaCreado() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador1 = mock(Jugador.class),
                 jugador2 = mock(Jugador.class);
         Castillo castillo1 = new Castillo(jugador1),
@@ -251,7 +257,7 @@ public class MapaTests {
 
     @Test
     public void Test209MapaPuedeCrearSoloDosCastillos() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Castillo castillo1 = new Castillo(jugador),
                 castillo2 = new Castillo(jugador),
@@ -276,7 +282,7 @@ public class MapaTests {
 
     @Test
     public void Test301ObtenerDibujableConCoordenadaFueraDeRangoDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
 
         try {
             mapa.obtenerDibujable(new Point2D.Double(200, 200));
@@ -293,7 +299,7 @@ public class MapaTests {
 
     @Test
     public void Test302ColocarMiliciaEncimaDeOtraDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero1 = new Arquero(jugador),
                 arquero2 = new Arquero(jugador);
@@ -309,7 +315,7 @@ public class MapaTests {
 
     @Test
     public void Test303ColocarEdificioEncimaDeOtroDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Cuartel cuartel1 = new Cuartel(jugador),
                 cuartel2 = new Cuartel(jugador);
@@ -334,7 +340,7 @@ public class MapaTests {
 
     @Test
     public void Test304ColocarUnidadFueraDeRangoDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero = new Arquero(jugador);
 
@@ -353,7 +359,7 @@ public class MapaTests {
 
     @Test
     public void Test305MoverUnidadNoMovibleDaError() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Cuartel cuartel = new Cuartel(jugador);
         Point2D origen = new Point2D.Double(0, 0),
@@ -370,7 +376,7 @@ public class MapaTests {
 
     @Test
     public void Test306MoverUnidadNullDaError() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Point2D destino = new Point2D.Double(5, 5);
 
         try {
@@ -382,7 +388,7 @@ public class MapaTests {
 
     @Test
     public void Test307MoverUnidadMasDeUnCasilleroDaError() throws CoordenadaInvalidaException, UnidadNoMovibleException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero = new Arquero(jugador);
         Point2D origen = new Point2D.Double(15, 15),
@@ -399,7 +405,7 @@ public class MapaTests {
 
     @Test
     public void Test308MoverUnidadEncimaDeOtraDaError() throws UnidadNoMovibleException, CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero1 = new Arquero(jugador),
                 arquero2 = new Arquero(jugador);
@@ -418,7 +424,7 @@ public class MapaTests {
 
     @Test
     public void Test309ColocarUnidadCercanaEnLugarOcupadoDaError() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Cuartel cuartel = new Cuartel(jugador);
         Arquero arquero = new Arquero(jugador);
@@ -438,7 +444,7 @@ public class MapaTests {
 
     @Test
     public void Test310ObtenerDibujableConCoordenadaNullDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
 
         try {
             mapa.obtenerDibujable(null);
@@ -449,7 +455,7 @@ public class MapaTests {
 
     @Test
     public void Test311SaberSiEstaAlAlcanceConCoordenadaNullDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Point2D origen = new Point2D.Double(1, 1),
                 destino = new Point2D.Double(2, 2);
 
@@ -468,7 +474,7 @@ public class MapaTests {
 
     @Test
     public void Test311SaberSiEstaAlAlcanceConCoordenadaFueraDeRangoDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Point2D origen = new Point2D.Double(200, 200);
 
         try {
@@ -480,7 +486,7 @@ public class MapaTests {
 
     @Test
     public void Test312AgregarMuchasUnidadesCercanasDaError() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Arquero arquero = new Arquero(jugador);
         Cuartel cuartel = new Cuartel(jugador);
@@ -501,7 +507,7 @@ public class MapaTests {
 
     @Test
     public void Test313AgregarUnidadCercanaEnCoordenadaSinDibujableDaError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Point2D coordenada = new Point2D.Double(0, 0);
         Cuartel cuartel = new Cuartel(jugador);
@@ -515,7 +521,7 @@ public class MapaTests {
 
     @Test
     public void Test314AgregarUnidadCernadaEnCoordenadaLejanaDaError() throws CoordenadaInvalidaException {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
         Jugador jugador = mock(Jugador.class);
         Point2D coordenada1 = new Point2D.Double(0, 0),
                 coordenada2 = new Point2D.Double(15, 15);
@@ -533,7 +539,7 @@ public class MapaTests {
 
     @Test
     public void Test315ObtenerCoordenadasDeNullLanzaUnError() {
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.obtenerInstancia();
 
         assertThrows(CoordenadaInvalidaException.class, () -> mapa.obtenerCoordenadas(null));
     }

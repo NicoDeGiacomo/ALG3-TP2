@@ -4,6 +4,7 @@ import excepciones.main.ComienzoDePartidaException;
 import excepciones.main.NombreRepetidoException;
 import excepciones.main.NumeroDeJugadoresException;
 import javafx.scene.paint.Color;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
 
@@ -11,6 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AlgoEmpiresTests {
+
+    @Before
+    public void before() {
+        Mapa.destruir();
+    }
 
     @Test
     public void noSePuedeComenzarElJuegoConMenosDeDosJugadores() {
