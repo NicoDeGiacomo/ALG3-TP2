@@ -120,25 +120,7 @@ public class Pantalla extends Application {
     }
 
     private void actualizarPantalla() {
-        List<Jugador> jugadores = this.algoEmpires.obtenerJugadores();
-
-        for (Jugador jugador : jugadores) {
-            Label label = new Label(String.format("JUGADOR: %s | ORO: %d | POBLACION: %d", jugador.verNombre(), jugador.verOro(), jugador.verPoblacion()));
-            label.setPadding(new Insets(0, 0, 0, 10));
-            Rectangle color = new Rectangle();
-            color.setHeight(10);
-            color.setWidth(10);
-            color.setFill(jugador.obtenerColor());
-
-            ObservableList<Node> children = this.infoPane.getChildren();
-
-            if(children.size() != 0)
-                children.remove(jugadores.indexOf(jugador) * 2, children.size());
-
-
-            this.infoPane.add(color, 0, jugadores.indexOf(jugador));
-            this.infoPane.add(label, 1, jugadores.indexOf(jugador));
-        }
+        actualizarInfo();
 
         //Pinto el mapa entero de verde
         for (int i = 0; i < Mapa.TAMANIO; i++) {
@@ -163,6 +145,25 @@ public class Pantalla extends Application {
                 this.gridPane.add(imagen, ((int) point2DList.get(0).getX()), ((int) point2DList.get(0).getY()));
             } catch (CoordenadaInvalidaException ignore) {
             }
+        }
+    }
+
+    private void actualizarInfo() {
+        List<Jugador> jugadores = this.algoEmpires.obtenerJugadores();
+        for (Jugador jugador : jugadores) {
+            Label label = new Label(String.format("JUGADOR: %s | ORO: %d | POBLACION: %d", jugador.verNombre(), jugador.verOro(), jugador.verPoblacion()));
+            label.setPadding(new Insets(0, 0, 0, 10));
+            Rectangle color = new Rectangle();
+            color.setHeight(10);
+            color.setWidth(10);
+            color.setFill(jugador.obtenerColor());
+
+            ObservableList<Node> children = this.infoPane.getChildren();
+            if(children.size() != 0)
+                children.remove(jugadores.indexOf(jugador) * 2, children.size());
+
+            this.infoPane.add(color, 0, jugadores.indexOf(jugador));
+            this.infoPane.add(label, 1, jugadores.indexOf(jugador));
         }
     }
 
@@ -191,6 +192,7 @@ public class Pantalla extends Application {
                 return;
             }
             Alerta.displayMessage("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
+            this.actualizarInfo();
         } catch (ComienzoDePartidaException ignore) {
         }
     }
