@@ -59,19 +59,19 @@ public class Menu {
                 cuartel.crearArquero();
                 answer = true;
             } catch (ErrorDeConstruccionException error) {
-                Alerta.displayError("Error al crear la unidad", error.getMessage());
+                Alerta.displayError("Error al Crear la Unidad.", error.getMessage());
                 answer = false;
             }
             window.close();
         });
 
-        Button crearEspadachin = new Button("Crear Espadachin");
+        Button crearEspadachin = new Button("Crear Espadachín");
         crearEspadachin.setOnAction(e -> {
             try {
                 cuartel.crearEspadachin();
                 answer = true;
             } catch (ErrorDeConstruccionException error) {
-                Alerta.displayError("Error al crear la unidad", error.getMessage());
+                Alerta.displayError("Error al Crear la Unidad.", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -97,7 +97,7 @@ public class Menu {
                 aldeano.construir(new Cuartel(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
             } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
-                Alerta.displayError("Error al crear edificios", error.getMessage());
+                Alerta.displayError("Error al Crear Edificio", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -115,7 +115,7 @@ public class Menu {
                 aldeano.construir(new PlazaCentral(aldeano.obtenerPropietario()), coordenada);
                 answer = true;
             } catch (AldeanoOcupadoException | OroInsuficienteException | CreacionDeCastilloException | CoordenadaInvalidaException error) {
-                Alerta.displayError("Error al crear edificios", error.getMessage());
+                Alerta.displayError("Error al Crear Edificio", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -149,7 +149,7 @@ public class Menu {
 
         Button destruirEspadachin = crearBotonDeMuerte(espadachin, window);
 
-        return mostrarMenu(window, "Menu de Espadachin", espadachin.verVida(), moverEspadachin, atacarUnidad, destruirEspadachin);
+        return mostrarMenu(window, "Menu de Espadachín", espadachin.verVida(), moverEspadachin, atacarUnidad, destruirEspadachin);
     }
 
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
@@ -165,7 +165,7 @@ public class Menu {
                 armaDeAsedio.montarArma();
                 answer = true;
             } catch (ArmaDeAsedioYaMontadaException error) {
-                Alerta.displayError("El arma ya esta montada.", error.getMessage());
+                Alerta.displayError("El Arma de Asedio ya está montada!", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -177,7 +177,7 @@ public class Menu {
                 armaDeAsedio.desmontarArma();
                 answer = true;
             } catch (ArmaDeAsedioYaDesmontadaException error) {
-                Alerta.displayError("El arma ya esta desmontada.", error.getMessage());
+                Alerta.displayError("El Arma de Asedio ya está desmontada!", error.getMessage());
                 answer = false;
             }
             window.close();
@@ -234,7 +234,7 @@ public class Menu {
         window.setTitle(titulo);
         window.setMinWidth(300);
         Label label = new Label();
-        label.setText("Elija la acción a realizar:");
+        label.setText("Elija la Acción a realizar:");
         VBox layout = new VBox(10);
 
         Label vidaActual = new Label(String.format("Vida: %s", vida));
@@ -254,7 +254,7 @@ public class Menu {
 
     private static Button crearBotonDeMovimiento(Unidad unidad, Point2D point2D, Stage window) {
         answer = false;
-        Button mover = new Button("Mover unidad");
+        Button mover = new Button("Mover Unidad");
         mover.setOnAction(e -> {
             Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, unidad.verVelocidad());
             if (coordenada == null) {
@@ -267,7 +267,7 @@ public class Menu {
                 Sonido.reproducirSonido(unidad.obtenerSonidoDeMovimiento());
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
-                Alerta.displayError("Error al mover la unidad", error.getMessage());
+                Alerta.displayError("Error al mover la Unidad.", error.getMessage());
                 answer = false;
             }
 
@@ -295,7 +295,7 @@ public class Menu {
                 if (atacada.verVida() <= 0)
                     Sonido.reproducirSonido(unidad.obtenerSonidoDeMuerte());
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
-                Alerta.displayError("Error al atacar", error.getMessage());
+                Alerta.displayError("Error al Atacar.", error.getMessage());
                 answer = false;
             }
 
@@ -307,13 +307,13 @@ public class Menu {
 
     private static Button crearBotonDeCreacion(Edificio edificio, Stage window) {
         answer = false;
-        Button crearUnidad = new Button("Crear unidad");
+        Button crearUnidad = new Button("Crear Unidad");
         crearUnidad.setOnAction(e -> {
             try {
                 Sonido.reproducirSonido(edificio.crearUnidad().obtenerSonidoDeCreacion());
                 answer = true;
             } catch (ErrorDeConstruccionException | OroInsuficienteException | UnidadNoEspecificadaException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
-                Alerta.displayError("Error al crear la unidad", error.getMessage());
+                Alerta.displayError("Error al crear la Unidad.", error.getMessage());
                 answer = false;
             }
             window.close();

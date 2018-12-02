@@ -173,6 +173,11 @@ public class Pantalla extends Application {
     private void mostrarMenuDeOpciones(Point2D point2D) {
         try {
             Dibujable dibujable = this.mapa.obtenerDibujable(point2D);
+            if(dibujable == null) {
+                //TODO: Ver cómo reportar las muertes antes de que se refresque el Mapa.
+                return;
+            }
+
             //TODO: Si no son del mismo equipo, mostrar la vida de la unidad
             if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()) || this.dibujablesUsados.contains(dibujable))
                 return;

@@ -64,7 +64,7 @@ public class Mapa {
 
         for (int i = 0; i < TAMANIO; i++) {
             for (int j = 0; j < TAMANIO; j++) {
-                if (this.mapa[i][j] != null && !dibujables.contains(mapa[i][j]))
+                if (this.mapa[i][j] != null && !dibujables.contains(mapa[i][j]) && ((Unidad) this.mapa[i][j]).esMapeable())
                     dibujables.add(this.mapa[i][j]);
             }
         }
