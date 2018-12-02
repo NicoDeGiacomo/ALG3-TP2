@@ -191,7 +191,6 @@ public class Pantalla extends Application {
                 return;
             }
             Alerta.displayMessage("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
-            this.actualizarPantalla();
         } catch (ComienzoDePartidaException ignore) {
         }
     }
