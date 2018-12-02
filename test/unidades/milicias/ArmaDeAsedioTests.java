@@ -16,7 +16,7 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void test01armaDeAsedioSonCreadosCorrectamente() throws ArmaDeAsedioYaMontadaException {
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico", mock(Mapa.class)));
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(mock(Jugador.class));
         assertTrue(armaDeAsedio.esMovible());
         assertEquals(150, armaDeAsedio.verVida());
         assertEquals(1, armaDeAsedio.verTamanio());
@@ -27,8 +27,8 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void test02armaDeAsedioNoProbocaDanioAMilicias() throws ArmaDeAsedioYaMontadaException {
-        ArmaDeAsedio armaDeAsedioHaceDanio = new ArmaDeAsedio(new Jugador("Nico", mock(Mapa.class)));
-        ArmaDeAsedio armaDeAsedioRecibeDanio = new ArmaDeAsedio(new Jugador("Peter", mock(Mapa.class)));
+        ArmaDeAsedio armaDeAsedioHaceDanio = new ArmaDeAsedio(mock(Jugador.class));
+        ArmaDeAsedio armaDeAsedioRecibeDanio = new ArmaDeAsedio(mock(Jugador.class));
         armaDeAsedioHaceDanio.montarArma();
 
         try {
@@ -43,8 +43,8 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void test03armaDeAsedioProbocaDanioAEdificios() throws ArmaDeAsedioYaMontadaException, AtaqueIncorrectoException {
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico", mock(Mapa.class)));
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Peter", mock(Mapa.class)));
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         armaDeAsedio.montarArma();
 
         armaDeAsedio.provocarDanio(plazaCentral);
@@ -55,7 +55,7 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void test04armaDeAsedioEsDaniada() {
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico", mock(Mapa.class)));
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(mock(Jugador.class));
         assertEquals(150, armaDeAsedio.verVida());
         armaDeAsedio.recibirDanio(20);
         assertEquals(130, armaDeAsedio.verVida());
@@ -63,8 +63,8 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void test05armaDeAsedioNoEstaMontada() throws ArmaDeAsedioYaMontadaException, ArmaDeAsedioYaDesmontadaException, AtaqueIncorrectoException {
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico", mock(Mapa.class)));
-        PlazaCentral plazaCentral = new PlazaCentral(new Jugador("Peter", mock(Mapa.class)));
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         armaDeAsedio.montarArma();
         armaDeAsedio.desmontarArma();
 
@@ -76,7 +76,7 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void test06armaDeAsedioYaEstaDesmontada() {
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico", mock(Mapa.class)));
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(mock(Jugador.class));
 
         try {
             armaDeAsedio.desmontarArma();
@@ -87,7 +87,7 @@ public class ArmaDeAsedioTests {
 
     @Test
     public void test07armaDeAsedioYaEstaMontada() throws ArmaDeAsedioYaMontadaException {
-        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(new Jugador("Nico", mock(Mapa.class)));
+        ArmaDeAsedio armaDeAsedio = new ArmaDeAsedio(mock(Jugador.class));
         armaDeAsedio.montarArma();
 
         try {

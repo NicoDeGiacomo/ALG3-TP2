@@ -13,17 +13,23 @@ import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.stubbing.Answer;
 import unidades.edificios.Cuartel;
 import unidades.edificios.PlazaCentral;
+import unidades.estados.aldeano.EstadoDeAldeano;
+import unidades.estados.aldeano.Ocioso;
 import unidades.estados.unidades.EnConstruccion;
 import unidades.estados.unidades.Vivo;
+
 import java.awt.geom.Point2D;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AldeanoTests {
 
     @Test
     public void test01aldeanoSonCreadosCorrectamente() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
         assertEquals(50, aldeano.verVida());
         assertEquals(1, aldeano.verTamanio());
         assertTrue(aldeano.esMovible());
@@ -31,8 +37,8 @@ public class AldeanoTests {
 
     @Test
     public void test02aldeanoNoHaceDanio() {
-        Aldeano aldeanoHaceDanio = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
-        Aldeano aldeanoRecibeDanio = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Aldeano aldeanoHaceDanio = new Aldeano(mock(Jugador.class));
+        Aldeano aldeanoRecibeDanio = new Aldeano(mock(Jugador.class));
 
         try {
             aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
@@ -46,7 +52,7 @@ public class AldeanoTests {
 
     @Test
     public void test03aldeanoSonDaniadas() {
-        Aldeano aldeano = new Aldeano(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
         assertEquals(50, aldeano.verVida());
         aldeano.recibirDanio(20);
         assertEquals(30, aldeano.verVida());
@@ -55,9 +61,8 @@ public class AldeanoTests {
 
     @Test
     public void test05aldeanoReparandoEdificioTieneVidaMaximaYAldeanoCambiaDeEstado() throws AldeanoOcupadoException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
 
         aldeano.reparar(plazaCentral);
         aldeano.ejecutarTareas();
@@ -74,10 +79,8 @@ public class AldeanoTests {
 
     @Test
     public void test06aldeanoConstruyendoPlaza() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = mock(Jugador.class);
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        Whitebox.setInternalState(jugador, "oro", 100);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
 
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
@@ -87,10 +90,8 @@ public class AldeanoTests {
 
     @Test
     public void test07aldeanoConstruyendoCuartel() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        Cuartel cuartel = new Cuartel(jugador);
-        Whitebox.setInternalState(jugador, "oro", 200);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         aldeano.construir(cuartel, new Point2D.Double(1, 1));
         assertEquals(EnConstruccion.class, cuartel.verEstadoDeUnidad().getClass());
         assertTrue(cuartel.esMapeable());
@@ -99,10 +100,8 @@ public class AldeanoTests {
 
     @Test
     public void test06aldeanoConstruyePlazaYPasanTresTurnos() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        Whitebox.setInternalState(jugador, "oro", 200);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         assertEquals(EnConstruccion.class, plazaCentral.verEstadoDeUnidad().getClass());
         assertTrue(plazaCentral.esMapeable());
@@ -116,45 +115,21 @@ public class AldeanoTests {
     }
 
     @Test
-    public void test08aldeanoObtieneOro() throws LimiteDePoblacionException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
-        Cuartel cuartel = new Cuartel(jugador);
-        try {
-            jugador.agregarUnidad(espadachin,cuartel);
-        } catch (OroInsuficienteException e) {
-            assertEquals("El oro del jugador es insuficiente.", e.getMessage());
-        }
-    }
-    @Test
-    public void test09aldeanoObtieneOro() throws LimiteDePoblacionException, CoordenadaInvalidaException {
-        Mapa mapa = mock(Mapa.class, (Answer) invocation -> null);
-        Jugador jugador = new Jugador("Nico", mapa);
+    public void test09aldeanoObtieneOro() {
+        Mapa.destruir();
+        Jugador jugador = new Jugador("Nico");
         Aldeano aldeano = new Aldeano(jugador);
-        ArmaDeAsedio espadachin = new ArmaDeAsedio(jugador);
-        Cuartel cuartel = new Cuartel(jugador);
 
-        try {
-            mapa.colocarDibujable(cuartel, new Point2D.Double(1,1));
-        } catch (CoordenadaInvalidaException ignored) {
-            fail("Error Inesperado");
-        }
-
-        for (int i = 0 ; i < 5; i ++ ){
-            aldeano.ejecutarTareas();
-        }
-        try {
-            jugador.agregarUnidad(espadachin,cuartel);
-        } catch (OroInsuficienteException e) {
-            fail("El oro del jugador es insuficiente.");
-        }
+        Whitebox.setInternalState(jugador, "oro", 0);
+        assertEquals(0, Whitebox.getInternalState(jugador, "oro"));
+        aldeano.ejecutarTareas();
+        assertEquals(20, Whitebox.getInternalState(jugador, "oro"));
     }
 
     @Test
     public void test09aldeanoReparando() throws AldeanoOcupadoException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         plazaCentral.recibirDanio(100);
         aldeano.reparar(plazaCentral);
         aldeano.ejecutarTareas();
@@ -163,9 +138,8 @@ public class AldeanoTests {
 
     @Test
     public void test10aldeanoEstaOcupadoReparando() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         plazaCentral.recibirDanio(100);
         aldeano.reparar(plazaCentral);
         try {
@@ -178,10 +152,8 @@ public class AldeanoTests {
 
     @Test
     public void test11aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        Whitebox.setInternalState(jugador, "oro", 200);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         try {
             aldeano.reparar(plazaCentral);
@@ -193,10 +165,8 @@ public class AldeanoTests {
 
     @Test
     public void test12aldeanoEstaOcupadoConstruyendo() throws AldeanoOcupadoException, OroInsuficienteException, CreacionDeCastilloException, CoordenadaInvalidaException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
-        Whitebox.setInternalState(jugador, "oro", 200);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         try {
             aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
@@ -208,9 +178,8 @@ public class AldeanoTests {
 
     @Test
     public void test14aldeanoEstaOcupadoReparando() throws AldeanoOcupadoException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Aldeano aldeano = new Aldeano(jugador);
-        PlazaCentral plazaCentral = new PlazaCentral(jugador);
+        Aldeano aldeano = new Aldeano(mock(Jugador.class));
+        PlazaCentral plazaCentral = new PlazaCentral(mock(Jugador.class));
         plazaCentral.recibirDanio(100);
         aldeano.reparar(plazaCentral);
         try {

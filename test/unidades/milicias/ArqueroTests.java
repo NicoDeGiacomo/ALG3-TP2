@@ -13,7 +13,7 @@ public class ArqueroTests {
 
     @Test
     public void test01arqueroSonCreadosCorrectamente() {
-        Arquero arquero = new Arquero(new Jugador("Nico", mock(Mapa.class)));
+        Arquero arquero = new Arquero(mock(Jugador.class));
         assertEquals(75, arquero.verVida());
         assertEquals(1, arquero.verTamanio());
         arquero.ejecutarTareas();
@@ -21,8 +21,8 @@ public class ArqueroTests {
 
     @Test
     public void test02arqueroProbocanDanioAMilicias() throws AtaqueIncorrectoException {
-        Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico", mock(Mapa.class)));
-        Arquero arqueroRecibeDanio = new Arquero(new Jugador("Nico", mock(Mapa.class)));
+        Arquero arqueroHaceDanio = new Arquero(mock(Jugador.class));
+        Arquero arqueroRecibeDanio = new Arquero(mock(Jugador.class));
         arqueroHaceDanio.provocarDanio(arqueroRecibeDanio);
         assertEquals(75, arqueroHaceDanio.verVida());
         assertEquals(60, arqueroRecibeDanio.verVida());
@@ -30,8 +30,8 @@ public class ArqueroTests {
 
     @Test
     public void test03arqueroProbocanDanioAEdificios() throws AtaqueIncorrectoException {
-        Arquero arqueroHaceDanio = new Arquero(new Jugador("Nico", mock(Mapa.class)));
-        PlazaCentral plaza = new PlazaCentral(new Jugador("Nico", mock(Mapa.class)));
+        Arquero arqueroHaceDanio = new Arquero(mock(Jugador.class));
+        PlazaCentral plaza = new PlazaCentral(mock(Jugador.class));
         arqueroHaceDanio.provocarDanio(plaza);
         assertEquals(75, arqueroHaceDanio.verVida());
         assertEquals(440, plaza.verVida());
@@ -39,7 +39,7 @@ public class ArqueroTests {
 
     @Test
     public void test04arqueroSonDaniadas() {
-        Arquero arquero = new Arquero(new Jugador("Nico", mock(Mapa.class)));
+        Arquero arquero = new Arquero(mock(Jugador.class));
         assertEquals(75, arquero.verVida());
         arquero.recibirDanio(20);
         assertEquals(55, arquero.verVida());

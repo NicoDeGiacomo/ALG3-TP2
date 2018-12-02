@@ -31,10 +31,10 @@ public class Jugador {
     private int poblacion;
     private Color color;
 
-    public Jugador(String nombre, Mapa mapa) {
+    public Jugador(String nombre) {
         this.nombre = nombre;
         this.unidades = new LinkedList<>();
-        this.mapa = mapa;
+        this.mapa = Mapa.obtenerInstancia();
 
         this.oro = 100;
         this.poblacion = CANTIDAD_ALDEANOS_INICIALES;
@@ -56,8 +56,8 @@ public class Jugador {
         }
     }
 
-    public Jugador(String nombre, Mapa mapa, Color color) {
-        this(nombre, mapa);
+    public Jugador(String nombre, Color color) {
+        this(nombre);
         this.color = color;
     }
 

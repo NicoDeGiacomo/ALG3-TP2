@@ -15,12 +15,10 @@ public class AlgoEmpires {
 
     private List<Jugador> jugadores;
     private Integer turno;
-    private Mapa mapa;
 
     public AlgoEmpires() {
         this.jugadores = new LinkedList<>();
         this.turno = null;
-        this.mapa = Mapa.obtenerInstancia();
     }
 
     public void comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {
@@ -49,7 +47,7 @@ public class AlgoEmpires {
                 throw new NombreRepetidoException("No puede haber jugadores con el mismo nombre");
             }
         }
-        this.jugadores.add(new Jugador(nombre, this.mapa, color));
+        this.jugadores.add(new Jugador(nombre, color));
     }
 
     public Jugador obtenerJugadorEnTurno() {

@@ -17,7 +17,7 @@ public class CuartelTests {
 
     @Test
     public void test01cuartelSonCreadosCorrectamente() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         cuartel.ejecutarTareas();
         assertEquals(250, cuartel.verVida());
         assertEquals(4, cuartel.verTamanio());
@@ -27,9 +27,7 @@ public class CuartelTests {
 
     @Test
     public void test02cuartelCreaArqueroYEspadachinConOro() throws ErrorDeConstruccionException {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Cuartel cuartel = new Cuartel(jugador);
-        Whitebox.setInternalState(jugador, "oro", 200);
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         cuartel.terminarConstruccion();
         cuartel.crearEspadachin();
         cuartel.crearArquero();
@@ -38,8 +36,8 @@ public class CuartelTests {
 
     @Test
     public void test03cuartelNoHaceDanio() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
-        Espadachin armaDeAsedio = new Espadachin(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
+        Espadachin armaDeAsedio = new Espadachin(mock(Jugador.class));
         try {
             cuartel.provocarDanio(armaDeAsedio);
         } catch (AtaqueIncorrectoException e) {
@@ -49,8 +47,7 @@ public class CuartelTests {
 
     @Test
     public void test04cuartelCreaArqueroSinOro() {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Cuartel cuartel = new Cuartel(jugador);
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         cuartel.terminarConstruccion();
         try {
             cuartel.crearArquero();
@@ -61,8 +58,7 @@ public class CuartelTests {
 
     @Test
     public void test05cuartelCreaEspadachinSinOro() {
-        Jugador jugador = new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null));
-        Cuartel cuartel = new Cuartel(jugador);
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         cuartel.terminarConstruccion();
         try {
             cuartel.crearEspadachin();
@@ -73,7 +69,7 @@ public class CuartelTests {
 
     @Test
     public void test06cuartelCreaUnidadSinExpecificar() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         try {
             cuartel.crearUnidad();
         } catch (UnidadNoEspecificadaException e) {
@@ -83,7 +79,7 @@ public class CuartelTests {
 
     @Test
     public void test07cuartelSonDaniados() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(20);
         assertEquals(230, cuartel.verVida());
@@ -91,7 +87,7 @@ public class CuartelTests {
 
     @Test
     public void test08cuartelEsArregladoYNoLlegaAVidaMaxima() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(60);
         assertEquals(190, cuartel.verVida());
@@ -101,7 +97,7 @@ public class CuartelTests {
 
     @Test
     public void test05cuartelEsArregladoYLlegaAVidaMaxima() {
-        Cuartel cuartel = new Cuartel(new Jugador("Nico", mock(Mapa.class, (Answer) invocation -> null)));
+        Cuartel cuartel = new Cuartel(mock(Jugador.class));
         assertEquals(250, cuartel.verVida());
         cuartel.recibirDanio(1);
         assertEquals(249, cuartel.verVida());
