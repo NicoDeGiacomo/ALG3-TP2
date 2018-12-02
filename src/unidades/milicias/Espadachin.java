@@ -1,5 +1,6 @@
 package unidades.milicias;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
@@ -24,8 +25,8 @@ public class Espadachin extends Milicia {
     }
 
     @Override
-    public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/espadachin.png");
+    public Image obtenerImagen() {
+        return new Image("/assets/graphics/espadachin.png", true);
     }
 
     @Override

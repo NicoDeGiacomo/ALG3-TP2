@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.ErrorDeConstruccionException;
 import excepciones.unidades.UnidadNoEspecificadaException;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
@@ -73,8 +74,8 @@ public class Cuartel extends Edificio {
     }
 
     @Override
-    public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/barracks.png");
+    public Image obtenerImagen() {
+        return new Image("/assets/graphics/barracks.png", true);
     }
 
     @Override

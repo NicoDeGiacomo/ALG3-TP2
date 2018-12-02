@@ -5,6 +5,7 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.AldeanoOcupadoException;
 import excepciones.unidades.AtaqueIncorrectoException;
 import excepciones.unidades.CreacionDeCastilloException;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
@@ -52,8 +53,8 @@ public class Aldeano extends Milicia {
     }
 
     @Override
-    public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/farmer.png");
+    public Image obtenerImagen() {
+        return new Image("/assets/graphics/farmer.png", true);
     }
 
     @Override

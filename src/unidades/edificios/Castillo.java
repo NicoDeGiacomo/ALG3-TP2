@@ -5,6 +5,7 @@ import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.ErrorDeConstruccionException;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
@@ -78,8 +79,8 @@ public class Castillo extends Edificio {
     }
 
     @Override
-    public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/castle.png");
+    public Image obtenerImagen() {
+        return new Image("/assets/graphics/castle.png", true);
     }
 
     @Override

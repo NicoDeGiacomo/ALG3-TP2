@@ -4,6 +4,7 @@ import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.ErrorDeConstruccionException;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
@@ -52,8 +53,8 @@ public class PlazaCentral extends Edificio {
     }
 
     @Override
-    public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/village.png");
+    public Image obtenerImagen() {
+        return new Image("/assets/graphics/village.png", true);
     }
 
     @Override

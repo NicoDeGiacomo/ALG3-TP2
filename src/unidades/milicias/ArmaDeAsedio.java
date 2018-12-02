@@ -3,6 +3,7 @@ package unidades.milicias;
 import excepciones.unidades.ArmaDeAsedioYaDesmontadaException;
 import excepciones.unidades.ArmaDeAsedioYaMontadaException;
 import excepciones.unidades.AtaqueIncorrectoException;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
@@ -52,8 +53,8 @@ public class ArmaDeAsedio extends Milicia {
     }
 
     @Override
-    public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/ballista.png");
+    public Image obtenerImagen() {
+        return new Image("/assets/graphics/ballista.png", true);
 
     }
 

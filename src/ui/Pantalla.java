@@ -120,6 +120,7 @@ public class Pantalla extends Application {
     }
 
     private void actualizarPantalla() {
+        this.gridPane.getChildren().clear();
         actualizarInfo();
 
         //Pinto el mapa entero de verde
@@ -135,7 +136,8 @@ public class Pantalla extends Application {
             try {
                 List<Point2D> point2DList = this.mapa.obtenerCoordenadas(dibujable);
 
-                ImageView imagen = dibujable.obtenerImagen();
+                ImageView imagen = new ImageView();
+                imagen.setImage(dibujable.obtenerImagen());
                 imagen.setFitWidth(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
                 imagen.setFitHeight(TAMANIO_CELDA * ((int) Math.sqrt(dibujable.verTamanio())));
                 GridPane.setColumnSpan(imagen, ((int) Math.sqrt(dibujable.verTamanio())));

@@ -1,6 +1,7 @@
 package unidades.milicias;
 
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
@@ -26,8 +27,8 @@ public class Arquero extends Milicia {
     }
 
     @Override
-    public ImageView obtenerImagen() {
-        return new ImageView("/assets/graphics/archer.png");
+    public Image obtenerImagen() {
+        return new Image("/assets/graphics/archer.png", true);
     }
 
     @Override

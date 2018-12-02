@@ -35,7 +35,7 @@ public class Sonido {
         reproducirSonido(sonido);
     }
 
-    public static void reproducirSonido(Media sonido) {
+    static void reproducirSonido(Media sonido) {
         if (sonido == null)
             return;
         mediaPlayer = new MediaPlayer(sonido);
