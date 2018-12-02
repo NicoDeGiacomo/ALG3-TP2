@@ -43,7 +43,7 @@ public class Aldeano extends Milicia {
         return this.estado.esMovible();
     }
 
-    public void reparar(Edificio edificio) throws AldeanoOcupadoException {
+    void reparar(Edificio edificio) throws AldeanoOcupadoException {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 

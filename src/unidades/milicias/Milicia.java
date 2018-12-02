@@ -42,8 +42,7 @@ public abstract class Milicia extends Unidad {
             unidad.recibirDanio(this.danio);
     }
 
-    protected void reportarMuerte() {
-        sonido.reproducirSonido(obtenerSonidoDeMuerte());
+    public void reportarMuerte() {
         this.propietario.removerUnidad(this);
     }
 

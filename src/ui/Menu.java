@@ -31,7 +31,6 @@ public class Menu {
 
     static private boolean answer = false;
     static private Point2D posAnswer;
-    private static Sonido sonido = new Sonido();
 
     public static boolean mostrarMenuDeCastillo(Castillo castillo) {
         Stage window = new Stage();
@@ -254,7 +253,7 @@ public class Menu {
 
             try {
                 unidad.moverUnidad(coordenada);
-                sonido.reproducirSonido(unidad.obtenerSonidoDeMovimiento());
+                Sonido.reproducirSonido(unidad.obtenerSonidoDeMovimiento());
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
                 Alerta.displayError("Error al mover la unidad", error.getMessage());
@@ -279,7 +278,7 @@ public class Menu {
 
             try {
                 unidad.atacarUnidad(coordenada);
-                sonido.reproducirSonido(unidad.obtenerSonidoDeAtaque());
+                Sonido.reproducirSonido(unidad.obtenerSonidoDeAtaque());
                 answer = true;
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.displayError("Error al atacar", error.getMessage());
@@ -297,7 +296,7 @@ public class Menu {
         Button crearUnidad = new Button("Crear unidad");
         crearUnidad.setOnAction(e -> {
             try {
-                sonido.reproducirSonido(edificio.crearUnidad().obtenerSonidoDeCreacion());
+                Sonido.reproducirSonido(edificio.crearUnidad().obtenerSonidoDeCreacion());
                 answer = true;
             } catch (ErrorDeConstruccionException | OroInsuficienteException | UnidadNoEspecificadaException | LimiteDePoblacionException | CoordenadaInvalidaException error) {
                 Alerta.displayError("Error al crear la unidad", error.getMessage());

@@ -27,7 +27,6 @@ import unidades.Dibujable;
 import unidades.Unidad;
 
 import java.awt.geom.Point2D;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,10 +35,9 @@ public class Pantalla extends Application {
     private Mapa mapa;
     private AlgoEmpires algoEmpires;
     private List<Dibujable> dibujablesUsados;
-    private Sonido sonido = new Sonido();
 
     private final int TAMANIO_VENTANA = 600;
-    private final int TAMANIO_CELDA = (TAMANIO_VENTANA / mapa.TAMANIO) - 5;
+    private final int TAMANIO_CELDA = (TAMANIO_VENTANA / Mapa.TAMANIO) - 5;
 
     private GridPane gridPane;
     private GridPane infoPane;
@@ -63,7 +61,7 @@ public class Pantalla extends Application {
         addStyleSheet(this.menuDeJuego);
         addStyleSheet(menuPrincipal);
 
-        sonido.reproducirSonidoDeMenu();
+        Sonido.reproducirSonidoDeMenu();
 
         this.stage.show();
     }
@@ -77,7 +75,7 @@ public class Pantalla extends Application {
 
         Button botonPasarTurno = new Button("Terminar turno");
         botonPasarTurno.setOnAction(e -> {
-            sonido.reproducirSonidoDeBoton();
+            Sonido.reproducirSonidoDeBoton();
             this.pasarTurno();
         });
 
@@ -106,8 +104,8 @@ public class Pantalla extends Application {
 
         button.setOnAction(e -> {
             Sonido.detenerSonidos();
-            sonido.reproducirSonidoDeBoton();
-            sonido.reproducirSonidoDeFondo();
+            Sonido.reproducirSonidoDeBoton();
+            Sonido.reproducirSonidoDeFondo();
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
             } catch (NombreRepetidoException | NumeroDeJugadoresException | ComienzoDePartidaException error) {
@@ -199,7 +197,7 @@ public class Pantalla extends Application {
     }
 
     private void mostarPantallaDeVictoria(String nombreAnterior) {
-        sonido.reproducirSonidoDeVictoria();
+        Sonido.reproducirSonidoDeVictoria();
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
         Label label1 = new Label("Juego terminado.");

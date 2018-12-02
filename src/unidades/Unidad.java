@@ -17,8 +17,6 @@ public abstract class Unidad implements Dibujable, Escuchable {
 
     protected Jugador propietario;
 
-    protected Sonido sonido = new Sonido();
-
     protected int vida;
 
     protected int precio;
