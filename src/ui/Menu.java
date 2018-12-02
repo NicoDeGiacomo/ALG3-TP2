@@ -277,12 +277,11 @@ public class Menu {
             }
 
             try {
+                Unidad atacada = (Unidad) Mapa.obtenerInstancia().obtenerDibujable(coordenada);
                 unidad.atacarUnidad(coordenada);
                 Sonido.reproducirSonido(unidad.obtenerSonidoDeAtaque());
                 answer = true;
-                Mapa mapa = Mapa.obtenerInstancia();
-                mapa.obtenerDibujable(coordenada);
-                if (unidad.verVida() <= 0)
+                if (atacada.verVida() <= 0)
                     Sonido.reproducirSonido(unidad.obtenerSonidoDeMuerte());
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.displayError("Error al atacar", error.getMessage());

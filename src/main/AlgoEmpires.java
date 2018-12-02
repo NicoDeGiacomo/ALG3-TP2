@@ -23,14 +23,13 @@ public class AlgoEmpires {
         this.mapa = Mapa.obtenerInstancia();
     }
 
-    public Mapa comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {
+    public void comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {
         if (this.turno != null)
             throw new ComienzoDePartidaException("La partida ya está en juego");
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d jugadores", CANTIDAD_JUGADORES_MIN));
 
         this.turno = 0;
-        return this.mapa;
     }
 
     public Jugador pasarTurno() throws ComienzoDePartidaException {

@@ -217,7 +217,8 @@ public class Pantalla extends Application {
         this.algoEmpires.agregarJugador(jugador1, Color.WHITE.darker());
         this.algoEmpires.agregarJugador(jugador2, Color.YELLOW.darker());
 
-        this.mapa = this.algoEmpires.comenzarPartida();
+        this.algoEmpires.comenzarPartida();
+        this.mapa = Mapa.obtenerInstancia();
     }
 
     static void addStyleClass(Node node, String style) {
