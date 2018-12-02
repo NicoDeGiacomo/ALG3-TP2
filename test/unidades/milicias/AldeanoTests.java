@@ -43,7 +43,7 @@ public class AldeanoTests {
         try {
             aldeanoHaceDanio.provocarDanio(aldeanoRecibeDanio);
         } catch (AtaqueIncorrectoException e) {
-            assertEquals("El aldeano no puede atacar.", e.getMessage());
+            assertEquals("El Aldeano NO puede Atacar!", e.getMessage());
         }
 
         assertEquals(50, aldeanoHaceDanio.verVida());
@@ -73,7 +73,7 @@ public class AldeanoTests {
         try {
             aldeano.reparar(plazaCentral);
         } catch (AldeanoOcupadoException e) {
-            assertEquals("El aldeano se encuentra reparando.", e.getMessage());
+            assertEquals("El Aldeano se encuentra Reparando.", e.getMessage());
         }
     }
 
@@ -145,7 +145,7 @@ public class AldeanoTests {
         try {
             aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         } catch (AldeanoOcupadoException e) {
-            assertEquals("El aldeano se encuentra reparando.", e.getMessage());
+            assertEquals("El Aldeano se encuentra Reparando.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }
@@ -158,7 +158,7 @@ public class AldeanoTests {
         try {
             aldeano.reparar(plazaCentral);
         } catch (AldeanoOcupadoException e) {
-            assertEquals("El aldeano se encuentra construyendo.", e.getMessage());
+            assertEquals("El Aldeano se encuentra Construyendo.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }
@@ -171,7 +171,7 @@ public class AldeanoTests {
         try {
             aldeano.construir(plazaCentral, new Point2D.Double(1, 1));
         } catch (AldeanoOcupadoException e) {
-            assertEquals("El aldeano se encuentra construyendo.", e.getMessage());
+            assertEquals("El Aldeano se encuentra Construyendo.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }
@@ -185,7 +185,7 @@ public class AldeanoTests {
         try {
             aldeano.reparar(plazaCentral);
         } catch (AldeanoOcupadoException e) {
-            assertEquals("El aldeano se encuentra reparando.", e.getMessage());
+            assertEquals("El Aldeano se encuentra Reparando.", e.getMessage());
         }
         aldeano.ejecutarTareas();
     }

@@ -36,7 +36,7 @@ public class Aldeano extends Milicia {
 
     @Override
     public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {
-        throw new AtaqueIncorrectoException("El aldeano no puede atacar.");
+        throw new AtaqueIncorrectoException("El Aldeano NO puede Atacar!");
     }
 
     @Override

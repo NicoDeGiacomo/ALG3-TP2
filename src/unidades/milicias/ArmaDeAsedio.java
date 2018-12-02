@@ -44,7 +44,7 @@ public class ArmaDeAsedio extends Milicia {
     @Override
     public void provocarDanio(Unidad unidad) throws AtaqueIncorrectoException {
         if (unidad.esMovible())
-            throw new AtaqueIncorrectoException("El arma de asedio solo puede atacar edificios");
+            throw new AtaqueIncorrectoException("El Arma de Asedio SOLO puede atacar Edificios!");
         this.estadoDeArma.provocarDanio(unidad, this.danioAEdificios);
     }
 

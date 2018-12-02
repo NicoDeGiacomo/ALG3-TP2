@@ -17,7 +17,7 @@ public class ArmaDesmontada extends EstadoDeArmaDeAsedio {
 
     @Override
     public EstadoDeArmaDeAsedio desmontarArma() throws ArmaDeAsedioYaDesmontadaException {
-        throw new ArmaDeAsedioYaDesmontadaException("El arma de asedio se encuentra desmontada.");
+        throw new ArmaDeAsedioYaDesmontadaException("El Arma de Asedio se encuentra Desmontada.");
     }
 
     @Override

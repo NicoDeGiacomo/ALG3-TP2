@@ -37,7 +37,7 @@ public class PlazaCentral extends Edificio {
     @Override
     public Milicia crearUnidad() throws ErrorDeConstruccionException {
         if (!this.estadoDeUnidad.estaHabilitado())
-            throw new ErrorDeConstruccionException("El edificios está en construcción");
+            throw new ErrorDeConstruccionException("El Edificio está en Construcción!");
 
         Aldeano aldeano = new Aldeano(this.propietario);
         try {

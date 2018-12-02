@@ -95,12 +95,12 @@ public class Jugador {
 
     private void verificarOroSuficiente(int precio) throws OroInsuficienteException {
         if (oro < precio)
-            throw new OroInsuficienteException("El oro del jugador es insuficiente.");
+            throw new OroInsuficienteException("El Oro del Jugador es insuficiente!");
     }
 
     private void verificarPoblacionSuficiente() throws LimiteDePoblacionException {
         if (this.poblacion >= CANTIDAD_MAX_POBLACION)
-            throw new LimiteDePoblacionException("El limite de población llegó al máximo.");
+            throw new LimiteDePoblacionException("El límite de Población llegó al Máximo!");
     }
 
     public void removerUnidad(Edificio unidad) {
@@ -135,7 +135,7 @@ public class Jugador {
     public void atacarConUnidadACoordenada(Unidad unidad, Point2D coordenada) throws CoordenadaInvalidaException, AtaqueIncorrectoException {
         Unidad unidadEnemiga = (Unidad) this.mapa.obtenerDibujable(coordenada);
         if (unidadEnemiga == null)
-            throw new AtaqueIncorrectoException("No hay una unidad enemiga en esa coordenada!");
+            throw new AtaqueIncorrectoException("No hay una Unidad Enemiga en esa Coordenada!");
         unidad.provocarDanio(unidadEnemiga);
     }
 

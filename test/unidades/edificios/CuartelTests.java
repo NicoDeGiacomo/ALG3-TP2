@@ -73,7 +73,7 @@ public class CuartelTests {
         try {
             cuartel.crearUnidad();
         } catch (UnidadNoEspecificadaException e) {
-            assertEquals("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero", e.getMessage());
+            assertEquals("El Cuartel puede crear más de una Unidad. Utilizar metodos: crearEspadachin / crearArquero", e.getMessage());
         }
     }
 

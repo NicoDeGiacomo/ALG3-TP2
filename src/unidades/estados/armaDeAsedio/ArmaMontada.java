@@ -24,6 +24,6 @@ public class ArmaMontada extends EstadoDeArmaDeAsedio {
 
     @Override
     public EstadoDeArmaDeAsedio montarArma() throws ArmaDeAsedioYaMontadaException {
-        throw new ArmaDeAsedioYaMontadaException("El arma de asedio se encuentra montada.");
+        throw new ArmaDeAsedioYaMontadaException("El Arma de Asedio se encuentra Montada.");
     }
 }

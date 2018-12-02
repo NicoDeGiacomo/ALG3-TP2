@@ -71,7 +71,7 @@ public class Castillo extends Edificio {
 
     @Override
     public void comenzarConstruccion(Aldeano aldeano, Point2D pos) throws CreacionDeCastilloException {
-        throw new CreacionDeCastilloException("No se puede construir un castillo.");
+        throw new CreacionDeCastilloException("No se puede construir un Castillo.");
     }
 
     @Override

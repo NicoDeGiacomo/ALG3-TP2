@@ -37,11 +37,11 @@ public class Construyendo extends EstadoDeAldeano {
 
     @Override
     public EstadoDeAldeano comenzarReparacion(Jugador propietario, Edificio edificio) throws AldeanoOcupadoException {
-        throw new AldeanoOcupadoException("El aldeano se encuentra construyendo.");
+        throw new AldeanoOcupadoException("El Aldeano se encuentra Construyendo.");
     }
 
     @Override
     public EstadoDeAldeano comenzarConstruccion(Jugador propietario, Edificio edificio, Aldeano aldeano, Point2D pos) throws AldeanoOcupadoException {
-        throw new AldeanoOcupadoException("El aldeano se encuentra construyendo.");
+        throw new AldeanoOcupadoException("El Aldeano se encuentra Construyendo.");
     }
 }

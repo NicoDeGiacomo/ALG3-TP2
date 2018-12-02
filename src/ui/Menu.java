@@ -20,10 +20,7 @@ import unidades.edificios.Castillo;
 import unidades.edificios.Cuartel;
 import unidades.edificios.Edificio;
 import unidades.edificios.PlazaCentral;
-import unidades.milicias.Aldeano;
-import unidades.milicias.ArmaDeAsedio;
-import unidades.milicias.Arquero;
-import unidades.milicias.Espadachin;
+import unidades.milicias.*;
 
 import java.awt.geom.Point2D;
 
@@ -37,7 +34,9 @@ public class Menu {
 
         Button crearUnidad = crearBotonDeCreacion(castillo, window);
 
-        mostrarMenu(window, "Menu de Castillo", castillo.verVida(), crearUnidad);
+        Button destruirCastillo = crearBotonDeDestruccion(castillo, window);
+
+        mostrarMenu(window, "Menu de Castillo", castillo.verVida(), crearUnidad, destruirCastillo);
         return answer;
     }
 
@@ -46,7 +45,9 @@ public class Menu {
 
         Button crearUnidad = crearBotonDeCreacion(plazaCentral, window);
 
-        return mostrarMenu(window, "Menu de Plaza Central", plazaCentral.verVida(), crearUnidad);
+        Button destruirPlazaCentral = crearBotonDeDestruccion(plazaCentral, window);
+
+        return mostrarMenu(window, "Menu de Plaza Central", plazaCentral.verVida(), crearUnidad, destruirPlazaCentral);
     }
 
     public static boolean mostrarMenuDeCuartel(Cuartel cuartel) {
@@ -76,7 +77,9 @@ public class Menu {
             window.close();
         });
 
-        return mostrarMenu(window, "Menu de Cuartel", cuartel.verVida(), crearArquero, crearEspadachin);
+        Button destruirCuartel = crearBotonDeDestruccion(cuartel, window);
+
+        return mostrarMenu(window, "Menu de Cuartel", cuartel.verVida(), crearArquero, crearEspadachin, destruirCuartel);
     }
 
     public static boolean mostrarMenuDeAldeano(Aldeano aldeano, Point2D point2D) {
@@ -120,7 +123,9 @@ public class Menu {
 
         Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window);
 
-        return mostrarMenu(window, "Menu de Aldeano", aldeano.verVida(), crearCuartel, crearPlazaCentral, moverAldeano);
+        Button destruirAldeano = crearBotonDeMuerte(aldeano, window);
+
+        return mostrarMenu(window, "Menu de Aldeano", aldeano.verVida(), crearCuartel, crearPlazaCentral, moverAldeano, destruirAldeano);
     }
 
     public static boolean mostrarMenuDeArquero(Arquero arquero, Point2D point2D) {
@@ -130,7 +135,9 @@ public class Menu {
 
         Button atacarUnidad = crearBotonDeAtaque(arquero, point2D, window);
 
-        return mostrarMenu(window, "Menu de Arquero", arquero.verVida(), moverArquero, atacarUnidad);
+        Button destruirArquero = crearBotonDeMuerte(arquero, window);
+
+        return mostrarMenu(window, "Menu de Arquero", arquero.verVida(), moverArquero, atacarUnidad, destruirArquero);
     }
 
     public static boolean mostrarMenuDeEspadachin(Espadachin espadachin, Point2D point2D) {
@@ -140,7 +147,9 @@ public class Menu {
 
         Button atacarUnidad = crearBotonDeAtaque(espadachin, point2D, window);
 
-        return mostrarMenu(window, "Menu de Espadachin", espadachin.verVida(), moverEspadachin, atacarUnidad);
+        Button destruirEspadachin = crearBotonDeMuerte(espadachin, window);
+
+        return mostrarMenu(window, "Menu de Espadachin", espadachin.verVida(), moverEspadachin, atacarUnidad, destruirEspadachin);
     }
 
     public static boolean mostrarMenuDeArmaDeAsedio(ArmaDeAsedio armaDeAsedio, Point2D point2D) {
@@ -174,7 +183,9 @@ public class Menu {
             window.close();
         });
 
-        return mostrarMenu(window, "Menu de Arma de Asedio", armaDeAsedio.verVida(), moverArmaDeAsedio, atacarUnidad, montar, desmontar);
+        Button destruirArmaDeAsedio = crearBotonDeMuerte(armaDeAsedio, window);
+
+        return mostrarMenu(window, "Menu de Arma de Asedio", armaDeAsedio.verVida(), moverArmaDeAsedio, atacarUnidad, montar, desmontar, destruirArmaDeAsedio);
     }
 
     private static Point2D mostrarGrillaDeCoordenadas(Point2D point2D, int distancia) {
@@ -309,6 +320,34 @@ public class Menu {
         });
 
         return crearUnidad;
+    }
+
+    private static Button crearBotonDeMuerte(Milicia unidad, Stage window) {
+        answer = false;
+
+        Button destruirUnidad = new Button("Destruir");
+        destruirUnidad.setOnAction(e -> {
+            Sonido.reproducirSonido(unidad.obtenerSonidoDeMuerte());
+            unidad.obtenerPropietario().removerUnidad(unidad);
+            window.close();
+            answer = true;
+        });
+
+        return destruirUnidad;
+    }
+
+    private static Button crearBotonDeDestruccion(Edificio unidad, Stage window) {
+        answer = false;
+
+        Button destruirUnidad = new Button("Destruir");
+        destruirUnidad.setOnAction(e -> {
+            Sonido.reproducirSonido(unidad.obtenerSonidoDeMuerte());
+            unidad.obtenerPropietario().removerUnidad(unidad);
+            window.close();
+            answer = true;
+        });
+
+        return destruirUnidad;
     }
 
 }

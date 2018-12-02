@@ -34,7 +34,7 @@ public class ArmaDeAsedioTests {
         try {
             armaDeAsedioHaceDanio.provocarDanio(armaDeAsedioRecibeDanio);
         } catch (AtaqueIncorrectoException e) {
-            assertEquals("El arma de asedio solo puede atacar edificios", e.getMessage());
+            assertEquals("El Arma de Asedio SOLO puede atacar Edificios!", e.getMessage());
         }
 
         assertEquals(150, armaDeAsedioHaceDanio.verVida());
@@ -81,7 +81,7 @@ public class ArmaDeAsedioTests {
         try {
             armaDeAsedio.desmontarArma();
         } catch (ArmaDeAsedioYaDesmontadaException e) {
-            assertEquals("El arma de asedio se encuentra desmontada.", e.getMessage());
+            assertEquals("El Arma de Asedio se encuentra Desmontada.", e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class ArmaDeAsedioTests {
         try {
             armaDeAsedio.montarArma();
         } catch (ArmaDeAsedioYaMontadaException e) {
-            assertEquals("El arma de asedio se encuentra montada.", e.getMessage());
+            assertEquals("El Arma de Asedio se encuentra Montada.", e.getMessage());
         }
     }
 

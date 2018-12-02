@@ -325,7 +325,7 @@ public class Mapa {
 
     public static void validarCoordenadaEnMapa(Point2D coordenada) throws CoordenadaInvalidaException {
         if (coordenada == null) {
-            throw new CoordenadaInvalidaException("La coordenada es null.");
+            throw new CoordenadaInvalidaException("La Coordenada es NULL.");
         }
 
         if (!coordenadaEnMapa(coordenada)) {

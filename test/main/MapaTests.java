@@ -449,7 +449,7 @@ public class MapaTests {
         try {
             mapa.obtenerDibujable(null);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("La coordenada es null.", e.getMessage());
+            assertEquals("La Coordenada es NULL.", e.getMessage());
         }
     }
 
@@ -462,13 +462,13 @@ public class MapaTests {
         try {
             mapa.estaAlAlcance(null, destino);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("La coordenada es null.", e.getMessage());
+            assertEquals("La Coordenada es NULL.", e.getMessage());
         }
 
         try {
             mapa.estaAlAlcance(origen, null);
         } catch (CoordenadaInvalidaException e) {
-            assertEquals("La coordenada es null.", e.getMessage());
+            assertEquals("La Coordenada es NULL.", e.getMessage());
         }
     }
 

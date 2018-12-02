@@ -23,16 +23,16 @@ public class AlgoEmpires {
 
     public void comenzarPartida() throws NumeroDeJugadoresException, ComienzoDePartidaException {
         if (this.turno != null)
-            throw new ComienzoDePartidaException("La partida ya está en juego");
+            throw new ComienzoDePartidaException("La Partida ya está en Juego!");
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
-            throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d jugadores", CANTIDAD_JUGADORES_MIN));
+            throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d Jugadores.", CANTIDAD_JUGADORES_MIN));
 
         this.turno = 0;
     }
 
     public Jugador pasarTurno() throws ComienzoDePartidaException {
         if (this.turno == null)
-            throw new ComienzoDePartidaException("Se debe comenzar la partida antes de pasar el turno");
+            throw new ComienzoDePartidaException("Se debe comenzar la Partida ANTES de pasar el Turno!");
 
         this.turno = (this.turno + 1) % this.jugadores.size();
         this.jugadores.get(this.turno).comenzarNuevoTurno();
@@ -41,10 +41,10 @@ public class AlgoEmpires {
 
     public void agregarJugador(String nombre, Color color) throws NombreRepetidoException, NumeroDeJugadoresException {
         if (this.jugadores.size() >= CANTIDAD_JUGADORES_MAX)
-            throw new NumeroDeJugadoresException(String.format("No se pueden agregar mas de %d jugadores", CANTIDAD_JUGADORES_MAX));
+            throw new NumeroDeJugadoresException(String.format("No se pueden agregar más de %d Jugadores.", CANTIDAD_JUGADORES_MAX));
         for (Jugador jugador : this.jugadores) {
             if (jugador.tieneComoNombre(nombre)) {
-                throw new NombreRepetidoException("No puede haber jugadores con el mismo nombre");
+                throw new NombreRepetidoException("No puede haber Jugadores con el mismo Nombre!");
             }
         }
         this.jugadores.add(new Jugador(nombre, color));

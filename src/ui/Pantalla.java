@@ -73,7 +73,7 @@ public class Pantalla extends Application {
         this.infoPane = new GridPane();
         addStyleClass(this.infoPane, "game-info");
 
-        Button botonPasarTurno = new Button("Terminar turno");
+        Button botonPasarTurno = new Button("Terminar Turno");
         botonPasarTurno.setOnAction(e -> {
             Sonido.reproducirSonidoDeBoton();
             this.pasarTurno();
@@ -90,13 +90,13 @@ public class Pantalla extends Application {
         ImageView logoView = new ImageView();
         addStyleClass(logoView, "logo");
 
-        Label label = new Label("Ingrese los nombres de los jugadores:");
+        Label label = new Label("Ingrese los Nombres de los Jugadores:");
         addStyleClass(label, "label");
 
         TextField nombre1 = new TextField("Jugador");
         TextField nombre2 = new TextField("Player");
 
-        Button button = new Button("Comenzar juego");
+        Button button = new Button("Comenzar Juego");
 
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
@@ -109,7 +109,7 @@ public class Pantalla extends Application {
             try {
                 crearJuego(nombre1.getText(), nombre2.getText());
             } catch (NombreRepetidoException | NumeroDeJugadoresException | ComienzoDePartidaException error) {
-                Alerta.displayError("Error al crear partida", error.getMessage());
+                Alerta.displayError("Error al Crear la Partida.", error.getMessage());
                 return;
             }
             stage.setScene(menuDeJuego);
@@ -194,7 +194,7 @@ public class Pantalla extends Application {
                 mostarPantallaDeVictoria(nombreAnterior);
                 return;
             }
-            Alerta.displayMessage("Proximo turno", String.format("Le toca al jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
+            Alerta.displayMessage("Proximo Turno", String.format("Le toca al Jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
             this.actualizarInfo();
         } catch (ComienzoDePartidaException ignore) {
         }
@@ -204,9 +204,9 @@ public class Pantalla extends Application {
         Sonido.reproducirSonidoDeVictoria();
         VBox layout = new VBox();
         addStyleClass(layout, "vbox");
-        Label label1 = new Label("Juego terminado.");
+        Label label1 = new Label("Juego Terminado.");
         addStyleClass(label1, "label");
-        Label label2 = new Label(String.format("%s es el ganador!", nombreAnterior));
+        Label label2 = new Label(String.format("%s ha Ganado!", nombreAnterior));
         addStyleClass(label2, "label");
         layout.getChildren().addAll(label1, label2);
 

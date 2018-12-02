@@ -38,12 +38,12 @@ public class Cuartel extends Edificio {
 
     @Override
     public Milicia crearUnidad() throws UnidadNoEspecificadaException {
-        throw new UnidadNoEspecificadaException("El cuartel puede crear mas de una unidad. Utilizar metodos: crearEspadachin / crearArquero");
+        throw new UnidadNoEspecificadaException("El Cuartel puede crear más de una Unidad. Utilizar metodos: crearEspadachin / crearArquero");
     }
 
     public Milicia crearEspadachin() throws ErrorDeConstruccionException {
         if (!this.estadoDeUnidad.estaHabilitado())
-            throw new ErrorDeConstruccionException("El edificios está en construcción");
+            throw new ErrorDeConstruccionException("El Edificio está en Construcción!");
 
         Espadachin espadachin = new Espadachin(this.propietario);
         try {
@@ -57,7 +57,7 @@ public class Cuartel extends Edificio {
 
     public Milicia crearArquero() throws ErrorDeConstruccionException {
         if (!this.estadoDeUnidad.estaHabilitado())
-            throw new ErrorDeConstruccionException("El edificios está en construcción");
+            throw new ErrorDeConstruccionException("El Edificio está en Construcción!");
 
         Arquero arquero = new Arquero(this.propietario);
         try {
