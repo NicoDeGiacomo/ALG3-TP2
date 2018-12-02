@@ -40,7 +40,6 @@ public class Sonido {
             return;
         mediaPlayer = new MediaPlayer(sonido);
         mediaPlayer.play();
-        //TODO: Que haga loop!
     }
 
     static void detenerSonidos() {
