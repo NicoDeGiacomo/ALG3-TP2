@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class AlgoEmpires {
 
@@ -27,7 +28,7 @@ public class AlgoEmpires {
         if (this.jugadores.size() < CANTIDAD_JUGADORES_MIN)
             throw new NumeroDeJugadoresException(String.format("No se pueden agregar menos de %d Jugadores.", CANTIDAD_JUGADORES_MIN));
 
-        this.turno = 0;
+        this.turno = new Random().nextInt(this.jugadores.size());
     }
 
     public Jugador pasarTurno() throws ComienzoDePartidaException {

@@ -8,8 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AlgoEmpiresTests {
 
@@ -57,8 +56,11 @@ public class AlgoEmpiresTests {
     public void pasarElTurnoCambiaLosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
         AlgoEmpires algoEmpires = crearEIniciarJuego();
 
-        Jugador jugador = algoEmpires.pasarTurno();
-        assertTrue(jugador.tieneComoNombre("Gaston"));
+        Jugador jugador1 = algoEmpires.pasarTurno();
+        Jugador jugador2 = algoEmpires.pasarTurno();
+        Jugador jugador3 = algoEmpires.pasarTurno();
+        assertNotEquals(jugador1, jugador2);
+        assertEquals(jugador1, jugador3);
     }
 
     private AlgoEmpires crearJuego() throws NombreRepetidoException, NumeroDeJugadoresException {
