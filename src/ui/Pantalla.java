@@ -162,7 +162,7 @@ public class Pantalla extends Application {
             color.setFill(jugador.obtenerColor());
 
             ObservableList<Node> children = this.infoPane.getChildren();
-            if(children.size() != 0)
+            if (children.size() != 0)
                 children.remove(jugadores.indexOf(jugador) * 2, children.size());
 
             this.infoPane.add(color, 0, jugadores.indexOf(jugador));
@@ -173,14 +173,13 @@ public class Pantalla extends Application {
     private void mostrarMenuDeOpciones(Point2D point2D) {
         try {
             Dibujable dibujable = this.mapa.obtenerDibujable(point2D);
-            if(dibujable == null) {
-                //TODO: Ver cómo reportar las muertes antes de que se refresque el Mapa.
+            if (dibujable == null)
+                return;
+
+            if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()) || this.dibujablesUsados.contains(dibujable)) {
+                Menu.mostarVida((Unidad) dibujable);
                 return;
             }
-
-            //TODO: Si no son del mismo equipo, mostrar la vida de la unidad
-            if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()) || this.dibujablesUsados.contains(dibujable))
-                return;
 
             if (dibujable.mostrarMenu(point2D)) {
                 this.dibujablesUsados.add(dibujable);
@@ -200,7 +199,7 @@ public class Pantalla extends Application {
                 return;
             }
             Alerta.displayMessage("Proximo Turno", String.format("Le toca al Jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
-            this.actualizarInfo();
+            this.actualizarPantalla();
         } catch (ComienzoDePartidaException ignore) {
         }
     }

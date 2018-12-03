@@ -29,6 +29,12 @@ public class Menu {
     static private boolean answer = false;
     static private Point2D posAnswer;
 
+    static void mostarVida(Unidad unidad) {
+        Stage window = new Stage();
+
+        mostrarMenu(window, "Unidad enemiga", unidad.verVida());
+    }
+
     public static boolean mostrarMenuDeCastillo(Castillo castillo) {
         Stage window = new Stage();
 
@@ -230,22 +236,28 @@ public class Menu {
 
     static private boolean mostrarMenu(Stage window, String titulo, int vida, Button... buttons) {
         answer = false;
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(titulo);
-        window.setMinWidth(300);
-        Label label = new Label();
-        label.setText("Elija la Acción a realizar:");
-        VBox layout = new VBox(10);
 
         Label vidaActual = new Label(String.format("Vida: %s", vida));
 
+
+        VBox layout = new VBox(10);
         layout.getChildren().add(vidaActual);
-        layout.getChildren().add(label);
-        for (Button button : buttons) {
-            layout.getChildren().add(button);
-        }
         layout.setAlignment(Pos.CENTER);
+
+        if (buttons != null && buttons.length != 0) {
+            Label label = new Label();
+            label.setText("Elija la Acción a realizar:");
+            layout.getChildren().add(label);
+            for (Button button : buttons) {
+                layout.getChildren().add(button);
+            }
+        }
+
         Scene scene = new Scene(layout);
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(titulo);
+        window.setMinWidth(300);
         window.setScene(scene);
         window.showAndWait();
 
@@ -335,5 +347,4 @@ public class Menu {
 
         return destruirUnidad;
     }
-
 }
