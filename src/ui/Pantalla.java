@@ -114,6 +114,7 @@ public class Pantalla extends Application {
             }
             stage.setScene(menuDeJuego);
             actualizarPantalla();
+            Alerta.displayMessage("Proximo Turno", String.format("Le toca al Jugador: %s", this.algoEmpires.obtenerJugadorEnTurno().verNombre()));
         });
 
         return new Scene(layout, TAMANIO_VENTANA, TAMANIO_VENTANA);
