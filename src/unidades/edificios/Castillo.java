@@ -6,9 +6,9 @@ import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.CreacionDeCastilloException;
 import excepciones.unidades.ErrorDeConstruccionException;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import main.Jugador;
+import main.Mapa;
 import ui.Menu;
 import unidades.Dibujable;
 import unidades.Unidad;
@@ -43,7 +43,7 @@ public class Castillo extends Edificio {
 
     @Override
     public void ejecutarTareas() {
-        List<Dibujable> unidades = propietario.unidadesCercanas(this);
+        List<Dibujable> unidades = Mapa.obtenerInstancia().dibujablesAlAlcance(this);
         for (Dibujable unidad : unidades)
             this.provocarDanio((Unidad) unidad);
     }

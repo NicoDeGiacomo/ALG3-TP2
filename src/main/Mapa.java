@@ -164,7 +164,14 @@ public class Mapa {
         return coodenadas.contains(destino);
     }
 
-    List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
+    public List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
+        try {
+            if (obtenerCoordenadas(unidad).size() == 0)
+                return new ArrayList<>();
+        } catch (CoordenadaInvalidaException e) {
+            return new ArrayList<>();
+        }
+
         List<Dibujable> unidades = new ArrayList<>();
         if (unidad == null) return unidades;
 
@@ -290,7 +297,7 @@ public class Mapa {
         throw new CoordenadaInvalidaException("La Posición de Creación debe estar al lado de la Unidad Creadora!");
     }
 
-    void moverUnidad(Unidad unidad, Point2D destino) throws UnidadNoMovibleException, CoordenadaInvalidaException {
+    public void moverUnidad(Unidad unidad, Point2D destino) throws UnidadNoMovibleException, CoordenadaInvalidaException {
         validarCoordenada(destino);
         if (unidad == null || !unidad.esMovible()) {
             throw new UnidadNoMovibleException("La Unidad que se trata de mover no es Movible!");

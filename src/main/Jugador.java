@@ -3,10 +3,7 @@ package main;
 import excepciones.main.LimiteDePoblacionException;
 import excepciones.main.OroInsuficienteException;
 import excepciones.mapa.CoordenadaInvalidaException;
-import excepciones.mapa.UnidadNoMovibleException;
-import excepciones.unidades.AtaqueIncorrectoException;
 import javafx.scene.paint.Color;
-import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificios.Castillo;
 import unidades.edificios.Edificio;
@@ -120,23 +117,8 @@ public class Jugador {
         }
     }
 
-    public List<Dibujable> unidadesCercanas(Castillo castillo) {
-        return this.mapa.dibujablesAlAlcance(castillo);
-    }
-
     public String verNombre() {
         return this.nombre;
-    }
-
-    public void moverUnidad(Unidad unidad, Point2D coordenada) throws UnidadNoMovibleException, CoordenadaInvalidaException {
-        this.mapa.moverUnidad(unidad, coordenada);
-    }
-
-    public void atacarConUnidadACoordenada(Unidad unidad, Point2D coordenada) throws CoordenadaInvalidaException, AtaqueIncorrectoException {
-        Unidad unidadEnemiga = (Unidad) this.mapa.obtenerDibujable(coordenada);
-        if (unidadEnemiga == null)
-            throw new AtaqueIncorrectoException("No hay una Unidad Enemiga en esa Coordenada!");
-        unidad.provocarDanio(unidadEnemiga);
     }
 
     public int verOro() {

@@ -1,14 +1,15 @@
 package unidades.edificios;
 
+import excepciones.mapa.CoordenadaInvalidaException;
 import excepciones.unidades.ErrorDeConstruccionException;
 import main.Jugador;
+import main.Mapa;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.mockito.internal.util.reflection.Whitebox;
 import unidades.milicias.ArmaDeAsedio;
 import unidades.milicias.Arquero;
 
-import java.util.Arrays;
+import java.awt.geom.Point2D;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -76,7 +77,6 @@ public class CastilloTests {
     }
 
 
-
     @Test
     public void test07castilloEsArregladoYNoLlegaAVidaMaxima() {
         Castillo castillo = new Castillo(mock(Jugador.class));
@@ -98,14 +98,17 @@ public class CastilloTests {
     }
 
     @Test
-    public void Test09CastilloAtacaAutomaticamenteALasUnidadesEnemigasAlAlcanceYNoALasAliadas() {
+    public void Test09CastilloAtacaAutomaticamenteALasUnidadesEnemigasAlAlcanceYNoALasAliadas() throws CoordenadaInvalidaException {
+        Mapa.destruir();
         Jugador jugador1 = mock(Jugador.class);
 
         Arquero arqueroEnemigo = new Arquero(mock(Jugador.class));
+        Mapa.obtenerInstancia().colocarDibujable(arqueroEnemigo, new Point2D.Double(10, 9));
         Arquero arqueroAliado = new Arquero(jugador1);
+        Mapa.obtenerInstancia().colocarDibujable(arqueroAliado, new Point2D.Double(9, 10));
         Castillo castillo = new Castillo(jugador1);
+        Mapa.obtenerInstancia().colocarDibujable(castillo, new Point2D.Double(10, 10));
 
-        Mockito.when(jugador1.unidadesCercanas(castillo)).thenReturn(Arrays.asList(arqueroAliado, arqueroEnemigo));
         castillo.ejecutarTareas();
 
         assertEquals(75, arqueroAliado.verVida());

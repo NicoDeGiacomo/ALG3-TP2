@@ -275,7 +275,7 @@ public class Menu {
             }
 
             try {
-                unidad.moverUnidad(coordenada);
+                Mapa.obtenerInstancia().moverUnidad(unidad, coordenada);
                 Sonido.reproducirSonido(unidad.obtenerSonidoDeMovimiento());
                 answer = true;
             } catch (UnidadNoMovibleException | CoordenadaInvalidaException error) {
@@ -301,11 +301,14 @@ public class Menu {
 
             try {
                 Unidad atacada = (Unidad) Mapa.obtenerInstancia().obtenerDibujable(coordenada);
-                unidad.atacarUnidad(coordenada);
+                if (atacada == null)
+                    throw new AtaqueIncorrectoException("No hay una Unidad Enemiga en esa Coordenada!");
+
+                unidad.provocarDanio(atacada);
                 Sonido.reproducirSonido(unidad.obtenerSonidoDeAtaque());
-                answer = true;
                 if (atacada.verVida() <= 0)
                     Sonido.reproducirSonido(unidad.obtenerSonidoDeMuerte());
+                answer = true;
             } catch (AtaqueIncorrectoException | CoordenadaInvalidaException error) {
                 Alerta.displayError("Error al Atacar.", error.getMessage());
                 answer = false;
