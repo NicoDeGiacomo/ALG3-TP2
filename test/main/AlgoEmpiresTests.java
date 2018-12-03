@@ -56,9 +56,12 @@ public class AlgoEmpiresTests {
     public void pasarElTurnoCambiaLosJugadores() throws NombreRepetidoException, NumeroDeJugadoresException, ComienzoDePartidaException {
         AlgoEmpires algoEmpires = crearEIniciarJuego();
 
-        Jugador jugador1 = algoEmpires.pasarTurno();
-        Jugador jugador2 = algoEmpires.pasarTurno();
-        Jugador jugador3 = algoEmpires.pasarTurno();
+        Jugador jugador1 = algoEmpires.obtenerJugadorEnTurno();
+        algoEmpires.pasarTurno();
+        Jugador jugador2 = algoEmpires.obtenerJugadorEnTurno();
+        algoEmpires.pasarTurno();
+        Jugador jugador3 = algoEmpires.obtenerJugadorEnTurno();
+
         assertNotEquals(jugador1, jugador2);
         assertEquals(jugador1, jugador3);
     }

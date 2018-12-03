@@ -31,13 +31,12 @@ public class AlgoEmpires {
         this.turno = new Random().nextInt(this.jugadores.size());
     }
 
-    public Jugador pasarTurno() throws ComienzoDePartidaException {
+    public void pasarTurno() throws ComienzoDePartidaException {
         if (this.turno == null)
             throw new ComienzoDePartidaException("Se debe comenzar la Partida ANTES de pasar el Turno!");
 
         this.turno = (this.turno + 1) % this.jugadores.size();
         this.jugadores.get(this.turno).comenzarNuevoTurno();
-        return this.jugadores.get(this.turno);
     }
 
     public void agregarJugador(String nombre, Color color) throws NombreRepetidoException, NumeroDeJugadoresException {
