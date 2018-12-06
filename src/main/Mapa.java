@@ -165,14 +165,14 @@ public class Mapa {
     }
 
     public List<Dibujable> dibujablesAlAlcance(Unidad unidad) {
+        List<Dibujable> unidades = new ArrayList<>();
+
         try {
             if (obtenerCoordenadas(unidad).size() == 0)
-                return new ArrayList<>();
+                return unidades;
         } catch (CoordenadaInvalidaException e) {
-            return new ArrayList<>();
+            return unidades;
         }
-
-        List<Dibujable> unidades = new ArrayList<>();
         if (unidad == null) return unidades;
 
         try {
