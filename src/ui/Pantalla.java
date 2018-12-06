@@ -181,6 +181,7 @@ public class Pantalla extends Application {
                 Menu.mostarVida((Unidad) dibujable);
                 return;
             } else if (this.dibujablesUsados.contains(dibujable)) {
+                Alerta.displayError("Unidad utilizada", "La unidad ya ha sido utilizada.");
                 return;
             }
 
