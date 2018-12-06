@@ -37,6 +37,7 @@ public class PlazaCentralTests {
 
     @Test
     public void test03plazaCentralAldeanoConOro() throws ErrorDeConstruccionException {
+        Mapa.destruir();
         Jugador jugador = new Jugador("Nico");
         Whitebox.setInternalState(jugador, "mapa", mock(Mapa.class));
         Whitebox.setInternalState(jugador, "oro", 200);
