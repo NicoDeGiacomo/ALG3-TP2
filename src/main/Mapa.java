@@ -11,15 +11,20 @@ import java.util.*;
 
 public class Mapa {
     private static Mapa instancia;
-    private Mapa() {}
+
+    private Mapa() {
+    }
+
     public static Mapa obtenerInstancia() {
         if (instancia == null)
             instancia = new Mapa();
         return instancia;
     }
+
     public static void destruir() {
         instancia = null;
     }
+
     //Para obtener una óptima experiencia probando la pantalla, dejar TAMANIO = 25;
     public static final int TAMANIO = 30;
     private static final int ESPACIO_LIBRE = 6,
