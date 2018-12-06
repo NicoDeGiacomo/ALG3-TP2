@@ -43,7 +43,7 @@ public abstract class Milicia extends Unidad {
     }
 
     public void destruir() {
-        this.propietario.removerUnidad(this);
+        this.propietario.removerUnidad(this, 1);
     }
 
     @Override

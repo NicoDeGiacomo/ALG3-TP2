@@ -177,8 +177,10 @@ public class Pantalla extends Application {
             if (dibujable == null)
                 return;
 
-            if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno()) || this.dibujablesUsados.contains(dibujable)) {
+            if (!((Unidad) dibujable).unidadesSonDelMismoEquipo(this.algoEmpires.obtenerJugadorEnTurno())) {
                 Menu.mostarVida((Unidad) dibujable);
+                return;
+            } else if (this.dibujablesUsados.contains(dibujable)) {
                 return;
             }
 

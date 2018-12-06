@@ -60,7 +60,7 @@ public abstract class Edificio extends Unidad {
     }
 
     public void destruir() {
-        this.propietario.removerUnidad(this);
+        this.propietario.removerUnidad(this, 0);
     }
 
     public abstract Milicia crearUnidad() throws OroInsuficienteException, UnidadNoEspecificadaException, LimiteDePoblacionException, CoordenadaInvalidaException, ErrorDeConstruccionException;

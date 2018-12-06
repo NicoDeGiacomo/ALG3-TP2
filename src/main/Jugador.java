@@ -100,16 +100,8 @@ public class Jugador {
             throw new LimiteDePoblacionException("El límite de Población llegó al Máximo!");
     }
 
-    public void removerUnidad(Edificio unidad) {
-        this.unidades.remove(unidad);
-        try {
-            this.mapa.quitarUnidad(unidad);
-        } catch (CoordenadaInvalidaException ignored) {
-        }
-    }
-
-    public void removerUnidad(Milicia unidad) {
-        this.poblacion -= 1;
+    public void removerUnidad(Unidad unidad, int costeDePoblacion) {
+        this.poblacion -= costeDePoblacion;
         this.unidades.remove(unidad);
         try {
             this.mapa.quitarUnidad(unidad);
