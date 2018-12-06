@@ -15,12 +15,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Mapa;
+import unidades.Dibujable;
 import unidades.Unidad;
 import unidades.edificios.Castillo;
 import unidades.edificios.Cuartel;
 import unidades.edificios.Edificio;
 import unidades.edificios.PlazaCentral;
-import unidades.milicias.*;
+import unidades.milicias.Aldeano;
+import unidades.milicias.ArmaDeAsedio;
+import unidades.milicias.Arquero;
+import unidades.milicias.Espadachin;
 
 import java.awt.geom.Point2D;
 
@@ -206,6 +210,7 @@ public class Menu {
             for (int j = -distancia; j <= distancia; j++) {
                 Point2D show = new Point2D.Double(point2D.getX() + i, point2D.getY() + j);
                 String valor = String.format("(%d; %d)", (long) show.getX() + 1, (long) show.getY() + 1);
+
                 Button button = new Button(valor);
                 Pantalla.addStyleClass(button, "boton-coord");
                 button.setOnAction(e -> {
@@ -215,12 +220,15 @@ public class Menu {
 
                 try {
                     Mapa.validarCoordenadaEnMapa(show);
+                    Dibujable dibujable = Mapa.obtenerInstancia().obtenerDibujable(show);
+                    if (i == 0 && j == 0)
+                        button.setDisable(true);
+                    else if (dibujable != null)
+                        button.setStyle(String.format("-fx-background-color: %s;", ((Unidad) dibujable).obtenerPropietario().obtenerColor().toString().replace("0x", "")));
+
+                    button.setAlignment(Pos.CENTER);
                     grid.add(button, i + distancia, j + distancia);
                 } catch (CoordenadaInvalidaException ignored) {
-                }
-
-                if (i == 0 && j == 0) {
-                    button.setDisable(true);
                 }
             }
         }
