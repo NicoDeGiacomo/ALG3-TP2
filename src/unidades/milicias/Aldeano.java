@@ -44,7 +44,7 @@ public class Aldeano extends Milicia {
         return this.estado.esMovible();
     }
 
-    void reparar(Edificio edificio) throws AldeanoOcupadoException {
+    public void reparar(Edificio edificio) throws AldeanoOcupadoException {
         this.estado = this.estado.comenzarReparacion(this.propietario, edificio);
     }
 

@@ -131,11 +131,35 @@ public class Menu {
             window.close();
         });
 
+        Button reparar = new Button("Reparar edificio");
+        reparar.setOnAction(e -> {
+            Point2D coordenada = mostrarGrillaDeCoordenadas(point2D, aldeano.verVelocidad());
+            if (coordenada == null) {
+                answer = false;
+                return;
+            }
+
+            try {
+                Dibujable dibujable = Mapa.obtenerInstancia().obtenerDibujable(coordenada);
+                if (dibujable == null || ((Unidad) dibujable).esMovible()) {
+                    Alerta.displayError("Error en reparacion", "Solo se pueden reparar edificios");
+                    return;
+                }
+
+                aldeano.reparar(((Edificio) dibujable));
+                answer = true;
+            } catch (AldeanoOcupadoException | CoordenadaInvalidaException error) {
+                Alerta.displayError("Error al reparar", error.getMessage());
+                answer = false;
+            }
+            window.close();
+        });
+
         Button moverAldeano = crearBotonDeMovimiento(aldeano, point2D, window);
 
         Button destruir = crearBotonDeDestruccion(aldeano, window);
 
-        return mostrarMenu(window, "Menu de Aldeano", aldeano.verVida(), crearCuartel, crearPlazaCentral, moverAldeano, destruir);
+        return mostrarMenu(window, "Menu de Aldeano", aldeano.verVida(), crearCuartel, crearPlazaCentral, reparar, moverAldeano, destruir);
     }
 
     public static boolean mostrarMenuDeArquero(Arquero arquero, Point2D point2D) {
