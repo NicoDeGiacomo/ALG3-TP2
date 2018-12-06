@@ -66,7 +66,7 @@ public class Menu {
         Button crearArquero = new Button("Crear Arquero");
         crearArquero.setOnAction(e -> {
             try {
-                cuartel.crearArquero();
+                Sonido.reproducirSonido(cuartel.crearArquero().obtenerSonidoDeCreacion());
                 answer = true;
             } catch (ErrorDeConstruccionException error) {
                 Alerta.displayError("Error al Crear la Unidad.", error.getMessage());
@@ -78,7 +78,7 @@ public class Menu {
         Button crearEspadachin = new Button("Crear Espadachín");
         crearEspadachin.setOnAction(e -> {
             try {
-                cuartel.crearEspadachin();
+                Sonido.reproducirSonido(cuartel.crearEspadachin().obtenerSonidoDeCreacion());
                 answer = true;
             } catch (ErrorDeConstruccionException error) {
                 Alerta.displayError("Error al Crear la Unidad.", error.getMessage());
